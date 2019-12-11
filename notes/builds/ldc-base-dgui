@@ -1,0 +1,57 @@
+The following additional packages will be installed:
+  fontconfig-config fonts-dejavu-core fonts-dejavu-extra kmod
+  libasound2-plugins libasyncns0 libavresample3 libavutil55 libbsd0 libcairo2
+  libcrystalhd3 libdrm2 libegl1-mesa libfftw3-single3 libflac8 libfontconfig1
+  libfontenc1 libfreetype6 libgbm1 libgl1-mesa-glx libglapi-mesa libglew2.0
+  libglu1-mesa libgsm1 libice6 libltdl7 libmp3lame0 libnewt0.52 libnuma1
+  libogg0 libopencore-amrnb0 libopencore-amrwb0 libopenjp2-7 libopus0
+  liborc-0.4-0 libpixman-1-0 libpng16-16 libpthread-stubs0-dev libpulsedsp
+  libsamplerate0 libshine3 libslang2 libsm6 libsnappy1v5 libsndfile1
+  libsndio6.1 libsoxr0 libspeex1 libspeexdsp1 libswresample2 libtdb1
+  libtheora0 libtwolame0 libva-drm1 libva-wayland1 libvdpau1 libvo-amrwbenc0
+  libvorbis0a libvorbisenc2 libvpx4 libwavpack1 libwayland-client0
+  libwayland-cursor0 libwayland-egl1-mesa libwayland-server0 libwebp6
+  libwebpmux2 libwebrtc-audio-processing1 libx11-dev libx264-148 libx265-95
+  libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0
+  libxcb-present0 libxcb-render0 libxcb-shape0 libxcb-shm0 libxcb-sync1
+  libxcb-xfixes0 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1
+  libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxft2 libxi6 libxinerama1
+  libxkbcommon0 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1
+  libxtst6 libxv1 libxvidcore4 libxxf86dga1 libxxf86vm1 libzvbi-common
+  libzvbi0 pulseaudio-utils ucf whiptail x11-common x11proto-core-dev
+  x11proto-input-dev x11proto-kb-dev xkb-data xorg-sgml-doctools xtrans-dev
+Suggested packages:
+  firmware-crystalhd libfftw3-bin libfftw3-dev glew-utils jackd2 opus-tools
+  speex libxcb-doc udev pavumeter pavucontrol paman paprefs avahi-daemon
+  nickle cairo-5c xorg-docs-core gvfs-bin
+Recommended packages:
+  fontconfig libgl1-mesa-dri libfribidi0 va-driver-all | va-driver
+  vdpau-driver-all | vdpau-driver libx11-doc rtkit libfile-mimeinfo-perl
+The following NEW packages will be installed:
+  alsa-utils dbus-x11 dmz-cursor-theme fontconfig-config fonts-dejavu
+  fonts-dejavu-core fonts-dejavu-extra fonts-liberation fonts-opensymbol
+  hicolor-icon-theme kmod libasound2 libasound2-data libasound2-plugins
+  libasyncns0 libavcodec-extra57 libavresample3 libavutil55 libbsd0 libcairo2
+  libcrystalhd3 libdrm2 libegl1-mesa libfftw3-single3 libflac8 libfontconfig1
+  libfontenc1 libfreetype6 libgbm1 libgl1-mesa-glx libglapi-mesa libglew2.0
+  libglu1-mesa libgsm1 libice6 libjack-jackd2-0 libltdl7 libmp3lame0
+  libnewt0.52 libnuma1 libogg0 libopencore-amrnb0 libopencore-amrwb0
+  libopenjp2-7 libopus0 liborc-0.4-0 libpixman-1-0 libpng16-16
+  libpthread-stubs0-dev libpulse0 libpulsedsp libsamplerate0 libsdl2-2.0-0
+  libshine3 libslang2 libsm6 libsnappy1v5 libsndfile1 libsndio6.1 libsoxr0
+  libspeex1 libspeexdsp1 libswresample2 libtdb1 libtheora0 libtwolame0
+  libva-drm1 libva-wayland1 libva-x11-1 libva1 libvdpau1 libvo-amrwbenc0
+  libvorbis0a libvorbisenc2 libvpx4 libwavpack1 libwayland-client0
+  libwayland-cursor0 libwayland-egl1-mesa libwayland-server0 libwebp6
+  libwebpmux2 libwebrtc-audio-processing1 libx11-6 libx11-data libx11-dev
+  libx11-protocol-perl libx11-xcb-dev libx11-xcb1 libx264-148 libx265-95
+  libxau-dev libxau6 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0
+  libxcb-present0 libxcb-render0 libxcb-shape0 libxcb-shm0 libxcb-sync1
+  libxcb-xfixes0 libxcb1 libxcb1-dev libxcomposite1 libxcursor1 libxdamage1
+  libxdmcp-dev libxdmcp6 libxext6 libxfixes3 libxft2 libxi6 libxinerama1
+  libxkbcommon0 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrender1 libxshmfence1
+  libxss1 libxt6 libxtst6 libxv1 libxvidcore4 libxxf86dga1 libxxf86vm1
+  libzvbi-common libzvbi0 mesa-utils pulseaudio pulseaudio-utils sndio-tools
+  sndiod ucf vainfo whiptail x11-common x11-utils x11-xserver-utils
+  x11proto-core-dev x11proto-input-dev x11proto-kb-dev xauth xbitmaps
+  xdg-utils xkb-data xorg-sgml-doctools xtrans-dev xz-utils

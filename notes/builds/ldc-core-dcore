@@ -1,0 +1,103 @@
+The following additional packages will be installed:
+  autotools-dev ca-certificates cgmanager dh-python distro-info-data dmsetup
+  gir1.2-glib-2.0 gir1.2-packagekitglib-1.0 git-man gnupg gnupg-agent
+  iso-codes iw libapparmor1 libapt-inst2.0 libassuan0 libatomic1 libbson-1.0-0
+  libc-dev-bin libc-l10n libc6-dev libcc1-0 libcgmanager0 libcilkrts5
+  libcryptsetup4 libcurl3 libdbi1 libdbus-1-3 libdbus-glib-1-2
+  libdevmapper1.02.1 libencode-locale-perl liberror-perl libevtlog0 libexpat1
+  libffi6 libfile-listing-perl libgcc-6-dev libgdbm3 libgirepository-1.0-1
+  libglib2.0-0 libgmp10 libgnutls30 libgomp1 libgssapi-krb5-2 libhogweed4
+  libhtml-parser-perl libhtml-tagset-perl libhtml-tree-perl
+  libhttp-cookies-perl libhttp-date-perl libhttp-message-perl
+  libhttp-negotiate-perl libidn2-0 libio-html-perl libio-socket-ssl-perl
+  libip4tc0 libisl15 libivykis0 libjson-c3 libk5crypto3 libkeyutils1 libkmod2
+  libkrb5-3 libkrb5support0 libksba8 libldap-2.4-2 libldap-common
+  liblwp-mediatypes-perl liblwp-protocol-https-perl libmagic-mgc libmagic1
+  libmongoc-1.0-0 libmpdec2 libncurses5 libnet-http-perl libnet-ssleay-perl
+  libnet1 libnghttp2-14 libnih-dbus1 libnih1 libnl-3-200 libnl-genl-3-200
+  libnpth0 libp11-kit0 libpackagekit-glib2-18 libpam-systemd libpopt0
+  libprocps6 libpsl5 libpython-stdlib libpython2.7-minimal libpython2.7-stdlib
+  libpython3-stdlib libpython3.5-minimal libpython3.5-stdlib libreadline7
+  librtmp1 libsasl2-2 libsasl2-modules-db libseccomp2 libsqlite3-0 libssh2-1
+  libssl1.0.2 libssl1.1 libtasn1-6 libtimedate-perl libunistring0 liburi-perl
+  libwrap0 libwww-perl libwww-robotrules-perl libxml-parser-perl
+  libxml-twig-perl libyajl2 mime-support netbase openssl perl-modules-5.24
+  perl-openssl-defaults pinentry-curses python-apt-common python-meld3
+  python-minimal python-pkg-resources python2.7 python2.7-minimal python3-apt
+  python3-dbus python3-gi python3-minimal python3-pycurl
+  python3-software-properties python3.5 python3.5-minimal readline-common
+  syslog-ng-mod-journal syslog-ng-mod-json syslog-ng-mod-mongodb
+  syslog-ng-mod-sql systemd systemd-shim wireless-regdb
+Suggested packages:
+  binutils-doc bzip2-doc cpp-doc anacron checksecurity libdpkg-perl
+  gcc-multilib manpages-dev autoconf automake flex bison gdb gcc-doc
+  gcc-6-multilib gcc-6-doc libgcc1-dbg libgomp1-dbg libitm1-dbg libatomic1-dbg
+  libasan3-dbg liblsan0-dbg libtsan0-dbg libubsan0-dbg libcilkrts5-dbg
+  libmpx2-dbg libquadmath0-dbg gettext-base git-daemon-run
+  | git-daemon-sysvinit git-doc git-el git-email git-gui gitk gitweb git-arch
+  git-cvs git-mediawiki git-svn parcimonie xloadimage pinentry-gnome3 scdaemon
+  isoquery glibc-doc gnutls-bin krb5-doc krb5-user libdata-dump-perl
+  libcrypt-ssleay-perl libtool-doc automaken gfortran | fortran95-compiler
+  gcj-jdk libauthen-ntlm-perl libunicode-map8-perl libunicode-string-perl
+  xml-twig-tools lsb m4-doc make-doc spell ed diffutils-doc perl-doc
+  libterm-readline-gnu-perl | libterm-readline-perl-perl pinentry-doc
+  python-doc python-tk python-setuptools python2.7-doc binfmt-support
+  python3-doc python3-tk python3-venv python3-apt-dbg python-apt-doc
+  python-dbus-doc python3-dbus-dbg libcurl4-gnutls-dev python-pycurl-doc
+  python3-pycurl-dbg python3.5-venv python3.5-doc readline-doc supervisor-doc
+  syslog-ng-mod-smtp syslog-ng-mod-amqp syslog-ng-mod-geoip
+  syslog-ng-mod-redis syslog-ng-mod-stomp syslog-ng-mod-riemann
+  syslog-ng-mod-graphite syslog-ng-mod-python
+  syslog-ng-mod-add-contextual-data mongodb-server libdbd-mysql libdbd-pgsql
+  libdbd-sqlite3 systemd-ui systemd-container policykit-1 pm-utils
+Recommended packages:
+  exim4 | postfix | mail-transport-agent systemd-sysv rsync ssh-client dirmngr
+  gnupg-l10n manpages manpages-dev libglib2.0-data shared-mime-info
+  xdg-user-dirs libhtml-format-perl krb5-locales libgpm2 packagekit
+  publicsuffix libsasl2-modules libltdl-dev tcpd libhtml-form-perl
+  libhttp-daemon-perl libmailtools-perl libtext-iconv-perl libtie-ixhash-perl
+  libxml-xpathengine-perl | libxml-xpath-perl bsd-mailx | mailx xz-utils
+  rename unattended-upgrades syslog-ng-mod-smtp syslog-ng-mod-amqp
+  syslog-ng-mod-geoip syslog-ng-mod-redis syslog-ng-mod-stomp
+  syslog-ng-mod-riemann syslog-ng-mod-graphite syslog-ng-mod-python
+  syslog-ng-mod-add-contextual-data
+The following NEW packages will be installed:
+  apt-transport-https autotools-dev bash-completion binutils bzip2
+  ca-certificates cgmanager cpp cpp-6 crda cron curl dbus dbus-user-session
+  dh-python distro-info-data dmsetup file gcc gcc-6 gcc-6-locales
+  gir1.2-glib-2.0 gir1.2-packagekitglib-1.0 git git-man gnupg gnupg-agent
+  gnupg2 iso-codes iw less libapparmor1 libapt-inst2.0 libasan3 libassuan0
+  libatomic1 libbson-1.0-0 libc-dev-bin libc-l10n libc6-dev libcc1-0
+  libcgmanager0 libcilkrts5 libcryptsetup4 libcurl3 libcurl3-gnutls libdbi1
+  libdbus-1-3 libdbus-glib-1-2 libdevmapper1.02.1 libencode-locale-perl
+  liberror-perl libevtlog0 libexpat1 libffi6 libfile-listing-perl libgcc-6-dev
+  libgdbm3 libgirepository-1.0-1 libglib2.0-0 libgmp10 libgnutls30 libgomp1
+  libgssapi-krb5-2 libhogweed4 libhtml-parser-perl libhtml-tagset-perl
+  libhtml-tree-perl libhttp-cookies-perl libhttp-date-perl
+  libhttp-message-perl libhttp-negotiate-perl libidn2-0 libio-html-perl
+  libio-socket-ssl-perl libip4tc0 libisl15 libitm1 libivykis0 libjson-c3
+  libk5crypto3 libkeyutils1 libkmod2 libkrb5-3 libkrb5support0 libksba8
+  libldap-2.4-2 libldap-common liblsan0 liblwp-mediatypes-perl
+  liblwp-protocol-https-perl libmagic-mgc libmagic1 libmongoc-1.0-0 libmpc3
+  libmpdec2 libmpfr4 libmpx2 libncurses5 libnet-dbus-perl libnet-http-perl
+  libnet-ssleay-perl libnet1 libnghttp2-14 libnih-dbus1 libnih1 libnl-3-200
+  libnl-genl-3-200 libnpth0 libp11-kit0 libpackagekit-glib2-18 libpam-systemd
+  libperl5.24 libpopt0 libprocps6 libpsl5 libpython-stdlib
+  libpython2.7-minimal libpython2.7-stdlib libpython3-stdlib
+  libpython3.5-minimal libpython3.5-stdlib libquadmath0 libreadline7 librtmp1
+  libsasl2-2 libsasl2-modules-db libseccomp2 libsigsegv2 libsqlite3-0
+  libssh2-1 libssl1.0.2 libssl1.1 libtasn1-6 libtimedate-perl libtool libtsan0
+  libubsan0 libunistring0 liburi-perl libwrap0 libwww-perl
+  libwww-robotrules-perl libxml-parser-perl libxml-twig-perl libyajl2
+  linux-libc-dev locales logrotate lsb-release m4 make mime-support nano
+  netbase openssl patch perl perl-modules-5.24 perl-openssl-defaults
+  pinentry-curses procps psmisc python python-apt-common python-meld3
+  python-minimal python-pkg-resources python2.7 python2.7-minimal python3
+  python3-apt python3-dbus python3-gi python3-minimal python3-pycurl
+  python3-software-properties python3.5 python3.5-minimal readline-common
+  software-properties-common sudo supervisor syslog-ng syslog-ng-core
+  syslog-ng-mod-journal syslog-ng-mod-json syslog-ng-mod-mongodb
+  syslog-ng-mod-sql systemd systemd-shim unzip wget wireless-regdb zip
+0 upgraded, 195 newly installed, 0 to remove and 0 not upgraded.
+Need to get 83.8 MB of archives.
+After this operation, 352 MB of additional disk space will be used.
