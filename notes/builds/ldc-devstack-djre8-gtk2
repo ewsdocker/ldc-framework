@@ -1,0 +1,16 @@
+Suggested packages:
+  libdbus-java-doc gvfs libmatthew-java-doc pcscd openjdk-8-demo
+  openjdk-8-source visualvm icedtea-8-plugin libnss-mdns fonts-dejavu-extra
+  fonts-ipafont-gothic fonts-ipafont-mincho fonts-wqy-microhei
+  fonts-wqy-zenhei fonts-indic
+Recommended packages:
+  libgtk-3-bin libxt-dev fonts-dejavu-extra
+The following NEW packages will be installed:
+  ca-certificates-java dbus-java-bin default-jre default-jre-headless
+  java-common libatk-wrapper-java libatk-wrapper-java-jni libdbus-java libgif7
+  libgtk-3-0 libgtk-3-common libmatthew-debug-java libnspr4 libnss3
+  libpcsclite1 libunixsocket-java openjdk-8-jdk openjdk-8-jdk-headless
+  openjdk-8-jre openjdk-8-jre-headless
+0 upgraded, 20 newly installed, 0 to remove and 0 not upgraded.
+Need to get 45.8 MB of archives.
+After this operation, 181 MB of additional disk space will be used.

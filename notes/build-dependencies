@@ -1,0 +1,195 @@
+ldc-core
+
+	dcore
+		debian 9.11
+
+ldc-library
+
+	dlibrary
+		ldc-core
+			dcore
+
+ldc-base
+
+	dbase
+		ldc-core
+			dcore
+
+	dperl
+		ldc-base
+			dbase
+
+	dx11-base
+		ldc-base
+			dperl
+
+	dx11-surface
+		ldc-base
+			dx11-base
+
+	dx11-dev
+		ldc-base
+			dx11-surface
+
+ldc-lang
+
+	dcc
+		ldc-base
+			dx11-base
+
+	dcc-x11
+		ldc-base
+			dx11-surface
+
+	gtk2
+		ldc-lang
+			dcc-x11
+
+	gtk2-x11
+		ldc-base
+			dx11-surface
+
+	gtk3
+		ldc-lang
+			dcc-x11
+
+	gtk3-x11
+		ldc-base
+			dx11-surface
+
+ldc-langdev
+
+	qt4-x11
+		ldc-base
+			dx11-dev
+
+ldc-devstack
+
+	dcpp-jdk13
+		ldc-devstack
+			djdk13-gtk3
+
+	dfortran-gtk2
+		ldc-devstack
+			djre8-gtk2
+
+	dfortran-jdk13
+		ldc-devstack
+			djdk13-gtk3
+
+	djs13-jdk13
+		ldc-devstack
+			djdk13-gtk3
+
+	dphp5.6-jdk13
+		ldc-devstack
+			djdk13-gtk3
+
+
+ldc-browser
+
+	ffquantum
+		ldc-lang
+			gtk3-x11
+
+	firefox
+		ldc-lang
+			gtk3-x11
+
+	netsurf
+		ldc-lang
+			dgtk2-x11
+
+	palemoon
+		ldc-lang
+			dgtk2-x11
+
+	waterfox
+		ldc-lang
+			dgtk3-x11
+
+ldc-cli-apps
+
+	nano
+		ldc-base
+			dbase
+
+	tumblr
+		ldc-base
+			dbase
+
+ldc-desktop
+
+	dia
+		ldc-devstack
+			dfortran-gtk2
+
+	gimp
+		ldc-devstack
+			dfortran-jdk13
+
+ldc-dialog
+
+	dialog
+		ldc-base
+			dx11-surface
+
+	kaptain
+		ldc-langdev
+			dqt4-x11
+
+	whiptail
+		ldc-langdev
+			dqt4-x11
+
+	zenity
+		ldc-lang
+			dgtk3-x11
+		
+ldc-eclipse
+
+	cpp
+		ldc-devstack
+			djdk13-gtk3
+
+	fortran
+		ldc-devstack
+			dfortran-jdk13
+
+	java
+		ldc-devstack
+			djdk13-gtk3
+
+	javascript
+		ldc-devstack
+			djs13-jdk13
+
+	php
+		ldc-devstack
+			dphp5.6-jdk13
+
+ldc-games
+
+	mahjongg
+		ldc-lang
+			dgtk3-x11
+
+	sol
+		ldc-lang
+			dgtk3
+
+ldc-libre
+
+	office
+		ldc-lang
+			dgtk3-x11
+
+	office-jdk
+		ldc-devstack
+			djdk13-gtk3
+
+
+
+
+
+			

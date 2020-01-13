@@ -1,0 +1,11 @@
+Suggested packages:
+  gfortran-multilib gfortran-doc gfortran-6-multilib gfortran-6-doc
+  libgfortran3-dbg libhwloc-contrib-plugins opencl-icd
+The following NEW packages will be installed:
+  gfortran gfortran-6 libcoarrays-dev libcoarrays0d libfabric1
+  libgfortran-6-dev libgfortran3 libhwloc-plugins libhwloc5 libibverbs1
+  libnl-route-3-200 libopenmpi2 libpsm-infinipath1 librdmacm1 mpi-default-bin
+  ocl-icd-libopencl1 openmpi-bin openmpi-common pciutils
+0 upgraded, 19 newly installed, 0 to remove and 0 not upgraded.
+Need to get 11.0 MB of archives.
+After this operation, 40.5 MB of additional disk space will be used.

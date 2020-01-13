@@ -1,0 +1,14 @@
+Suggested packages:
+  g++-multilib g++-6-multilib gcc-6-doc libstdc++6-6-dbg gcc-multilib
+  manpages-dev autoconf automake libtool flex bison gdb gcc-doc gcc-6-multilib
+  libgcc1-dbg libgomp1-dbg libitm1-dbg libatomic1-dbg libasan3-dbg
+  liblsan0-dbg libtsan0-dbg libubsan0-dbg libcilkrts5-dbg libmpx2-dbg
+  libquadmath0-dbg glibc-doc libstdc++-6-doc
+Recommended packages:
+  manpages manpages-dev
+The following NEW packages will be installed:
+  fakeroot g++ g++-6 gcc gcc-6 libc-dev-bin libc6-dev libcc1-0 libcilkrts5
+  libfakeroot libgcc-6-dev libitm1 libstdc++-6-dev linux-libc-dev
+0 upgraded, 14 newly installed, 0 to remove and 0 not upgraded.
+Need to get 22.0 MB of archives.
+After this operation, 100 MB of additional disk space will be used.

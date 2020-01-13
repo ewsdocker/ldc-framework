@@ -1,0 +1,34 @@
+Suggested packages:
+  binutils-doc wamerican | wordlist whois vacation bzip2-doc cpp-doc isoquery
+  pciutils m4-doc make-doc spell ed diffutils-doc pinentry-doc python3-apt-dbg
+  python-apt-doc python-dbus-doc python3-dbus-dbg libcurl4-gnutls-dev
+  python-pycurl-doc python3-pycurl-dbg systemd-ui systemd-container pm-utils
+Recommended packages:
+  systemd-sysv gcc-6 crda libgpm2 packagekit libwacom-bin xml-core
+  unattended-upgrades
+The following NEW packages will be installed:
+  apt-transport-https bash-completion binutils bsdmainutils bzip2
+  ca-certificates cgmanager cpp cpp-6 dbus dbus-user-session
+  dconf-gsettings-backend dconf-service dmsetup file gcc-6-locales
+  gir1.2-glib-2.0 gir1.2-packagekitglib-1.0 glib-networking
+  glib-networking-common glib-networking-services gsettings-desktop-schemas
+  iso-codes iw kmod libapparmor1 libapt-inst2.0 libasan3 libassuan0
+  libavahi-client3 libavahi-common-data libavahi-common3 libbsd0 libcgmanager0
+  libcryptsetup4 libdatrie1 libdbus-1-3 libdbus-glib-1-2 libdbusmenu-glib4
+  libdconf1 libdevmapper1.02.1 libdouble-conversion1 libedit2 libevdev2
+  libgdbm3 libgirepository-1.0-1 libgomp1 libgudev-1.0-0 libgusb2 libicu57
+  libieee1284-3 libinput-bin libinput10 libip4tc0 libisl15 libjson-glib-1.0-0
+  libjson-glib-1.0-common libkmod2 libksba8 liblsan0 libmagic-mgc libmagic1
+  libmpc3 libmpfr4 libmpx2 libmtdev1 libncurses5 libnih-dbus1 libnih1
+  libnl-3-200 libnl-genl-3-200 libnpth0 libnuma1 libpackagekit-glib2-18
+  libpam-systemd libpci3 libpciaccess0 libpolkit-agent-1-0
+  libpolkit-backend-1-0 libpolkit-gobject-1-0 libprocps6 libproxy1v5
+  libquadmath0 libseccomp2 libsecret-1-0 libsecret-common libsigsegv2
+  libubsan0 libusb-1.0-0 libwacom-common libwacom2 libxml2 libxslt1.1 m4 make
+  nano netbase openssl patch pinentry-curses policykit-1 procps
+  python-apt-common python3-apt python3-dbus python3-gi python3-pycurl
+  python3-software-properties shared-mime-info software-properties-common
+  systemd systemd-shim
+0 upgraded, 112 newly installed, 0 to remove and 0 not upgraded.
+Need to get 38.0 MB of archives.
+After this operation, 163 MB of additional disk space will be used.

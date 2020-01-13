@@ -1,0 +1,10 @@
+Suggested packages:
+  gconf-defaults-service libcanberra-gtk0 libcanberra-pulse
+Recommended packages:
+  libcanberra-gtk3-module
+The following NEW packages will be installed:
+  gconf-service gconf2 gconf2-common guile-2.0-libs libcanberra-gtk3-0
+  libcanberra0 libgc1c2 libgconf-2-4 libvorbisfile3
+0 upgraded, 9 newly installed, 0 to remove and 0 not upgraded.
+Need to get 4,827 kB of archives.
+After this operation, 20.7 MB of additional disk space will be used.

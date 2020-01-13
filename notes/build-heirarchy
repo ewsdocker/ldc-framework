@@ -1,0 +1,82 @@
+ldc-core
+	dcore
+
+ldc-library
+	dlibrary
+
+ldc-base
+	dbase
+	dperl
+	dx11-base
+	dx11-surface
+	dx11-dev
+
+ldc-cli-apps
+
+	nano
+	tumblr
+
+ldc-lang
+	dcc
+	dcc-x11
+	gtk2
+	gtk2-x11
+	gtk3
+	gtk3-x11
+
+ldc-langdev
+	dqt4-x11
+
+ldc-devstack
+	djdk8-gtk2
+	djdk13-gtk3
+	djre8-gtk2
+	dcpp-jdk13
+	dfortran-gtk2
+	dfortran-jdk13
+	djs13-jdk13
+	dphp5.6-jdk13
+
+ldc-browser
+
+	ffquantum
+	firefox
+	netsurf
+	palemoon
+	waterfox
+
+ldc-desktop
+
+	dia
+	gimp
+
+ldc-dialog
+
+	dialog
+	kaptain
+	whiptail
+	zenity
+
+ldc-eclipse
+
+	cpp
+	fortran
+	java
+	javascript
+	php
+
+ldc-games
+
+	mahjongg
+	sol
+
+ldc-libre
+
+	office
+	office-jdk
+
+
+
+
+
+
