@@ -1,0 +1,7 @@
+    -it \
+    -v /etc/localtime:/etc/localtime:ro \
+    -e LMS_HOME=\${HOME} \
+    -e LMS_BASE=\${HOME}/.local \
+    -e LMS_CONF=\${HOME}/.config \
+    -v \${HOME}/.config/docker/${LMS_RUN_NAME}:/root \
+    -v \${HOME}/.config/docker/${LMS_RUN_NAME}/workspace:/workspace \

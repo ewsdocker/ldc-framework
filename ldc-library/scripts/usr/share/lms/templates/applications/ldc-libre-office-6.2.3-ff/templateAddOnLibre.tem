@@ -1,0 +1,4 @@
+      -v ${HOME}/Documents:/Documents \
+      -v ${HOME}/Downloads:/Downloads \
+      -v ${HOME}/Source:/Source \
+      

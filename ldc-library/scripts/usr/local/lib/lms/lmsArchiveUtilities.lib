@@ -1,0 +1,172 @@
+#!/bin/bash
+# =========================================================================
+# =========================================================================
+#
+#	lmsArchiveUtilities
+#	  Copy latest lms-library to /usr/local/lib/lms.
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.6
+# @copyright © 2018, 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/lms-utilities
+# @subpackage lmsArchiveUtilities.lib
+#
+# =========================================================================
+#
+#	Copyright © 2018, 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/lms-utilities.
+#
+#   ewsdocker/lms-utilities is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/lms-utilities is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/lms-utilities.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+#
+#	lmsArchive
+#		Archive the lms-utilities: create the lms-utilities tarball
+#
+#	parameters:
+#		tarball = name of the tarball to be generated (w/o file type)
+#		name = name of the root directory (default="/ldc-library")
+#		dir = where to find the lms-utilities library files (default "usr")
+#		dest = where to store the generated tarball (default "/repo")
+#		final = 1 to indicate the tarball can be zipped and archived
+#		options = list of options to apply, or empty
+#
+#    Result:
+#        0 = no error
+#        1 = missing required parameter
+#        2 = tar utility failed
+#        3 = gzip utility failed
+#        4 = mv function failed
+# 
+# =========================================================================
+function lmsArchive()
+{
+	local lms_tarname="${1}"
+	local lms_name=${2}
+	local lms_dir=${3}
+	local lms_dest=${4}
+	local lms_final=${5:-"0"}
+	local lms_optlist=${6:-""}
+
+	[[ -z "${lms_tarname}" || -z "${lms_name}" ||-z "${lms_dir}" || -z "${lms_dest}" ]] && return 1
+
+	local lms_tarball="${lms_dest}/${lms_tarname}.tar"
+
+	local tar_cmd=" "
+	local tar_msg=""
+	local tar_opts="-cvf "
+
+	[[ -e ${lms_dir} ]] &&
+	 {
+		if find "${lms_dir}" -mindepth 1 -print -quit 2>/dev/null | grep -q .
+		then
+
+			[[ -e "${lms_tarball}" ]] && tar_opts="-uvf "
+			tar_cmd="tar ${tar_opts} ${lms_optlist} ${lms_tarball} ${lms_dir}"
+
+			tar_msg=$( ${tar_cmd} )
+			[[ $? -eq 0 ]] || return 2
+		fi
+	 }
+
+	return 0
+}
+
+# =========================================================================
+#
+#	lmsArchiveGzip
+#		Gzip the lms-utilities tarball in the current directory
+#
+#	parameters:
+#		tarball = name of the tarball to be generated (w/o file type)
+#
+#    Result:
+#        0 = no error
+#        1 = missing required parameter
+#        2 = tar utility failed
+#        3 = gzip utility failed
+#        4 = mv function failed
+# 
+# =========================================================================
+function lmsArchiveGzip()
+{
+	local    tarball=${1:-""}
+	local    rslt=0
+
+	while [ true ]
+	do
+		[[ -z ${tarball} ]] && rslt=1
+
+		[[ $rslt -eq 0 ]] || break
+
+		gzip "${tarball}.tar"
+		[[ $? -eq 0 ]] || rslt=3
+
+		break
+	done
+
+	return $rslt
+}
+
+# =========================================================================
+#
+#	lmsArchiveList
+#		List the archive contents
+#
+#	parameters:
+#		name = fully-qualified name of the tarball to be listed
+#    Result:
+#        0 = no error
+#        1 = missing required parameter
+#        2 = tar utility failed
+#        3 = gzip utility failed
+#        4 = mv function failed
+#
+# =========================================================================
+function lmsArchiveList()
+{
+	local lms_name=${1}
+
+	[[ -z "${lms_name}" ]] && return 1
+
+	tar -tf ${lms_name}
+
+	return 0
+}
+
+# =========================================================================
+#
+#	lmsCreateArchive
+#		Create the archive of the lms-utilities using global variables
+#
+#	parameters:
+#		None
+#    Result:
+#        0 = no error
+#        non-zero = archive call number that failed
+#
+# =========================================================================
+function lmsCreateArchive()
+{
+	return 1
+}

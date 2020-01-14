@@ -1,0 +1,119 @@
+#!/bin/bash
+# =========================================================================
+# =========================================================================
+#
+#	expectedResults.lib
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-utilities
+# @subpackage expextedResults.lib
+#
+# =========================================================================
+#
+#	Copyright © 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-utilities.
+#
+#   ewsdocker/ldc-dev is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-dev is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-dev.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+# =========================================================================
+#
+#	Dependencies:
+#
+# 		/usr/local/lib/lms/lmsDisplay.lib
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+# =========================================================================
+#
+#	Library functions
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+#
+#	expectedResults
+#		(apologies for the RRPN format)
+#
+#	  Entry:
+#		resultExpected = expected result
+#		resultReceived = received result
+#		resultEquality = 0 = equal | 1 = not equal
+#	  Exit:
+#		0 = true result
+#		1 = false result
+#
+# =========================================================================
+function expectedResults()
+{
+	local lExpected=${1:-""}
+	local lReceived=${2:-""}
+	local lEquality=${3:-"0"}
+
+	lmsDisplayTs "    *****************************"
+	lmsDisplayTs "    START expectedResults"
+	lmsDisplayTs "    *****************************"
+
+ 	lmsDisplayTs "    Testing expected results: "
+ 	lmsDisplayTs "       Expected: \"${lExpected}\" "
+ 	lmsDisplayTs "       Received: \"${lReceived}\" "
+ 	lmsDisplayTs "       Equality: \"${lEquality}\" "
+
+	local exResult=0
+
+	[[ "${lEquality}" != "0" && "${lEquality}" != "1" ]] && 
+	 {
+	 	lmsDisplayTs "    *** Equality (${lEquality}) is not numeric, or is out of range ***"
+	 	exResult=2
+	 }
+
+	[[ ${exResult} -eq 0 ]] &&
+	 {
+		if [[ "${lEquality}" == "0" ]]
+		then
+			[[ "${lExpected}" == "${lReceived}" ]] || exResult=1
+		else
+			[[ "${lExpected}" != "${lReceived}" ]] || exResult=1
+		fi
+	 }
+	
+	lmsDisplayTs "       Result  : ${exResult}"
+	lmsDisplayTs "    *****************************"
+	lmsDisplayTs "    END expectedResults"
+	lmsDisplayTs "    *****************************"
+
+	return ${exResult}
+}
+
+# =========================================================================
+# =========================================================================
+#
+#	End Library functions
+#
+# =========================================================================
+# =========================================================================

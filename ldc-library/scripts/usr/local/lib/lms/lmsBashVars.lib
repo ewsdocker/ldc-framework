@@ -1,0 +1,151 @@
+#!/bin/bash
+# =========================================================================
+# =========================================================================
+#
+#	lmsBashVars.lib
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-dev
+# @subpackage lmaBashVars.lib
+#
+# =========================================================================
+#
+#	Copyright © 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-dev.
+#
+#   ewsdocker/ldc-dev is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-dev is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-dev.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+#
+#	Dependencies:
+#		lmsconCli.lib
+#			- lmsDeclareStr
+#
+# =========================================================================
+
+# =========================================================================
+#
+#	global declarations
+#
+# =========================================================================
+
+declare    bashLSource=""
+declare    bashLFunction=""
+declare    bashLLine=0
+
+declare    bashLTriplet=""
+
+# =========================================================================
+#
+#	functions
+#
+# =========================================================================
+
+# =========================================================================
+#
+#    bashLLPosition - create a line location position triplet
+#						"source-name:function-name:line-number"
+#
+#	parameters:
+#		bllpBuffer = (optional) location to store the triplet, 
+#									default=bashLTriplet 
+#
+#	returns:
+#		0 = no error
+#		non-zero = error number
+#
+# =========================================================================
+function bashLLPosition()
+{
+	local bllpBuffer=${1:-"bashLTriplet"}
+
+	lmsDeclareStr "${bllpBuffer}" "${bashLSource}:${bashLFunction}:${bashLLine}"
+	return $?
+}
+
+# =========================================================================
+#
+#    bashLineLocation - Set the global values for function name, line number,
+#                       and source name.
+#
+#	parameters:
+#		bllBuffer = (optional) location to store created triplet,
+#								(default = bashLTriplet)
+#		bllSkipName = (optional) if caller calls a function to pass information
+#									before calling this function, this should be 
+#									the name of the called function.
+#
+#	returns:
+#		0 = no error
+#		1 = not in a function, global function and source names set blank
+#		non-zero = error number
+#
+# =========================================================================
+function bashLineLocation()
+{
+	local    bllBuffer="${1}"
+	local    bllSkipName="${2}"
+
+	local -i lOffset=0
+	local -i lSize=${#FUNCNAME[*]}
+	
+	bashLSource=""
+	bashLFunction=""
+
+	if [ -z ${bllSkipName} ] 
+	then
+		lOffset=1
+	else
+		lOffset=0
+		while [ ${lOffset} -lt ${lSize} ]
+		do
+			[[ ${FUNCNAME[$lOffset]} == "$bllSkipName" || ${FUNCNAME[$lOffset]} == "main" ]] && break
+			let lOffset=$lOffset+1
+		done
+
+		[[ $lOffset -eq 0 ]] && 
+		 {
+		 	[[ ${FUNCNAME[$lOffset]} == "main" ]] &&
+		 	bashLLine=${BASH_LINENO[0]}
+			bashLFunction="main"
+
+			bashLLPosition "$bllBuffer"
+			[[ $? -eq 0 ]] && return 2 || return 1
+		 }
+		
+		let lOffset=$lOffset+1
+	fi
+
+	bashLSource="$( basename "${BASH_SOURCE[$lOffset]}" .lib )"
+	bashLFunction=${FUNCNAME[$lOffset]}
+
+	let lOffset=$lOffset-1
+	bashLLine=${BASH_LINENO[$lOffset]}
+
+	bashLLPosition "${bllBuffer}"
+
+	return 0
+}
+

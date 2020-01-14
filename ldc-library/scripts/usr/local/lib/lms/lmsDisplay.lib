@@ -1,0 +1,97 @@
+# =========================================================================
+# =========================================================================
+#
+#	lmsDisplay
+#     display a message on the console and/or to a log file
+#
+#	changed to lmsDisplay from lmsconDisplay on 6/20/2019
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.4
+# @copyright © 2016-2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/lms-utilities
+# @subpackage lmsDisplay
+#
+# =========================================================================
+#
+#	Copyright © 2016-2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/lms-utilities.
+#
+#   ewsdocker/lms-utilities is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/lms-utilities is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/lms-utilities.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+
+declare    lmscli_optQuiet=0
+declare    lmscli_optDebug=1
+
+# =========================================================================
+#
+#   lmsDisplay
+#		display message on the console
+#
+#	parameters:
+#		message = message to display
+#       override = 1 to override lmsopt
+#	returns:
+#		0 = no errors
+#		non-zero = error code
+#
+# =========================================================================
+function lmsDisplay()
+{
+    local lmscon_buffer="${1}"
+    local override=${2:-0}
+    local noret=${3:-""}
+
+    [[ ${lmscli_optQuiet} -ne 0  &&  ${override} -eq 0 ]] && return 0
+    [[ -z "${noret}" ]] && echo "${lmscon_buffer}" || echo -n "${lmscon_buffer}"
+
+    return 0
+}
+
+# =========================================================================
+#
+#   lmsDisplayTs
+#		display message with timestamp on the console
+#
+#	parameters:
+#		message = message to display
+#       override = 1 to override lmsopt
+#       
+#	returns:
+#		0 = no errors
+#		non-zero = error code
+#
+# =========================================================================
+function lmsDisplayTs()
+{
+	local buffer=${1:-""}
+    local oride=${2:-0}
+    local no=${3:-""}
+
+ 	lmsTimestamp 0
+
+	local tS
+	printf -v tS "%s %s" "${utilTs}" "${buffer}"
+
+	lmsDisplay "${tS}" "${oride}" "${no}"	
+}
+

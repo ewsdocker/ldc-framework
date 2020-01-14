@@ -1,0 +1,409 @@
+# =========================================================================
+# =========================================================================
+#
+#	local-build
+#	  Local build library.
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.2
+# @copyright © 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/lms-utilities
+# @subpackage local-build
+#
+# =========================================================================
+#
+#	Copyright © 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/lms-utilities.
+#
+#   ewsdocker/lms-utilities is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/lms-utilities is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/lms-utilities.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+# =========================================================================
+#
+#		Global Declarations
+#
+# =========================================================================
+# =========================================================================
+
+declare    cDockerName		# The Dockerfile extension
+
+declare    cSoftName		# What to call the software
+declare    cSoftVers		# Create this software version
+declare    cSoftDesktop     # Desktop name
+
+declare    cNetwork			# Local network name (e.g. pkgnet)
+declare    cLocalHost		# Local host address
+
+declare    cCommand			# Command buffer
+declare    cStatus			# Status code returned at end of command
+declare    cOutput			# Any output from the command
+
+declare    cTrace           # trace = 1 to trace function calls
+
+# =========================================================================
+
+declare    cSingle			# process only the file name in cSingle if not empty
+declare    cListing			# Listing buffer
+declare    cListFile		# Listing output file, if not empty
+
+# =========================================================================
+
+declare    cRepo			# Docker repository name
+declare    cName			# image name
+declare    cVersion			# Version of the image
+declare    cVersExt			# Version extension
+declare    cExtMod			# Additional modifier, if required
+
+# =========================================================================
+
+declare    fRepo			# parent docker repository
+declare    fName			# parent image name
+declare    fVersion			# parent version
+declare    fVersExt			# parent version extension
+declare    fExtMod			# parent ext modifier
+
+# =========================================================================
+
+declare    cAction          # Action to perform
+declare    cActionList      # List of actions
+
+declare    cVersionList     # List of versions to select
+declare    cVersExtList     # List of version extensions to select
+declare    cExtList         # List of version extension mod's
+
+declare    cRunApp			# The default application to run
+
+# =========================================================================
+# =========================================================================
+#
+#		Functions
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+#
+#   setHost
+#      Set the local host name
+#
+#   Enter:
+#      cLocalHost = local host name
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setHost()
+{
+	cLocalHost=${1:-"$cLocalHost"}
+}
+
+# =========================================================================
+#
+#   setNetwork
+#      Set the local network name
+#
+#   Enter:
+#      cNetwork = network name
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setNetwork()
+{
+	cNetwork=${1:-"$cNetwork"}
+}
+
+# =========================================================================
+#
+#   setSoftName
+#      Set the software name
+#
+#   Enter:
+#      cSoftName = software name
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setSoftName()
+{
+	cSoftName=${1:-"$cSoftName"}
+}
+
+# =========================================================================
+#
+#   setSoftVers
+#      Set the software version
+#
+#   Enter:
+#      cSoftVers = software version
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setSoftVers()
+{
+	cSoftVers=${1:-"$cSoftVers"}
+}
+
+# =========================================================================
+#
+#   setSoftDesktop
+#      Set the software desktop name
+#
+#   Enter:
+#      cSoftDesktop = software desktop name
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setSoftDesktop()
+{
+	cSoftDesktop=${1:-"$cSoftDesktop"}
+}
+
+# =========================================================================
+#
+#   setRepo
+#      Set the Repository name
+#
+#   Enter:
+#      cRepo = repository name
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setRepo()
+{
+	cRepo=${1:-"$cRepo"}
+}
+
+# =========================================================================
+#
+#   setName
+#      Set the Image name
+#
+#   Enter:
+#      cName = image name ( "repo"/"image":"version"-"vers_ext-ext_mods" )
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setName()
+{
+	cName=${1:-"$cName"}
+}
+
+# =========================================================================
+#
+#   setVersion
+#      Set the Version name
+#
+#   Enter:
+#      cVersion = version name ( "repo"/"image":"version"-"vers_ext"-"ext_mods" )
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setVersion()
+{
+	cVersion=${1:-"$cVersion"}
+}
+
+# =========================================================================
+#
+#   setVersExt
+#      Set the Version extension
+#
+#   Enter:
+#      cVersExt = version extension ( "repo"/"image":"version"-"vers_ext"-"ext_mods" )
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setVersExt()
+{
+	cVersExt=${1:-"$cVersExt"}
+}
+
+# =========================================================================
+#
+#   setExtMod
+#      Set the Version extension modifier
+#
+#   Enter:
+#      cExtMod = version extension modifier ( "repo"/"image":"version"-"vers_ext-ext_mods" )
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setExtMod()
+{
+	cExtMod=${1:-"$cExtMod"}
+}
+
+# =========================================================================
+#
+#   setRunApp
+#      Set the application to run at start-up
+#
+#   Enter:
+#      runApp = name of the application to start
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function setRunApp()
+{
+    cRunApp=${1:-"$cRunApp"}
+}
+
+# =========================================================================
+#
+#   imageName
+#      Create the image name from the global vars
+#
+#   Enter:
+#      none
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function imageName()
+{
+    cImage=${cRepo}/${cName}:${cVersion}-${cVersExt}${cExtMod}
+}
+
+# =========================================================================
+#
+#   containerName
+#      Create the container name from the global vars
+#
+#   Enter:
+#      none
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function containerName()
+{
+    cContainer="${cName}-${cVersion}-${cVersExt}${cExtMod}"
+}
+
+# =========================================================================
+#
+#   runName
+#      Create the run-time container name from the global vars
+#
+#   Enter:
+#      none
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function runName()
+{
+    cRun="${cName}-${cVersion}-${cVersExt}${cExtMod}"
+}
+
+# =========================================================================
+#
+#   addToBuffer
+#      add string to the buffer
+#
+#   Enter:
+#      none
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function addToBuffer()
+{
+    printf -v cCommand "%s %s" "${cCommand}" "${1}"
+}
+
+# =========================================================================
+#
+#   imageHeader
+#      Create the docker command to build the image
+#
+#   Enter:
+#      none
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function imageHeader()
+{
+	cStatus=0
+
+    cCommand="docker build "
+
+    addToBuffer "--build-arg BUILD_BASE=/usr/local/ "
+    addToBuffer "--build-arg RUN_APP=${cSoftName} "
+    addToBuffer "--build-arg BUILD_VERSION=${cVersion} "
+    addToBuffer "--build-arg BUILD_VERS_EXT=-${cVersExt} "
+    addToBuffer "--build-arg BUILD_EXT_MOD=${cExtMod} "
+
+	return ${cStatus}
+}
+
+# =========================================================================
+#
+#   imageFooter
+#      Create the docker command footer to build the image
+#
+#   Enter:
+#      none
+#   Exit:
+#      0 = success
+#      non-zero = error number
+#
+# =========================================================================
+function imageFooter()
+{
+	cStatus=0
+
+    [[ -z ${cNetwork} ]] || addToBuffer "--network=${cNetwork} --build-arg LIB_HOST=${cLocalHost} "
+   
+    addToBuffer "--file Dockerfile.${cDockerName} "
+    addToBuffer "-t ${cImage} . "
+
+	return ${cStatus}
+}
+

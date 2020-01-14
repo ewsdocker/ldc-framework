@@ -1,0 +1,249 @@
+# ========================================================================================
+# ========================================================================================
+#
+#    Dockerfile.alpine
+#      Dockerfile for ldc-core/acore.
+#
+# ========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2017-2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ldc-core
+# @subpackage Dockerfile.acore
+#
+# ========================================================================================
+#
+#	Copyright © 2017-2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-core.
+#
+#   ewsdocker/ldc-core is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-core is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-core.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# ========================================================================================
+# ========================================================================================
+
+# ========================================================================================
+#
+#	             Build-time arguements (--build-arg)
+#
+# ========================================================================================
+#
+#   ARG_NAME = name of the tarball (w/o version) to create
+#   ARG_DIR  = name of the target directory (defaults to "usr")
+#   ARG_DEST = path to the archive storage directory
+#
+# ========================================================================================
+#
+#   ARGBUILD_REPO = repository name of the image being built
+#   ARGBUILD_REGISTRY = registry name of the image being built
+#
+#   ARGBUILD_NAME = version of the image being built
+#   ARGBUILD_VERSION = name of the image being built
+#
+# ========================================================================================
+#
+#   ARG_FROM_REPO = repository name of the build-from image
+#   ARG_FROM_VERS = version of the build-from image
+#   ARG_FROM_PARENT = name of the build-from image parent
+#
+# ========================================================================================
+
+ARG ARG_NAME="lms-library"
+ARG ARG_LIBRARY="0.1.2"
+
+#ARG ARG_SOURCE=http://alpine-nginx-pkgcache
+
+#ARG ARGOPT_TIMEOUT=30
+#ARG ARGOPT_QUIET=1
+
+# ========================================================================================
+
+ARG ARGBUILD_REGISTRY=""
+ARG ARGBUILD_REPO=ewsdocker
+
+ARG ARGBUILD_NAME="ldc-core" 
+ARG ARGBUILD_VERSION="acore"
+ARG ARGBUILD_VERS_EXT="-0.1.0"
+
+#ARG ARGBUILD_TEMPLATE="gui"
+
+# ========================================================================================
+# ========================================================================================
+
+ARG ARG_FROM_PARENT="alpine-micro"
+ARG ARG_FROM_REPO="nimmis/${ARG_FROM_PARENT}"
+ARG ARG_FROM_VERS="3.8"
+ARG ARG_FROM_EXT=
+
+FROM ${ARG_FROM_REPO}:${ARG_FROM_VERS}${ARG_FROM_EXT}
+
+# ========================================================================================
+# ========================================================================================
+
+ARG ARG_NAME
+ARG ARG_LIBRARY
+
+ARG ARG_SOURCE
+
+ARG ARGBUILD_REGISTRY
+ARG ARGBUILD_REPO
+
+ARG ARGBUILD_NAME 
+ARG ARGBUILD_VERSION
+ARG ARGBUILD_VERS_EXT
+
+ARG ARGBUILD_TEMPLATE
+
+ARG ARG_FROM_PARENT
+ARG ARG_FROM_REPO
+ARG ARG_FROM_VERS
+ARG ARG_FROM_EXT
+
+ARG ARGOPT_TIMEOUT
+ARG ARGOPT_QUIET
+
+# ========================================================================================
+# ========================================================================================
+#
+# https://github.com/ewsdocker/lms-utilities/releases/download/lms-utilities-0.1.2/lms-library-0.1.2.tar.gz
+#
+# ========================================================================================
+# ========================================================================================
+
+# ========================================================================================
+#
+#   ARG_SOURCE <== url of the local source (http://alpine-nginx-pkgcache), 
+#                   otherwise external source.
+#
+#       Build option:
+#         --build-arg ARG_SOURCE=http://alpine-nginx-pkgcache --network=pkgnet
+#
+# ========================================================================================
+
+# ========================================================================================
+#
+#	Assign to environment variables to persist
+#
+#   LMSUTIL_NAME = name of the tarball (w/o version) to create
+#
+# ========================================================================================
+
+ENV \
+    LMSOPT_TIMEOUT=${ARGOPT_TIMEOUT:-"30"} \
+    LMSOPT_QUIET=${ARGOPT_QUIET:-"1"} \
+    \
+    LMS_BASE="/usr/local" \
+    LMS_HOME= \
+    LMS_CONF= \
+    \
+    \
+    LMSBUILD_REGISTRY=${ARGBUILD_REGISTRY} \
+    LMSBUILD_REPO=${ARGBUILD_REPO} \
+    \
+	\
+    LMSBUILD_NAME=${ARGBUILD_NAME} \
+    LMSBUILD_VERSION=${ARGBUILD_VERSION} \
+    LMSBUILD_VERS_EXT=${ARGBUILD_VERS_EXT} \
+    \
+    LMSBUILD_TEMPLATE=${ARGBUILD_TEMPLATE:-"run"}   
+
+ENV LMSBUILD_DOCKER="${LMSBUILD_REPO}/${LMSBUILD_NAME}:${LMSBUILD_VERSION}${LMSBUILD_VERS_EXT}" \
+    LMSBUILD_PACKAGE="${ARG_FROM_REPO}:${ARG_FROM_VERS}${ARG_FROM_EXT}" \
+    LMSBUILD_BASE="${ARG_FROM_REPO}:${ARG_FROM_VERS}${ARG_FROM_EXT}"
+
+# ========================================================================================
+
+ENV PKG_VERS="${ARG_LIBRARY}" 
+
+ENV PKG_HOST=${ARG_SOURCE:-"https://github.com/ewsdocker/lms-utilities/releases/download/lms-library-${PKG_VERS}"} \
+    PKG_NAME="lms-library-${PKG_VERS}.tar.gz" 
+
+ENV PKG_URL="${PKG_HOST}/${PKG_NAME}"
+
+# ========================================================================================
+#
+#   install required scripts
+#
+# ========================================================================================
+
+COPY scripts/. /
+
+# ========================================================================================
+
+RUN \
+#
+#   build apk cache, upgrade to latest packages, and create alpine-base
+#
+    apk update \
+ && apk upgrade \
+ && apk add bash \
+            bash-doc \
+            bash-completion \
+            binutils \
+            coreutils \
+            curl \
+            dbus \
+            findutils \
+            grep \
+            nano \
+            pciutils \
+            shadow \
+            unzip \
+            udisks2 \
+            udisks2-doc \
+            util-linux \
+            wget \
+            zip \
+ && rm -rf /var/cache/apk/* \
+ #
+ #   download and install lms-library
+ #
+ && cd / \
+ && wget "${PKG_URL}" \
+ && tar -xvf "${PKG_NAME}" \
+ && rm "${PKG_NAME}" \
+ #
+ #   fix up directories, linkages and permissions
+ #
+ && mkdir -p /usr/local/bin \
+ && mkdir -p /usr/bin/lms \
+ #
+ && chmod 775 /usr/local/bin/*.* \
+ && chmod 775 /usr/local/bin/* \
+ && chmod 775 /usr/bin/lms/*.* \
+ #
+ && ln -s /usr/bin/lms/lms-setup.sh /usr/bin/lms-setup \
+ && ln -s /usr/bin/lms/lms-version.sh /usr/bin/lms-version \
+ #
+ #   register the installed software for lms-version
+ #
+ && echo "${LMSBUILD_BASE}" >  /etc/ewsdocker-builds.txt \
+ && printf "%s (%s), %s @ %s\n" ${LMSBUILD_DOCKER} ${LMSBUILD_PACKAGE} `date '+%Y-%m-%d'` `date '+%H:%M:%S'` >> /etc/ewsdocker-builds.txt 
+
+# ========================================================================================
+
+VOLUME /conf
+VOLUME /usrlocal
+
+# ========================================================================================
+
+WORKDIR /root
+
+# ========================================================================================
+
+CMD ["/bin/bash"]

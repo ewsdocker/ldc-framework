@@ -1,0 +1,85 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	lmsExit - definitions for debian-base (and derivatives) error codes 
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.1
+# @copyright © 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/lms-utilities
+# @subpackage lmsExit.lib
+#
+# =========================================================================
+#
+#	Copyright © 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/lms-utilities.
+#
+#   ewsdocker/lms-utilities is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/lms-utilities is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/lms-utilities.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#     Error Exit Codes
+#
+# =========================================================================================
+
+EC_NONE=0
+EC_PARSE=1
+EC_MENU=2
+EC_HEADER=3
+EC_BODY=4
+EC_WRITE=5
+EC_WBODY=6
+EC_KAPTAIN=7
+EC_REQUIRED=8
+
+EC_UNKNOWN=99
+
+EC_MSG=([${EC_NONE}]="No error."
+              [${EC_PARSE}]="Parse error."
+              [${EC_MENU}]="Unknown menu."
+              [${EC_HEADER}]="Unable to read header."
+              [${EC_BODY}]="Unable to create body."
+              [${EC_WRITE}]="Unable to write header."
+              [${EC_WBODY}]="Unable to write body."
+              [${EC_KAPTAIN}]="Kaptain processing error."
+              [${EC_REQUIRED}]="Missing required parameter."
+              [${EC_UNKNOWN}]="Unknown error.")
+
+# =========================================================================================
+#
+#    lmsExit - Output error message and EXIT with error code
+#
+#    Parameters:
+#       exitCode = error code to exit on
+#    Result:
+#        none
+#
+# =========================================================================================
+function lmsExit()
+{
+    local exitCode=${1:-"$EC_UNKNOWN"}
+    [[ -z ${EC_MSG[$exitCode]} ]] && exitCode=${EC_UNKNOWN}
+
+    [[ "${exitCode}" -ne "${EC_NONE}" ]] && lmsDisplay "${EC_MSG[$exitCode]}"
+    exit ${exitCode}
+}

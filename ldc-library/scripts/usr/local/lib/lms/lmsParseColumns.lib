@@ -1,0 +1,231 @@
+# ***********************************************************************************************************
+# ***********************************************************************************************************
+#
+#   lmsParseColumns.lib
+#
+# *****************************************************************************
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-utilities
+# @subpackage lmsParseColumns
+#
+# *****************************************************************************
+#
+#	Copyright © 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-utilities.
+#
+#   ewsdocker/ldc-utilities is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-utilities is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-utilities.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# *****************************************************************************
+#
+#			Version 0.1.0 - 08-10-2019.
+#
+# ***********************************************************************************************************
+# ***********************************************************************************************************
+
+declare -r lmslib_lmsParseColumns="0.1.0"	# version of library
+
+# ***********************************************************************************************************
+
+declare -i pc_start=0
+declare -i pc_offset=0
+declare -i pc_length=0
+declare -i pc_next=0
+
+declare    pc_header=""
+declare -i pc_headerlen=0
+
+declare    pc_headline=""				
+declare    pc_substr="  "
+declare    pc_remains=""
+
+declare -i pc_index=0
+declare -i pc_prev=0
+
+declare -a pc_column=()			# title name
+declare -a pc_colstart=()		# column start offset
+declare -a pc_collen=()			# title name length
+declare -a pc_coldata=()		# column data width
+
+declare    pc_mfname=""
+
+declare -i pc_result=0
+
+# ***********************************************************************************************************
+#
+#	pcMapFind
+#		Lookup column name. Returns 0 if found, 1 if not.
+#
+#	attributes:
+#		name = column name to find
+#
+#	returns:
+#		0 = column name was found ( pc_index contains the column number )
+#		1 = column name was not found ( pc_index is undefined )
+#
+#
+# ***********************************************************************************************************
+function pcMapFind()
+{
+	pc_mfname=${1:-"$pc_mfname"}
+
+	pc_result=0
+	while [ $pc_result -eq 0 ]
+	do
+		[[ ${pc_headline} =~ "${pc_mfname}" ]] || pc_result=1
+		[[ $pc_result -eq 0 ]] || break
+	
+		pc_index=0
+		while [ $pc_index -lt ${#pc_column[*]} ]
+		do
+			[[ "${pc_column[$pc_index]}" == "${pc_mfname}" ]] && break
+			(( pc_index++ ))
+		done
+
+		break
+
+	done
+
+	[[ ${pc_index} -ge ${#pc_column[*]} ]] && pc_result=2
+
+	return ${pc_result}
+}
+
+# ***********************************************************************************************************
+#
+#	pcMapNext - map the next column global parameters
+#
+#	attributes:
+#		start  = offset in headline to begin scan (default = 0)
+#		substr = non-terminal string to skip (default = " ")
+#		headline = (optional) string to search (default = $pc_headline)
+#
+#	returns:
+#		0 = no error
+#		non-zero = error code
+#
+# ***********************************************************************************************************
+function pcMapNext()
+{
+	pc_start=${1:-"$pc_start"}
+	pc_substr=${2:-"$pc_substr"}
+	pc_headline=${3:-"$pc_headline"}
+
+	pc_remains=""
+	pc_title=""
+
+	pc_result=0
+	pc_offset=0
+
+	while [ true ]
+	do
+		[[ $pc_start -le ${#pc_headline} ]] || pc_result=1
+		[[ $pc_result -eq 0 ]] || break
+
+		pc_header=${pc_headline:$pc_start}
+		pc_headerlen=${#pc_header}
+
+		pc_header="${pc_header#"${pc_header%%[![:space:]]*}"}"   # remove leading whitespace characters
+		(( pc_offset=${pc_headerlen}-${#pc_header} ))
+
+		[[ $pc_offset -lt 0 ]] && pc_result=2
+		[[ $pc_result -eq 0 ]] || break
+
+		pc_remains=${pc_header#*$pc_substr}						# remove trailing whitespace characters
+		(( pc_length=${#pc_header}-${#pc_remains}-${#pc_substr} ))
+
+		[[ $pc_length -le 0 ]] && pc_result=3
+		[[ $pc_result -eq 0 ]] || break
+
+		(( pc_offset+=$pc_start ))
+
+		[[ $pc_offset -gt ${#pc_headline} ]] && pc_result=4
+		[[ $pc_result -eq 0 ]] || break
+
+		pc_title="${pc_headline:$pc_offset:$pc_length}"
+
+		break
+	done
+
+	return ${pc_result}
+}
+
+# ***********************************************************************************************************
+#
+#	pcMap
+#		search for titles in a string
+#			search for words delimited by substr in headline
+#
+#	attributes:
+#		substr = substring to find the 1st occurrence of
+#		headline = string to search
+#
+#	returns:
+#		0 = no error
+#       non-zero = error code
+#
+# ***********************************************************************************************************
+function pcMap()
+{
+	pc_substr=${1:-"$pc_substr"}
+	pc_headline=${2:-"$pc_headline"}
+
+	pc_headlen=${#pc_headline}
+	pc_headline="${pc_headline}${pc_substr}"
+
+	pc_result=0
+
+	pc_index=0
+	pc_prev=0
+
+	pc_next=0
+
+	while [ ${pc_result} -eq 0 ]
+	do
+		(( pc_prev=$pc_index-1 ))
+
+		pcMapNext ${pc_next} "$pc_substr" "$pc_headline"
+
+		[[ ${pc_result} -eq 0 ]] || 
+		 {
+		 	pc_result=0
+		 	break
+		 }
+
+		pc_column[$pc_index]="$pc_title"
+		pc_colstart[$pc_index]=$pc_offset
+		pc_collen[$pc_index]=$pc_length
+
+		[[ $pc_prev -ge 0 ]] && (( pc_coldata[$pc_prev]=${pc_colstart[$pc_index]}-${pc_colstart[$pc_prev]} ))
+
+		(( pc_next=${pc_offset}+${pc_length} ))
+		[[ $pc_next -ge ${#pc_headline} ]] && break
+
+		(( pc_index++ ))
+	done
+
+	(( pc_coldata[$pc_prev]=${pc_headlen}-${pc_colstart[$pc_prev]} ))
+
+	return ${pc_result}
+}
+
+# ***********************************************************************************************************
+# ***********************************************************************************************************
+

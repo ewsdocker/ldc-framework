@@ -1,0 +1,268 @@
+#!/bin/bash
+# =========================================================================
+# =========================================================================
+#
+#	lmsTestUtilities.lib
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-utilities
+# @subpackage lmsTestUtilities.lib
+#
+# =========================================================================
+#
+#	Copyright © 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-utilities.
+#
+#   ewsdocker/ldc-dev is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-dev is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-dev.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+# =========================================================================
+#
+#	Dependencies:
+#
+#		lmsColorDef.lib
+# 		lmsDisplay.lib
+#		lmsStr.lib
+#
+# =========================================================================
+# =========================================================================
+
+declare -i td_blocksize=1
+declare -i td_indent=1
+declare -i td_spaces=1
+
+declare    td_indentString=""
+declare    td_buffer=""
+
+# =========================================================================
+# =========================================================================
+#
+#	Library functions
+#
+# =========================================================================
+# =========================================================================
+
+# ****************************************************************************
+#
+#	lmsIndent
+#
+#		set/get the indent var
+#
+# 	Parameters:
+#  		indent = how many 'blocks' to indent
+#
+#	Returns:
+#		indent = the current value of td_indent
+#
+# ****************************************************************************
+function lmsIndent()
+{
+	indent=${1:-"1"}
+	(( td_indent+=${indent} ))
+
+	return ${td_indent}
+}
+
+# ****************************************************************************
+#
+#	lmsIndentTdMsg
+#
+#		Add spaces (indentation) to the buffer
+#
+# 	Parameters:
+#  		message = message to indent
+#
+#	Exit:
+#		td_message contains the indented message
+#
+#	Returns:
+#		0 = no error
+#
+# ****************************************************************************
+function lmsIndentTdMsg()
+{
+	(( td_spaces=${td_indent}*${td_blocksize} ))
+	[[ ${td_spaces} -gt 0 ]] || td_spaces=1 
+
+	local    ibuffer=""
+
+	printf -v ibuffer "%*s" ${td_spaces} " "
+	printf -v td_message "%s%s" "${ibuffer}${1}"
+
+	return 0
+}
+
+# =========================================================================
+#
+#	lmsTestDisplay
+#
+#	  Entry:
+#		message = message to format and output
+#		no_ts = no timestamp if =1
+#
+#	  Returns:
+#		0 = no error
+#		non-zero = error code
+#
+# =========================================================================
+function lmsTestDisplay()
+{
+	lmsIndentTdMsg "${1}"
+	local l_no_ts=${2:-"0"}
+
+	[[ "$l_no_ts" -eq "0" ]] && lmsDisplayTs "${td_message}" || lmsDisplay "        ${td_message}"
+	
+	return 0
+}
+
+# =========================================================================
+#
+#	lmsTestDivider
+#
+#	  Entry:
+#		none
+#
+#	  Returns:
+#		0 = no error
+#		non-zero = error code
+#
+# =========================================================================
+function lmsTestDivider()
+{
+	local -i dLines=${1:-"2"}
+	local    dColor=${2:-"$dqt_colorDivider"}
+	local -i dRepeats=${3:-"72"}
+	local    dChar="="
+
+	local -i dLine=0
+
+	lmsStrFill ${dRepeats} ${dChar}
+	lmsDisplay
+
+	while [ ${dLine} -lt ${dLines} ]
+	do
+		lmsDisplay "${dColor}${lmsstr_buffer}${lmsclr_NoColor}"
+		(( dLine++ ))
+	done
+
+	lmsDisplay
+}
+
+# =========================================================================
+#
+#	lmsTestBlock
+#
+#	  Entry:
+#		message = message to format and output
+#
+#	  Returns:
+#		0 = no error
+#		non-zero = error code
+#
+# =========================================================================
+function lmsTestBlock()
+{
+	local    tb_message=${1:-""}
+	
+	lmsStrFill 40 "="
+	lmsTestDisplay "${dqt_colorBorder}${lmsstr_buffer}${lmsclr_NoColor}"
+	
+	  lmsTestDisplay "  ${tb_message}"
+
+	lmsStrFill 40 "="
+	lmsTestDisplay "${dqt_colorBorder}${lmsstr_buffer}${lmsclr_NoColor}"
+	lmsDisplayTs
+
+	return 0
+}
+
+# =========================================================================
+#
+#	testExpectedResults
+#		(apologies for the RRPN format)
+#
+#	  Entry:
+#		resultExpected = expected result
+#		resultReceived = received result
+#		resultEquality = 0 = equal | 1 = not equal
+#	  Exit:
+#		0 = true result
+#		1 = false result
+#
+# =========================================================================
+function testExpectedResults()
+{
+	local lExpected=${1:-""}
+	local lReceived=${2:-""}
+	local lEquality=${3:-"0"}
+
+	(( td_indent+=2 ))
+
+	lmsTestBlock "Start ${dqt_colorText}testExpectedResults${lmsclr_NoColor} tests"
+
+ 	lmsTestDisplay "${dqt_colorText}Testing expected results:${lmsclr_NoColor} "
+ 	(( td_indent+=2 ))
+ 		lmsTestDisplay "${dqt_colorText}Expected: \"${lExpected}\"${lmsclr_NoColor} "
+ 		lmsTestDisplay "${dqt_colorText}Received: \"${lReceived}\"${lmsclr_NoColor} "
+ 		lmsTestDisplay "${dqt_colorText}Equality: \"${lEquality}\"${lmsclr_NoColor} "
+	(( td_indent-=2 ))
+
+	local exResult=0
+
+	[[ "${lEquality}" != "0" && "${lEquality}" != "1" ]] && 
+	 {
+	 	lmsTestDisplay "    ${dqt_colorError}*** Equality (${lEquality}) is not numeric, or is out of range ***${lmsclr_NoColor}"
+	 	exResult=2
+	 }
+
+	[[ ${exResult} -eq 0 ]] &&
+	 {
+		if [[ "${lEquality}" == "0" ]]
+		then
+			[[ "${lExpected}" == "${lReceived}" ]] || exResult=1
+		else
+			[[ "${lExpected}" != "${lReceived}" ]] || exResult=1
+		fi
+	 }
+	
+	local    exResultMsg=""
+
+	[[ ${exResult} -eq 0 ]] && exResultMsg="true" || exResultMsg="false"
+
+	lmsDisplayTs
+	lmsTestBlock "END ${dqt_colorText}testExpectedResults${lmsclr_NoColor}. ${dqt_colorText}(${exResult}) ${exResultMsg}${lmsclr_NoColor}"
+
+	(( td_indent-=2 ))
+
+	return ${exResult}
+}
+
+# =========================================================================
+# =========================================================================
+#
+#	End Library functions
+#
+# =========================================================================
+# =========================================================================

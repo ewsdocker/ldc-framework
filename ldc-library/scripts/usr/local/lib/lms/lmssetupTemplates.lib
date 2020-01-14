@@ -1,0 +1,332 @@
+#!/bin/bash
+# =========================================================================
+# =========================================================================
+#
+#	lmssetupTemplates
+#	  Copy run scripts to /userbin.
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.3
+# @copyright © 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/lms-utilities
+# @subpackage lmssetupTemplates
+#
+# =========================================================================
+#
+#	Copyright © 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/lms-utilities.
+#
+#   ewsdocker/lms-utilities is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/lms-utilities is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/lms-utilities.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+
+declare templateTestFile
+declare templateBuffer
+
+# =========================================================================
+#
+#   createFileName
+#
+#		create the file name for the next templateTestFile
+#			if a custom file exists, return it's name
+#           otherwise, return the library name 
+#
+#	parameters:
+#       tName = Name of the template (e.g. BodyStd)
+#   returns:
+#		0 = no error
+#       non-zero = error number
+#
+# =========================================================================
+function createFileName()
+{
+	local tName=${1}
+    local lDir=${2}
+
+	templateTestFile="${lmsUDTCustom}/template${tName}.tem"
+    [[ -e ${templateTestFile} ]] || 
+     {
+     	[[ -f ${templateTestFile} ]] ||
+     	 {
+	     	templateTestFile="${lmsTemplateLibrary}/template${tName}.tem"
+			[[ -f ${templateTestFile} ]] || return 51
+     	 }
+     }
+
+	return 0    
+}
+
+# =========================================================================
+#
+#   buildAppDesktop
+#
+#		Create an application desktop file from the 
+#         templateDesktop.sh template
+#
+#	parameters:
+#		none
+#
+#   returns:
+#		0 = no error
+#       non-zero = error number
+#
+# =========================================================================
+function buildAppDesktop()
+{
+    templateBuffer=""
+
+	createFileName "Desktop" 
+	[[ $? -eq 0 ]] || return 11
+
+    . "${templateTestFile}"
+
+  	echo "${templateBuffer}" > "${lmsDesktopFile}"
+    chmod 600 "${lmsDesktopFile}"
+
+	return 0
+}
+
+# =========================================================================
+#
+#   createScript
+#       Copy the container template from lmsTemplateContainer to
+#         lmsAppContainer, applying variable transformations. 
+#
+#	parameters:
+#       none
+#       
+#   returns:
+#		0 = no error
+#       non-zero = error number
+#
+# =========================================================================
+function createScript()
+{
+    [[ -f ${lmsTemplateContainer} ]] || return 31
+
+    . ${lmsTemplateContainer}
+
+	mkdir -p ${lmsUDTApps}
+	echo "${templateBuffer}" > ${lmsUDTAppContainer}
+	chmod 775 ${lmsUDTAppContainer}
+
+#	rm "${lmsTemplateContainer}"
+
+	return 0
+}
+
+# =========================================================================
+#
+#   catTemplateApps
+#
+#	parameters:
+#       none
+#       
+#   returns:
+#		0 = no error
+#       non-zero = error number
+#
+# =========================================================================
+function catTemplateApps()
+{
+	local containerFolder="${lmsTemplateApps}"
+
+	[[ -e ${containerFolder} ]] &&
+	 {
+		fnames=( $(ls ${containerFolder}/*.tem 2>null) )
+
+   		[[ ${#fnames[@]} -gt 0 ]] &&
+   		 {
+       		for fname in ${fnames}
+       		do
+       			fbase=$( basename ${fname} )
+   	    		templateTestFile="${containerFolder}/${fbase}"
+
+           		[[ -f "${templateTestFile}" ]] && fileList+="${templateTestFile} "
+       		done
+   		 }
+	 }
+}
+
+# =========================================================================
+#
+#   catTemplateMods
+#     create the lmsTemplateContainer from individual template modules.
+#
+#	parameters:
+#       none
+#       
+#   returns:
+#		0 = no error
+#       non-zero = error number
+#
+# =========================================================================
+function catTemplateMods()
+{
+	echo "read -d '' templateBuffer << CONTAINER" > ${lmsTemplateContainer}
+	
+    # =====================================================================
+    #
+	#	templateHead
+	#
+    # =====================================================================
+	createFileName 'Head'
+	[[ $? -eq 0 ]] || return 1
+
+    local fileList="${templateTestFile} "
+
+    # =====================================================================
+	#
+	#	templateHeadCreate
+	#
+    # =====================================================================
+	createFileName 'HeadCreate'
+	[[ $? -eq 0 ]] || return 2
+
+    fileList+="${templateTestFile} "
+
+    # =====================================================================
+	#
+	#	templateBodyStd
+	#
+    # =====================================================================
+	createFileName 'BodyStd'
+	[[ $? -eq 0 ]] || return 3
+
+    fileList+="${templateTestFile} "
+
+    # =====================================================================
+	#
+	#	templateBodyGui - defaults for X11 video/sound
+	#
+    # =====================================================================
+	[[ "${LMS_TEMPLATE}" == "gui" ]] && 
+	 {
+        createFileName 'BodyGui'
+	    [[ $? -eq 0 ]] || return 4
+
+		fileList+="${templateTestFile} "
+	 }
+
+    # =====================================================================
+	#
+	#	templateAddOn - add-ons to be applied to all template builds
+	#
+    # =====================================================================
+
+	local    fnlist
+
+	while [ true ]
+	do
+		fnlist=$( ls "${lmsTemplates}/custom/templateAddOn*.tem" 2>null )
+		[[ ${#fnlist[@]} -gt 0 ]] || break
+
+    	local -a fnames=( "$fnlist" )
+
+    	local    fname=""
+    	local    fbase=""
+
+    	[[ ${#fnames[@]} -gt 0 ]] || break
+
+       	for fname in ${fnames}
+       	do
+       		fbase=$( basename ${fname} )
+   	    	templateTestFile="${lmsTemplates}/custom/${fbase}"
+
+           	[[ -f "${templateTestFile}" ]] && fileList+="${templateTestFile} "
+		done
+
+		break
+	done
+    	
+   	# =====================================================================
+	#
+	#	template<UserDefined>.tem - container-specific add-ons
+	#
+   	# =====================================================================
+
+	#catTemplateApps
+
+    # =====================================================================
+	#
+	#	templateFooter
+	#
+    # =====================================================================
+	createFileName 'Footer'
+	[[ $? -eq 0 ]] || return 5
+
+	fileList+="${templateTestFile} "
+
+    cat ${fileList} >> ${lmsTemplateContainer}
+    echo "CONTAINER" >> ${lmsTemplateContainer}
+
+    chmod +x ${lmsTemplateContainer}
+
+    return 0
+}
+
+# =========================================================================
+#
+#   setupTemplates
+#
+#		Setup required files in the proper folders
+#
+#	parameters:
+#		none
+#
+#   returns:
+#		0 = no error
+#       non-zero = error number
+#
+# =========================================================================
+function setupTemplates()
+{
+	local testError=0
+
+	catTemplateMods 
+	[[ $? -eq 0 ]] ||
+	 {
+	 	testError=$?
+	 	lmsDisplay "catTemplateMods failed: ${testError}"
+	 	return ${testError}
+	 }
+
+    createScript
+	[[ $? -eq 0 ]] ||
+	 {
+	 	testError=$?
+	 	lmsDisplay "createScript failed: ${testError}"
+	 	return ${testError}
+	 }
+
+	[[ "${LMS_TEMPLATE}" == "gui" ]] && 
+	 {
+        buildAppDesktop
+        [[ $? -eq 0 ]] || 
+         {
+	 	    testError=$?
+	 	    lmsDisplay "buildAppDesktop failed: ${testError}"
+	 	    return ${testError}
+	     }
+     }
+
+    return 0
+}

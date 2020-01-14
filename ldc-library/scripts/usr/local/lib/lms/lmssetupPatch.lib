@@ -1,0 +1,100 @@
+#!/bin/bash
+# =========================================================================
+# =========================================================================
+#
+#	lmssetupPatch
+#	  Overlay utility scripts with patch scripts from /patch.
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.1
+# @copyright © 2018, 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package lms-utilities
+# @subpackage lmssetupPatch
+#
+# =========================================================================
+#
+#	Copyright © 2018, 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of lms-utilities.
+#
+#   lms-utilities is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   lms-utilities is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with lms-utilities.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+#
+#   setupPatch
+#
+#		Overlay files in the proper folders
+#
+#	parameters:
+#		none
+#
+#   returns:
+#		0 = no error
+#       non-zero = error number
+#
+# =========================================================================
+function setupPatch()
+{
+	[[ -e /patch ]] && # cold patch - patch during build
+	 {
+	 	mv -f /patch/* /
+	 }
+
+	mv /usrlocal/share/lms
+	mkdir -p /usrlocal/lib/lms
+	mkdir -p /usrlocal/bin
+
+	cp -r /usr/local/share/*      /usrlocal/share
+	cp -r /usr/local/lib/lms/*    /usrlocal/lib/lms
+
+	cd /usr/local/bin
+
+	for fname in *
+	do
+	    if ! [ -d "${fname}" ]
+	    then
+    		if ! [ -L "${fname}" ] 
+    		then
+    		    if [ -f "/usrlocal/bin/${fname}" ]
+    		    then
+    	            rm "/usrlocal/bin/${fname}"
+    	        fi
+                cp "${fname}" "/usrlocal/bin"
+    	    fi
+        fi
+	done
+
+    # =====================================================================
+
+    mkdir -p "${lmsContainer}"
+
+    echo "LMS_HOME=${LMS_HOME}" >   "${lmsContainer}/lms-base.conf"
+	echo "LMS_BASE=${LMS_BASE}" >>  "${lmsContainer}/lms-base.conf"
+    echo "LMS_CONF=${LMS_CONF}" >>  "${lmsContainer}/lms-base.conf"
+
+	chmod 755 "${lmsContainer}/lms-base.conf"
+    chmod +x /usrlocal/bin/*.sh
+
+    # =====================================================================
+
+    return 0
+}

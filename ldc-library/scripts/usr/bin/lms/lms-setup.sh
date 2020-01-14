@@ -1,0 +1,223 @@
+#!/bin/bash
+# =========================================================================
+# =========================================================================
+#
+#	lms-setup
+#	  Copy run scripts to local host interface.
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.8
+# @copyright © 2018, 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-utilities
+# @subpackage lms-setup
+#
+# =========================================================================
+#
+#	Copyright © 2018, 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-utilities.
+#
+#   ewsdocker/ldc-utilities is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-utilities is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-utilities.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+#
+#	Global declartions
+#
+# =========================================================================
+
+LMS_IMAGE="${LMS_NAME}:${LMS_VERSION}"
+[[ "${LMS_VERS_X}" == "latest" ]] && LMS_IMAGE="${LMS_IMAGE}${LMS_VERS_MOD}"|| LMS_IMAGE="${LMS_IMAGE}${LMS_VERS_EXT}"
+
+declare containerName=${LMS_RUN_NAME}
+declare lmsContainer="/conf/${containerName}"
+
+# =========================================================================
+# =========================================================================
+#
+#	Assumed system directory layout and descriptive global variables
+#
+# =========================================================================
+# =========================================================================
+#
+# /
+#   /home
+#     /<user>
+#       /.local						usrlocal
+#         /share
+#           /lms
+#             /templates
+#               /applications
+#               /bin
+#               /custom
+#               /library
+#   /usr							lmsUsr
+#     /bin							  lmsUsrBin
+#       /lms						    lmsUsrBinLms
+#     /share						  lmsUsrShare
+#       /lms						    lmsUsrShareLms
+#         /templates				      lmsTemplates
+#           /container      		        lmsTemplateContainer
+#     /local						  lmsULocal
+#       /share						    lmsULocalShare
+#         /applications      			  lmsUShareApp
+#         /lms						      lmsUShareLms
+#           /templates				        lmsULocalTemplates
+#             /container   			          lmsAppContainer
+#              /<container>.desktop
+#             /custom
+#             /library
+#
+# /usrlocal (by default) points to the Docker host user's ~/.local folder
+#   and has the same layout as /usr/local (above)
+#
+#  /usrlocal							lmsLocal
+#    /share								  lmsLocalShare
+#      /applications      				    lmsShareApp
+#      /lms								      lmsShareLms
+#        /templates						        lmsShareTemplates
+#             /container   				          lmsAppContainer
+#               /<container>.desktop
+#             /custom
+#             /library
+#
+# =========================================================================
+
+declare lmsUsr="/usr"
+
+declare   lmsUsrBin="${lmsUsr}/bin"
+declare     lmsUsrBinLms="${lmsUsrBin}/lms"
+
+declare   lmsUsrLocal="${lmsUsr}/local"
+declare     lmsUsrLocalBin="${lmsUsrLocal}/bin"
+declare     lmsUsrLocalLib="${lmsUsrLocal}/lib"
+declare       lmsUsrLocalLibLms="${lmsUsrLocalLib}/lms"
+
+# =========================================================================
+#
+#	The user-defined templates are stored in sub-directories of lmsUsrLocalShare
+#
+#	  - lmsUDTApps contain user-defined application add-ons.
+#
+#	  - lmsUDTContainer is where the selected templates are combined
+#			to create a start-up script to define and start a container.
+#
+#	  - lmsUDTCustom is where user-defined custom templates are stored
+#
+#	  - lmsUDTLibrary contains the user-defined templates used to replace
+#			those provided in lmsTemplateLibrary.
+#
+declare     lmsUsrLocalShare="${lmsUsrLocal}/share"
+
+declare       lmsUDLms="${lmsUsrLocalShare}/lms"
+declare         lmsUDTemplates="${lmsUDLms}/templates"
+
+declare           lmsUDTApps="${lmsUDTemplates}/applications"
+declare             lmsUDTAppContainer="${lmsUDTApps}/${containerName}"
+
+declare           lmsUDTContainer="${lmsUDTemplates}/container/${containerName}"
+declare           lmsUDTCustom="${lmsUDTemplates}/custom"
+
+# =========================================================================
+#
+#	The default templates are stored in sub-directories of lmsUsrShare
+#
+#	  - lmsTemplateApps contain default application add-ons.
+#
+#	  - lmsTemplateContainer is where the selected templates are combined
+#			to create a start-up script to define and start a container.
+#
+#	  - lmsTemplateCustom is where custom templates are stored
+#
+#	  - lmsTemplateLibrary contains the default templates used to construct
+#			a general start-up script to define and start a container..
+#
+declare   lmsUsrShare="${lmsUsr}/share"
+declare     lmsUsrShareLms="${lmsUsrShare}/lms"
+
+declare       lmsTemplates="${lmsUsrShareLms}/templates"
+declare         lmsTemplateApps="${lmsTemplates}/applications"
+declare           lmsTemplateAppContainer="${lmsTemplates}/applications/${containerName}"
+declare         lmsTemplateContainer="${lmsTemplates}/container/${containerName}"
+declare         lmsTemplateCustom="${lmsTemplates}/custom"
+declare         lmsTemplateLibrary="${lmsTemplates}/library"
+
+# =========================================================================
+#
+#	directory mapped to the docker host directory (default is ~/.local )
+#		with the same layout as lmsUsrLocal
+#
+#	This structure is designed to be able to share startup scripts
+#
+declare lmsLocal="/usrlocal"
+
+declare   lmsLocalBin="${lmsLocal}/bin"
+declare     lmsAppRunner="${lmsLocalBin}/${containerName}"
+
+declare   lmsLocalLib="${lmsLocal}/lib"
+declare     lmsLocalLibLms="${lmsLocalLib}/lms"
+
+declare   lmsLocalShare="${lmsLocal}/share"
+
+declare     lmsLocalShareApp="${lmsLocalShare}/applications"
+declare       lmsDesktopFile="${lmsLocalShareApp}/${containerName}.desktop"
+
+declare     lmsLocalShareLms="${lmsLocalShare}/lms"
+declare       lmsShareTemplates="${lmsLocalShareLms}/templates"
+
+# =========================================================================
+
+. /usr/local/lib/lms/lmsBashVars.lib
+. /usr/local/lib/lms/lmsconCli.lib
+. /usr/local/lib/lms/lmsDeclare.lib
+. /usr/local/lib/lms/lmsDisplay.lib
+. /usr/local/lib/lms/lmsStr.lib
+. /usr/local/lib/lms/lmsVersion.lib
+
+. /usr/local/lib/lms/lmssetupContainer.lib
+. /usr/local/lib/lms/lmssetupTemplates.lib
+
+# =========================================================================
+
+lmscli_optQuiet=${LMSOPT_QUIET}
+
+lmsDisplay ""
+lmsDisplay "************************************"
+lmsDisplay ""
+lmsDisplay "Installing \"${LMS_DOCKER}\"" 
+lmsDisplay ""
+
+setupContainer
+
+lmsDisplay ""
+lmsDisplay "    Creating run/desktop script(s)."
+lmsDisplay ""
+
+setupTemplates
+lmsVersion
+
+lmsDisplay ""
+lmsDisplay "************************************"
+lmsDisplay ""
+lmsDisplay ""
+lmsDisplay "Internal setup completed."
+lmsDisplay ""
+

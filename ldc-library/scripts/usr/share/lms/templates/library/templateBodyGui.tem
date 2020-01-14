@@ -1,0 +1,5 @@
+    -e DISPLAY=unix\${DISPLAY} \
+    -v \${HOME}/.Xauthority:${HOME}/.Xauthority \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v /dev/shm:/dev/shm \
+    --device /dev/snd \
