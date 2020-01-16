@@ -46,7 +46,7 @@ docker build \
   --build-arg BUILD_EXT_MOD="-b1" \
   \
   --build-arg FROM_REPO="ewsdocker" \
-  --build-arg FROM_PARENT="ldc-stack-base-dev" \
+  --build-arg FROM_PARENT="ldc-stack-dev" \
   --build-arg FROM_VERS="dgtk3-dev" \
   --build-arg FROM_EXT="-0.1.0" \
   --build-arg FROM_EXT_MOD="-b1" \

@@ -1,30 +1,30 @@
 #!/bin/bash
 # ===========================================================================
 #
-#    ldc-stack-base-dev:dqt4-dev-0.1.0-b1
+#    ldc-stack-dev:dqt4-dev-0.1.0-b1
 #
 # ===========================================================================
-cd ~/Development/ewsldc/ldc-stack-base-dev
+cd ~/Development/ewsldc/ldc-stack-dev
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** stopping ldc-stack-base-dev-dqt4-dev container(s)"
+echo "   **** stopping ldc-stack-dev-dqt4-dev container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rm ldc-stack-base-dev-dqt4-dev-0.1.0-b1
+docker rm ldc-stack-dev-dqt4-dev-0.1.0-b1
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** removing ldc-stack-base-dev-dqt4-dev image(s)"
+echo "   **** removing ldc-stack-dev-dqt4-dev image(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rmi ewsdocker/ldc-stack-base-dev:dqt4-dev-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-dev:dqt4-dev-0.1.0-b1
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-stack-base-dev:dqt4-dev-0.1.0-b1"
+echo "   **** building ewsdocker/ldc-stack-dev:dqt4-dev-0.1.0-b1"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -35,13 +35,13 @@ docker build \
   --build-arg BUILD_DAEMON="1" \
   --build-arg BUILD_TEMPLATE="run" \
   \
-  --build-arg BUILD_NAME="ldc-stack-base-dev" \
+  --build-arg BUILD_NAME="ldc-stack-dev" \
   --build-arg BUILD_VERSION="dqt4-dev" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
   --build-arg BUILD_EXT_MOD="-b1" \
   \
   --build-arg FROM_REPO="ewsdocker" \
-  --build-arg FROM_PARENT="ldc-stack-base-dev" \
+  --build-arg FROM_PARENT="ldc-stack-dev" \
   --build-arg FROM_VERS="dgtk3-dev" \
   --build-arg FROM_EXT="-0.1.0" \
   --build-arg FROM_EXT_MOD="-b1" \
@@ -53,17 +53,17 @@ docker build \
   --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
   --network=pkgnet \
   \
-  --file Dockerfile.dstack-base-dev \
--t ewsdocker/ldc-stack-base-dev:dqt4-dev-0.1.0-b1 .
+  --file Dockerfile.dstack-dev \
+-t ewsdocker/ldc-stack-dev:dqt4-dev-0.1.0-b1 .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-stack-base-dev:dqt4-dev-0.1.0-b1 failed."
+ 	echo "build ewsdocker/ldc-stack-dev:dqt4-dev-0.1.0-b1 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-stack-base-dev-dqt4-dev-0.1.0-b1"
+echo "   **** installing ldc-stack-dev-dqt4-dev-0.1.0-b1"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -77,8 +77,8 @@ docker run \
   -e LMS_CONF="${HOME}/.config" \
   \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-stack-base-dev-dqt4-dev-0.1.0-b1:/root \
-  -v ${HOME}/.config/docker/ldc-stack-base-dev-dqt4-dev-0.1.0-b1/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-stack-dev-dqt4-dev-0.1.0-b1:/root \
+  -v ${HOME}/.config/docker/ldc-stack-dev-dqt4-dev-0.1.0-b1/workspace:/workspace \
   \
   -e DISPLAY=unix${DISPLAY} \
   -v ${HOME}/.Xauthority:/root/.Xauthority \
@@ -88,30 +88,30 @@ docker run \
   \
   -v ${HOME}/Downloads:/Downloads \
   \
-  --name=ldc-stack-base-dev-dqt4-dev-0.1.0-b1 \
-ewsdocker/ldc-stack-base-dev:dqt4-dev-0.1.0-b1
+  --name=ldc-stack-dev-dqt4-dev-0.1.0-b1 \
+ewsdocker/ldc-stack-dev:dqt4-dev-0.1.0-b1
 [[ $? -eq 0 ]] ||
  {
- 	echo "build container ldc-stack-base-dev-dqt4-dev-0.1.0-b1 failed."
+ 	echo "build container ldc-stack-dev-dqt4-dev-0.1.0-b1 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** stopping ldc-stack-base-dev-dqt4-dev-0.1.0-b1 daemon"
+echo "   **** stopping ldc-stack-dev-dqt4-dev-0.1.0-b1 daemon"
 echo "   ****"
 echo "   ***********************************************"
 echo
 
-docker stop ldc-stack-base-dev-dqt4-dev-0.1.0-b1
+docker stop ldc-stack-dev-dqt4-dev-0.1.0-b1
 [[ $? -eq 0 ]] ||
  {
- 	echo "stop ldc-stack-base-dev-dqt4-dev-0.1.0-b1 failed."
+ 	echo "stop ldc-stack-dev-dqt4-dev-0.1.0-b1 failed."
  }
 
 echo "   ****************************************************"
 echo "   ****"
-echo "   **** ldc-stack-base-dev:dqt4-dev-0.1.0-b1 successfully installed."
+echo "   **** ldc-stack-dev:dqt4-dev-0.1.0-b1 successfully installed."
 echo "   ****"
 echo "   ****************************************************"
 echo

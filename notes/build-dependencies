@@ -57,24 +57,24 @@ ldc-stack-base
 		ldc-base
 			dx11-surface
 
-ldc-stack-base-dev
+ldc-stack-dev
 ------------------
 	dcc-dev
 		ldc-base
 			dx11-dev
 
 	dgtk3-dev
-		ldc-stack-base-dev
+		ldc-stack-dev
 			dcc-dev
 
 	dqt4-dev
-		ldc-stack-base-dev
+		ldc-stack-dev
 			dgtk3-dev
 
 ldc-stack-apps
 --------------
 	djdk13dev-gtk3
-		ldc-stack-base-dev
+		ldc-stack-dev
 			dgtk3-dev
 
 	djdk13-gtk3
@@ -165,11 +165,11 @@ ldc-dialog
 			dx11-surface
 
 	kaptain
-		ldc-stack-base-dev
+		ldc-stack-dev
 			dqt4-dev
 
 	whiptail
-		ldc-stack-base-dev
+		ldc-stack-dev
 			dqt4-dev
 
 	zenity
@@ -200,7 +200,7 @@ ldc-eclipse
 
 	qt
 		ldc-stack-apps
-			djdk13-qt4
+			dqt4-jdk13dev
 
 ldc-games
 ---------
