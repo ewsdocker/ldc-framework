@@ -1,16 +1,16 @@
 ldc-core
-
+--------
 	dcore
 		debian 9.11
 
 ldc-library
-
+-----------
 	dlibrary
 		ldc-core
 			dcore
 
 ldc-base
-
+--------
 	dbase
 		ldc-core
 			dcore
@@ -31,8 +31,8 @@ ldc-base
 		ldc-base
 			dx11-surface
 
-ldc-lang
-
+ldc-stack-base
+--------------
 	dcc
 		ldc-base
 			dx11-base
@@ -41,75 +41,105 @@ ldc-lang
 		ldc-base
 			dx11-surface
 
-	gtk2
-		ldc-lang
+	dgtk2
+		ldc-stack-base
 			dcc-x11
 
-	gtk2-x11
+	dgtk2-x11
 		ldc-base
 			dx11-surface
 
-	gtk3
-		ldc-lang
+	dgtk3
+		ldc-stack-base
 			dcc-x11
 
-	gtk3-x11
+	dgtk3-x11
 		ldc-base
 			dx11-surface
 
-ldc-langdev
-
-	qt4-x11
+ldc-stack-base-dev
+------------------
+	dcc-dev
 		ldc-base
 			dx11-dev
 
-ldc-devstack
+	dgtk3-dev
+		ldc-stack-base-dev
+			dcc-dev
+
+	dqt4-dev
+		ldc-stack-base-dev
+			dgtk3-dev
+
+ldc-stack-apps
+--------------
+	djdk13dev-gtk3
+		ldc-stack-base-dev
+			dgtk3-dev
+
+	djdk13-gtk3
+		ldc-stack-base
+			dgtk3
+
+	djdk8-gtk2
+		ldc-stack-base
+			dgtk2
+
+	djre8-gtk2
+		ldc-stack-base
+			dgtk2
+
 
 	dcpp-jdk13
-		ldc-devstack
+		ldc-stack-apps
 			djdk13-gtk3
 
 	dfortran-gtk2
-		ldc-devstack
+		ldc-stack-apps
 			djre8-gtk2
 
 	dfortran-jdk13
-		ldc-devstack
+		ldc-stack-apps
 			djdk13-gtk3
 
 	djs13-jdk13
-		ldc-devstack
+		ldc-stack-apps
 			djdk13-gtk3
 
 	dphp5.6-jdk13
-		ldc-devstack
+		ldc-stack-apps
 			djdk13-gtk3
 
+	dqt4-jdk13dev
+		ldc-stack-apps
+			djdk13dev-gtk3
+
+============================================
 
 ldc-browser
-
+-----------
 	ffquantum
-		ldc-lang
+		ldc-stack-base
 			gtk3-x11
 
 	firefox
-		ldc-lang
+		ldc-stack-base
 			gtk3-x11
 
 	netsurf
-		ldc-lang
+		ldc-stack-base
 			dgtk2-x11
 
 	palemoon
-		ldc-lang
+		ldc-stack-base
 			dgtk2-x11
 
 	waterfox
-		ldc-lang
+		ldc-stack-base
 			dgtk3-x11
 
 ldc-cli-apps
-
+------------
 	nano
 		ldc-base
 			dbase
@@ -119,77 +149,78 @@ ldc-cli-apps
 			dbase
 
 ldc-desktop
-
+-----------
 	dia
-		ldc-devstack
+		ldc-stack-apps
 			dfortran-gtk2
 
 	gimp
-		ldc-devstack
+		ldc-stack-apps
 			dfortran-jdk13
 
 ldc-dialog
-
+----------
 	dialog
 		ldc-base
 			dx11-surface
 
 	kaptain
-		ldc-langdev
-			dqt4-x11
+		ldc-stack-base-dev
+			dqt4-dev
 
 	whiptail
-		ldc-langdev
-			dqt4-x11
+		ldc-stack-base-dev
+			dqt4-dev
 
 	zenity
-		ldc-lang
+		ldc-stack-base
 			dgtk3-x11
 		
 ldc-eclipse
-
+-----------
 	cpp
-		ldc-devstack
+		ldc-stack-apps
 			djdk13-gtk3
 
 	fortran
-		ldc-devstack
+		ldc-stack-apps
 			dfortran-jdk13
 
 	java
-		ldc-devstack
+		ldc-stack-apps
 			djdk13-gtk3
 
 	javascript
-		ldc-devstack
+		ldc-stack-apps
 			djs13-jdk13
 
 	php
-		ldc-devstack
+		ldc-stack-apps
 			dphp5.6-jdk13
 
-ldc-games
+	qt
+		ldc-stack-apps
+			djdk13-qt4
 
+ldc-games
+---------
 	mahjongg
-		ldc-lang
+		ldc-stack-base
 			dgtk3-x11
 
 	sol
-		ldc-lang
+		ldc-stack-base
 			dgtk3
 
 ldc-libre
-
+---------
 	office
-		ldc-lang
+		ldc-stack-base
 			dgtk3-x11
 
 	office-jdk
-		ldc-devstack
+		ldc-stack-apps
 			djdk13-gtk3
 
 
-
-
-
-			
+		
