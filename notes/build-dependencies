@@ -31,8 +31,8 @@ ldc-base
 		ldc-base
 			dx11-surface
 
-ldc-stack-base
---------------
+ldc-stack
+---------
 	dcc
 		ldc-base
 			dx11-base
@@ -42,7 +42,7 @@ ldc-stack-base
 			dx11-surface
 
 	dgtk2
-		ldc-stack-base
+		ldc-stack
 			dcc-x11
 
 	dgtk2-x11
@@ -50,7 +50,7 @@ ldc-stack-base
 			dx11-surface
 
 	dgtk3
-		ldc-stack-base
+		ldc-stack
 			dcc-x11
 
 	dgtk3-x11
@@ -119,26 +119,26 @@ ldc-stack-apps
 ldc-browser
 -----------
 	ffquantum
-		ldc-stack-base
+		ldc-stack
 			gtk3-x11
 
 	firefox
-		ldc-stack-base
+		ldc-stack
 			gtk3-x11
 
 	netsurf
-		ldc-stack-base
+		ldc-stack
 			dgtk2-x11
 
 	palemoon
-		ldc-stack-base
+		ldc-stack
 			dgtk2-x11
 
-	waterfox
-		ldc-stack-base
+	waterfox-classic
+		ldc-stack
 			dgtk3-x11
 
-ldc-cli-apps
+ldc-console
 ------------
 	nano
 		ldc-base
@@ -170,10 +170,10 @@ ldc-dialog
 
 	whiptail
 		ldc-stack-dev
-			dqt4-dev
+			dbase
 
 	zenity
-		ldc-stack-base
+		ldc-stack
 			dgtk3-x11
 		
 ldc-eclipse
@@ -205,17 +205,17 @@ ldc-eclipse
 ldc-games
 ---------
 	mahjongg
-		ldc-stack-base
+		ldc-stack
 			dgtk3-x11
 
 	sol
-		ldc-stack-base
+		ldc-stack
 			dgtk3
 
 ldc-libre
 ---------
 	office
-		ldc-stack-base
+		ldc-stack
 			dgtk3-x11
 
 	office-jdk

@@ -2,7 +2,7 @@
 # ========================================================================================
 #
 #	Dockerfile
-#	  Dockerfile for ldc-devgui:ddevgui in a Docker container.
+#	  Dockerfile for ldc-stack:dstack in a Docker container.
 #
 # ========================================================================================
 #
@@ -10,28 +10,28 @@
 # @version 0.1.0
 # @copyright © 2019. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
-# @package ewsdocker/ldc-devgui
-# @subpackage Dockerfile.ddevgui
+# @package ewsdocker/ldc-dstack
+# @subpackage Dockerfile.dstack
 #
 # ========================================================================================
 #
 #	Copyright © 2019. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
-#   This file is part of ewsdocker/ldc-devgui.
+#   This file is part of ewsdocker/ldc-stack.
 #
-#   ewsdocker/ldc-devgui is free software: you can redistribute 
+#   ewsdocker/ldc-stack is free software: you can redistribute 
 #   it and/or modify it under the terms of the GNU General Public License 
 #   as published by the Free Software Foundation, either version 3 of the 
 #   License, or (at your option) any later version.
 #
-#   ewsdocker/ldc-devgui is distributed in the hope that it will 
+#   ewsdocker/ldc-stack is distributed in the hope that it will 
 #   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
 #   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
 #
 #   You should have received a copy of the GNU General Public License
-#   along with ewsdocker/ldc-devgui.  If not, see <http://www.gnu.org/licenses/>.
+#   along with ewsdocker/ldc-stack.  If not, see <http://www.gnu.org/licenses/>.
 #
 # ========================================================================================
 # ========================================================================================
@@ -257,7 +257,7 @@ ENV \
     LMS_FROM="${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}" \
     LMS_PARENT="${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}" \
     \
-    LMS_NAME=${BUILD_NAME:-"ldc-lang"} \
+    LMS_NAME=${BUILD_NAME:-"ldc-stack"} \
     LMS_VERSION=${BUILD_VERSION:-"dcc"} \
     LMS_VERS_X=${BUILD_VERS_EXT:-"-0.1.0"} \
     LMS_VERS_MOD=${BUILD_EXT_MOD:-"-b1"} 
