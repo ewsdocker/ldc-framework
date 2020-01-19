@@ -1,0 +1,12 @@
+ewsdocker/ldc-desktop  dia-0.1.0-b1   1.15GB
+
+Suggested packages:
+  python-gobject-2-dbg python-gtk2-doc python-dev python-nose python-numpy-dbg
+  python-numpy-doc
+The following NEW packages will be installed:
+  dia dia-common dia-libs dia-shapes dia2code gsfonts gsfonts-x11 libart-2.0-2
+  libblas-common libblas3 liblapack3 libpython2.7 libxfont1 python-cairo
+  python-gobject-2 python-gtk2 python-numpy xfonts-encodings xfonts-utils
+0 upgraded, 19 newly installed, 0 to remove and 0 not upgraded.
+Need to get 19.0 MB of archives.
+After this operation, 63.4 MB of additional disk space will be used.

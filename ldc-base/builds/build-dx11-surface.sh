@@ -70,6 +70,8 @@ echo
 docker run \
   -d \
   \
+  -v /etc/localtime:/etc/localtime:ro \
+  \
   -e LMS_BASE="${HOME}/.local" \
   -e LMS_HOME="${HOME}" \
   -e LMS_CONF="${HOME}/.config" \

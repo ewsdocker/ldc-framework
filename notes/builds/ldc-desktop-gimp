@@ -1,21 +1,5 @@
-liblcms2-utils is already the newest version (2.8-4+deb9u1).
-The following additional packages will be installed:
-  desktop-file-utils gimp-data gvfs-common gvfs-daemons gvfs-libs libaa1
-  libamd2 libarchive13 libasm4-java libatasmart4 libavahi-glib1 libavformat57
-  libbabl-0.1-0 libblas-common libblas3 libbluray1 libcaca0 libcamd2
-  libccolamd2 libcdio-cdda1 libcdio-paranoia1 libcdio13 libcholmod3
-  libchromaprint1 libcolamd2 libcupsimage2 libexif12 libgck-1-0
-  libgcr-3-common libgcr-base-3-1 libgd3 libgdata-common libgdata22
-  libgegl-0.3-0 libgimp2.0 libgme0 libgoa-1.0-0b libgoa-1.0-common
-  libgphoto2-6 libgphoto2-port12 libgpm2 libgs9 libgs9-common libijs-0.35
-  libilmbase12 libimobiledevice6 libjbig2dec0 liblapack3 libldb1 liblzo2-2
-  libmetis5 libmng1 libmpg123-0 libmtp-common libmtp9 libnfs8 liboauth0
-  libopenexr22 libopenmpt0 libpaper1 libparted2 libplist3 libpoppler-glib8
-  libpoppler64 libpython2.7 libraw15 libsdl1.2debian libsmbclient
-  libssh-gcrypt-4 libsuitesparseconfig4 libswscale4 libtalloc2 libtevent0
-  libudisks2-0 libumfpack5 libusbmuxd4 libvorbisfile3 libwbclient0 libwmf0.2-7
-  parted poppler-data python-cairo python-gobject-2 python-gtk2 python-numpy
-  python-talloc samba-libs udev udisks2
+ewsdocker/ldc-desktop  gimp-0.1.0-b1   1.62GB
+
 Suggested packages:
   fonts-noto gimp-help-en | gimp-help bluez-obexd samba-common lrzip
   libgd-tools gphoto2 gpm libusbmuxd-tools libparted-dev libparted-i18n
@@ -49,17 +33,3 @@ The following NEW packages will be installed:
 0 upgraded, 99 newly installed, 0 to remove and 0 not upgraded.
 Need to get 58.7 MB of archives.
 After this operation, 240 MB of additional disk space will be used.
-
-
-
-
-
-   
-    
-  python-gobject-2 python-gtk2 python-numpy python-talloc samba-libs udev
-  udisks2
-
-
-
-
-

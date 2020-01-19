@@ -4,7 +4,7 @@
 #    ldc-stack-dev:dcc-dev-0.1.0-b1
 #
 # ===========================================================================
-cd ~/Development/ewsldc/ldc-stack-base
+cd ~/Development/ewsldc/ldc-stack-dev
 
 echo "   ********************************************"
 echo "   ****"
@@ -73,6 +73,8 @@ echo
 docker run \
   -d \
   --rm \
+  \
+  -v /etc/localtime:/etc/localtime:ro \
   \
   -e LMS_BASE="${HOME}/.local" \
   -e LMS_HOME="${HOME}" \

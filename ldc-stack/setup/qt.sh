@@ -55,11 +55,6 @@ echo
 
 addPkg "apt-get -y install"
 
-#addPkg "bsdmainutils"  "collection of utilities from FreeBSD"
-
-addPkg "groff"         "GNU troff text-formatting system"
-addPkg "groff-base"    "GNU troff text-formatting system base components"
-
 addPkg "libmng1"       "Multiple-image Network Graphics (MNG) library"
 addPkg "libpipeline1"  "pipeline manipulation library"
 
@@ -68,6 +63,36 @@ addPkg "qtchooser"     "Select between Qt development binary versions"
 case "${QTVER}" in
 
 	"QT4")
+
+		echo "*******************************"
+	    echo
+	    echo "          QT 4"
+	    echo
+	    echo "*******************************"
+		echo
+
+        addPkg "libqt4-designer"
+
+        addPkg "libqt4-network"
+
+        addPkg "libqt4-qt3support"
+
+        addPkg "libqt4-script"
+        addPkg "libqt4-sql"
+
+        addPkg "libqt4-xml"
+
+        addPkg "libqtcore4"
+
+        addPkg "libqtdbus4"
+
+        addPkg "libqtgui4"
+
+        addPkg "qtcore4-l10n"
+
+		;;
+
+	"QT4DEV")
 
 		echo "*******************************"
 	    echo
@@ -205,18 +230,6 @@ addPkg "xtrans-dev"
 	    echo "*******************************"
 		echo
 
-#		addPkg "libdouble-conversion1" "Convert IEEE floats to/from strings"
-
-#		addPkg "libevdev2"
-#		addPkg "libgudev-1.0-0" "GObject-based wrapper library for libudev"
-
-#		addPkg "libinput-bin"
-#		addPkg "libinput10"
-
-#		addPkg "libmtdev1"
-
-#		addPkg "libpcre16-3" "Old Perl 5 Compatible Regular Expression Library - 16 bit runtime files"
-
 		addPkg "libqt5core5a"
 		addPkg "libqt5dbus5"
 
@@ -248,9 +261,10 @@ addPkg "xtrans-dev"
 		;;
 
 	*)
-	    echo "*******************************"
+
+		echo "*******************************"
 	    echo
-	    echo "  Unknown QT option: ${QTVER}"
+	    echo "  Unknown option: ${QTVER}"
 	    echo
 	    echo "*******************************"
 		echo

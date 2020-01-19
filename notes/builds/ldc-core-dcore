@@ -1,3 +1,5 @@
+ewsdocker/ldc-core   dcore-0.1.0-b1  225MB
+
 Suggested packages:
   anacron checksecurity libdpkg-perl gnutls-bin krb5-doc krb5-user lsb
   python-doc python-tk python-setuptools python2.7-doc binutils binfmt-support

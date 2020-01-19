@@ -58,6 +58,7 @@ addPkg "libnet-dbus-perl libnet-http-perl libnet-ssleay-perl"
 
 addPkg "libpcre16-3" "16 bit Perl 5 Compatible Regular Expression Library runtime"
 
+addPkg "libterm-readline-gnu-perl"
 addPkg "libtext-iconv-perl" "converts between character sets in Perl"
 
 addPkg "libtimedate-perl liburi-perl"

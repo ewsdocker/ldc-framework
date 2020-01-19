@@ -1,15 +1,20 @@
+ewsdocker/ldc-stack  dgtk3-x11-0.1.0-b1   755MB
+
 The following additional packages will be installed:
   libthai-data libthai0
 Suggested packages:
   gvfs librsvg2-bin
+Recommended packages:
+  libgtk2.0-bin
 The following NEW packages will be installed:
   adwaita-icon-theme at-spi2-core cups-common gnome-icon-theme
   gtk-update-icon-cache hicolor-icon-theme libatk-bridge2.0-0 libatk1.0-0
   libatk1.0-data libatspi2.0-0 libcairo-gobject2 libcroco3 libcups2
-  libgail-common libgail18 libgraphite2-3 libgtk2.0-0 libgtk2.0-bin
-  libgtk2.0-common libharfbuzz0b libpango-1.0-0 libpangocairo-1.0-0
+  libdbusmenu-gtk3-4 libdbusmenu-gtk4 libgail-common libgail18 libgraphite2-3
+  libgtk-3-0 libgtk-3-bin libgtk-3-common libgtk2.0-0 libgtk2.0-common
+  libgtkextra-3.0 libharfbuzz0b libpango-1.0-0 libpangocairo-1.0-0
   libpangoft2-1.0-0 librest-0.7-0 librsvg2-2 librsvg2-common
   libsoup-gnome2.4-1 libsoup2.4-1 libthai-data libthai0
-0 upgraded, 30 newly installed, 0 to remove and 0 not upgraded.
-Need to get 30.2 MB of archives.
-After this operation, 82.5 MB of additional disk space will be used.
+0 upgraded, 35 newly installed, 0 to remove and 0 not upgraded.
+Need to get 36.7 MB of archives.
+After this operation, 118 MB of additional disk space will be used.

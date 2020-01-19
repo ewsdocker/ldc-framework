@@ -1,0 +1,9 @@
+ewsdocker/ldc-browser  ffquantum-0.1.0-b1   965MB
+
+Suggested packages:
+  gobjc-6-multilib gcc-6-doc libobjc4-dbg
+The following NEW packages will be installed:
+  gobjc-6 libgc1c2 libobjc-6-dev libobjc4
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 6826 kB of archives.
+After this operation, 25.3 MB of additional disk space will be used.

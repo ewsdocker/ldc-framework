@@ -1,3 +1,5 @@
+ewsdocker/ldc-stack-dev   dcc-dev-0.1.0-b1    766MB
+
 Suggested packages:
   g++-multilib g++-6-multilib gcc-6-doc libstdc++6-6-dbg gcc-multilib
   manpages-dev autoconf automake libtool flex bison gdb gcc-doc gcc-6-multilib

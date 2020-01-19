@@ -72,6 +72,8 @@ docker run \
    -d \
    --rm \
    \
+  -v /etc/localtime:/etc/localtime:ro \
+  \
    -e LMS_BASE="/root/.local" \
    -e LMS_HOME="/root" \
    -e LMS_CONF="/root/.config" \

@@ -1,0 +1,13 @@
+ewsdocker/ldc-stack-apps  djdk13dev-gtk3-0.1.0-b1   1.34GB
+
+Suggested packages:
+  default-jre libdbus-java-doc libmatthew-java-doc pcscd libnss-mdns
+  fonts-dejavu-extra fonts-ipafont-gothic fonts-ipafont-mincho
+  fonts-wqy-microhei fonts-wqy-zenhei fonts-indic
+The following NEW packages will be installed:
+  ca-certificates-java dbus-java-bin default-jre-headless java-common
+  libdbus-java libmatthew-debug-java libnspr4 libnss3 libpcsclite1
+  libunixsocket-java openjdk-8-jre-headless
+0 upgraded, 11 newly installed, 0 to remove and 0 not upgraded.
+Need to get 28.9 MB of archives.
+After this operation, 105 MB of additional disk space will be used.

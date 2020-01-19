@@ -1,23 +1,20 @@
+ewsdocker/ldc-dialog   zenity-0.1.0-b1   880MB
+
 The following additional packages will be installed:
-  aspell aspell-en dictionaries-common emacsen-common libaspell15 libcap2-bin
-  libenchant1c2a libgstreamer-plugins-bad1.0-0 libgstreamer-plugins-base1.0-0
-  libgstreamer1.0-0 libharfbuzz-icu0 libhunspell-1.4-0 libhyphen0
-  libjavascriptcoregtk-4.0-18 libsecret-1-0 libsecret-common
-  libtext-iconv-perl libxslt1.1
+  aspell aspell-en dictionaries-common emacsen-common libaspell15
+  libenchant1c2a libharfbuzz-icu0 libhunspell-1.4-0 libhyphen0
+  libjavascriptcoregtk-4.0-18
 Suggested packages:
-  aspell-doc spellutils wordlist libenchant-voikko libvisual-0.4-plugins
-  gstreamer1.0-tools
+  aspell-doc spellutils wordlist libenchant-voikko
 Recommended packages:
-  libpam-cap enchant gstreamer1.0-plugins-base hunspell-en-us
-  | hunspell-dictionary | myspell-dictionary notification-daemon
-  gstreamer1.0-plugins-good gstreamer1.0-pulseaudio | gstreamer1.0-alsa
+  enchant hunspell-en-us | hunspell-dictionary | myspell-dictionary
+  notification-daemon gstreamer1.0-plugins-base gstreamer1.0-plugins-good
+  gstreamer1.0-pulseaudio | gstreamer1.0-alsa
 The following NEW packages will be installed:
-  aspell aspell-en dictionaries-common emacsen-common libaspell15 libcap2-bin
-  libenchant1c2a libgstreamer-plugins-bad1.0-0 libgstreamer-plugins-base1.0-0
-  libgstreamer1.0-0 libharfbuzz-icu0 libhunspell-1.4-0 libhyphen0
-  libjavascriptcoregtk-4.0-18 libnotify4 libsecret-1-0 libsecret-common
-  libtext-iconv-perl libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-37-gtk2 libxslt1.1
-  zenity zenity-common
-0 upgraded, 23 newly installed, 0 to remove and 0 not upgraded.
-Need to get 33.6 MB of archives.
-After this operation, 129 MB of additional disk space will be used.
+  aspell aspell-en dictionaries-common emacsen-common libaspell15
+  libenchant1c2a libharfbuzz-icu0 libhunspell-1.4-0 libhyphen0
+  libjavascriptcoregtk-4.0-18 libnotify4 libwebkit2gtk-4.0-37
+  libwebkit2gtk-4.0-37-gtk2 zenity zenity-common
+0 upgraded, 15 newly installed, 0 to remove and 0 not upgraded.
+Need to get 27.7 MB of archives.
+After this operation, 116 MB of additional disk space will be used.

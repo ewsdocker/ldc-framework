@@ -196,14 +196,14 @@ ENV \
     LMS_REPO=${BUILD_REPO:-"ewsdocker"} \
     \
     LMS_CATEGORIES=${BUILD_CATEGORIES:-"Development"} \
-    LMS_DESKTOP=${BUILD_DESKTOP:-"ldc-devstack"} \
+    LMS_DESKTOP=${BUILD_DESKTOP:-"ldc-stack-apps"} \
     LMS_ICON=${BUILD_ICON:-"default.png"} \
     \
     LMS_FROM="${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}" \
     LMS_PARENT="${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}" \
     \
-    LMS_NAME=${BUILD_NAME:-"ldc-devstack"} \
-    LMS_VERSION=${BUILD_VERSION:-"dstack"} \
+    LMS_NAME=${BUILD_NAME:-"ldc-stack-apps"} \
+    LMS_VERSION=${BUILD_VERSION:-"dstack-apps"} \
     LMS_VERS_X=${BUILD_VERS_EXT:-"-0.1.0"} \
     LMS_VERS_MOD=${BUILD_EXT_MOD:-"-b1"} 
 

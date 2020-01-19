@@ -57,6 +57,14 @@ ldc-stack
 		ldc-base
 			dx11-surface
 
+	dqt4
+		ldc-stack
+			dcc-x11
+
+	dqt4-x11
+		ldc-base
+			dx11-surface
+
 ldc-stack-dev
 ------------------
 	dcc-dev
@@ -78,15 +86,15 @@ ldc-stack-apps
 			dgtk3-dev
 
 	djdk13-gtk3
-		ldc-stack-base
+		ldc-stack
 			dgtk3
 
 	djdk8-gtk2
-		ldc-stack-base
+		ldc-stack
 			dgtk2
 
 	djre8-gtk2
-		ldc-stack-base
+		ldc-stack
 			dgtk2
 
 
@@ -158,11 +166,19 @@ ldc-desktop
 		ldc-stack-apps
 			dfortran-jdk13
 
+	mousepad
+		ldc-stack
+			dgtk2-x11
+
+	ripme
+		ldc-stack-apps
+			djre8-gtk2
+
 ldc-dialog
 ----------
 	dialog
 		ldc-base
-			dx11-surface
+			dbase
 
 	kaptain
 		ldc-stack-dev
@@ -171,6 +187,10 @@ ldc-dialog
 	whiptail
 		ldc-stack-dev
 			dbase
+
+	yad
+		ldc-stack
+			dgtk3-x11
 
 	zenity
 		ldc-stack

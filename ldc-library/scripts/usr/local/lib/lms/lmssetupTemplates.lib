@@ -59,9 +59,10 @@ declare templateBuffer
 function createFileName()
 {
 	local tName=${1}
-    local lDir=${2}
 
 	templateTestFile="${lmsUDTCustom}/template${tName}.tem"
+echo "createFileName: $templateTestFile"
+
     [[ -e ${templateTestFile} ]] || 
      {
      	[[ -f ${templateTestFile} ]] ||
@@ -124,9 +125,10 @@ function createScript()
 
     . ${lmsTemplateContainer}
 
-	mkdir -p ${lmsUDTApps}
-	echo "${templateBuffer}" > ${lmsUDTAppContainer}
-	chmod 775 ${lmsUDTAppContainer}
+#	mkdir -p ${lmsAppRunner}
+	rm -Rf ${lmsAppRunner}
+	echo "${templateBuffer}" > ${lmsAppRunner}
+	chmod 775 ${lmsAppRunner}
 
 #	rm "${lmsTemplateContainer}"
 
@@ -195,10 +197,10 @@ function catTemplateMods()
 
     # =====================================================================
 	#
-	#	templateHeadCreate
+	#	templateHeadRun
 	#
     # =====================================================================
-	createFileName 'HeadCreate'
+	createFileName 'HeadRun'
 	[[ $? -eq 0 ]] || return 2
 
     fileList+="${templateTestFile} "
