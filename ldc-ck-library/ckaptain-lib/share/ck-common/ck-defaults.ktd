@@ -1,0 +1,173 @@
+# =========================================================================================
+#
+#  kaptain-defaults.ktd
+#		Default settings for Kaptain templates (deprecated, yet still supported)
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.2.0
+# @copyright © 2017-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-ckaptain
+# @subpackage kaptain-defaults.ktd
+#
+# =========================================================================
+#
+#	Copyright © 2017-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ckaptain.
+#
+#   ewsdocker/ldc-ckaptain is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ckaptain is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ckaptain.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+
+ARG KPT_INSTALL
+ARG KPT_BIN
+ARG KPT_SHARE
+
+ARG KPT_CK
+ARG KPT_WIDGET
+
+ARG KPT_FOLDER
+ARG KPT_TEMPLATE
+
+ARG KPT_COMMON
+
+ARG KPT_UID
+ARG KPT_GID
+ARG KPT_USER
+ARG KPT_HOME
+ARG KPT_RUNTYPE
+
+ARG KPT_XSOCK
+ARG KPT_XAUTH
+
+
+ENV KPTINST=${KPT_INSTALL:-"/ckaptain-lib"} \
+    KPTBIN=${KPT_BIN:-"bin"} \
+    KPTSHARE=${KPT_SHARE:-"share"} \
+    \
+    KPTCK=${KPT_CK:-"ck"} \
+    KPTWIDGET=${KPT_WIDGET:-"ckw"} \
+    \
+    KPTFOLDER=${KPT_FOLDER:-"kaptain-sample"} \
+    KPTTEMPL=${KPT_TEMPLATE:-"kaptain-sample"} \
+    \
+    KPTCOMMON=${KPT_COMMON:-"kaptain-common"}
+
+ENV KPTCK_PATH=${KPTINST}/${KPTSHARE}/${KPTCK} \
+    KPTCKW_PATH=${KPTINST}/${KPTSHARE}/${KPTWIDGET}
+
+ENV KPT_FILE="${KPTCK_PATH}/${KPTFOLDER}/${KPTTEMPL}.kpt" \
+    KPT_DEFS="${KPTCK_PATH}/${KPTFOLDER}/${KPTTEMPL}.ktd" \
+    KPT_HEADER="${KPTCK_PATH}/${KPTCOMMON}/kpt-header.kth" \
+    KPT_FOOTER="${KPTCK_PATH}/${KPTCOMMON}/kpt-footer.ktf" \
+    \
+    KPTW_GRAMMAR="${KPTCKW_PATH}/${KPTFOLDER}/grammar.ktg" \
+    KPTW_OPTIONS="${KPTCKW_PATH}/${KPTFOLDER}/options.ktd"
+    KPTW_FOOTER="${KPTCKW_PATH}/${KPTFOLDER}/footer.ktf" \
+    KPTW_HEADER="${KPTCKW_PATH}/${KPTFOLDER}/header.kth" \
+    \
+    KPT_RUNF="${KPTBIN}/${KPTTEMPL}"
+
+
+ENV KPTUID=${KPT_UID:-"0"} \
+    KPTGID=${KPT_GID:-"0"} \
+    KPTUSER=${KPT_USER:-"root"} \
+    KPTHOME=${KPT_HOME:-"$HOME"} \
+    KPTRUNTYPE=${KPT_RUNTYPE:-"run"}
+
+ENV XSOCK=${KPT_XSOCK:-"/tmp/.X11-unix"} \
+    XAUTH=${KPT_XAUTH:-"/tmp/.docker.xauth"}
+
+# =========================================================================================
+
+ENV VOL_XSOCK="${XSOCK}:${XSOCK}" \
+    VOL_XAUTH="${XAUTH}:${XAUTH}" \
+    VOL_PULSE="/run/user/${KPTUID}/pulse:/run/pulse" \
+    VOL_LOCALTIME="/etc/localtime:/etc/localtime:ro"
+
+# =========================================================================================
+# =========================================================================================
+#
+#    Framework Environment Variables
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+# KPT_DEFTEMPL = default template name
+# KPT_TEMPLATE = user-specified template name
+# KPT_TEMPL = absolute path to the KPT_TEMPLATE directory
+#
+# =========================================================================================
+
+[[ -z "${KPT_DEFTEMPL}" ]] && KPT_DEFTEMPL="kaptain-sample"
+[[ -z "${KPT_TEMPLATE}" ]] && KPT_TEMPLATE="${KPT_DEFTEMPL}"
+
+KPT_TEMPL="${KPT_MENU}/${KPT_TEMPLATE}"
+
+# =========================================================================================
+
+[[ -z "${KPT_DEFDEST}" ]] && KPT_DEFDEST="/dest"
+[[ -z "${KPT_CKS}" ]] && KPT_CKS="/usr/local/share/kaptain-menus"
+[[ -z "${KPT_DEFFOLDER}" ]] && KPT_DEFFOLDER="templates"
+
+# =========================================================================================
+
+KPT_FILE="${KPT_CKS}/${KPT_DEFFOLDER}/${KPT_TEMPLATE}.kpt"
+KPT_FDEF="${KPT_CKS}/${KPT_DEFFOLDER}/${KPT_TEMPLATE}.ktd"
+
+KPTM_HEADER="${KPT_CKS}/kpt-header"
+KPTM_FOOTER="${KPT_CKS}/kpt-footer"
+
+KPT_GRAM="${KPT_DEFDEST}/${KPT_TEMPLATE}.grm"
+KPT_DEST="${KPT_DEFDEST}/${KPT_TEMPLATE}.kpt"
+
+KPT_RUNF="${KPT_USERBIN}/${KPT_TEMPLATE}"
+
+# =========================================================================================
+
+kaptain_cmd=""
+kaptain_grammar=""
+
+# =========================================================================================
+# =========================================================================================
+#
+#    Kaptain Environment Variables
+#
+# =========================================================================================
+# =========================================================================================
+
+declare -a KPT_ARGS="${@}"
+
+XSOCK="/tmp/.X11-unix"
+XAUTH="/tmp/.docker.xauth"
+
+# =========================================================================================
+
+VOL_XSOCK="${XSOCK}:${XSOCK}"
+VOL_XAUTH="${XAUTH}:${XAUTH}"
+
+VOL_PULSE="/run/user/${KPT_UID}/pulse:/run/pulse"
+VOL_LOCALTIME="/etc/localtime:/etc/localtime:ro"
+VOL_MENU="${KPT_HOME}/.conf/docker:/menu"
+VOL_BIN="${KPT_HOME}/bin:/userbin"
+    

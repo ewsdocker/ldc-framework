@@ -1,0 +1,325 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	docker-build/grammar.ktg - a sample Kaptain menu-template grammar file 
+#                        for docker image building
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.2.0
+# @copyright © 2019-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-ckaptain
+# @subpackage docker-build/grammar.ktg
+#
+# =========================================================================
+#
+#	Copyright © 2019-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ckaptain.
+#
+#   ewsdocker/ldc-ckaptain is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ckaptain is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ckaptain.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+
+# ===========================================================================================
+#
+#	Grammar consists of 2 segments: command - all the controls and settings (top of form)
+#                                   buttons - control button definitions (bottom of form)
+#	  
+# ===========================================================================================
+
+read -d '' kaptain_grammar << GRAMMAR
+
+start "Kaptain: Docker Build Configuration" -> command buttons ;
+
+    # ===========================================================================================
+    #
+    #	command is the docker build command that is being pieced together with the
+    #     listed segment names
+    #	  
+    # ===========================================================================================
+
+	command:framed -> command_start
+	                  tag_image
+	                  flags
+	                  options
+                      option_buttons
+                      build_context ;
+
+       command-start -> "docker build " ;
+
+       # ===========================================================================================
+       #
+       #	tag_image - string input field to place the build tag information
+       #	  
+       # ===========================================================================================
+
+       tag_image:framed "${templ_title}" -> docker_tag ;
+ 
+          docker_tag:beside "--tag " -> "--tag " @string="${templ_image} " ;
+
+       # ===========================================================================================
+       #
+       #	End - tag_image
+       #
+       # ===========================================================================================
+
+       # ===========================================================================================
+       #
+       #	flags_and_options
+       #
+       # ===========================================================================================
+
+       flags_and_options:framed:beside "Build Options" -> flags_dialog options_dialog ;
+       
+          # ===================================================================================
+	      #
+	      #  	flags_dialog - Set/Reset container flags
+	      #	  
+	      # ===================================================================================
+
+          flags_dialog:dialog "Build Flags" -> flagsbody flagsfooter @close="OK" ;
+           
+             flagsbody "Set/Reset Build Flags" -> flags_0  flags_1  flags_2  flags_3  flags_4 
+                                                  flags_5  flags_6  flags_7  flags_8  ;
+
+                flags_0:beside " --compress="   -> " --compress "  @string="${templ_compress}" " " | ! "" ;
+                flags_1:beside " --force-rm="   -> " --force-rm "  @string="${templ_forcerm}"  " " | ! "" ;
+                flags_2:beside " --no-cache="   -> " --no-cache "  @string="${templ_nocache}"  " " | ! "" ;
+                flags_3:beside " --pull="       -> " --pull "      @string="${templ_pull}"     " " | ! "" ;
+                flags_4:beside " --quiet="      -> " --quiet "     @string="${templ_quiet}"    " " | ! "" ;
+     	        flags_5:beside " --rm="         -> " --rm="        @string="${templ_rm}"       " " | ! "" ;
+      	        flags_6:beside " --secret="     -> " --secret "    @string="${templ_secret}"   " " | ! "" ;
+       	        flags_7:beside " --squash="     -> " --squash "    @string="${templ_squash}"   " " | ! "" ;
+   		        flags_8:beside " --stream="     -> " --stream "    @string="${templ_stream}"   " " | ! "" ;
+ 
+		     flagsfooter:beside "Make additional entries in Additonal Build Options" -> " " ;
+ 
+  	      # ===================================================================================
+	      #
+	      #    End - flags_dialog
+	      #
+	      # ===================================================================================
+	      
+ 	      # ===================================================================================
+          #
+	      #	  options_dialog - docker build options
+	      #	  
+	      # ===================================================================================
+
+          options_dialog:dialog "Build Options" -> optbody optfooter @close="OK" ;
+
+             optbody:framed:beside "Build Options" -> opt_0 opt_1 opt_2 opt_3 opt_4  opt_5  
+                                                      opt_6 opt_7 opt_8 opt_9 opt_10 opt_11;
+
+        	    opt_0:beside   " --add-host "      -> " --add-host "      @string="${templ_addhost}"      " " | ! "" ;
+        	    opt_1:beside   " --build-arg "     -> " --build-arg "     @string="${templ_buildarg}"     " " | ! "" ;
+        	    opt_2:beside   " --cache-from "    -> " --cache-from "    @string="${templ_cachefrom}"    " " | ! "" ;
+        	    opt_3:beside   " --cgroup-parent " -> " --cgroup-parent " @string="${templ_cgroupparent}" " " | ! "" ;
+      		    opt_4:beside   " --file "          -> " --file "          @string="${templ_file}"         " " | ! "" ;
+        	    opt_5:beside   " --iidfile "       -> " --iidfile "       @string="${templ_iidfile}"      " " | ! "" ;
+        	    opt_6:beside   " --label "         -> " --label "         @string="${templ_label}"        " " | ! "" ;
+        	    opt_7:beside   " --network  "      -> " --network "       @string="${templ_network}"      " " | ! "" ;
+        	    opt_8:beside   " --security-opt "  -> " --security-opt "  @string="${templ_securityopt}"  " " | ! "" ;
+        	    opt_9:beside   " --ssh "           -> " --ssh "           @string="${templ_ssh}"          " " | ! "" ;
+        	    opt_10:beside  " --target "        -> " --target "        @string="${templ_target}"       " " | ! "" ;
+        	    opt_11:beside  " --ulimits "       -> " --ulimits "       @string="${templ_ulimits}"      " " | ! "" ;
+
+             optfooter "Make additional entries in Additonal Build Options" -> "" ;
+
+ 	      # ===================================================================================
+          #
+	      #	  End - options_dialog
+	      #	  
+	      # ===================================================================================
+
+       # ===========================================================================================
+       #
+       #    End - flags_and_options  
+       #
+       # ===========================================================================================
+
+       # ===========================================================================================
+       #
+       #    option_buttons - Option buttons  
+       #
+       # ===========================================================================================
+
+       option_buttons:framed:beside "Option Buttons" -> left_button middle_button right_button ;
+
+          # ===================================================================================
+          #
+          #	left_button - Build restrictions
+          #	  
+          # ===================================================================================
+
+          left_button:beside "Build Restrictions" -> restrict_dialog ;
+          
+              # ===================================================================================
+              #
+              #	restrict_dialog - Build Restrictions
+              #	  
+              # ===================================================================================
+
+              restrict_dialog:dialog  "Restrictions" -> restrict_table  restrict_footer @close="OK" ;
+             
+                restrict_table:framed:beside -> restrict_0 restrict_1 restrict_2 restrict_3 restrict_4 
+                                                restrict_5 restrict_6 restrict_7 restrict_8  ;
+
+        	       restrict_0:beside  "--cpu-set-cpus " -> " --cpu-set-cpus "  @string="${templ_cpusetcpus}" " " | ! "" ;
+        	       restrict_1:beside  "--cpu-set-mems " -> " --cpu-set-mems "  @string="${templ_cpusetmems}" " " | ! "" ;
+        	       
+        	       restrict_2:beside  "--cpu-period   " -> " --cpu-period "    @integer=${templ_cpuperiod}   " " | ! "" ;
+        	       restrict_3:beside  "--cpu-quota    " -> " --cpu-quota "     @integer=${templ_cpuquota}    " " | ! "" ;
+      		       restrict_4:beside  "--cpu-shares   " -> " --cpu-shares "    @integer=${templ_cpushares}   " " | ! "" ;
+        	       restrict_5:beside  "--cpus         " -> " --cpus "          @integer=${templ_cpus}        " " | ! "" ;
+        	       
+        	       restrict_6:beside  "--memory       " -> " --memory "        @integer=${templ_memory}      " " | ! "" ;
+        	       restrict_7:beside  "--memory-swap  " -> " --memory-swap "   @integer=${templ_memoryswap}  " " | ! "" ;
+        	       
+        	       restrict_8:beside  "--shm-size     " -> " --shm-size "      @string="${templ_shmsize}"    " " | ! "" ;
+
+                restrict_footer "Make additional entries in Additonal Build Options" -> "" ;
+
+              # ===================================================================================
+              #
+              #	   End restrict_dialog
+              #	  
+              # ===================================================================================
+
+          # =======================================================================================
+          #
+          #	   End - left button
+          #	  
+          # =======================================================================================
+          
+          # =======================================================================================
+          #
+          #	   middle button - Environment settings
+          #	  
+          # =======================================================================================
+                   
+          middle_button:beside "Build Environment"    ->  environ_dialog ;
+
+             # ===================================================================================
+             #
+             #	environ_dialog - Build Environment
+             #	  
+             # ===================================================================================
+
+             environ_dialog:dialog:beside  "Environment"  -> combo_table  @close="OK" ;
+             
+                combo_table:framed "Build Environment" -> combo_console combo_isolation combo_platform ;
+                
+                   combo_console:beside   -> "--console " 
+                                                 @combo("auto","true","false")="${templ_console}" ;
+
+                   combo_isolation:beside -> "--isolation " 
+                                                 @combo("default","process","hyper-v")="${templ_isolation}" ;
+
+                   combo_platform:beside  -> "--platform " 
+                                                 @combo("linux","windows","other")="${templ_platform}" ;
+
+              # ===================================================================================
+              #
+              #	   End environ_dialog
+              #	  
+              # ===================================================================================
+
+          # =======================================================================================
+          #
+          #	   End - middle button
+          #	  
+          # =======================================================================================
+
+          # =======================================================================================
+          #
+          #	   right button - Additional options
+          #	  
+          # =======================================================================================
+                   
+          right_button:beside "Additional Options"    ->  add_dialog ;
+
+              # ===================================================================================
+              #
+              #	   add_dialog - Additional Options
+              #	  
+              # ===================================================================================
+
+              add_dialog:dialog  "Additional" -> add_box @close="OK";
+
+                add_box:framed "Enter additional container options" -> @edit("timesnewroman",640,480)="${templ_addopts}" ;
+
+              # ===================================================================================
+              #
+              #	   End add_dialog
+              #	  
+              # ===================================================================================
+
+          # =======================================================================================
+          #
+          #	   End - right button
+          #	  
+          # =======================================================================================
+
+       # ===========================================================================================
+       #
+       #    End - option_buttons  
+       #
+       # ===========================================================================================
+
+       # ===========================================================================================
+       #
+       #	build_context - string input field to define the docker context
+       #	  
+       # ===========================================================================================
+
+       build_context:framed "Build Context" -> docker_context ;
+ 
+          docker_context:beside "Context: " -> " " @string="${templ_context}" ;
+
+       # ===========================================================================================
+       #
+       #	End - build_context
+       #
+       # ===========================================================================================
+
+    # ===========================================================================================
+    #
+    #	End - command segment
+    #	  
+    # ===========================================================================================
+
+    # ===========================================================================================
+    #
+    #	control button definitions
+    #	  
+    # ===========================================================================================
+    buttons:horizontal -> @dump(command)="Generate" 
+	                      @close="Cancel" 
+	                      @preview(command,"Lucidatypewriter",300,200,"Ok")="${templ_control}" ;
+
+    # ===========================================================================================
+    #
+    #	End - control button definitions
+    #	  
+    # ===========================================================================================
+
+GRAMMAR

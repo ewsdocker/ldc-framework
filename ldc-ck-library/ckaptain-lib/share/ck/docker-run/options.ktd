@@ -1,0 +1,180 @@
+# =========================================================================================
+#
+#  kaptain-menu-vars
+#
+#      kaptain menu framework for creating, editing, saving and running Kaptain menu templates.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.7
+# @copyright © 2017, 2018, 2019. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package kaptain-template-library
+# @subpackage kaptain-sample-docker
+#
+# =========================================================================
+#
+#	Copyright © 2017, 2018, 2019. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/kaptain-template-library.
+#
+#   ewsdocker/kaptain-template-library is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/kaptain-template-library is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/kaptain-template-library.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+# KPT_UID = docker container user id
+# KPT_GID = docker container group id
+# KPT_USER = docker container user name
+# KPT_HOME = docker container user home directory
+#
+# =========================================================================================
+
+[[ -z "${KPT_UID}"  ]] && KPT_UID=0
+[[ -z "${KPT_GID}"  ]] && KPT_GID=0
+[[ -z "${KPT_USER}" ]] && KPT_USER="root"
+[[ -z "${KPT_HOME}" ]] && 
+ {
+    [[ ${KPT_USER} == "root" ]] && KPT_HOME="/root" || KPT_HOME="/home/${KPTUSER}" 
+ }
+
+# =========================================================================================
+#
+# KPT_MENU = path to the user-specified menu template folder
+# KPT_USERBIN = path to the binary files (/usr/local/bin, ~/bin, etc.)
+#
+# =========================================================================================
+
+[[ -z "${KPT_MENU}"    ]] && KPT_MENU="/menu"
+[[ -z "${KPT_USERBIN}" ]] && KPT_USERBIN="/userbin"
+
+# =========================================================================================
+#
+# KPT_DEFDEST = path to the user-specified location to store the generated command
+# KPT_DEFPATH = path to the default kaptain templates
+# KPT_DEFMENU = name of the default kaptain template
+#
+# =========================================================================================
+
+[[ -z "${KPT_DEFDEST}" ]] && KPT_DEFDEST="/dest"
+[[ -z "${KPT_DEFPATH}" ]] && KPT_DEFPATH="/usr/local/share/kaptain-menus"
+[[ -z "${KPT_DEFFOLDER}" ]] && KPT_DEFFOLDER="templates"
+
+# =========================================================================================
+#
+# KPT_RUNTYPE = the docker run type to create (run, exec, restart, etc.)
+#
+# =========================================================================================
+
+[[ -z "${KPT_RUNTYPE}" ]] && KPT_RUNTYPE="run"
+
+# =========================================================================================
+# =========================================================================================
+#
+#    Framework Environment Variables
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+# KPT_DEFTEMPL = default template name
+# KPT_TEMPLATE = user-specified template name
+# KPT_TEMPL = absolute path to the KPT_TEMPLATE directory
+#
+# =========================================================================================
+
+[[ -z "${KPT_DEFTEMPL}" ]] && KPT_DEFTEMPL="kaptain-sample-docker"
+[[ -z "${KPT_TEMPLATE}" ]] && KPT_TEMPLATE="${KPT_DEFTEMPL}"
+
+KPT_TEMPL="${KPT_MENU}/${KPT_TEMPLATE}"
+
+# =========================================================================================
+
+[[ -z "${KPT_DEFDEST}" ]] && KPT_DEFDEST="/dest"
+[[ -z "${KPT_DEFPATH}" ]] && KPT_DEFPATH="/usr/local/share/kaptain-menus"
+[[ -z "${KPT_DEFFOLDER}" ]] && KPT_DEFFOLDER="templates"
+
+# =========================================================================================
+
+KPT_FILE="${KPT_DEFPATH}/${KPT_DEFFOLDER}/${KPT_TEMPLATE}.kpt"
+KPT_FDEF="${KPT_DEFPATH}/${KPT_DEFFOLDER}/${KPT_TEMPLATE}.ktd"
+
+KPTM_HEADER="${KPT_DEFPATH}/kpt-header"
+KPTM_FOOTER="${KPT_DEFPATH}/kpt-footer"
+
+KPT_GRAM="${KPT_DEFDEST}/${KPT_TEMPLATE}.grm"
+KPT_DEST="${KPT_DEFDEST}/${KPT_TEMPLATE}.kpt"
+
+KPT_RUNF="${KPT_USERBIN}/${KPT_TEMPLATE}"
+
+# =========================================================================================
+
+kaptain_cmd=""
+kaptain_grammar=""
+
+# =========================================================================================
+# =========================================================================================
+#
+#    Kaptain Environment Variables
+#
+# =========================================================================================
+# =========================================================================================
+
+declare -a KPT_ARGS="${@}"
+
+XSOCK="/tmp/.X11-unix"
+XAUTH="/tmp/.docker.xauth"
+
+# =========================================================================================
+
+VOL_XSOCK="${XSOCK}:${XSOCK}"
+VOL_XAUTH="${XAUTH}:${XAUTH}"
+
+VOL_PULSE="/run/user/${KPT_UID}/pulse:/run/pulse"
+VOL_LOCALTIME="/etc/localtime:/etc/localtime:ro"
+VOL_MENU="${KPT_HOME}/.conf/docker:/menu"
+VOL_BIN="${KPT_HOME}/bin:/userbin"
+    
+# =========================================================================================
+#
+#     Error Exit Codes
+#
+# =========================================================================================
+
+XERR_NONE=0
+XERR_PARSE=1
+XERR_MENU=2
+XERR_HEADER=3
+XERR_BODY=4
+XERR_WRITE=5
+XERR_WBODY=6
+XERR_KAPTAIN=7
+XERR_UNKNOWN=98
+
+XERR_MSG=([${XERR_NONE}]="No error."
+          [${XERR_PARSE}]="Parse error."
+          [${XERR_MENU}]="Unknown menu."
+          [${XERR_HEADER}]="Unable to read header."
+          [${XERR_BODY}]="Unable to create body."
+          [${XERR_WRITE}]="Unable to write header."
+          [${XERR_WBODY}]="Unable to write body."
+          [${XERR_KAPTAIN}]="Kaptain processing error."
+          [${XERR_UNKNOWN}]="Unknown error.")
+

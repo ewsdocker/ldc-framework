@@ -2,37 +2,37 @@
 # =========================================================================
 # =========================================================================
 #
-#	lms-library
-#	  Archive lms library files in lms-library tarball (archive)
+#	ldc-library
+#	  Archive lms library files in ldc-library tarball (archive)
 #
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.1
-# @copyright © 2018, 2019. EarthWalk Software.
+# @version 0.1.2
+# @copyright © 2018-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
-# @package ewsdocker/lms-library
-# @subpackage lms-library
+# @package ewsdocker/ldc-library
+# @subpackage ldc-library
 #
 # =========================================================================
 #
-#	Copyright © 2018, 2019. EarthWalk Software
+#	Copyright © 2018-2020. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
-#   This file is part of ewsdocker/lms-library.
+#   This file is part of ewsdocker/ldc-library.
 #
-#   ewsdocker/lms-library is free software: you can redistribute 
+#   ewsdocker/ldc-library is free software: you can redistribute 
 #   it and/or modify it under the terms of the GNU General Public License 
 #   as published by the Free Software Foundation, either version 3 of the 
 #   License, or (at your option) any later version.
 #
-#   ewsdocker/lms-library is distributed in the hope that it will 
+#   ewsdocker/ldc-library is distributed in the hope that it will 
 #   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
 #   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
 #
 #   You should have received a copy of the GNU General Public License
-#   along with ewsdocker/lms-library.  If not, see 
+#   along with ewsdocker/ldc-library.  If not, see 
 #   <http://www.gnu.org/licenses/>.
 #
 # =========================================================================
@@ -126,12 +126,9 @@ lmsMessage="   Created archive: ${LMSU_TARBALL}"
 [[ ${lmsResult} -eq 0 ]] || lmsMessage="lmsArchiveUtilities failed." 
 
 lmsDisplay ""
-lmsDisplay ${lmsMessage}
+lmsDisplay "${lmsMessage}"
 
 lmsDisplay ""
 lmsDisplay "*************************************************************"
 lmsDisplay ""
 
-# =========================================================================
-
-exit ${lmsResult}

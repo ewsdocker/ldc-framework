@@ -1,0 +1,93 @@
+#!/bin/bash
+# =========================================================================================
+#
+#  cklWidget.lib
+#
+#      ck-library script to create the selected ckWidget command.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ldc-ck-library
+# @subpackage cklWidget.lib
+#
+# =========================================================================
+#
+#	Copyright © 2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ck-library.
+#
+#   ewsdocker/ldc-ck-library is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ck-library is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ck-library.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+declare cklWidget_lib="0.1.0"
+
+declare cklWidget_trace=0
+
+# ===========================================================================
+# ===========================================================================
+#
+#	cklWidget
+#
+#	Parameters:
+#		kwPath = path to the widget file (.widget)
+#		kwWidget = location to store the path to the generated kaptain command
+#                   (defaults to "widgetResult")
+#
+#   Results:
+#       0 = no error
+#       non-zero = error code
+#
+# ===========================================================================
+# ===========================================================================
+function cklWidget()
+{
+    local kwPath="${1}"
+
+    . ${kwPath}
+
+    local kwTemp="./kwtemp"
+    echo "${kaptain_grammar}" | sed -e 's/  */ /g' > "${kwTemp}"
+
+    [[ ${cklWidget_trace} -eq 1 ]] &&
+     {
+        echo "kaptain_grammar:"
+        echo "${kaptain_grammar}"
+        echo
+     }
+
+    kaptain_cmd=$( /usr/bin/kaptain --test "${kwTemp}" )
+    rm -f "${kwTemp}"
+
+    [[ ${cklWidget_trace} -eq 1 ]] &&
+     {
+        echo "kaptain_cmd:"
+        echo "${kaptain_cmd}"
+        echo
+     }
+
+    [[ -z "${kaptain_cmd}" ]] && return 1
+
+	lmsDeclareStr ${2:-"widgetResult"} "${kaptain_cmd}"    
+    [[ $? -eq 0 ]] || return 2
+
+    return 0
+}
+

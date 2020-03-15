@@ -4,7 +4,7 @@
 #    ldc-stack-apps:djre8-gtk2-0.1.0-b1
 #
 # ===========================================================================
-cd ~/Development/ewsldc/ldc-stack-apps
+cd ~/Development/ewsldc/ldc-framework/ldc-stack-apps
 
 echo "   ********************************************"
 echo "   ****"

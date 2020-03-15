@@ -8,7 +8,7 @@
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 0.0.6
+# @version 0.0.7
 # @copyright © 2018-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/lms-utilities
@@ -54,9 +54,10 @@
 # =========================================================================
 function setupContainer()
 {
-	[[ -e "~/.dbus/session-bus/$(cat /var/lib/dbus/machine-id)-0" ]] &&
+	local sessionFile="~/.dbus/session-bus/$(cat /var/lib/dbus/machine-id)-0" 
+	[[ -e  "${sessionFile}" ]] &&
 	 {
-	    . ~/.dbus/session-bus/$(cat /var/lib/dbus/machine-id)-0
+	    . "${sessionFile}"
         [[ $? -eq 0 ]] && export DBUS_SESSION_BUS_ADDRESS DBUS_SESSION_BUS_PID
      }
 

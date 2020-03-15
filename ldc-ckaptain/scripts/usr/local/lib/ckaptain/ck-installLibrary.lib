@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# =========================================================================
+#
+#	installLibrary
+#		download & install requested library
+#
+#   Enter:
+#		instLib = "library" name downloaded - what you are going to extract from
+#		instUrl = server to download the library from
+#		instDir = directory to extract to
+#
+# =========================================================================
+function installLibrary()
+{
+	local instLib="${1}"
+	local instUrl="${2}"
+	local instDir="${3}"
+
+    wget "${instUrl}" 
+    [[ $? -eq 0 ]] || return $?
+
+    tar -xvf "${instLib}" -C "${instDir}" 
+    [[ $? -eq 0 ]] || return $?
+
+    rm "${instLib}"
+
+    return 0
+}
+

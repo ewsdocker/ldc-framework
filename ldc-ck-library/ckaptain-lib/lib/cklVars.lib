@@ -1,0 +1,80 @@
+#!/bin/bash
+# =========================================================================================
+#
+#  cklVars.lib
+#
+#      ck-library global variables.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ldc-ck-library
+# @subpackage cklVars.lib
+#
+# =========================================================================
+#
+#	Copyright © 2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ck-library.
+#
+#   ewsdocker/ldc-ck-library is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ck-library is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ck-library.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+#
+#	Location and structure of the ckaptain library
+#
+#    /opt
+#     |-- ckaptain-lib                 $ckl
+#         |-- bin                      $cklbin
+#         |-- lib                      $ckllib
+#         |-- share                    $cklshare
+#             |-- icons                $cklicons
+#             |-- ck                   $ck
+#             |-- ck-common            $ckc
+#             |-- ckw                  $ckw
+#                 |-- widgets          $ckw_widgets
+#                 |-- dialogs          $ckw_dialogs
+#
+
+declare    ckl="/opt/ckaptain-lib"
+
+declare    cklbin="$ckl/bin"
+declare    ckllib="$ckl/lib"
+declare    cklshare="$ckl/share"
+
+declare    cklicons="$cklshare/icons"
+
+declare    ck="$cklshare/ck"
+declare    ckc="$cklshare/ck-common"
+declare    ckw="$cklshare/ckw"
+
+declare    ckw_widgets="$ckw/widgets"
+declare    ckw_dialogs="$ckw/dialogs"
+
+# =========================================================================================
+
+declare    template=""
+declare    templatePath=""
+declare    templateName=""
+
+declare -i newTemplate=0
+declare -a nv
+

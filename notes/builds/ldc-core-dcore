@@ -12,10 +12,10 @@ Suggested packages:
 Recommended packages:
   exim4 | postfix | mail-transport-agent ca-certificates libglib2.0-data
   shared-mime-info xdg-user-dirs krb5-locales publicsuffix libsasl2-modules
-  tcpd bsd-mailx | mailx bzip2 file xz-utils syslog-ng-mod-smtp
-  syslog-ng-mod-amqp syslog-ng-mod-geoip syslog-ng-mod-redis
-  syslog-ng-mod-stomp syslog-ng-mod-riemann syslog-ng-mod-graphite
-  syslog-ng-mod-python syslog-ng-mod-add-contextual-data systemd
+  tcpd bsd-mailx | mailx bzip2 file syslog-ng-mod-smtp syslog-ng-mod-amqp
+  syslog-ng-mod-geoip syslog-ng-mod-redis syslog-ng-mod-stomp
+  syslog-ng-mod-riemann syslog-ng-mod-graphite syslog-ng-mod-python
+  syslog-ng-mod-add-contextual-data systemd
 The following NEW packages will be installed:
   cron curl dh-python distro-info-data less libatomic1 libbson-1.0-0 libc-l10n
   libcurl3 libcurl3-gnutls libdbi1 libevtlog0 libexpat1 libffi6 libglib2.0-0
@@ -30,7 +30,7 @@ The following NEW packages will be installed:
   python-pkg-resources python2.7 python2.7-minimal python3 python3-minimal
   python3.5 python3.5-minimal readline-common sudo supervisor syslog-ng
   syslog-ng-core syslog-ng-mod-journal syslog-ng-mod-json
-  syslog-ng-mod-mongodb syslog-ng-mod-sql unzip wget zip
-0 upgraded, 81 newly installed, 0 to remove and 0 not upgraded.
-Need to get 28.1 MB of archives.
-After this operation, 95.9 MB of additional disk space will be used.
+  syslog-ng-mod-mongodb syslog-ng-mod-sql unzip wget xz-utils zip
+0 upgraded, 82 newly installed, 0 to remove and 0 not upgraded.
+Need to get 28.3 MB of archives.
+After this operation, 96.5 MB of additional disk space will be used.

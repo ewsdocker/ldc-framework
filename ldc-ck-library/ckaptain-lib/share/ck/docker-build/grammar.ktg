@@ -1,0 +1,419 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	docker-build/grammar.ktg - a sample Kaptain menu-template grammar file 
+#                        for docker image building
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.2.0
+# @copyright © 2019-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-ckaptain
+# @subpackage docker-build/grammar.ktg
+#
+# =========================================================================
+#
+#	Copyright © 2019-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ckaptain.
+#
+#   ewsdocker/ldc-ckaptain is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ckaptain is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ckaptain.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+read -d '' kaptain_grammar << GRAMMAR
+
+# ===========================================================================================
+#
+#	Grammar consists of 2 segments: command - all the controls and settings (top of form)
+#                                   buttons - control button definitions (bottom of form)
+#	  
+# ===========================================================================================
+
+start "Kaptain: Docker Build Configuration" -> command buttons copyright ;
+
+    # ===========================================================================================
+    #
+    #	copyright and license notice.
+    #	  
+    # ===========================================================================================
+
+    copyright -> empty_line copyrght license ;
+      empty_line " " -> "";
+      copyrght "   Copyright © 2020. EarthWalk Software." -> "" ;
+      license  "   Licensed under the GNU General Public License, GPL-3.0-or-later." -> "" ;
+
+    # ===========================================================================================
+    #
+    #	copyright and license notice.
+    #	  
+    # ===========================================================================================
+
+    command :framed -> docker_build command_start ;
+
+        docker_build:framed "Docker Build Command" -> @string="docker build" " " ;
+
+     # ===========================================================================================
+     #
+     #	command_start is the body of the docker build command
+     #	  
+     # ===========================================================================================
+
+     command_start:framed "Flags, Options and Settings " -> tag_image
+                                                            flags_and_options
+                                                            option_buttons
+                                                            build_context ;
+
+       # ===========================================================================================
+       #
+       #	tag_image - string input field to place the build tag information
+       #	  
+       # ===========================================================================================
+
+       tag_image:beside "Tag" -> docker_tag ;
+ 
+          docker_tag:beside "--tag " -> "--tag " @string="${templ_image} " ;
+
+       # ===========================================================================================
+       #
+       #	End - tag_image
+       #
+       # ===========================================================================================
+
+       # ===========================================================================================
+       #
+       #	flags_and_options
+       #
+       # ===========================================================================================
+
+       flags_and_options :framed :beside "Build Flags and Options" -> flags_dialog options_dialog buildargs_dialog;
+       
+          # ===================================================================================
+          #
+          #  	flags_dialog - Set/Reset container flags
+          #	  
+          # ===================================================================================
+
+          flags_dialog:dialog:beside "Build Flags" -> flagsbody flagsfooter @close="OK" ;
+
+             flagsbody "Set/Reset Build Flags" -> flags_0  flags_1  flags_2  flags_3  flags_4 
+                                                  flags_5  flags_6  flags_7  flags_8  ;
+
+                flags_0:beside " --compress "   -> " --compress "  @string="${templ_compress}" " " | $templ_flag_0 "" ;
+                flags_1:beside " --force-rm "   -> " --force-rm "  @string="${templ_forcerm}"  " " | $templ_flag_1 "" ;
+                flags_2:beside " --no-cache "   -> " --no-cache "  @string="${templ_nocache}"  " " | $templ_flag_2 "" ;
+                flags_3:beside " --pull     "   -> " --pull "      @string="${templ_pull}"     " " | $templ_flag_3 "" ;
+                flags_4:beside " --quiet    "   -> " --quiet "     @string="${templ_quiet}"    " " | $templ_flag_4 "" ;
+     	        flags_5:beside " --rm       "   -> " --rm "        @string="${templ_rm}"       " " | $templ_flag_5 "" ;
+      	        flags_6:beside " --secret   "   -> " --secret "    @string="${templ_secret}"   " " | $templ_flag_6 "" ;
+       	        flags_7:beside " --squash   "   -> " --squash "    @string="${templ_squash}"   " " | $templ_flag_7 "" ;
+   		        flags_8:beside " --stream   "   -> " --stream "    @string="${templ_stream}"   " " | $templ_flag_8 "" ;
+
+             flagsfooter:beside "Make additional entries in Additonal Build Options" -> " " ;
+
+  	      # ===================================================================================
+          #
+          #    End - flags_dialog
+          #
+          # ===================================================================================
+
+          # ===================================================================================
+          #
+          #	  options_dialog - docker build options
+          #	  
+          # ===================================================================================
+
+          options_dialog:dialog :beside "Build Options" -> optbody optfooter @close="OK" ;
+
+             optbody "Build Options" -> opt_0 opt_1 opt_2 opt_3 opt_4  opt_5  
+                                        opt_6 opt_7 opt_8 opt_9 opt_10 ;
+
+        	    opt_0:beside   " --add-host "      -> " --add-host="      @string="${templ_addhost}"      " " | $templ_opt_0   "" ;
+        	    opt_1:beside   " --cache-from "    -> " --cache-from "    @string="${templ_cachefrom}"    " " | $templ_opt_1   "" ;
+        	    opt_2:beside   " --cgroup-parent " -> " --cgroup-parent " @string="${templ_cgroupparent}" " " | $templ_opt_2   "" ;
+      		    opt_3:beside   " --file "          -> " --file "          @string="${templ_file}"         " " | $templ_opt_3   "" ;
+        	    opt_4:beside   " --iidfile "       -> " --iidfile "       @string="${templ_iidfile}"      " " | $templ_opt_4   "" ;
+        	    opt_5:beside   " --label "         -> " --label "         @string="${templ_label}"        " " | $templ_opt_5   "" ;
+        	    opt_6:beside   " --network  "      -> " --network="       @string="${templ_network}"      " " | $templ_opt_6   "" ;
+        	    opt_7:beside   " --security-opt "  -> " --security-opt "  @string="${templ_securityopt}"  " " | $templ_opt_7   "" ;
+        	    opt_8:beside   " --ssh "           -> " --ssh "           @string="${templ_ssh}"          " " | $templ_opt_8   "" ;
+        	    opt_9:beside   " --target "        -> " --target "        @string="${templ_target}"       " " | $templ_opt_9   "" ;
+        	    opt_10:beside  " --ulimits "       -> " --ulimits "       @string="${templ_ulimits}"      " " | $templ_opt_10  "" ;
+
+             optfooter "Make additional entries in Additonal Build Options" -> "" ;
+
+          # ===================================================================================
+          #
+          #	  End - options_dialog
+          #	  
+          # ===================================================================================
+
+          # ===================================================================================
+          #
+          #	  buildargs_dialog - docker build arguments
+          #	  
+          # ===================================================================================
+
+          buildargs_dialog :dialog "Build Arguments" -> bargcontent bargfooter @close="OK" ;
+          
+           bargcontent :beside :tabbed -> bargs_bl1 bargs_bl2 bargs_bl3  ;
+          
+            bargs_bl1 "Block 1 (0 - 15) " -> barg_0  barg_1  barg_2  barg_3 
+                                             barg_4  barg_5  barg_6  barg_7 
+                                             barg_8  barg_9  barg_10 barg_11
+                                             barg_12 barg_13 barg_14 barg_15 ;
+
+        	    barg_0:beside   " --build-arg " -> " --build-arg " @string="${templ_buildarg_0}"  " " | $templ_barg_0   "" ;
+        	    barg_1:beside   " --build-arg " -> " --build-arg " @string="${templ_buildarg_1}"  " " | $templ_barg_1   "" ;
+        	    barg_2:beside   " --build-arg " -> " --build-arg " @string="${templ_buildarg_2}"  " " | $templ_barg_2   "" ;
+        	    barg_3:beside   " --build-arg " -> " --build-arg " @string="${templ_buildarg_3}"  " " | $templ_barg_3   "" ;
+      		    barg_4:beside   " --build-arg " -> " --build-arg " @string="${templ_buildarg_4}"  " " | $templ_barg_4   "" ;
+        	    barg_5:beside   " --build-arg " -> " --build-arg " @string="${templ_buildarg_5}"  " " | $templ_barg_5   "" ;
+        	    barg_6:beside   " --build-arg " -> " --build-arg " @string="${templ_buildarg_6}"  " " | $templ_barg_6   "" ;
+        	    barg_7:beside   " --build-arg " -> " --build-arg " @string="${templ_buildarg_7}"  " " | $templ_barg_7   "" ;
+        	    barg_8:beside   " --build-arg " -> " --build-arg " @string="${templ_buildarg_8}"  " " | $templ_barg_8   "" ;
+        	    barg_9:beside   " --build-arg " -> " --build-arg " @string="${templ_buildarg_9}"  " " | $templ_barg_9   "" ;
+        	    barg_10:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_10}" " " | $templ_barg_10  "" ;
+        	    barg_11:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_11}" " " | $templ_barg_11  "" ;
+        	    barg_12:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_12}" " " | $templ_barg_12  "" ;
+        	    barg_13:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_13}" " " | $templ_barg_13  "" ;
+        	    barg_14:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_14}" " " | $templ_barg_14  "" ;
+        	    barg_15:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_15}" " " | $templ_barg_15  "" ;
+
+             bargs_bl2 "Block 2 (16 - 31) " -> barg_16 barg_17 barg_18 barg_19 
+                                               barg_20 barg_21 barg_22 barg_23 
+                                               barg_24 barg_25 barg_26 barg_27 
+                                               barg_28 barg_29 barg_30 barg_31 ;
+
+        	    barg_16:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_16}" " " | $templ_barg_16 "" ;
+        	    barg_17:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_17}" " " | $templ_barg_17 "" ;
+        	    barg_18:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_18}" " " | $templ_barg_18 "" ;
+        	    barg_19:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_19}" " " | $templ_barg_19 "" ;
+      		    barg_20:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_20}" " " | $templ_barg_20 "" ;
+        	    barg_21:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_21}" " " | $templ_barg_21 "" ;
+        	    barg_22:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_22}" " " | $templ_barg_22 "" ;
+        	    barg_23:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_23}" " " | $templ_barg_23 "" ;
+        	    barg_24:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_24}" " " | $templ_barg_24 "" ;
+        	    barg_25:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_25}" " " | $templ_barg_25 "" ;
+        	    barg_26:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_26}" " " | $templ_barg_26 "" ;
+        	    barg_27:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_29}" " " | $templ_barg_27 "" ;
+        	    barg_28:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_28}" " " | $templ_barg_28 "" ;
+        	    barg_29:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_29}" " " | $templ_barg_29 "" ;
+        	    barg_30:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_30}" " " | $templ_barg_30 "" ;
+        	    barg_31:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_31}" " " | $templ_barg_31 "" ;
+
+             bargs_bl3 "Block 3 (31 - 47) " -> barg_32 barg_33 barg_34 barg_35 
+                                               barg_36 barg_37 barg_38 barg_39 
+                                               barg_40 barg_41 barg_42 barg_43 
+                                               barg_44 barg_45 barg_46 barg_47 ;
+
+        	    barg_32:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_32}" " " | $templ_barg_32 "" ;
+        	    barg_33:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_33}" " " | $templ_barg_33 "" ;
+        	    barg_34:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_34}" " " | $templ_barg_34 "" ;
+        	    barg_35:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_35}" " " | $templ_barg_35 "" ;
+      		    barg_36:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_36}" " " | $templ_barg_36 "" ;
+        	    barg_37:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_37}" " " | $templ_barg_37 "" ;
+        	    barg_38:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_38}" " " | $templ_barg_38 "" ;
+        	    barg_39:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_39}" " " | $templ_barg_39 "" ;
+        	    barg_40:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_40}" " " | $templ_barg_40 "" ;
+        	    barg_41:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_41}" " " | $templ_barg_41 "" ;
+        	    barg_42:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_42}" " " | $templ_barg_42 "" ;
+        	    barg_43:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_43}" " " | $templ_barg_43 "" ;
+        	    barg_44:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_44}" " " | $templ_barg_44 "" ;
+        	    barg_45:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_45}" " " | $templ_barg_45 "" ;
+        	    barg_46:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_46}" " " | $templ_barg_46 "" ;
+        	    barg_47:beside  " --build-arg " -> " --build-arg " @string="${templ_buildarg_47}" " " | $templ_barg_47 "" ;
+
+            bargfooter "Make additional entries in Additonal Build Options" -> "" ;
+
+          # ===================================================================================
+          #
+          #	  End - options_dialog
+          #	  
+          # ===================================================================================
+
+       # ===========================================================================================
+       #
+       #    End - flags_and_options  
+       #
+       # ===========================================================================================
+
+       # ===========================================================================================
+       #
+       #    option_buttons - Option buttons  
+       #
+       # ===========================================================================================
+
+       option_buttons:framed:beside "Advanced Option Buttons" -> left_button middle_button right_button ;
+
+          # ===================================================================================
+          #
+          #	left_button - Build restrictions
+          #	  
+          # ===================================================================================
+
+          left_button:beside "Build Restrictions" -> restrict_dialog ;
+
+              # ===================================================================================
+              #
+              #	restrict_dialog - Build Restrictions
+              #	  
+              # ===================================================================================
+
+              restrict_dialog:dialog  "Restrictions" -> restrict_table  restrict_footer @close="OK" ;
+
+                restrict_table -> restrict_0 restrict_1 restrict_2 restrict_3 restrict_4 
+                                  restrict_5 restrict_6 restrict_7 restrict_8  ;
+
+        	       restrict_0:beside  " --cpu-set-cpus " -> " --cpu-set-cpus="  @string="${templ_cpusetcpus}" " " | $templ_ret_0 "" ;
+        	       restrict_1:beside  " --cpu-set-mems " -> " --cpu-set-mems="  @string="${templ_cpusetmems}" " " | $templ_ret_1 "" ;
+
+        	       restrict_2:beside  " --cpu-period   " -> " --cpu-period="    @string="${templ_cpuperiod}"  " " | $templ_ret_2 "" ;
+        	       restrict_3:beside  " --cpu-quota    " -> " --cpu-quota="     @string="${templ_cpuquota}"   " " | $templ_ret_3 "" ;
+      		       restrict_4:beside  " --cpu-shares   " -> " --cpu-shares="    @string="${templ_cpushares}"  " " | $templ_ret_4 "" ;
+        	       restrict_5:beside  " --cpus         " -> " --cpus="          @string="${templ_cpus}"       " " | $templ_ret_5 "" ;
+
+        	       restrict_6:beside  " --memory       " -> " --memory="        @string="${templ_memory}"     " " | $templ_ret_6 "" ;
+        	       restrict_7:beside  " --memory-swap  " -> " --memory-swap="   @string="${templ_memoryswap}" " " | $templ_ret_7 "" ;
+
+        	       restrict_8:beside  " --shm-size     " -> " --shm-size="      @string="${templ_shmsize}"    " " | $templ_ret_8 "" ;
+
+                restrict_footer " Make additional entries in Additonal Build Options " -> "" ;
+
+              # ===================================================================================
+              #
+              #	   End restrict_dialog
+              #	  
+              # ===================================================================================
+
+          # =======================================================================================
+          #
+          #	   End - left button
+          #	  
+          # =======================================================================================
+
+          # =======================================================================================
+          #
+          #	   middle button - Environment settings
+          #	  
+          # =======================================================================================
+
+          middle_button:beside "Build Environment"    ->  environ_dialog ;
+
+             # ===================================================================================
+             #
+             #	environ_dialog - Build Environment
+             #	  
+             # ===================================================================================
+
+             environ_dialog:dialog:beside  "Environment"  -> combo_table  @close="OK" ;
+
+                combo_table "Build Environment" -> combo_console combo_isolation combo_platform ;
+
+                   combo_console:beside   "--console   " -> "--console   " @combo("auto","true","false")="${templ_console}"           " " | $templ_env_0 "";
+                   combo_isolation:beside "--isolation " -> "--isolation " @combo("default","process","hyper-v")="${templ_isolation}" " " | $templ_env_1 "" ;
+                   combo_platform:beside  "--platform  " -> "--platform  " @combo("linux","windows","other")="${templ_platform}"      " " | $templ_env_2 "" ;  
+
+              # ===================================================================================
+              #
+              #	   End environ_dialog
+              #	  
+              # ===================================================================================
+
+          # =======================================================================================
+          #
+          #	   End - middle button
+          #	  
+          # =======================================================================================
+
+          # =======================================================================================
+          #
+          #	   right button - Additional options
+          #	  
+          # =======================================================================================
+
+          right_button:beside "Additional Options"    ->  add_dialog ;
+
+              # ===================================================================================
+              #
+              #	   add_dialog - Additional Options
+              #	  
+              # ===================================================================================
+
+              add_dialog:dialog  "Additional" -> add_box @close="OK";
+
+                add_box:framed "Enter additional container options" -> @edit("DejaVuSans-Bold",640,240)="${templ_addopts}" ;
+
+              # ===================================================================================
+              #
+              #	   End add_dialog
+              #	  
+              # ===================================================================================
+
+          # =======================================================================================
+          #
+          #	   End - right button
+          #	  
+          # =======================================================================================
+
+       # ===========================================================================================
+       #
+       #    End - option_buttons  
+       #
+       # ===========================================================================================
+
+       # ===========================================================================================
+       #
+       #	build_context - string input field to define the docker context
+       #	  
+       # ===========================================================================================
+
+       build_context:framed "Build Context" -> docker_context ;
+ 
+          docker_context:beside "Context" -> " " @string="${templ_context}" ;
+
+       # ===========================================================================================
+       #
+       #	End - build_context
+       #
+       # ===========================================================================================
+
+    # ===========================================================================================
+    #
+    #	End - command segment
+    #	  
+    # ===========================================================================================
+
+    # ===========================================================================================
+    #
+    #	control button definitions
+    #	  
+    # ===========================================================================================
+    buttons :horizontal -> @dump(command)="Generate" 
+                           @close="Cancel" 
+                           @preview(command,"DejaVuSans-Bold",640,240,"Ok")="${templ_control}" ;
+
+    # ===========================================================================================
+    #
+    #	End - control button definitions
+    #	  
+    # ===========================================================================================
+
+GRAMMAR
+

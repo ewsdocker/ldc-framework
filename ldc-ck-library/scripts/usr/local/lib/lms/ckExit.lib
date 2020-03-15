@@ -1,0 +1,96 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	ckExit - definitions for debian-base (and derivatives) error codes 
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.2
+# @copyright © 2019-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-ckaptain
+# @subpackage ckExit.lib
+#
+# =========================================================================
+#
+#	Copyright © 2019-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ckaptain.
+#
+#   ewsdocker/ldc-ckaptain is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ckaptain is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ckaptain.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#     Error Exit Codes
+#
+# =========================================================================================
+
+EC_NONE=0
+
+EC_PARSE=1
+EC_REQUIRED=2
+EC_COPYRIGHT=3
+EC_TITLE=4
+
+EC_KAPTAIN=10
+EC_HEADER=11
+EC_FOOTER=12
+EC_OPTIONS=13
+EC_GRAMMAR=14
+EC_WGRAMMAR=15
+EC_WEXEC=16
+
+EC_UNKNOWN=127
+
+# =========================================================================================
+
+EC_MSG=([${EC_NONE}]="No error."
+        [${EC_PARSE}]="Parse error."
+        [${EC_REQUIRED}]="Missing required parameter."
+        [${EC_COPYRIGHT}]="Unable to write copyright to target."
+        [${EC_TITLE}]="Unable to write title to target."
+        [${EC_KAPTAIN}]="Kaptain processing error."
+        [${EC_HEADER}]="Unable to read header."
+        [${EC_FOOTER}]="Unable to read footer."
+        [${EC_OPTIONS}]="Unable to read options."
+        [${EC_GRAMMAR}]="Unable to read grammar."
+        [${EC_WGRAMMAR}]="Unable to write grammar."
+    	[${EC_WEXEC}]="Unable to write executable."
+        [${EC_UNKNOWN}]="Unknown error."
+        )
+
+# =========================================================================================
+#
+#    ckExit - Output error message and EXIT with error code
+#
+#    Parameters:
+#       exitCode = error code to exit on
+#    Result:
+#        none
+#
+# =========================================================================================
+function ckExit()
+{
+    local exitCode=${1:-"$EC_UNKNOWN"}
+    [[ -z ${EC_MSG[$exitCode]} ]] && exitCode=${EC_UNKNOWN}
+
+    [[ "${exitCode}" || "${EC_NONE}" ]] || lmsDisplay "${EC_MSG[$exitCode]}"
+    exit ${exitCode}
+}

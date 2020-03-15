@@ -1,0 +1,283 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	options.ktd - definitions for docker-build template 
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2019-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-ckaptain
+# @subpackage docker-build/options.ktd
+#
+# =========================================================================
+#
+#	Copyright © 2019-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ckaptain.
+#
+#   ewsdocker/ldc-ckaptain is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ckaptain is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ckaptain.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+docker_window_title="docker build"
+
+# =========================================================================================
+# =========================================================================================
+#
+#    Framework Template Variables
+#
+# =========================================================================================
+# =========================================================================================
+
+templ_title="Docker build configuration."
+templ_image="ewsdocker/"
+
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#	Build Flags
+#
+# =========================================================================================
+templ_compress=""
+templ_forcerm=""
+templ_nocache=""
+templ_pull=""
+templ_quiet=""
+templ_rm=""
+templ_secret=""
+templ_squash=""
+templ_squash=""
+templ_stream=""
+
+templ_flag_0="!"
+templ_flag_1="!"
+templ_flag_2="!"
+templ_flag_3="!"
+templ_flag_4="!"
+templ_flag_5="!"
+templ_flag_6="!"
+templ_flag_7="!"
+templ_flag_8="!"
+templ_flag_9="!"
+templ_flag_10="!"
+
+# =========================================================================================
+#
+#	Build Options
+#
+# =========================================================================================
+templ_network=""
+templ_file=""
+templ_iidfile=""
+templ_target=""
+templ_ulimits=""
+templ_addhost=""
+templ_cachefrom=""
+templ_cgroupparent=""
+templ_ssh=""
+templ_label=""
+templ_buildarg=""
+templ_securityopt=""
+
+templ_opt_0="!"
+templ_opt_1="!"
+templ_opt_2="!"
+templ_opt_3="!"
+templ_opt_4="!"
+templ_opt_5="!"
+templ_opt_6="!"
+templ_opt_7="!"
+templ_opt_8="!"
+templ_opt_9="!"
+templ_opt_10="!"
+
+# =========================================================================================
+#
+#	Build Args
+#
+# =========================================================================================
+templ_buildarg_0=""
+templ_buildarg_1=""
+templ_buildarg_2=""
+templ_buildarg_3=""
+templ_buildarg_4=""
+templ_buildarg_5=""
+templ_buildarg_6=""
+templ_buildarg_7=""
+templ_buildarg_8=""
+templ_buildarg_9=""
+templ_buildarg_10=""
+templ_buildarg_11=""
+templ_buildarg_12=""
+templ_buildarg_13=""
+templ_buildarg_14=""
+templ_buildarg_15=""
+
+templ_buildarg_16=""
+templ_buildarg_17=""
+templ_buildarg_18=""
+templ_buildarg_19=""
+templ_buildarg_20=""
+templ_buildarg_21=""
+templ_buildarg_22=""
+templ_buildarg_23=""
+templ_buildarg_24=""
+templ_buildarg_25=""
+templ_buildarg_26=""
+templ_buildarg_27=""
+templ_buildarg_28=""
+templ_buildarg_29=""
+templ_buildarg_30=""
+templ_buildarg_31=""
+
+templ_buildarg_32=""
+templ_buildarg_33=""
+templ_buildarg_34=""
+templ_buildarg_35=""
+templ_buildarg_36=""
+templ_buildarg_37=""
+templ_buildarg_38=""
+templ_buildarg_39=""
+templ_buildarg_40=""
+templ_buildarg_41=""
+templ_buildarg_42=""
+templ_buildarg_43=""
+templ_buildarg_44=""
+templ_buildarg_45=""
+templ_buildarg_46=""
+templ_buildarg_47=""
+
+templ_barg_0="!"
+templ_barg_1="!"
+templ_barg_2="!"
+templ_barg_3="!"
+templ_barg_4="!"
+templ_barg_5="!"
+templ_barg_6="!"
+templ_barg_7="!"
+templ_barg_8="!"
+templ_barg_9="!"
+templ_barg_10="!"
+templ_barg_11="!"
+templ_barg_12="!"
+templ_barg_13="!"
+templ_barg_14="!"
+templ_barg_15="!"
+
+templ_barg_16="!"
+templ_barg_17="!"
+templ_barg_18="!"
+templ_barg_19="!"
+templ_barg_20="!"
+templ_barg_21="!"
+templ_barg_22="!"
+templ_barg_23="!"
+templ_barg_24="!"
+templ_barg_25="!"
+templ_barg_26="!"
+templ_barg_27="!"
+templ_barg_28="!"
+templ_barg_29="!"
+templ_barg_30="!"
+templ_barg_31="!"
+
+templ_barg_32="!"
+templ_barg_33="!"
+templ_barg_34="!"
+templ_barg_35="!"
+templ_barg_36="!"
+templ_barg_37="!"
+templ_barg_38="!"
+templ_barg_39="!"
+templ_barg_40="!"
+templ_barg_41="!"
+templ_barg_42="!"
+templ_barg_43="!"
+templ_barg_44="!"
+templ_barg_45="!"
+templ_barg_46="!"
+templ_barg_47="!"
+
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#	Build Restrictions
+#
+# =========================================================================================
+templ_cpusetcpus=""
+templ_cpusetmems=""
+templ_cpuperiod=""
+templ_cpuquota=""
+templ_cpushares=""
+templ_cpus=""
+templ_memory=""
+templ_memoryswap=""
+templ_shmsize=""
+
+templ_ret_0="!"
+templ_ret_1="!"
+templ_ret_2="!"
+templ_ret_3="!"
+templ_ret_4="!"
+templ_ret_5="!"
+templ_ret_6="!"
+templ_ret_7="!"
+templ_ret_8="!"
+
+# =========================================================================================
+#
+#	Build Environment
+#
+# =========================================================================================
+templ_console="auto"
+templ_isolation="default"
+templ_platform="linux"
+
+templ_env_0="!"
+templ_env_1="!"
+templ_env_2="!"
+
+# =========================================================================================
+#
+#	Additional Options
+#
+# =========================================================================================
+templ_addopts=""
+
+# =========================================================================================
+#
+#	Context
+#
+# =========================================================================================
+templ_context="."
+
+# =========================================================================================
+#
+#	Control buttons
+#
+# =========================================================================================
+templ_control="Preview"
+
+# =========================================================================================
+# =========================================================================================

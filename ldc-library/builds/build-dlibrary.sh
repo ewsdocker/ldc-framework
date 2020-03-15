@@ -76,10 +76,10 @@ docker run \
       --mount source=pkgcache,target=/repo \
       \
       --name=ldc-library \
- ewsdocker/ldc-library:dlibrary-0.1.6-b1 
+ewsdocker/ldc-library:dlibrary-0.1.6-b1 
 [[ $? -eq 0 ]] ||
  {
- 	echo "run ewsdocker/ldc-library:dlibrary-0.1.6-b1 failed."
+ 	echo "ldc-library-dlibrary-0.1.6-b1 failed."
  	exit 1
  }
 
@@ -92,6 +92,3 @@ echo "   **** ldc-library:dlibrary-0.1.6-b1 successfully installed."
 echo "   ****"
 echo "   ********************************************"
 echo
-
-exit 0
-

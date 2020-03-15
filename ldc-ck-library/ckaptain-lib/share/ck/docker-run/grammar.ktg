@@ -1,0 +1,331 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	docker-run.kpt - a sample Kaptain menu template 
+#                      for docker container execution
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.2.0
+# @copyright © 2017-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-ckaptain
+# @subpackage docker-run
+#
+# =========================================================================
+#
+#	Copyright © 2017-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ckaptain.
+#
+#   ewsdocker/ldc-ckaptain is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ckaptain is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ckaptain.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+declare    kaptain_menu_template="docker-run-sample v 0.2.0"
+
+. "${KPT_FDEF}"
+
+# ===============================================================================================
+# ===============================================================================================
+#
+#     The Kaptain "grammar", or template, containing input
+#     controls and default settings, is created below, with
+#     dynamic variables inserted.
+#
+# ===============================================================================================
+# ===============================================================================================
+
+read -d '' kaptain_grammar << GRAMMAR
+
+start "Kaptain: ${docker_window_title}" -> command buttons ;
+
+	buttons:horizontal -> @dump(command)="Generate" 
+	                      @close="Cancel" 
+	                      @preview(command,"Lucidatypewriter",300,200,"Ok")="Preview" ;
+
+	command:framed -> dialogstable
+                       dialog_run
+                       docker_args ;
+
+    # ===========================================================================================
+    #
+    #    	dialogstable - Selection table
+    #	  
+    # ===========================================================================================
+
+    dialogstable:framed:beside "${TEMPL_CTITLE}" -> dialogsleft dialogsright;
+
+        # =======================================================================================
+        #
+        #    	dialogsleft - Selections in the left column
+        #	  
+        # =======================================================================================
+
+        dialogsleft:framed -> dialog_start
+                              dialog_environ 
+                              dialog_caps 
+                              dialog_ports ;
+
+            # ===================================================================================
+            #
+            #	docker container start
+            #	  
+            # ===================================================================================
+
+            dialog_start:beside "docker start command" -> startdialog ;
+              startdialog:dialog "Start" -> startcommand @close="OK" ;
+	            startcommand  -> 
+                  "docker " @list("${KPT_RUNTYPE}","exec","run","start","stop","create")=1 ;
+
+	        # ===================================================================================
+	        #
+	        #	dialog_environ - setup environment
+	        #	  
+	        # ===================================================================================
+
+            dialog_environ:beside "Container Environment" -> environdialog ;
+              environdialog:dialog "Environment" -> environframe environfooter @close="OK" ;
+
+                environframe "Container Environment Settings" -> environ_0 environ_1 environ_2 
+                                                                 environ_3 environ_4 environ_5 
+                                                                 environ_6 ;
+
+        	        environ_0:beside  "XSOCK       "    -> " -e XSOCK="        @string="${XSOCK}"       |  "" ;
+        	        environ_1:beside  "XAUTHORITY  "    -> " -e XAUTHORITY="   @string="${XAUTH}"       |  "" ;
+        	        environ_2:beside  "DISPLAY     "    -> " -e DISPLAY="      @string="${DISPLAY}"     |  "" ;
+        	        environ_3:beside  "TEMPL_IMAGE "    -> " -e TEMPL_IMAGE="  @string="${TEMPL_IMAGE}" |  "" ;
+      		        environ_4:beside  "TEMPL_CNAME "    -> " -e TEMPL_CNAME="  @string="${TEMPL_CNAME}" |  "" ;
+        	        environ_5:beside  "TEMPL_USER  "    -> " -e TEMPL_USER="   @string="${TEMPL_USER}"  |  "" ;
+        	        environ_6:beside  "TEMPL_UID   "    -> " -e TEMPL_UID="    @string="${TEMPL_UID}"   |  "" ;
+
+		        environfooter "Make additional entries in Additonal Container Options" -> "" ;
+
+	        # ===================================================================================
+	        #
+	        #    	dialog_caps - Customize container capabilities
+	        #	  
+	        # ===================================================================================
+
+            dialog_caps:beside "Container Capabilities"    ->  capsdialog ;
+              capsdialog:dialog  "Capabilities"  -> capstable  @close="OK" ;
+                capstable:framed:beside -> capsleft capsdisabled ;
+
+                    capsleft "Select capabilities to be DISABLED" -> drop_0  drop_1  drop_2  drop_3  drop_4 
+                                                                     drop_5  drop_6  drop_7  drop_8  drop_9  
+                                                                     drop_10 drop_11 drop_12 drop_13 ;
+
+                        drop_0:beside  -> " --cap-add="   @string="SETPCAP"           " " | ! "" ;
+                        drop_1:beside  -> " --cap-add="   @string="MKNOD"             " " | ! "" ;
+                        drop_2:beside  -> " --cap-add="   @string="AUDIT_WRITE"       " " | ! "" ;
+                        drop_3:beside  -> " --cap-add="   @string="CHOWN"             " " | ! "" ;
+                        drop_4:beside  -> " --cap-add="   @string="NET_RAW"           " " | ! "" ;
+        	            drop_5:beside  -> " --cap-add="   @string="DAC_OVERRIDE"      " " | ! "" ;
+        	            drop_6:beside  -> " --cap-add="   @string="FOWNER"            " " | ! "" ;
+        	            drop_7:beside  -> " --cap-add="   @string="FSETID"            " " | ! "" ;
+       		            drop_8:beside  -> " --cap-add="   @string="KILL"              " " | ! "" ;
+       		            drop_9:beside  -> " --cap-add="   @string="SETGID"            " " | ! "" ;
+        	            drop_10:beside -> " --cap-add="   @string="SETUID"            " " | ! "" ;
+        	            drop_11:beside -> " --cap-add="   @string="NET_BIND_SERVICE"  " " | ! "" ;
+        	            drop_12:beside -> " --cap-add="   @string="SYS_CHROOT"        " " | ! "" ;
+        	            drop_13:beside -> " --cap-add="   @string="SETFCAP"           " " | ! "" ;
+
+                    capsdisabled:framed:beside "Set capabilities to be ENABLED" -> capsmiddle capsright ;
+
+                        capsmiddle  -> add_0  add_1  add_2  add_3  add_4  
+                                       add_5  add_6  add_7  add_8  add_9 
+                                       add_10 add_11 add_12 add_13 ;
+
+                            add_0:beside   -> " --cap-add="   @string="SYS_MODULE"        " " | ! "" ;
+                            add_1:beside   -> " --cap-add="   @string="SYS_RAWIO"         " " | ! "" ;
+                            add_2:beside   -> " --cap-add="   @string="SYS_PACCT"         " " | ! "" ;
+                            add_3:beside   -> " --cap-add="   @string="SYS_ADMIN"         " " | ! "" ;
+                            add_4:beside   -> " --cap-add="   @string="SYS_NICE"          " " | ! "" ;
+                            add_5:beside   -> " --cap-add="   @string="SYS_RESOURCE"      " " | ! "" ;
+                            add_6:beside   -> " --cap-add="   @string="SYS_TIME"          " " | ! "" ;
+                            add_7:beside   -> " --cap-add="   @string="SYS_TTY_CONFIG"    " " | ! "" ;
+                            add_8:beside   -> " --cap-add="   @string="AUDIT_CONTROL"     " " | ! "" ;
+                            add_9:beside   -> " --cap-add="   @string="MAC_OVERRIDE"      " " | ! "" ;
+                            add_10:beside  -> " --cap-add="   @string="MAC_ADMIN"         " " | ! "" ;
+                            add_11:beside  -> " --cap-add="   @string="NET_ADMIN"         " " | ! "" ;
+                            add_12:beside  -> " --cap-add="   @string="SYSLOG"            " " | ! "" ;
+                            add_13:beside  -> " --cap-add="   @string="DAC_READ_SEARCH"   " " | ! "" ;
+
+                        capsright -> add_14 add_15 add_16 add_17 add_18 
+                                     add_19 add_20 add_21 add_22  
+                                     privileged @fill ;
+
+                            add_14:beside    -> " --cap-add="   @string="LINUX_IMMUTABLE"   " " | ! "" ;
+                            add_15:beside    -> " --cap-add="   @string="NED_BROADCAST"     " " | ! "" ;
+                            add_16:beside    -> " --cap-add="   @string="IPC_LOCK"          " " | ! "" ;
+                            add_17:beside    -> " --cap-add="   @string="IPC_OWNER"         " " | ! "" ;
+                            add_18:beside    -> " --cap-add="   @string="SYS_PTRACE"        " " | ! "" ;
+                            add_19:beside    -> " --cap-add="   @string="SYS_BOOT"          " " | ! "" ;
+                            add_20:beside    -> " --cap-add="   @string="LEASE"             " " | ! "" ;
+                            add_21:beside    -> " --cap-add="   @string="WAKE_ALARM"        " " | ! "" ;
+                            add_22:beside    -> " --cap-add="   @string="BLOCK_SUSPEND"     " " | ! "" ;
+
+        	                privileged:beside-> " --privileged" @string="PRIVILEGED"        " " | ! "" ;
+
+	        # ===================================================================================
+	        #
+	        #	dialog_ports - setup docker port mappings
+	        #	  
+	        # ===================================================================================
+
+            dialog_ports:beside "Container Port Mappings" -> portsdialog ;
+              portsdialog:dialog "Ports" -> portsframe portsfooter @close="OK" ;
+
+                portsframe "Container Port Mappings" -> ports_0 ports_1 ports_2 ports_3 
+                                                        ports_4 ports_5 ports_6 ports_7 ;
+
+        	        ports_0:beside " -p " -> " -p " @string="80:80"     " " | ! "" ;
+        	        ports_1:beside " -p " -> " -p " @string="443:443"   " " | ! "" ;
+        	        ports_2:beside " -p " -> " -p " @string=""          " " | ! "" ;
+        	        ports_3:beside " -p " -> " -p " @string=""          " " | ! "" ;
+        	        ports_4:beside " -p " -> " -p " @string=""          " " | ! "" ;
+        	        ports_5:beside " -p " -> " -p " @string=""          " " | ! "" ;
+        	        ports_6:beside " -p " -> " -p " @string=""          " " | ! "" ;
+        	        ports_7:beside " -p " -> " -p " @string=""          " " | ! "" ;
+
+		        portsfooter "Make additional entries in Additonal Container Options" -> "" ;
+
+        # =======================================================================================
+        #
+        #    	dialogsright - Selections in the right column
+        #	  
+        # =======================================================================================
+
+        dialogsright:framed-> dialog_docker 
+                              dialog_vol 
+                              dialog_dev
+                              dialog_add ;
+
+	        # ===================================================================================
+	        #
+	        #	dialog_docker - setup docker options
+	        #	  
+	        # ===================================================================================
+
+            dialog_docker:beside "Container Options" -> dockdialog ;
+              dockdialog:dialog "Options" -> dockframe dockfooter @close="OK" ;
+
+                dockframe "Miscellaneous Container Options" -> dock_0 dock_1 dock_2 dock_3 dock_4 
+                                                               dock_5 dock_6 dock_7 ;
+
+        	        dock_0:beside  -> " " @string="--name=${TEMPL_NAME}"  " " |   "" ;
+      		        dock_1:beside  -> " " @string="--rm"                  " " | ! "" ;
+        	        dock_2:beside  -> " " @string="-it"                   " " | ! "" ;
+        	        dock_3:beside  -> " " @string="--sig-proxy=true"      " " | ! "" ;
+        	        dock_4:beside  -> " " @string="-i"                    " " | ! "" ;
+        	        dock_5:beside  -> " " @string="-t"                    " " | ! "" ;
+        	        dock_6:beside  -> " " @string=""                      " " | ! "" ;
+        	        dock_7:beside  -> " " @string=""                      " " | ! "" ;
+
+		        dockfooter "Make additional entries in Additonal Container Options" -> "" ;
+
+	        # ===================================================================================
+	        #
+	        #	dialog_add - Additional Container Options
+	        #	  
+	        # ===================================================================================
+
+            dialog_add:beside "Additional Container Options" ->  adddialog ;
+              adddialog:dialog  "Additional" -> addbox @close="OK";
+                addbox:framed "Enter additional container options" -> @edit("timesnewroman",400,200)="${KPT_OPTIONS}" ;
+
+	        # ===================================================================================
+	        #
+	        #	dialog_vol - Specify container volume mappings
+	        #	  
+	        # ===================================================================================
+
+            dialog_vol:beside "Container Volume Mappings" ->  voldialog ;
+              voldialog:dialog  "Volumes" -> volframe volfooter @close="OK" ;
+
+                volframe "Container Volume Mapping" -> vol_0 vol_1 vol_2 vol_3 vol_4 
+                                                       vol_5 vol_6 vol_7 vol_8 vol_9 ;
+
+        	        vol_0:beside  " -v "    -> " -v "    @string="${VOL_XSOCK}"      " " |   " " ;
+      		        vol_1:beside  " -v "    -> " -v "    @string="${VOL_XAUTH}"      " " |   " " ;
+        	        vol_2:beside  " -v "    -> " -v "    @string="${VOL_PULSE}"      " " |   " " ;
+        	        vol_3:beside  " -v "    -> " -v "    @string="${VOL_LOCALTIME}"  " " |   " " ;
+        	        vol_4:beside  " -v "    -> " -v "    @string="${VOL_BIN}"        " " |   " " ;
+        	        vol_5:beside  " -v "    -> " -v "    @string="${VOL_DATA}"       " " |   " " ;
+        	        vol_6:beside  " -v "    -> " -v "    @string="${VOL_DOWNLOADS}"  " " |   " " ;
+        	        vol_7:beside  " -v "    -> " -v "    @string=""                  " " | ! " " ;
+        	        vol_8:beside  " -v "    -> " -v "    @string=""                  " " | ! " " ;
+        	        vol_9:beside  " -v "    -> " -v "    @string=""                  " " | ! " " ;
+
+
+		        volfooter "Make additional entries in Additonal Container Options" -> "" ;
+
+	        # ===================================================================================
+	        #
+	        #	dialog_dev - setup device
+	        #	  
+	        # ===================================================================================
+
+            dialog_dev:beside "Container Devices" -> devdialog ;
+              devdialog:dialog "Devices" -> devframe devfooter @close="OK" ;
+
+                devframe "Container Device Settings" -> device_0 device_1 device_2 device_3 device_4 
+                                                        device_5 device_6 device_7 device_8 device_9 ;
+
+        	        device_0:beside  " --device="    -> " --device="    @string="${TEMPL_DEV0}"  " "   | ! "" ;
+      		        device_1:beside  " --device="    -> " --device="    @string="${TEMPL_DEV1}"  " "   | ! "" ;
+        	        device_2:beside  " --device="    -> " --device="    @string="${TEMPL_DEV2}"  " "   | ! "" ;
+        	        device_3:beside  " --device="    -> " --device="    @string="${TEMPL_DEV3}"  " "   | ! "" ;
+        	        device_4:beside  " --device="    -> " --device="    @string="${TEMPL_DEV4}"  " "   | ! "" ;
+      		        device_5:beside  " --device="    -> " --device="    @string="${TEMPL_DEV5}"  " "   | ! "" ;
+        	        device_6:beside  " --device="    -> " --device="    @string="${TEMPL_DEV6}"  " "   | ! "" ;
+        	        device_7:beside  " --device="    -> " --device="    @string="${TEMPL_DEV7}"  " "   | ! "" ;
+        	        device_8:beside  " --device="    -> " --device="    @string="${TEMPL_DEV8}"  " "   | ! "" ;
+      		        device_9:beside  " --device="    -> " --device="    @string="${TEMPL_DEV9}"  " "   | ! "" ;
+
+                devfooter "Make additional entries in Additonal Container Options" -> "" ;
+
+    # ===========================================================================================
+    #
+    #	docker Image name
+    #	  
+    # ===========================================================================================
+
+    dialog_run:framed:beside "${TEMPL_RTITLE}" -> docker_image combo_exec ;
+ 
+        docker_image "Docker Image:" -> " " @string="${TEMPL_IMAGE} " ;
+
+        # =======================================================================================
+        #
+        #	dialog_run -  Container Run Options
+        #	  
+        # =======================================================================================
+
+        combo_exec:beside "Container Exec Type" ->  exec_combo ;
+            exec_combo:beside  -> 
+              @combo("${TEMPL_EXEC}","install","remove","exec")="${TEMPL_EXEC}" ;
+
+    # ===========================================================================================
+    #
+    #	docker Image arguments
+    #	  
+    # ===========================================================================================
+
+    docker_args "Run-time Arguments:" -> " " @string="${KPT_ARGS} " ;
+
+GRAMMAR

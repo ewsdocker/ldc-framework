@@ -1,0 +1,63 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	ckwTSelectDest.widget
+#
+#      CKaptain widget script to select a destination template foloder.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.5
+# @copyright © 2018-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ldc-framework
+# @subpackage ldc-ck-library
+# @name ckwTSelectDest.widget
+#
+# =========================================================================
+#
+#	Copyright © 2018-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-framework.
+#
+#   ewsdocker/ldc-framework is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-framework is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-framework.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+#
+#      seldestTitle - title of the message box in outter frame
+#      seldestDir - default template directory (defaults to "$ck")
+#      seldestPositive - Name / Image for positive response button (defaults to " Continue")
+#      seldestNegative - Name / Image for negative response button (defaults to "Cancel")
+#      seldestTemplate - Template name (defaults to empty)
+#
+
+read -d '' kaptain_grammar << GRAMMAR
+
+start "ckwTSelectDest.widget v 0.3" -> seldest buttons ;
+
+    buttons :horizontal -> @dump(seldest)="${seldestPositive:- Continue}" 
+	                       @close="${seldestNegative:-Cancel}" ;
+
+	seldest :framed -> seldestoutter ;
+	 seldestoutter "${seldestTitle:-Enter Destination Folder}" -> seldestnew seldestdir seldesttempl ;
+        seldestnew   :beside "New:" "           " -> "new=" | @ "template=" ;
+        seldestdir   :beside "Parent Folder:" " " -> @directory="${seldestDir:-$ck}" ;
+        seldesttempl :beside "Template Name:" " " -> "/" @string(40)="${seldestFolder:-$seldestTemplate}" ;
+
+GRAMMAR

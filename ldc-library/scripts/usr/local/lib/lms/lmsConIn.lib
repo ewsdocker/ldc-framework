@@ -1,0 +1,135 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	lmsConIn
+#	  cli parsing library.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.4
+# @copyright © 2017-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-library
+# @subpackage lmsConIn
+#
+# =========================================================================
+#
+#	Copyright © 2017-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-library.
+#
+#   ewsdocker/ldc-library is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-library is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-library.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#    Dependencies: 
+#		lmsDeclare.lib (for lmsDeclareStr)
+#       lmsStr.lib (for lmsStrSplit)
+#
+# =========================================================================================
+
+# =========================================================================================
+#
+#    Command line parameter input parsing
+#
+# =========================================================================================
+
+declare -A cliParam=()
+declare -a cliKey=()
+
+declare -a cliBuffer=( "${@}" )
+
+# *********************************************************************************
+#
+#	lmsConInSplit
+#
+#	    Splits the parameter string into name and value (in cliParam and cliKey arrays)
+#
+#	parameters:
+#	    parameter = parameter string
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# *********************************************************************************
+function lmsConInSplit()
+{
+    [[ -z "${1}" ]] && return 1
+
+    lmsStrSplit "${1}" pName pValue
+    [[ $? -eq 0 ]] || return 2
+
+    cliParam[${pName}]=${pValue}
+    cliKey[${#cliKey[@]}]=${pName}
+
+    return 0
+}
+
+# *********************************************************************************
+#
+#  DEPRECATED - Replaced by lmsConInSplit
+#
+#	lmsSplitParameter
+#
+#	    Splits the parameter string into name and value (in cliParam and cliKey arrays)
+#
+#	parameters:
+#	    parameter = parameter string
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# *********************************************************************************
+function lmsSplitParameter
+{
+	lmsConInSplit "${1}"
+	return $?
+}
+
+# **************************************************************************
+#
+#	lmsConInParse
+#
+#        Parse the global cli buffer (cliBuffer) 
+#           into the global parameter array (cliParam)
+#
+#	parameters:
+#	    none
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# **************************************************************************
+function lmsConInParse()
+{
+    [[ ${#cliBuffer[*]} -eq 0 ]] && return 0
+
+    local pString
+
+    for pString in "${cliBuffer[@]}"
+    do
+        lmsConInSplit "${pString}"
+		[[ $? -eq 0 ]] || return 1
+    done
+
+    return 0
+}
+

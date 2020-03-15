@@ -1,3 +1,6 @@
+ldc-framework
+=============
+
 ldc-core
 	dcore
 
@@ -11,31 +14,49 @@ ldc-base
 	dx11-surface
 	dx11-dev
 
-ldc-cli-apps
-
-	nano
-	tumblr
-
-ldc-lang
+ldc-stack
 	dcc
 	dcc-x11
-	gtk2
-	gtk2-x11
-	gtk3
-	gtk3-x11
-
-ldc-langdev
+	dgtk2
+	dgtk3
+	dgtk2-x11
+	dgtk3-x11
+	dqt4
 	dqt4-x11
 
-ldc-devstack
+ldc-stack-dev
+	dcc-dev
+	dgtk3-dev
+	dqt4-dev
+
+ldc-stack-apps
+	djre8-gtk2
 	djdk8-gtk2
 	djdk13-gtk3
-	djre8-gtk2
+	djdk13dev-gtk3
 	dcpp-jdk13
-	dfortran-gtk2
 	dfortran-jdk13
+	dfortran-gtk2
 	djs13-jdk13
 	dphp5.6-jdk13
+	dqt4-jdk13dev
+
+ldc-dialog
+
+	dialog
+	kaptain
+	whiptail
+	zenity
+
+ldc-ck-library
+
+	ck-library
+
+ldc-ckaptain
+
+	ckaptain
+
+========================
 
 ldc-browser
 
@@ -45,17 +66,17 @@ ldc-browser
 	palemoon
 	waterfox
 
+ldc-cosole
+
+	nano
+	tumblr
+
 ldc-desktop
 
 	dia
 	gimp
-
-ldc-dialog
-
-	dialog
-	kaptain
-	whiptail
-	zenity
+	mousepad
+	ripme
 
 ldc-eclipse
 
@@ -74,8 +95,6 @@ ldc-libre
 
 	office
 	office-jdk
-
-
 
 
 

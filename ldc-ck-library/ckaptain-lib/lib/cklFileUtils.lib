@@ -1,0 +1,153 @@
+#!/bin/bash
+# =========================================================================================
+#
+#  cklFileUtils
+#
+#      Miscellaneous file utilities to support CKaptain scripts and widgets.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ldc-framework
+# @subpackage ldc-ck-library
+# @name cklFileUtils
+#
+# =========================================================================
+#
+#	Copyright © 2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-framework.
+#
+#   ewsdocker/ldc-framework is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-framework is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-framework.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+declare cklFileUtils_vers="0.1.0"
+
+# =========================================================================================
+#
+#	fileNameFromPath
+#		return the folder name from provided parameters
+#
+#  	Parameters:
+#		folder = path to template folder
+#       path = location to store the path to the template folder (w/o template folder name)
+#		name = location to store the template folder name
+#       deffolder = default path, defaults to $ck
+#		sep  = separator, default to "/"
+#
+#   Results:
+#       0 = no error
+#       non-zero = error code
+#
+# =========================================================================================
+function fileNameFromPath()
+{
+	local path="${1}"
+	local deffolder=${4:-"$ck"}
+	local sep=${5:-"/"}
+
+    lmsStrExplode "${path}" ${sep} "nv"
+
+    local elements=${#nv[@]}
+
+    [[ ${elements} -eq 1 ]] && 
+     {
+     	lmsStrExplode "${deffolder}${sep}${path}${sep}" ${sep} "nv"
+        elements=${#nv[@]}
+     }
+
+    (( elements--  ))
+
+    local path=""
+    local index=1
+
+    while [ ${index} -lt ${elements} ]
+    do
+        path="${path}${sep}${nv[$index]}"
+        (( index++ ))
+    done
+ 
+ 	#
+ 	#	Store the path to the template folder (w/o the template folder name)
+ 	#
+    lmsDeclareStr ${2} "${path}"
+    [[ $? -eq 0 ]] || return 1
+
+	#
+	#	Store the name of the template folder
+	#
+    lmsDeclareStr ${3} "${nv[$index]}"
+    [[ $? -eq 0 ]] || return 2
+
+    return 0
+}
+
+# =========================================================================================
+#
+#	fileExists
+#		return 0 if file exists, 1 if not
+#
+#  	Parameters:
+#		folder = path to template folder
+#
+#   Results:
+#       0 = file exists
+#		1 = file does not exist
+#       > 1 = error number
+#
+# =========================================================================================
+function fileExists()
+{
+	fName=${1}
+
+	[[ -z "${fName}" ]] && return 2
+    [[ -e "${fName}" ]] && return 0
+
+	return 1
+}
+
+# =========================================================================================
+#
+#	folderExists
+#		return 0 if folder (directory) exists, 1 if not
+#
+#  	Parameters:
+#		folder = path to template folder
+#       path = location to store the path to the template folder (w/o template folder name)
+#		name = location to store the template folder name
+#       deffolder = default path, defaults to $ck
+#		sep  = separator, default to "/"
+#
+#   Results:
+#       0 = folder exists
+#		1 = folder does not exist
+#       > 1 = error number
+#
+# =========================================================================================
+function folderExists()
+{
+	fName=${1}
+
+	[[ -z "${fName}" ]] && return 2
+    [[ -d "${fName}" ]] && return 0
+
+	return 1
+}
+

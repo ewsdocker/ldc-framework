@@ -1,0 +1,361 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	kaptain-build.kpt - a sample Kaptain menu template 
+#                        for docker container execution
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.2.0
+# @copyright © 2019-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-ckaptain
+# @subpackage kaptain-build.kpt
+#
+# =========================================================================
+#
+#	Copyright © 2019-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ckaptain.
+#
+#   ewsdocker/ldc-ckaptain is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ckaptain is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ckaptain.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+declare    kaptain_menu_template="kaptain-docker-build v 0.1.0"
+
+# ===============================================================================================
+# ===============================================================================================
+#
+#   Required:
+#	   KPT_FDEF - Kaptain Template default variable definitions (.ktd)
+#
+#   Optional - may be empty, but the file must exist
+#	   KPC_FDEF - Kaptain Template command variable customizations (.kcd)
+#
+#   Values in the template default definitions (KPT_FDEF) are overlayed by
+#     the command customization values (KPC_FDEF).
+# 
+# ===============================================================================================
+# ===============================================================================================
+
+[[ -z "${KPT_NAME}" ]] && return 
+#
+#	get default template option settings
+#
+source "/lib/${KPT_NAME}/options.ktd"
+
+#
+#	get customized template option settings (can be empty)
+#
+source "/source/${KPT_NAME}/options.ktd"
+
+#
+#	apply any run-time adjustments
+#
+source "/source/${KPT_NAME}/run-time.ktd"
+
+# ===============================================================================================
+# ===============================================================================================
+#
+#     The Kaptain "grammar", or template, containing input controls and default settings,
+#     is created below, with dynamic variables inserted.
+#
+# ===============================================================================================
+# ===============================================================================================
+
+read -d '' kaptain_grammar << GRAMMAR
+
+# ===========================================================================================
+#
+#	Grammar consists of 2 segments: command - all the controls and settings (top of form)
+#                                   buttons - control button definitions (bottom of form)
+#	  
+# ===========================================================================================
+start "Kaptain: Docker Build Configuration" -> command buttons ;
+
+    # ===========================================================================================
+    #
+    #	command is the docker build command that is being pieced together with the
+    #     listed segment names
+    #	  
+    # ===========================================================================================
+	command:framed -> tag_image
+	                  flags
+	                  options
+                      option_buttons
+                      build_context ;
+
+       # ===========================================================================================
+       #
+       #	tag_image - string input field to place the build tag information
+       #	  
+       # ===========================================================================================
+
+       tag_image:framed "${TEMPL_RTITLE}" -> docker_tag ;
+ 
+          docker_tag:beside "--tag " -> "--tag " @string="${TEMPL_IMAGE} " ;
+
+       # ===========================================================================================
+       #
+       #	End - tag_image
+       #
+       # ===========================================================================================
+
+       # ===========================================================================================
+       #
+       #	flags_and_options
+       #
+       # ===========================================================================================
+
+       flags_and_options:framed:beside "Build Options" -> flags_dialog options_dialog ;
+       
+          # ===================================================================================
+	      #
+	      #  	flags_dialog - Set/Reset container flags
+	      #	  
+	      # ===================================================================================
+
+          flags_dialog:dialog "Build Flags" -> flagsbody flagsfooter @close="OK" ;
+           
+             flagsbody "Set/Reset Build Flags" -> flags_0  flags_1  flags_2  flags_3  flags_4 
+                                                  flags_5  flags_6  flags_7  flags_8  ;
+
+                flags_0:beside " --compress="   -> " --compress="  @string="Compress"  " " | ! "" ;
+                flags_1:beside " --force-rm="   -> " --force-rm="  @string="Force-rm"  " " | ! "" ;
+                flags_2:beside " --no-cache="   -> " --no-cache="  @string="No-cache"  " " | ! "" ;
+                flags_3:beside " --pull="       -> " --pull="      @string="Pull"      " " | ! "" ;
+                flags_4:beside " --quiet="      -> " --quiet="     @string="Quiet"     " " | ! "" ;
+     	        flags_5:beside " --rm="         -> " --rm="        @string="Rm"        " " | ! "" ;
+      	        flags_6:beside " --secret="     -> " --secret="    @string="Secret"    " " | ! "" ;
+       	        flags_7:beside " --squash="     -> " --squash="    @string="Squash"    " " | ! "" ;
+   		        flags_8:beside " --stream="     -> " --stream="    @string="Stream"    " " | ! "" ;
+ 
+		     flagsfooter:beside "Make additional entries in Additonal Build Options" -> " " ;
+ 
+  	      # ===================================================================================
+	      #
+	      #    End - flags_dialog
+	      #
+	      # ===================================================================================
+	      
+ 	      # ===================================================================================
+          #
+	      #	  options_dialog - docker build options
+	      #	  
+	      # ===================================================================================
+
+          options_dialog:dialog "Build Options" -> optbody optfooter @close="OK" ;
+
+             optbody:framed:beside "Build Options" -> opt_0 opt_1 opt_2 opt_3 opt_4  opt_5  
+                                                      opt_6 opt_7 opt_8 opt_9 opt_10 opt_11;
+
+        	    opt_0:beside  " --network  "      -> " --network "       @string="${TEMPL_OPT_0}"      " " | ! "" ;
+      		    opt_1:beside  " --file "          -> " --file "          @string="${TEMPL_OPT_1}"      " " | ! "" ;
+        	    opt_2:beside  " --iidfile "       -> " --iidfile "       @string="${TEMPL_OPT_2}"      " " | ! "" ;
+        	    opt_3:beside  " --target "        -> " --target "        @string="${TEMPL_OPT_3}"      " " | ! "" ;
+        	    opt_4:beside  " --ulimits "       -> " --ulimits "       @string="${TEMPL_OPT_4}"      " " | ! "" ;
+        	    opt_5:beside  " --add-host "      -> " --add-host "      @string="${TEMPL_OPT_5}"      " " | ! "" ;
+        	    opt_6:beside  " --cache-from "    -> " --cache-from "    @string="${TEMPL_OPT_6}"      " " | ! "" ;
+        	    opt_7:beside  " --cgroup-parent " -> " --cgroup-parent " @string="${TEMPL_OPT_7}"      " " | ! "" ;
+        	    opt_8:beside  " --ssh "           -> " --ssh "           @string="${TEMPL_OPT_8}"      " " | ! "" ;
+        	    opt_9:beside  " --label "         -> " --label "         @string="${TEMPL_OPT_9}"      " " | ! "" ;
+        	    opt_10:beside " --build-arg "     -> " --build-arg "     @string="${TEMPL_OPT_10}"     " " | ! "" ;
+        	    opt_11:beside " --security-opt "  -> " --security-opt "  @string="${TEMPL_OPT_11}"     " " | ! "" ;
+
+             optfooter "Make additional entries in Additonal Build Options" -> "" ;
+
+ 	      # ===================================================================================
+          #
+	      #	  End - options_dialog
+	      #	  
+	      # ===================================================================================
+
+       # ===========================================================================================
+       #
+       #    End - flags_and_options  
+       #
+       # ===========================================================================================
+
+       # ===========================================================================================
+       #
+       #    option_buttons - Option buttons  
+       #
+       # ===========================================================================================
+
+       option_buttons:framed:beside "Option Buttons" -> left_button middle_button right_button ;
+
+          # ===================================================================================
+          #
+          #	left_button - Build restrictions
+          #	  
+          # ===================================================================================
+
+          left_button:beside "Build Restrictions" -> restrict_dialog ;
+          
+              # ===================================================================================
+              #
+              #	restrict_dialog - Build Restrictions
+              #	  
+              # ===================================================================================
+
+              restrict_dialog:dialog  "Restrictions" -> restrict_table  restrict_footer @close="OK" ;
+             
+                restrict_table:framed:beside -> restrict_0 restrict_1 restrict_2 restrict_3 restrict_4 
+                                                restrict_5 restrict_6 restrict_7 restrict_8  ;
+
+        	       restrict_0:beside  "--cpu-set-cpus " -> " --cpu-set-cpus "  @string="0"     " " | ! "" ;
+        	       restrict_1:beside  "--cpu-set-mems " -> " --cpu-set-mems "  @string="0"     " " | ! "" ;
+        	       
+        	       restrict_2:beside  "--cpu-period   " -> " --cpu-period   "  @integer=0      " " | ! "" ;
+        	       restrict_3:beside  "--cpu-quota    " -> " --cpu-quota    "  @integer=0      " " | ! "" ;
+      		       restrict_4:beside  "--cpu-shares   " -> " --cpu-shares   "  @integer=0      " " | ! "" ;
+        	       restrict_5:beside  "--cpus         " -> " --cpus         "  @integer=0      " " | ! "" ;
+        	       
+        	       restrict_6:beside  "--memory       " -> " --memory       "  @integer=0      " " | ! "" ;
+        	       restrict_7:beside  "--memory-swap  " -> " --memory-swap  "  @integer=0      " " | ! "" ;
+        	       
+        	       restrict_8:beside  "--shm-size     " -> " --shm-size     "  @string="1024m" " " | ! "" ;
+
+                restrict_footer "Make additional entries in Additonal Build Options" -> "" ;
+
+              # ===================================================================================
+              #
+              #	   End restrict_dialog
+              #	  
+              # ===================================================================================
+
+          # =======================================================================================
+          #
+          #	   End - left button
+          #	  
+          # =======================================================================================
+          
+          # =======================================================================================
+          #
+          #	   middle button - Environment settings
+          #	  
+          # =======================================================================================
+                   
+          middle_button:beside "Build Environment"    ->  environ_dialog ;
+
+             # ===================================================================================
+             #
+             #	environ_dialog - Build Environment
+             #	  
+             # ===================================================================================
+
+             environ_dialog:dialog:beside  "Environment"  -> combo_table  @close="OK" ;
+             
+                combo_table:framed "Build Environment" -> combo_console combo_isolation combo_platform ;
+                
+                   combo_console:beside   -> "--console " 
+                                                 @combo("auto","true","false")="auto" ;
+
+                   combo_isolation:beside -> "--isolation " 
+                                                 @combo("default","process","hyper-v")="default" ;
+
+                   combo_platform:beside  -> "--platform " 
+                                                 @combo("linux","windows","other")="linux" ;
+
+              # ===================================================================================
+              #
+              #	   End environ_dialog
+              #	  
+              # ===================================================================================
+
+          # =======================================================================================
+          #
+          #	   End - middle button
+          #	  
+          # =======================================================================================
+
+          # =======================================================================================
+          #
+          #	   right button - Additional options
+          #	  
+          # =======================================================================================
+                   
+          right_button:beside "Additional Options"    ->  add_dialog ;
+
+              # ===================================================================================
+              #
+              #	   add_dialog - Additional Options
+              #	  
+              # ===================================================================================
+
+              add_dialog:dialog  "Additional" -> add_box @close="OK";
+
+                add_box:framed "Enter additional container options" -> @edit("timesnewroman",640,480)="${TEMPL_ADD_OPTS}" ;
+
+              # ===================================================================================
+              #
+              #	   End add_dialog
+              #	  
+              # ===================================================================================
+
+          # =======================================================================================
+          #
+          #	   End - right button
+          #	  
+          # =======================================================================================
+
+       # ===========================================================================================
+       #
+       #    End - option_buttons  
+       #
+       # ===========================================================================================
+
+       # ===========================================================================================
+       #
+       #	build_context - string input field to define the docker context
+       #	  
+       # ===========================================================================================
+
+       build_context:framed "Build Context" -> docker_context ;
+ 
+          docker_context:beside "Context: " -> " " @string="" ;
+
+       # ===========================================================================================
+       #
+       #	End - build_context
+       #
+       # ===========================================================================================
+
+    # ===========================================================================================
+    #
+    #	End - command segment
+    #	  
+    # ===========================================================================================
+
+    # ===========================================================================================
+    #
+    #	control button definitions
+    #	  
+    # ===========================================================================================
+    buttons:horizontal -> @dump(command)="Generate" 
+	                      @close="Cancel" 
+	                      @preview(command,"Lucidatypewriter",300,200,"Ok")="Preview" ;
+
+    # ===========================================================================================
+    #
+    #	End - control button definitions
+    #	  
+    # ===========================================================================================
+
+GRAMMAR

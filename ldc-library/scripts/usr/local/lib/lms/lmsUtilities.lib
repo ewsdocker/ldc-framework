@@ -43,7 +43,7 @@
 #
 #	Dependencies
 #
-#		lmsconCli.lib
+#		lmsCli.lib
 #		lmsDeclare.lib
 #		lmsStr.lib
 #
@@ -87,7 +87,7 @@ declare    utilTs=""	# Timestamp
 #       non-zero = error number
 #
 #	Dependencies:
-#		lmsconCli.lib
+#		lmsCli.lib
 #		lmsDeclare.lib
 #		lmsStr.lib
 #

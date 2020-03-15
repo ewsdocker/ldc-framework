@@ -130,7 +130,7 @@ function lpathInit()
 #    lpathCommit - modify and reload .bashrc, if lmspath_modified = 1
 #
 #	Entry:
-#		lPath = none
+#		None
 #
 #	Exit:
 #		0 = modified path was commited
@@ -170,7 +170,6 @@ function lpathExists()
 	local    lxistResult=0
 
 	[[ $lmspath_init -eq 0 ]] && lpathInit
-
 	[[ -z ${lPath} ]] && lxistResult=1
 
 	[[ ${lxistResult} -eq 0 ]] && 
@@ -244,11 +243,11 @@ function lpathDelete()
 #    lpathAdd - add an element in $lmspath_path
 #
 #	Entry:
-#		lPath = path entry to delete
+#		lPath = path entry to add
 #
 #	Exit:
-#		0 = requested path (lPath) was deleted
-#		non-zero = requested path (lPath) was not found
+#		0 = requested path (lPath) was added
+#		non-zero = requested path (lPath) was not added
 #
 # =========================================================================
 function lpathAdd()

@@ -3,36 +3,36 @@
 # =========================================================================
 #
 #	lmsArchiveUtilities
-#	  Copy latest lms-library to /usr/local/lib/lms.
+#	  Copy latest ldc-library to /usr/local/share/lms/ckaptain-lib.
 #
 # =========================================================================
 #
 # @author Jay Wheeler.
 # @version 0.0.6
-# @copyright © 2018, 2019. EarthWalk Software.
+# @copyright © 2018-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
-# @package ewsdocker/lms-utilities
+# @package ewsdocker/ldc-library
 # @subpackage lmsArchiveUtilities.lib
 #
 # =========================================================================
 #
-#	Copyright © 2018, 2019. EarthWalk Software
+#	Copyright © 2018-2020. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
-#   This file is part of ewsdocker/lms-utilities.
+#   This file is part of ewsdocker/ldc-library.
 #
-#   ewsdocker/lms-utilities is free software: you can redistribute 
+#   ewsdocker/ldc-library is free software: you can redistribute 
 #   it and/or modify it under the terms of the GNU General Public License 
 #   as published by the Free Software Foundation, either version 3 of the 
 #   License, or (at your option) any later version.
 #
-#   ewsdocker/lms-utilities is distributed in the hope that it will 
+#   ewsdocker/ldc-library is distributed in the hope that it will 
 #   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
 #   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
 #
 #   You should have received a copy of the GNU General Public License
-#   along with ewsdocker/lms-utilities.  If not, see 
+#   along with ewsdocker/ldc-library.  If not, see 
 #   <http://www.gnu.org/licenses/>.
 #
 # =========================================================================
@@ -41,12 +41,12 @@
 # =========================================================================
 #
 #	lmsArchive
-#		Archive the lms-utilities: create the lms-utilities tarball
+#		Archive the ldc-library: create the ldc-library tarball
 #
 #	parameters:
-#		tarball = name of the tarball to be generated (w/o file type)
+#		tarname = name of the tarball to be generated (w/o file type)
 #		name = name of the root directory (default="/ldc-library")
-#		dir = where to find the lms-utilities library files (default "usr")
+#		dir = where to find the ldc-library library files (default "usr")
 #		dest = where to store the generated tarball (default "/repo")
 #		final = 1 to indicate the tarball can be zipped and archived
 #		options = list of options to apply, or empty
@@ -95,7 +95,7 @@ function lmsArchive()
 # =========================================================================
 #
 #	lmsArchiveGzip
-#		Gzip the lms-utilities tarball in the current directory
+#		Gzip the ldc-library tarball in the current directory
 #
 #	parameters:
 #		tarball = name of the tarball to be generated (w/o file type)
@@ -157,7 +157,7 @@ function lmsArchiveList()
 # =========================================================================
 #
 #	lmsCreateArchive
-#		Create the archive of the lms-utilities using global variables
+#		Create the archive of the ldc-library using global variables
 #
 #	parameters:
 #		None

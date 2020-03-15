@@ -4,7 +4,7 @@
 #    ldc-base:dperl-0.1.0-b1
 #
 # ===========================================================================
-cd ~/Development/ewsldc/ldc-base
+cd ~/Development/ewsldc/ldc-framework/ldc-base
 
 echo "   ********************************************"
 echo "   ****"

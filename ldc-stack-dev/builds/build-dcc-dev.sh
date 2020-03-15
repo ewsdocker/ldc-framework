@@ -4,7 +4,7 @@
 #    ldc-stack-dev:dcc-dev-0.1.0-b1
 #
 # ===========================================================================
-cd ~/Development/ewsldc/ldc-stack-dev
+cd ~/Development/ewsldc/ldc-framework/ldc-stack-dev
 
 echo "   ********************************************"
 echo "   ****"

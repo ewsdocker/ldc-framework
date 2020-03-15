@@ -1,7 +1,7 @@
     -it \
-    -v ${HOME}/bin:/userbin \
-    -v ${HOME}/.local:/usrlocal \
-    -v ${HOME}/.config/docker:/conf \
+    -v \${HOME}/bin:/userbin \
+    -v \${HOME}/.local:/usrlocal \
+    -v \${HOME}/.config/docker:/conf \
     -v \${HOME}/.config/docker/${LMS_RUN_NAME}:/root \
     -v \${HOME}/.config/docker/${LMS_RUN_NAME}/workspace:/workspace \
     -v /etc/localtime:/etc/localtime:ro \

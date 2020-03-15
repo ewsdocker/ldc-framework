@@ -1,0 +1,64 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	ckwMessageBox.widget - a CKaptain script to produce a pop-up message box.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.1
+# @copyright © 2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ldc-framework
+# @subpackage ldc-ck-library
+# @name ckwMessageBox.widget
+#
+# =========================================================================
+#
+#	Copyright © 2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-framework.
+#
+#   ewsdocker/ldc-framework is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-framework is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-framework.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#    Set the following parameters PRIOR to including this widget in the script
+#
+#      msgboxTitle    - title of the message box in outter frame (defaults to "Information")
+#      msgboxText     - text to display in the message box (defaults to "<empty>")
+#      msgboxResult   - positive result label (defaults to "result")
+#      msgboxPositive - Name / Image for positive response button (defaults to " Continue")
+#      msgboxNegative - Name / Image for negative response button (defaults to "Cancel")
+#      msgboxIcon     - path to icon to display in front of the message (defaults to "")
+#
+# =========================================================================================
+
+read -d '' kaptain_grammar << GRAMMAR
+
+start "ckwMessageBox.widget v 0.1" -> msgbox buttons ;
+
+	buttons:horizontal -> @dump(msgbox)="${msgboxPositive:- Continue}"
+	                      @close="${msgboxNegative:-Cancel}" ;
+
+	msgbox :framed -> msgboxframe ;
+	  msgboxframe :beside "${msgboxTitle:-Information}" -> msgboxtext;
+        msgboxtext :horizontal -> @icon("${msgboxIcon}") @text="${msgboxText:-<empty>}" "${msgboxResult:-result}=ok" ;
+
+GRAMMAR

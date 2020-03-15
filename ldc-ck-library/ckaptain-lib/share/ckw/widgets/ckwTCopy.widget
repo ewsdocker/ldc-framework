@@ -1,0 +1,64 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	ckwTCopy.widget
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.4
+# @copyright © 2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ldc-framework
+# @subpackage ldc-ck-library
+# @name ckwTCopy
+#
+# =========================================================================
+#
+#	Copyright © 2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ckaptain.
+#
+#   ewsdocker/ldc-ckaptain is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ckaptain is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ckaptain.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+read -d '' kaptain_grammar << GRAMMAR
+
+  start "CKaptain: ckwTCopy v 0.0.4" -> cpytmplt buttons ;
+
+	buttons:horizontal -> @dump(cpytmplt)="Ok"
+	                      @close="Cancel" ;
+
+	cpytmplt :framed -> copy;
+
+      copy "${fcFolder}/${fcTemplate} " -> ocheckmsg;
+
+      selectfile "Select template folder" -> selfile ;
+        selfile -> @directory ;
+
+      ocheckmsg:framed  -> ocheck;
+
+        ocheck -> default-template | select-template ;
+
+          default-template "Overwrite existing template" -> "copy" ;
+
+          select-template "Select template to copy" -> selectCopy ;
+
+      selfile -> @directory ;
+
+GRAMMAR

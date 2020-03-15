@@ -11,7 +11,7 @@
 # @version 0.0.7
 # @copyright © 2017-2019. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
-# @package ewsdocker/lms-utilities
+# @package ewsdocker/ldc-library
 # @subpackage dockerRun
 #
 # =========================================================================
@@ -19,20 +19,20 @@
 #	Copyright © 2017-2019. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
-#   This file is part of ewsdocker/lms-utilities.
+#   This file is part of ewsdocker/ldc-library.
 #
-#   ewsdocker/lms-utilities is free software: you can redistribute 
+#   ewsdocker/ldc-library is free software: you can redistribute 
 #   it and/or modify it under the terms of the GNU General Public License 
 #   as published by the Free Software Foundation, either version 3 of the 
 #   License, or (at your option) any later version.
 #
-#   ewsdocker/lms-utilities is distributed in the hope that it will 
+#   ewsdocker/ldc-library is distributed in the hope that it will 
 #   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
 #   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
 #
 #   You should have received a copy of the GNU General Public License
-#   along with ewsdocker/lms-utilities.  If not, see 
+#   along with ewsdocker/ldc-library.  If not, see 
 #   <http://www.gnu.org/licenses/>.
 #
 # =========================================================================
@@ -409,8 +409,6 @@ function dqInitProcessor()
     	# ====================================================================
 
 		dqCheckImage
-declare -p | grep dq
-declare -p | grep ldc_
 
 #		[[ ${dq_error} -eq ${dqerror_none} ]] || dq_error=${dqerror_init}
 

@@ -4,7 +4,7 @@
 #    ldc-stack:dgtk2-0.1.0-b1
 #
 # ===========================================================================
-cd ~/Development/ewsldc/ldc-stack
+cd ~/Development/ewsldc/ldc-framework/ldc-stack
 
 echo "   ********************************************"
 echo "   ****"

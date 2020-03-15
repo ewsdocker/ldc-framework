@@ -1,0 +1,128 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	options.ktd - definitions for docker-build template 
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2019-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-ckaptain
+# @subpackage docker-build/options.ktd
+#
+# =========================================================================
+#
+#	Copyright © 2019-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ckaptain.
+#
+#   ewsdocker/ldc-ckaptain is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ckaptain is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ckaptain.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+docker_window_title="docker build"
+
+# =========================================================================================
+# =========================================================================================
+#
+#    Framework Template Variables
+#
+# =========================================================================================
+# =========================================================================================
+
+templ_image="ewsdocker/ldc-test:docker-build-0.1.0-b1"
+templ_title="docker-build for $templ_image"
+
+templ_opt_3="@"
+templ_opt_6="@"
+
+templ_file="Dockerfile"
+templ_network="pkgnet"
+
+#
+# arg block 1
+#
+templ_buildarg_0="BUILD_DAEMON=0"
+templ_buildarg_1="BUILD_DESKTOP=CKaptain"
+templ_buildarg_2="BUILD_TEMPLATE=run"
+
+templ_buildarg_3="BUILD_NAME=ldc-ckaptain"
+templ_buildarg_4="BUILD_VERSION=ckaptain"
+templ_buildarg_5="BUILD_VERS_EXT=-0.1.0"
+templ_buildarg_6="BUILD_EXT_MOD=-b1"
+
+templ_buildarg_7="FROM_REPO=ewsdocker"
+templ_buildarg_8="FROM_PARENT=ldc-ckaptain"
+templ_buildarg_9="FROM_VERS=ck-stack-qt4"
+templ_buildarg_10="FROM_EXT=-0.1.0"
+templ_buildarg_11="FROM_EXT_MOD=-b1"
+
+templ_buildarg_12="LIB_HOST=http://alpine-nginx-pkgcache"
+templ_buildarg_13="LIB_INSTALL=0"
+templ_buildarg_14="LIB_VERSION=0.1.6"
+templ_buildarg_15="LIB_VERS_MOD=-b1"
+
+#
+# arg block 2
+#
+templ_buildarg_16="DNAME=CKAPTAIN"
+templ_buildarg_17="QT_VER=QT4"
+templ_buildarg_18="RUN_APP=kaptain"
+
+templ_buildarg_19="KAPTAIN_HOST=http://alpine-nginx-pkgcache"
+templ_buildarg_20="KAPTAIN_VERS=0.8"
+
+templ_buildarg_21="CKLIB_HOST=http://alpine-nginx-pkgcache"
+templ_buildarg_22="CKLIB_NAME=ldc-ckaptain"
+templ_buildarg_23="CKLIB_VERS=0.1.0"
+templ_buildarg_24="CKLIB_VERSX=-b1"
+templ_buildarg_25="CKLIB_DIR=ckaptain-lib"
+templ_buildarg_26="CKLIB_DEST=/repo"
+
+templ_barg_0="@"
+templ_barg_1="@"
+templ_barg_2="@"
+templ_barg_3="@"
+templ_barg_4="@"
+templ_barg_5="@"
+templ_barg_6="@"
+templ_barg_7="@"
+templ_barg_8="@"
+templ_barg_9="@"
+templ_barg_10="@"
+templ_barg_11="@"
+templ_barg_12="@"
+templ_barg_13="@"
+templ_barg_14="@"
+templ_barg_15="@"
+
+templ_barg_16="@"
+templ_barg_17="@"
+templ_barg_18="@"
+templ_barg_19="@"
+templ_barg_20="@"
+templ_barg_21="@"
+templ_barg_22="@"
+templ_barg_23="@"
+templ_barg_24="@"
+templ_barg_25="@"
+templ_barg_26="@"
+
+# =========================================================================================
+# =========================================================================================

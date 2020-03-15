@@ -1,0 +1,61 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	lmsErrorMsg - error messages 
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.1
+# @copyright © 2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-library
+# @subpackage lmsErrorMsg.lib
+#
+# =========================================================================
+#
+#	Copyright © 2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-library.
+#
+#   ewsdocker/ldc-library is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-library is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-library.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+declare ecNames=("unknown"
+# =========================================================================================
+#
+#    lmsErrorMsg - Output error message and EXIT with error code
+#
+#    Parameters:
+#		errorMsg = name of the error message to output
+#       exitCode = error code to exit on
+#
+#    Results:
+#       script is exited.
+#
+# =========================================================================================
+function lmsErrorMsg()
+{
+	local errorMsg=${1:-"unknown"}
+    local exitCode=${2:-127}
+
+    [[ -z ${EC_MSG[$exitCode]} ]] && exitCode=${EC_UNKNOWN}
+
+    [[ "${exitCode}" -ne "${EC_NONE}" ]] && lmsDisplay "${EC_MSG[$exitCode]}"
+    exit ${exitCode}
+}

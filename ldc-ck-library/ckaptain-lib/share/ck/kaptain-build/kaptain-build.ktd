@@ -1,0 +1,71 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	kaptain-build.ktd - definitions for a sample Kaptain template 
+#                         for docker container execution
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.2.0
+# @copyright © 2019-2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-ckaptain
+# @subpackage kaptain-build.ktd
+#
+# =========================================================================
+#
+#	Copyright © 2019-2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-ckaptain.
+#
+#   ewsdocker/ldc-ckaptain is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-ckaptain is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-ckaptain.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+docker_window_title="ewsdocker-container"
+
+# =========================================================================================
+# =========================================================================================
+#
+#    Framework Template Variables
+#
+# =========================================================================================
+# =========================================================================================
+
+TEMPL_CTITLE="Configure the ewsdocker Container."
+TEMPL_RTITLE="Run the ewsdocker Container."
+
+[[ -z "${TEMPL_USER}" ]] && TEMPL_USER=${KPT_USER}
+[[ -z "${TEMPL_UID}" ]] && TEMPL_UID=${KPT_UID}
+
+[[ -z "${TEMPL_PCKG}" ]] && TEMPL_PCKG="ewsdocker-container"
+
+[[ -z "${TEMPL_REPO}" ]] && TEMPL_REPO=""
+[[ -z "${TEMPL_NAME}" ]] && TEMPL_NAME="ewsdocker-container"
+[[ -z "${TEMPL_VERS}" ]] && TEMPL_VERS="latest"
+
+[[ -z ${TEMPL_IMAGE} ]] && TEMPL_IMAGE="${TEMPL_REPO}/${TEMPL_PCKG}:${TEMPL_VERS}"
+[[ ${TEMPL_IMAGE:0:1} == "/" ]] && TEMPL_IMAGE=${TEMPL_IMAGE:1}
+
+TEMPL_EXEC="${KPT_RUNTYPE}"
+
+[[ -z "${TEMPL_HOME}" ]] && 
+ {
+    [[ "${TEMPL_USER}" == "root" ]] && TEMPL_HOME="/root" || TEMPL_HOME="/home/${TEMPL_USER}"
+ }
+
