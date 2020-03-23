@@ -71,10 +71,11 @@ declare    ckw_dialogs="$ckw/dialogs"
 
 # =========================================================================================
 
-declare    template=""
-declare    templatePath=""
-declare    templateName=""
+declare -i cklWidget_trace=1
+declare -i ckResult=0
 
-declare -i newTemplate=0
+declare -i ckTemplate=0
+declare -i ckTemplateExists=0
+
 declare -a nv
 

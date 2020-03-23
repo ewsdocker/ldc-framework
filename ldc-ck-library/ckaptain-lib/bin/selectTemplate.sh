@@ -3,7 +3,7 @@
 #
 #  selectTemplate
 #
-#      gui application to select and load a ckaptain template.
+#      gui application to select and copy a ckaptain template.
 #
 # =========================================================================================
 #
@@ -38,13 +38,6 @@
 #
 # =========================================================================================
 # =========================================================================================
-declare selectTemplate_vers="0.1.0"
-
-declare -i cklWidget_trace=0
-declare -i selResult=0
-
-declare -i newTemplate=0
-declare -i newTemplateExists=0
 
 # =========================================================================================
 # =========================================================================================
@@ -56,62 +49,63 @@ declare -i newTemplateExists=0
 
 . /usr/local/lib/lms/lmsConIn.lib
 . /usr/local/lib/lms/lmsDeclare.lib
+. /usr/local/lib/lms/lmsErrorMsg.lib
 . /usr/local/lib/lms/lmsStr.lib
 . /usr/local/lib/lms/lmsUtilities.lib
+
+# ===========================================================================
+
+. /opt/ckaptain-lib/etc/vars/selectTemplate.vars
+. /opt/ckaptain-lib/etc/errors/selectTemplate.errors
+
+# ===========================================================================
 
 . /opt/ckaptain-lib/lib/cklFileUtils.lib
 . /opt/ckaptain-lib/lib/cklVars.lib
 . /opt/ckaptain-lib/lib/cklWidget.lib
 
-. /opt/ckaptain-lib/share/ckw/dialogs/messageBox.dialog
-
-# =========================================================================================
-# =========================================================================================
-
 # ===========================================================================
+
+. /opt/ckaptain-lib/share/ckw/dialogs/errorMessage.dialog
+. /opt/ckaptain-lib/share/ckw/dialogs/messageBox.dialog
+. /opt/ckaptain-lib/share/ckw/dialogs/selectSrcTemplate.dialog
+. /opt/ckaptain-lib/share/ckw/dialogs/selectDestTemplate.dialog
+
+# =========================================================================================
+# =========================================================================================
 #
-#	checkNewTemplate
+#   Functions
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#	installTemplateErrors - install errorNames and errorText into lmsErrorMsg.lib
 #
 #	Parameters:
-#       newTName = default template name
+#       none
 #
 #   Results:
 #       0 = no error
-#       non-zero = error code
 #
-# ===========================================================================
-function checkNewTemplate()
+# =========================================================================================
+function installTemplateErrors()
 {
-	local newTName="${1}"
-    [[ -z "${newTName}" ]] && return 1
+    for error in ${!selTemplateErrors[*]}
+    do
+        lmsErrorAdd "$error" "${selTemplateErrors[$error]}"
+    done
 
-	newTemplateExists=0
-
-    folderExists "${newTName}"
-    [[ $? -eq 0 ]] &&
-     {
-       	newTemplateExists=1
-
-	    msgboxPositive=" Continue"
-	    msgboxNegative="Cancel"
-	    msgboxResult="overwrite=${newTName}"
-        msgboxIcon="$cklicons/warningred.png"
-
-	 	messageBox "Overwrite ${newTName}?" "${newTName} Already Exists"
-	 	[[ $? -eq 0 ]] || return 2
-     }
-
-     return 0
+    return 0
 }
 
 # ===========================================================================
 #
-#	selectTemplate
+#	selectTemplate - select the requested template
 #
 #	Parameters:
 #       widgetType    = "source" (default) or "dest"
-#		widgetDir     = directory to look for template folders
-#       widgetDefault = default template name
 #		widgetName    = location to store the template name
 #		widgetFolder  = location to store the processed command folder name
 #
@@ -123,51 +117,94 @@ function checkNewTemplate()
 function selectTemplate()
 {
 	local widgetType=${1:-"source"}
-    local widgetDir="${2}"
-    local widgetDefault="${3}"
+    local widgetName="${2}"
+    local widgetFolder="${3}"
 
-    [[ -z "${widgetDir}" || -z "${widgetDefault}" || -z "${4}" || -z "${5}" ]] && return 1
+	ecName="none"
 
-    # =======================================================================
+	while [[ true ]]
+	do
+        [[ -z "${widgetName}" || -z "${widgetFolder}" ]] && ecName="required"
 
-	local oPwd=$PWD
-	cd "${widgetDir}"
+        [[ "${ecName}" == "none" ]] || break
 
-    cklWidget "${widgetDir}/${widgetDefault}" "widgetResult"
-	[[ $? -eq 0 ]] || return 2
+        # ===================================================================
 
-	cd $oPwd
+	    local oPwd=$PWD
+	    cd "${ck}"
 
-    [[ -z "${widgetResult}" ]] && return 3
+        case $widgetType in
 
-    # =======================================================================
+    	    "source")
+    	        selsrcDir="${ck}"
+    	        selsrcPositive=" Continue"
+    	        selsrcNegative="Cancel"
+    	    
+                selectSrcTemplate "Template" "Source Folder"
+	            [[ $? -eq 0 ]] || ecName="selsrc"
 
-	cliParam=()
-	cliKey=()
+    	        ;;
 
-	lmsConInSplit "${widgetResult}"
-    [[ $? -eq 0 ]] ||
-     {
-         echo "Unable to parse the request string: \"${widgetResult}\""
-         return 4
-     }
+    	    "dest")
+    	        seldestDir="${ck}"
+    	        seldestPositive=" Continue"
+    	        seldestNegative="Cancel"
+    	        seldestFolder=""
 
-    local fileType=${cliKey[0]}
-    local filePath=${cliParam[$fileType]}
+                selectDestTemplate "Template" "Destination Folder"
+	            [[ $? -eq 0 ]] || ecName="seldest"
 
-    [[ -z "${filePath}" ]] && return 5
+    	        ;;
 
-    [[ "${fileType}" == "new" ]] && newTemplate=1 || newTemplate=0
+            *)
+	            ecName="widget-type"
 
-    fileNameFromPath "${filePath}" "${4}" "${5}" "${ck}" "/"
-    [[ $? -eq 0 ]] || return 7
+    	        ;;
+
+        esac
+
+	    cd $oPwd
+
+        [[ "${ecName}" == "none" ]] || break
+
+        # ===================================================================
+
+        [[ -z "${widgetResult}" ]] && ecName="widget-result"
+
+        [[ "${ecName}" == "none" ]] || break
+
+        # ===================================================================
+
+	    cliParam=()
+	    cliKey=()
+
+	    lmsConInSplit "${widgetResult}"
+        [[ $? -eq 0 ]] || ecName="parse-req"
+
+        [[ "${ecName}" == "none" ]] || break
+
+        # ===================================================================
+
+        local fileType=${cliKey[0]}
+        local filePath=${cliParam[$fileType]}
+
+        [[ -z "${filePath}" ]] && ecName="required-path"
+
+        [[ "${fileType}" == "new" ]] && ckTemplate=1 || ckTemplate=0
+
+        fileNameFromPath "${filePath}" "${widgetName}" "${widgetFolder}" "${ck}" "/"
+        [[ $? -eq 0 ]] || ecName="filename-path"
+
+        break
+
+    done
 
     return 0
 }
 
 # ===========================================================================
 #
-#    getSourceTemplate - prompt for source template folder
+#    getSourceTemplate - prompt for source template folder name/location
 #
 #      parameters
 #        none
@@ -179,16 +216,24 @@ function selectTemplate()
 # ===========================================================================
 function getSourceTemplate()
 {
+	ecName="none"
+
     while [[ true ]]
     do
-    	selResult=0
+    	ckResult=0
 
 	    selsrcTitle="Select Source Template Folder"
         selsrcFolder="Source Folder Name: "
 
-	    selectTemplate "source" "${ckw_widgets}" "ckwTSelectSrc.widget" "sourcePath" "sourceName"
-	    selResult=$?
-	    [[ $selResult -eq 0 ]] || break
+	    selectTemplate "source" "sourcePath" "sourceName"
+	    [[ $? -eq 0 ]] || 
+	     {
+	     	[[ "${ecName}" == "none" ]] || ecName="seltemplate"
+	     }
+
+	    [[ "${ecName}" == "none" ]] || break
+
+        # ===================================================================
 
 	    sourceTemplate="${sourcePath}/${sourceName}"
 
@@ -201,11 +246,14 @@ function getSourceTemplate()
             msgboxIcon="$cklicons/warningyellow.png"
 
 	 	    messageBox "Invalid source: ${sourceTemplate}" "Invalid source."
-	 	    selResult=$?
-	        [[ $selResult -eq 0 ]] || break
+	 	    [[ $? -eq 0 ]] || ecName="invalid-source"
+
+	        [[ "${ecName}" == "none" ]] || break
 
 	 	    selSkip=1
 	     }
+
+        # ===================================================================
 
 	    [[ ${selSkip} -eq 0 ]] &&
 	     {
@@ -217,21 +265,28 @@ function getSourceTemplate()
                 msgboxIcon="$cklicons/question3.png"
 
                 messageBox "Source = ${sourceTemplate}" "Verify source selection."
-                selResult=$?
-	            [[ $selResult -eq 0 ]] && break
+                [[ $? -eq 0 ]] || ecName="source-verify"
+
+	            [[ "${ecName}" == "none" ]] && break
 	         }
+
+            # ===============================================================
 
             msgboxPositive="{$cklicons/Tango/32x32/actions/go-previous.png}"
 	        msgboxNegative="{$cklicons/Tango/32x32/actions/process-stop.png}"
             msgboxIcon="$cklicons/question3.png"
 
             messageBox "Source folder ${sourceTemplate} does not exist." "Retry."
-            selResult=$?
-	        [[ $selResult -eq 0 ]] || break
+            [[ $? -eq 0 ]] || ecName="folder-exists"
+
+	        [[ "${ecName}" == "none" ]] || break
          }
+
     done
 
-    return $selResult
+    [[ "${ecName}" == "none" ]] || return 1
+
+    return 0
 }
 
 # ===========================================================================
@@ -248,22 +303,24 @@ function getSourceTemplate()
 # ===========================================================================
 function getDestinationTemplate()
 {
+	ecName="none"
+
     while [[ true ]]
     do
 	    seldestDir=${ck}
 
-	    selectTemplate "dest" "${ckw_widgets}" "ckwTSelectDest.widget" "destPath" "destName"
-	    selResult=$?
-	    [[ $selResult -eq 0 ]] || break
+	    selectTemplate "dest" "destPath" "destName"
+        [[ $? -eq 0 ]] || 
+	     {
+	     	[[ "${ecName}" == "none" ]] || ecName="seltemplate"
+	     }
 
-echo "destPath = $destPath"
-echo "destName = $destName"
+        [[ "${ecName}" == "none" ]] || break
+
+        # ===================================================================
 
         destTemplate="${destPath}"
-echo "destTemplate = $destTemplate"
-
         [[ -z "${destName}" ]] || destTemplate="${destTemplate}/${destName}"
-echo "destTemplate = $destTemplate"
 
 	    selSkip=0
 
@@ -274,33 +331,39 @@ echo "destTemplate = $destTemplate"
             msgboxIcon="$cklicons/warningred.png"
             
 	 	    messageBox "${destTemplate}" "Invalid destination."
-            selResult=$?
-	        [[ $selResult -eq 0 ]] || break
+	 	    [[ $? -eq 0 ]] || ecName="invalid-dest"
+
+	        [[ "${ecName}" == "none" ]] || break
 	        
 	 	    selSkip=1
 	     }
 
+        # ===================================================================
+
 	    [[ ${selSkip} -eq 0 ]] &&
 	     {
             checkNewTemplate "${destTemplate}"
-            selResult=$?
-            [[ ${selResult} -eq 0 ]] && break
+            ckResult=$?
+            [[ ${ckResult} -eq 0 ]] && break
+
+            # ===============================================================
 
             msgboxPositive="{$cklicons/yes.png}"
             msgboxNegative="{$cklicons/no.png}"
             msgboxIcon="$cklicons/warningred.png"
             
             messageBox "Over-writing of ${destTemplate} denied." "Destination denied."
-            selResult=$?
-	        [[ $selResult -eq 0 ]] || break
+            [[ $? -eq 0 ]] || ecName="overwrite"
+
+	        [[ "${ecName}" == "none" ]] || break
          }
+
     done
     
-    return ${selResult}
-}
+    [[ "${ecName}" == "none" ]] || return 1
 
-# ===========================================================================
-# ===========================================================================
+    return 0
+}
 
 # ===========================================================================
 #
@@ -315,25 +378,38 @@ echo "destTemplate = $destTemplate"
 # ===========================================================================
 function copyTemplate()
 {
+	ecName="none"
+
     while [[ true ]]
     do
         getSourceTemplate
-          selResult=$?
-          [[ $selResult -eq 0 ]] || break
+        [[ $? -eq 0 ]] || 
+	     {
+            [[ "${ecName}" == "none" ]] || ecName="getsrc-template"
+            break
+         }
 
         getDestinationTemplate
-       	  selResult=$?
-          [[ $selResult -eq 0 ]] || break
+        [[ $? -eq 0 ]] || 
+	     {
+            [[ "${ecName}" == "none" ]] || ecName="getdest-template"
+            break
+         }
+
+        # ===================================================================
 
         msgboxPositive="{$cklicons/yes.png}"
         msgboxNegative="{$cklicons/no.png}"
         msgboxIcon="$cklicons/question3.png"
 
         messageBox "Copy ${sourceTemplate} to ${destTemplate}" "Verify copy."
-       	  selResult=$?
-          [[ $selResult -eq 0 ]] || break
+       	[[ $? -eq 0 ]] || ecName="cpyverify"
 
-        [[ ${newTemplateExists} -eq 1 ]] &&
+        [[ "${ecName}" == "none" ]] || break
+
+        # ===================================================================
+
+        [[ ${ckTemplateExists} -eq 1 ]] &&
          {
             msgboxPositive=" Remove Files"
             msgboxNegative="Merge Files"
@@ -343,28 +419,63 @@ function copyTemplate()
             [[ $? -eq 0 ]] &&
              {
          	    rm -Rf "${destTemplate}"
-         	    selResult=$?
+         	    [[ $? -eq 0 ]] || ecName="rmfolder"
+         	    break
              }
          }
 
-        [[ $selResult -eq 0 ]] || break
+        # ===================================================================
 
         mkdir -p "${destTemplate}"
-          selResult=$?
-          [[ $selResult -eq 0 ]] || break
+        [[ $? -eq 0 ]] || 
+         {
+         	ecName="mkfolder"
+            break
+         }
 
         cp -rf ${sourceTemplate}/* ${destTemplate}
-          selResult=$?
+        [[ $? -eq 0 ]] || ecName="cpyfolder"
 
         break
 
     done
 
-    return ${selResult}
+	[[ "${ecName}" == "none" ]] || return 1
+
+    return 0
 }
 
 # ===========================================================================
+# ===========================================================================
+#
+#   Script starts here
+#
+# ===========================================================================
+# ===========================================================================
+
+installTemplateErrors
 
 copyTemplate
+ckResult=$?
 
-exit ${selResult}
+# ===========================================================================
+
+[[ "${ecName}" == "none" ]] ||
+ {
+ 	#
+ 	#    lookup errorName to get the ecIndex of errorName in lmsErrorCodes
+ 	#
+ 	lmsErrorCode "${ecName}" "ecIndex"
+ 	[[ $? -eq 0 ]] || 
+ 	 {
+ 	 	ecName="unknown"
+ 	 	lmsErrorCode "${ecName}" "ecIndex"
+ 	 }
+
+ 	errorMessage "${lmsErrorMessages[$ecName]}" "selectTemplate - Error (${ecIndex})"
+    ckResult=$ecIndex
+ }
+
+# ===========================================================================
+
+exit ${ckResult}

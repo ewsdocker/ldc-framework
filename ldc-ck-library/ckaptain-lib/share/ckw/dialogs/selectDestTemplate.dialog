@@ -1,9 +1,9 @@
 #!/bin/bash
 # =========================================================================================
 #
-#   messageBox.dialog
+#   selectDestTemplate.dialog
 #
-#      A script to create a messageBox widget in a consistent manner.
+#      A script to create a selectDestTemplate widget in a consistent manner.
 #
 # =========================================================================================
 #
@@ -13,7 +13,7 @@
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-framework
 # @subpackage ldc-ck-library
-# @name messageBox.dialog
+# @name selectDestTemplate.dialog
 #
 # =========================================================================
 #
@@ -44,24 +44,24 @@
 #   Depends on:
 #
 #      cklWidget.lib        - widget manipulation library
-#      ckwMessageBox.widget - CKaptain widget to create a functional messageBox dialog.
+#      ckwMessageBox.widget - CKaptain widget to create a functional selectDestTemplate dialog.
 #
 # =========================================================================================
 
-declare    msgboxText=""
-declare    msgboxTitle=" "
-declare    msgboxResult="result"
-declare    msgboxPositive=" Continue"
-declare    msgboxNegative="Cancel"
-declare    msgboxIcon=""
+declare    seldestDir="$ck"                    # default template directory
+declare    seldestPositive=" Continue"         # Name / Image for positive response button
+declare    seldestNegative="Cancel"            # Name / Image for negative response button
+declare    seldestTitle="Template"             # title of the message box in outter frame
+declare    seldestFolder="Destination Folder"  # label for the directory input
 
 # ===========================================================================
 #
-#	messageBox - a pop-up message box
+#	selectDestTemplate - a pop-up message box, 
+#                   with positive and negative response buttons
 #
 #	Parameters:
-#		msgboxText = (optional) message text to display in pop-up box - defaults to " "
-#       msgboxTitle = (optional) message box title (in outter frame) - defaults to " "
+#		seldestText = (optional) message text to display in pop-up box - defaults to " "
+#       seldestTitle = (optional) message box title (in outter frame) - defaults to " "
 #
 #   Results:
 #       0 = okay / positive response
@@ -72,18 +72,18 @@ declare    msgboxIcon=""
 #   Note: The following GLOBAL variables can be modified PRIOR 
 #           to calling this dialog function
 #
-#      msgboxResult = positive result label (defaults to "result")
-#      msgboxPositive = Name / Image for positive response button (defaults to " Continue")
-#      msgboxNegative = Name / Image for negative response button (defaults to "Cancel")
-#      msgboxIcon = path to icon to display in front of the message (defaults to "")
+#      seldestResult = positive result label (defaults to "result")
+#      seldestPositive = Name / Image for positive response button (defaults to " Continue")
+#      seldestNegative = Name / Image for negative response button (defaults to "Cancel")
+#      seldestIcon = path to icon to display in front of the message (defaults to "")
 #
 # ===========================================================================
-function messageBox()
+function selectDestTemplate()
 {
-	msgboxText=${1:-" "}
-	msgboxTitle=${2:-" "}
+	seldestText=${1:-" "}
+	seldestTitle=${2:-" "}
 
-    cklWidget "${ckw_widgets}/messageBox.widget" "widgetResult"
+    cklWidget "${ckw_widgets}/selectDestTemplate.widget" "widgetResult"
     [[ $? -eq 0 ]] || return 1
 
     return 0

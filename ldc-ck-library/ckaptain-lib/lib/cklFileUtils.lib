@@ -42,6 +42,17 @@ declare cklFileUtils_vers="0.1.0"
 
 # =========================================================================================
 #
+#   depenencies
+#
+#      lmsDeclare.lib
+#      lmsStr.lib
+#
+#      messageBox.dialog
+#
+# =========================================================================================
+
+# =========================================================================================
+#
 #	fileNameFromPath
 #		return the folder name from provided parameters
 #
@@ -149,5 +160,41 @@ function folderExists()
     [[ -d "${fName}" ]] && return 0
 
 	return 1
+}
+
+# ===========================================================================
+#
+#	checkNewTemplate
+#
+#	Parameters:
+#       newTName = default template name
+#
+#   Results:
+#       0 = no error
+#       non-zero = error code
+#
+# ===========================================================================
+function checkNewTemplate()
+{
+	local newTName="${1}"
+    [[ -z "${newTName}" ]] && return 1
+
+	ckTemplateExists=0
+
+    folderExists "${newTName}"
+    [[ $? -eq 0 ]] &&
+     {
+       	ckTemplateExists=1
+
+	    msgboxPositive=" Continue"
+	    msgboxNegative="Cancel"
+	    msgboxResult="overwrite=${newTName}"
+        msgboxIcon="$cklicons/warningred.png"
+
+	 	messageBox "Overwrite ${newTName}?" "${newTName} Already Exists"
+	 	[[ $? -eq 0 ]] || return 2
+     }
+
+     return 0
 }
 

@@ -1,21 +1,23 @@
 # =========================================================================================
 # =========================================================================================
 #
-#	ckwMessageBox.widget - a CKaptain script to produce a pop-up message box.
+#	selectDestTemplate.widget
+#
+#      CKaptain widget script to select a destination template foloder.
 #
 # =========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.0.1
-# @copyright © 2020. EarthWalk Software.
+# @version 0.0.5
+# @copyright © 2018-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-framework
 # @subpackage ldc-ck-library
-# @name ckwMessageBox.widget
+# @name selectDestTemplate.widget
 #
 # =========================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2018-2020. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-framework.
@@ -39,26 +41,26 @@
 
 # =========================================================================================
 #
-#    Set the following parameters PRIOR to including this widget in the script
-#
-#      msgboxTitle    - title of the message box in outter frame (defaults to "Information")
-#      msgboxText     - text to display in the message box (defaults to "<empty>")
-#      msgboxResult   - positive result label (defaults to "result")
-#      msgboxPositive - Name / Image for positive response button (defaults to " Continue")
-#      msgboxNegative - Name / Image for negative response button (defaults to "Cancel")
-#      msgboxIcon     - path to icon to display in front of the message (defaults to "")
+#   seldestTitle    - title of the message box in outter frame
+#   seldestDir      - default template directory
+#   seldestPositive - Name / Image for positive response button
+#   seldestNegative - Name / Image for negative response button
+#   seldestTemplate - Template name
+#   seldestFolder   - folder name
 #
 # =========================================================================================
 
 read -d '' kaptain_grammar << GRAMMAR
 
-start "ckwMessageBox.widget v 0.1" -> msgbox buttons ;
+start "selectDestTemplate.widget v 0.3" -> seldest buttons ;
 
-	buttons:horizontal -> @dump(msgbox)="${msgboxPositive:- Continue}"
-	                      @close="${msgboxNegative:-Cancel}" ;
+    buttons :horizontal -> @dump(seldest)="${seldestPositive:- Continue}" 
+	                       @close="${seldestNegative:-Cancel}" ;
 
-	msgbox :framed -> msgboxframe ;
-	  msgboxframe :beside "${msgboxTitle:-Information}" -> msgboxtext;
-        msgboxtext :horizontal -> @icon("${msgboxIcon}") @text="${msgboxText:-<empty>}" "${msgboxResult:-result}=ok" ;
+	seldest :framed -> seldestoutter ;
+	 seldestoutter "${seldestTitle:-Enter Destination Folder}" -> seldestnew seldestdir seldesttempl ;
+        seldestnew   :beside "New:" "           " -> "new=" | @ "template=" ;
+        seldestdir   :beside "Parent Folder:" " " -> @directory="${seldestDir:-$ck}" ;
+        seldesttempl :beside "Template Name:" " " -> "/" @string(40)="${seldestFolder}" ;
 
 GRAMMAR

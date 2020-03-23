@@ -1,19 +1,17 @@
-#!/bin/bash
+# =========================================================================================
 # =========================================================================================
 #
-#   messageBox.dialog
-#
-#      A script to create a messageBox widget in a consistent manner.
+#	ckwMessageBox.widget - a CKaptain script to produce a pop-up message box.
 #
 # =========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.0
+# @version 0.0.1
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-framework
 # @subpackage ldc-ck-library
-# @name messageBox.dialog
+# @name ckwMessageBox.widget
 #
 # =========================================================================
 #
@@ -41,51 +39,26 @@
 
 # =========================================================================================
 #
-#   Depends on:
+#    Set the following parameters PRIOR to including this widget in the script
 #
-#      cklWidget.lib        - widget manipulation library
-#      ckwMessageBox.widget - CKaptain widget to create a functional messageBox dialog.
+#      msgboxTitle    - title of the message box in outter frame (defaults to "Information")
+#      msgboxText     - text to display in the message box (defaults to "<empty>")
+#      msgboxResult   - positive result label (defaults to "result")
+#      msgboxPositive - Name / Image for positive response button (defaults to " Continue")
+#      msgboxNegative - Name / Image for negative response button (defaults to "Cancel")
+#      msgboxIcon     - path to icon to display in front of the message (defaults to "")
 #
 # =========================================================================================
 
-declare    msgboxText=""
-declare    msgboxTitle=" "
-declare    msgboxResult="result"
-declare    msgboxPositive=" Continue"
-declare    msgboxNegative="Cancel"
-declare    msgboxIcon=""
+read -d '' kaptain_grammar << GRAMMAR
 
-# ===========================================================================
-#
-#	messageBox - a pop-up message box
-#
-#	Parameters:
-#		msgboxText = (optional) message text to display in pop-up box - defaults to " "
-#       msgboxTitle = (optional) message box title (in outter frame) - defaults to " "
-#
-#   Results:
-#       0 = okay / positive response
-#       non-zero = cancel / negative response
-#
-# ===========================================================================
-#
-#   Note: The following GLOBAL variables can be modified PRIOR 
-#           to calling this dialog function
-#
-#      msgboxResult = positive result label (defaults to "result")
-#      msgboxPositive = Name / Image for positive response button (defaults to " Continue")
-#      msgboxNegative = Name / Image for negative response button (defaults to "Cancel")
-#      msgboxIcon = path to icon to display in front of the message (defaults to "")
-#
-# ===========================================================================
-function messageBox()
-{
-	msgboxText=${1:-" "}
-	msgboxTitle=${2:-" "}
+start "messageBox.widget v 0.1" -> msgbox buttons ;
 
-    cklWidget "${ckw_widgets}/messageBox.widget" "widgetResult"
-    [[ $? -eq 0 ]] || return 1
+	buttons:horizontal -> @dump(msgbox)="${msgboxPositive:- Continue}"
+	                      @close="${msgboxNegative:-Cancel}" ;
 
-    return 0
-}
+	msgbox :framed -> msgboxframe ;
+	  msgboxframe :beside "${msgboxTitle:-Information}" -> msgboxtext;
+        msgboxtext :horizontal -> @icon("${msgboxIcon}") @text="${msgboxText:-<empty>}" "${msgboxResult:-result}=ok" ;
 
+GRAMMAR

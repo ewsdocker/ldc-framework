@@ -1,23 +1,21 @@
 # =========================================================================================
 # =========================================================================================
 #
-#	ckwTSelectSrc.widget
-#
-#      CKaptain widget script to select a source template name.
+#	errorMessage.widget - a CKaptain script to produce an error message box.
 #
 # =========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.0.5
-# @copyright © 2018-2020. EarthWalk Software.
+# @version 0.0.1
+# @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-framework
 # @subpackage ldc-ck-library
-# @name ckwTSelectSrc.widget
+# @name errorMessage.widget
 #
 # =========================================================================
 #
-#	Copyright © 2018-2020. EarthWalk Software
+#	Copyright © 2020. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-framework.
@@ -39,22 +37,26 @@
 # =========================================================================================
 # =========================================================================================
 
+# =========================================================================================
 #
-#      selsrcDir      - default template directory (defaults to "$ck" - refer to cklVars.lib)
-#      selsrcPositive - Name / Image for positive response button (defaults to " Continue")
-#      selsrcNegative - Name / Image for negative response button (defaults to "Cancel")
-#      selsrcTitle    - title of the message box in outter frame (defaults to "Template")
-#      selsrcFolder   - label for the directory input (defaluts to "Source Folder")
+#    Set the following parameters PRIOR to including this widget in the script
 #
+#      errmsgText     - error message (defaults to "Error <code number>")
+#      errmsgTitle    - title of the message box (defaults to "Error")
+#      errmsgResult   - result label (defaults to "result")
+#      errmsgButton   - Text or Image for negative response button (defaults to "Cancel")
+#      errmsgIcon     - path to icon to display in front of the message (defaults to "")
+#
+# =========================================================================================
 
 read -d '' kaptain_grammar << GRAMMAR
 
-start "ckwTSelectSrc.widget v 0.3" -> selsrc buttons ;
-  buttons :horizontal -> @dump(selsrc)="${selsrcPositive:- Continue}" 
-	                     @close="${selsrcNegative:-Cancel}" ;
+start "errorMessage.widget v 0.1" -> errmsg buttons ;
 
-    selsrc :framed -> selsrcfolder ;
-      selsrcfolder "${selsrcTitle:-Select Source Folder Name}" -> selsrcdir ;
-        selsrcdir :beside "${selsrcFolder:-Source Folder} " -> "template=" @directory="${selsrcDir:-$ck}" ;
+	buttons:horizontal -> @close="${errmsgButton:-Exit}" ;
+
+	errmsg :framed -> errmsgframe ;
+	  errmsgframe :beside "${errmsgTitle}" -> errmsgdisplay;
+        errmsgdisplay :horizontal -> @icon("${errmsgIcon}") @text="${errmsgText}" "${errmsgResult:-result}=ok" ;
 
 GRAMMAR

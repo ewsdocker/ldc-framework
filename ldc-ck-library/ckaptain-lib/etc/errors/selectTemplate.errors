@@ -1,0 +1,64 @@
+# =========================================================================================
+#
+#  selectTemplate
+#
+#      gui application to select and load a ckaptain template.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2020. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ldc-framework
+# @subpackage ldc-ck-library
+# @name selectTemplate
+#
+# =========================================================================
+#
+#	Copyright © 2020. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-framework.
+#
+#   ewsdocker/ldc-framework is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-framework is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-framework.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+declare -A selTemplateErrors=(
+              ["cpyfolder"]="Unable to copy the specified folder."
+              ["cpyverify"]="Copy has been aborted."
+              ["filename-path"]="Filename-from-path failed."
+              ["folder-exists"]="Selected folder does not exist."
+              ["getdest-template"]="Get destination template failed."
+              ["getsrc-template"]="Get source template failed."
+              ["invalid-dest"]="Invalid destination folder."
+              ["invalid-source"]="Invalid source selection."
+              ["mkfolder"]="Unable to make the specified folder."
+              ["overwrite"]="Over-write aborted."
+              ["parse-req"]="Unable to parse the request string."
+              ["required"]="Missing required parameter."
+              ["required-path"]="Missing file path."
+              ["rmfolder"]="Unable to remove the specified folder."
+              ["seldest"]="Select destination template failed."
+              ["selsrc"]="Select source template failed."
+              ["seltemplate"]="Select template failed."
+              ["source-verify"]="Source file name not verified."
+              ["widget-type"]="Unknown widget type."
+              ["widget-result"]="Widget returned bad result."
+              )
+
+

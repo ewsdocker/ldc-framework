@@ -1,19 +1,19 @@
-#!/bin/bash
+# =========================================================================================
 # =========================================================================================
 #
-#   messageBox.dialog
+#	selectSrcTemplate.widget
 #
-#      A script to create a messageBox widget in a consistent manner.
+#      CKaptain widget script to select a source template name.
 #
 # =========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.0
+# @version 0.0.5
 # @copyright © 2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-framework
 # @subpackage ldc-ck-library
-# @name messageBox.dialog
+# @name selectSrcTemplate.widget
 #
 # =========================================================================
 #
@@ -41,51 +41,23 @@
 
 # =========================================================================================
 #
-#   Depends on:
-#
-#      cklWidget.lib        - widget manipulation library
-#      ckwMessageBox.widget - CKaptain widget to create a functional messageBox dialog.
+#   selsrcDir      - default template directory (defaults to "$ck" - refer to cklVars.lib)
+#   selsrcPositive - Name / Image for positive response button (defaults to " Continue")
+#   selsrcNegative - Name / Image for negative response button (defaults to "Cancel")
+#   selsrcTitle    - title of the message box in outter frame (defaults to "Template")
+#   selsrcFolder   - label for the directory input (defaluts to "Source Folder")
 #
 # =========================================================================================
 
-declare    msgboxText=""
-declare    msgboxTitle=" "
-declare    msgboxResult="result"
-declare    msgboxPositive=" Continue"
-declare    msgboxNegative="Cancel"
-declare    msgboxIcon=""
+read -d '' kaptain_grammar << GRAMMAR
 
-# ===========================================================================
-#
-#	messageBox - a pop-up message box
-#
-#	Parameters:
-#		msgboxText = (optional) message text to display in pop-up box - defaults to " "
-#       msgboxTitle = (optional) message box title (in outter frame) - defaults to " "
-#
-#   Results:
-#       0 = okay / positive response
-#       non-zero = cancel / negative response
-#
-# ===========================================================================
-#
-#   Note: The following GLOBAL variables can be modified PRIOR 
-#           to calling this dialog function
-#
-#      msgboxResult = positive result label (defaults to "result")
-#      msgboxPositive = Name / Image for positive response button (defaults to " Continue")
-#      msgboxNegative = Name / Image for negative response button (defaults to "Cancel")
-#      msgboxIcon = path to icon to display in front of the message (defaults to "")
-#
-# ===========================================================================
-function messageBox()
-{
-	msgboxText=${1:-" "}
-	msgboxTitle=${2:-" "}
+start "selectSrcTemplate.widget v 0.3" -> selsrc buttons ;
 
-    cklWidget "${ckw_widgets}/messageBox.widget" "widgetResult"
-    [[ $? -eq 0 ]] || return 1
+  buttons :horizontal -> @dump(selsrc)="${selsrcPositive:- Continue}" 
+	                     @close="${selsrcNegative:-Cancel}" ;
 
-    return 0
-}
+    selsrc :framed -> selsrcfolder ;
+      selsrcfolder "${selsrcTitle:-Select Source Folder Name}" -> selsrcdir ;
+        selsrcdir :beside "${selsrcFolder:-Source Folder} " -> "template=" @directory="${selsrcDir:-$ck}" ;
 
+GRAMMAR
