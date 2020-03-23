@@ -1,0 +1,7 @@
+      -v ${HOME}/Artwork:/Artwork \
+      -v ${HOME}/Documents:/Documents \
+      -v ${HOME}/Downloads:/Downloads \
+      -v ${HOME}/Music:/Music \
+      -v ${HOME}/Pictures:/Pictures \
+      -v ${HOME}/Source:/Source \
+      
