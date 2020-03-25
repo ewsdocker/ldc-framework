@@ -1,7 +1,7 @@
 
 __Preliminary Documentation__ - 2019-12-11
 ____  
-__ldc-core: The LDC (Linux Docker Container) Core project.__  
+__ldc-core: The LDC Framework Core project.__  
 
 Current Development Version: __0.1.0-b1__  
 Latest Release Version: __n/a__  
