@@ -3,15 +3,21 @@ __Preliminary Documentation__ - 2020-03-27
 ____  
 __ldc-framework: The LDC (Linux Docker Containers) Framework project.__  
 
+____  
+###Overview  
+
 <b>core</b>
 <ul>
  The <b>LDC Core</b> project is the foundational member of <a href="https:// github.com/ewsdocker/ldc-framework.wiki">LDC Framework</a>, providing the core frame required to construct additional frame's and applications.
 <br><br>
  The <b>core</b> project provides the following sub-project(s):
  <dl>
-  <dt>ldc-core:dcore</dt>
+  <dt><u>ldc-core:dcore</u></dt>
   <dd>
-   As the first frame in the framework, <b>ldc-core:dcore</b> provides the latest <i>Docker</i> operating system container, a system supervisor, system services, and frequently needed, console-based applications to form an extensible <i>LDC Frame</i>.
+   <br>As the first frame in the framework, <b>ldc-core:dcore</b> provides the
+   latest <i>Docker</i> operating system container, a system supervisor, system
+   services, and frequently needed, console-based applications to form an extensible
+   <i>LDC Frame</i>.
   </dd>
  </dl>
 </ul>
@@ -22,7 +28,7 @@ The <b>LDC Library</b> project provides the structure and support libraries for 
  <br><br>
  The <b>library</b> project provides the following sub-project(s):
  <dl>
-  <dt>ldc-library:dlibrary</dt>
+  <dt><u>ldc-library:dlibrary</u></dt>
   <dd>
 <br>The <b>LDC Library</b> project extends <b>ldc-core:dcore</b> to provide utility libraries and scripts, a standard <i>Docker</i>-host interface, and a common internal structure for consistent, well-defined behavior of daemons as well as applications.
   </dd>
@@ -35,7 +41,7 @@ The <b>LDC Base</b> project provides the base <i>frame</i>s required to construc
  <br><br>
  The <b>library</b> project provides the following sub-project(s):
  <dl>
-  <dt>ldc-base:dbase</dt>
+  <dt><u>ldc-base:dbase</u></dt>
   <dd>
    <br><b>ldc-base:dbase</b> extends the <b>ldc-core:dcore</b> frame by incorporating 
    the library utility scripts and structures forming the second, or "base", block 
@@ -47,7 +53,7 @@ The <b>LDC Base</b> project provides the base <i>frame</i>s required to construc
  </dl>
  
  <dl>
-  <dt>ldc-base:dperl</dt>
+  <dt><u>ldc-base:dperl</u></dt>
   <dd>
    <br><b>ldc-base:dperl</b> extends the <b>ldc-base:dbase</b> by adding <b>Perl</b>
    support, utility scripts and applications to provide enhanced support for 
@@ -56,7 +62,7 @@ The <b>LDC Base</b> project provides the base <i>frame</i>s required to construc
  </dl>
 
  <dl>
-  <dt>ldc-base:dx11-base</dt>
+  <dt><u>ldc-base:dx11-base</u></dt>
   <dd>
    <br><b>ldc-base:dx11-base</b> extends the <b>ldc-base:dperl</b> to provide audio
    and some multimedia functionality for console-based (mult-user) and gui-based
@@ -65,7 +71,7 @@ The <b>LDC Base</b> project provides the base <i>frame</i>s required to construc
  </dl>
 
  <dl>
-  <dt>ldc-base:dx11-surface</dt>
+  <dt><u>ldc-base:dx11-surface</u></dt>
   <dd>
    <br><b>ldc-base:dx11-surface</b> extends the <b>ldc-base:dx11-base</b> to provide
    robust multimedia functionality, including a <i>Wayland</i> drawing surface, 
@@ -75,7 +81,7 @@ The <b>LDC Base</b> project provides the base <i>frame</i>s required to construc
  </dl>
 
  <dl>
-  <dt>ldc-base:dx11-dev</dt>
+  <dt><u>ldc-base:dx11-dev</u></dt>
   <dd>
    <br><b>ldc-base:dx11-dev</b> extends the <b>ldc-base:dx11-surface</b> to provide
    libraries for development of gui-based applications.
