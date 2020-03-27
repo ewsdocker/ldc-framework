@@ -3,8 +3,7 @@ __Preliminary Documentation__ - 2020-03-22
 ____  
 __ldc-framework: The LDC (Linux Docker Containers) Framework project.__  
 
-
-<b>core</b>  
+<b>core</b>
 <ul>
   The <b>LDC Core</b> </a> is the foundational member of the <a href="https://github.com/ewsdocker/ldc-framework.wiki">LDC Framework</a>, providing the core frame required to construct additional frame's and applications.  
 
