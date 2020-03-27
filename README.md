@@ -23,6 +23,8 @@ ____
  </dl>
 </ul>
 
+<hr>
+
 <b>library</b>
 <ul>
 The <b>LDC Library</b> project provides the structure and support libraries for the framework.
@@ -35,6 +37,8 @@ The <b>LDC Library</b> project provides the structure and support libraries for 
   </dd>
  </dl>
 </ul>
+
+<hr>
 
 <b>base</b>
 <ul>
@@ -88,6 +92,189 @@ The <b>LDC Base</b> project provides the base <i>frame</i>s required to construc
    libraries for development of gui-based applications.
   </dd>
  </dl>
+</ul>
+
+<hr>
+
+<b>stack</b>
+<ul>
+The <b>LDC Stack</b> project provides 
+ <br><br>
+ The <b>stack</b> project provides the following sub-project(s):
+ <dl>
+  <dt><u>ldc-stack:dcc</u></dt>
+  <dd>
+   <br><b>ldc-stack:dcc</b> extends the <b>ldc-base:dx11-base</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack:dcc-x11</u></dt>
+  <dd>
+   <br><b>ldc-stack:dcc-x11</b> extends the <b>ldc-base:dx11-surface</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack:dgtk2</u></dt>
+  <dd>
+   <br><b>ldc-stack:dgtk2</b> extends the <b>ldc-base:dx11-base</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack:dgtk2-x11</u></dt>
+  <dd>
+   <br><b>ldc-stack:dgtk2-x11</b> extends the <b>ldc-base:dcc-x11</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack:dgtk3</u></dt>
+  <dd>
+   <br><b>ldc-stack:dgtk3</b> extends the <b>ldc-base:dx11-base</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack:dgtk3-x11</u></dt>
+  <dd>
+   <br><b>ldc-stack:dgtk3-x11</b> extends the <b>ldc-base:dcc-x11</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack:djre8-x11</u></dt>
+  <dd>
+   <br><b>ldc-stack:djre8-x11</b> extends the <b>ldc-base:dx11-surface</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack:dqt4</u></dt>
+  <dd>
+   <br><b>ldc-stack:dqt4</b> extends the <b>ldc-base:dcc-x11</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack:dqt4-x11</u></dt>
+  <dd>
+   <br><b>ldc-stack:dqt4-x11</b> extends the <b>ldc-base:dx11-surface</b> to provide
+  </dd>
+ </dl>
+</ul>
+
+<hr>
+
+<b><u>stack-dev</u></b>
+<ul>
+The <b>LDC Stack-Dev</b> project provides 
+ <br><br>
+ The <b>stack-dev</b> project provides the following sub-project(s):
+
+ <dl>
+  <dt><u>ldc-stack-dev:dcc-dev</u></dt>
+  <dd>
+   <br><b>ldc-stack-dev:dcc-dev</b> extends the <b>ldc-base:dx11-dev</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-dev:dgtk3-dev</u></dt>
+  <dd>
+   <br><b>ldc-stack-dev:dgtk3-dev</b> extends the <b>ldc-stack-dev:dcc-dev</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-dev:dqt4-dev</u></dt>
+  <dd>
+   <br><b>ldc-stack-dev:dqt4-dev</b> extends the <b>ldc-stack-dev:dcc-dev</b> to provide
+  </dd>
+ </dl>
+
+</ul>
+
+<hr>
+
+<b>stack-apps</b>
+<ul>
+The <b>LDC Stack-Apps</b> project provides 
+ <br><br>
+ The <b>stack-apps</b> project provides the following sub-project(s):
+
+ <dl>
+  <dt><u>ldc-stack-apps:dcpp-jdk13</u></dt>
+  <dd>
+   <br><b>ldc-stack-apps:dcpp-jdk13</b> extends the <b>ldc-stack-apps:djdk13-gtk3</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-apps:dfortran-gtk2</u></dt>
+  <dd>
+   <br><b>ldc-stack-apps:dfortran-gtk2</b> extends the <b>ldc-stack-apps:djre8-gtk2</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-apps:dfortran-jdk13</u></dt>
+  <dd>
+   <br><b>ldc-stack-apps:dfortran-jdk13</b> extends the <b>ldc-stack-apps:djdk13-gtk3</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-apps:djdk8-gtk2</u></dt>
+  <dd>
+   <br><b>ldc-stack-apps:djdk8-gtk2</b> extends the <b>ldc-stack:dgtk2</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-apps:djdk13-gtk3</u></dt>
+  <dd>
+   <br><b>ldc-stack-apps:djdk13-gtk3</b> extends the <b>ldc-stack:dgtk3</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-apps:djdk13dev-gtk3</u></dt>
+  <dd>
+   <br><b>ldc-stack-apps:djdk13dev-gtk3</b> extends the <b>ldc-stack-dev:dgtk3-dev</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-apps:djre8-gtk2</u></dt>
+  <dd>
+   <br><b>ldc-stack-apps:djre8-gtk2</b> extends the <b>ldc-stack:dgtk2</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-apps:djs13-jdk13</u></dt>
+  <dd>
+   <br><b>ldc-stack-apps:djs13-jdk13</b> extends the <b>ldc-stack-apps:djdk13-gtk3</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-apps:dphp5.6-jdk13</u></dt>
+  <dd>
+   <br><b>ldc-stack-apps:dphp5.6-jdk13</b> extends the <b>ldc-stack-apps:djdk13-gtk3</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-stack-apps:dqt4-jdk13dev</u></dt>
+  <dd>
+   <br><b>ldc-stack-apps:dqt4-jdk13dev</b> extends the <b>ldc-stack-apps:djdk13dev-gtk3</b> to provide
+  </dd>
+ </dl>
+
+</ul>
 
 </ul>
 
