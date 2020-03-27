@@ -5,16 +5,15 @@ __ldc-framework: The LDC (Linux Docker Containers) Framework project.__
 
 <b>core</b>
 <ul>
-  The <b>LDC Core</b> </a> is the foundational member of the <a href="https://github.com/ewsdocker/ldc-framework.wiki">LDC Framework</a>, providing the core frame required to construct additional frame's and applications.  
+ The <b>LDC Core</b> </a> is the foundational member of the <a href="https:// github.com/ewsdocker/ldc-framework.wiki">LDC Framework</a>, providing the core frame required to construct additional frame's and applications.  
 
-  The <b>core</b> project provides the following sub-project(s):
-<dl>
-    <dt>ldc-core:dcore</dt>
-    <dd>
-      As the first frame in the framework, <b>ldc-core:dcore</b> provides the latest <i>Docker</i> operating system container, a system supervisor, system services, and frequently needed, console-based applications to form an extensible <i>LDC Frame</i>.  
-    </dd>  
-   </dl>  
-  </ul>  
+ The <b>core</b> project provides the following sub-project(s):
+ <dl>
+  <dt>ldc-core:dcore</dt>
+  <dd>
+   As the first frame in the framework, <b>ldc-core:dcore</b> provides the latest <i>Docker</i> operating system container, a system supervisor, system services, and frequently needed, console-based applications to form an extensible <i>LDC Frame</i>.  
+  </dd>  
+ </dl>  
 </ul>  
 
 
