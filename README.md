@@ -276,8 +276,81 @@ The <b>LDC Stack-Apps</b> project provides
 
 </ul>
 
+<hr>
+
+<b>dialog</b>
+<ul>
+The <b>LDC Dialog</b> project provides 
+ <br><br>
+ The <b>dialog</b> project provides the following sub-project(s):
+
+ <dl>
+  <dt><u>ldc-dialog:dialog</u></dt>
+  <dd>
+   <br><b>ldc-dialog:dialog</b> extends <b>ldc-base:dbase</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-dialog:kaptain</u></dt>
+  <dd>
+   <br><b>ldc-dialog:kaptain</b> extends <b>ldc-stack:dqt4-x11</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-dialog:whiptail</u></dt>
+  <dd>
+   <br><b>ldc-dialog:whiptail</b> extends <b>ldc-base:dbase</b> to provide
+  </dd>
+ </dl>
+
+ <dl>
+  <dt><u>ldc-dialog:zenity</u></dt>
+  <dd>
+   <br><b>ldc-dialog:zenity</b> extends <b>ldc-stack:dgtk3-x11</b> to provide
+  </dd>
+ </dl>
+
 </ul>
 
+</ul>
+
+<hr>
+
+<b>ck-library</b>
+<ul>
+The <b>LDC CK-Library</b> project provides 
+ <br><br>
+ The <b>ck-library</b> project provides the following sub-project(s):
+
+ <dl>
+  <dt><u>ldc-ck-library:ck-library</u></dt>
+  <dd>
+   <br><b>ldc-ck-library:ck-library</b> extends <b>ldc-ck-library:dqt4-x11</b> to provide
+  </dd>
+ </dl>
+
+</ul>
+
+<hr>
+
+<b>ckaptain</b>
+<ul>
+The <b>LDC CKaptain</b> project provides 
+ <br><br>
+ The <b>ckaptain</b> project provides the following sub-project(s):
+
+ <dl>
+  <dt><u>ldc-ckaptain:ckaptain</u></dt>
+  <dd>
+   <br><b>ldc-ckaptain:ckaptain</b> extends <b>ldc-dialog:kaptain</b> to provide
+  </dd>
+ </dl>
+
+</ul>
+
+</ul>
 
 ____  
 __version 0.1.0-b1__  
