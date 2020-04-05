@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <title>C-Kaptain</title>
-    <meta name="author" content="Jay" />
+    <title>LDC Framework</title>
+    <meta name="author" content="Jay Wheeler" />
     <meta http-equiv="Content-Type" 
           content="text/html; charset=iso-8859-1" />
     <meta name="description" 
@@ -25,7 +25,7 @@
       .body 
       {
        font-family: Verdana, Arial, Helvetica, sans-serif;
-       font-size: 11px;
+       font-size: 18px;
        font-weight: bold;
        text-decoration:none;
        color: #000099;
@@ -106,6 +106,19 @@
        font-weight: bold;
        margin-top:60px;
        margin-left:360px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerDockerLDC 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size: 18px;
+       font-weight: bold;
+       margin-top:85px;
+       margin-left:410px;
        left: 0px;
        top: 0px;
       }
@@ -336,6 +349,14 @@
        font-family: Verdana, Arial, Helvetica, sans-serif; 
        font-weight: bold; 
        font-size: 26px; 
+       color: #7DA5E0; 
+      }
+	    
+      .ldctitle
+      {
+       font-family: Verdana, Arial, Helvetica, sans-serif; 
+       font-weight: bold; 
+       font-size: 24px; 
        color: #7DA5E0; 
       }
 	    
@@ -798,6 +819,10 @@
 <!--     The whole page       -->
 <!-- ------------------------ -->
     <div id="body" align="center">
+    <!-- 
+	  <base href="https://ewsdocker.github.io/ldc-framework/">
+     -->
+	  <base href="http://172.17.0.3/">
 
     <!-- ---------------- -->
     <!--     Header       -->
@@ -811,11 +836,11 @@
           <a href="https://github.com/ewsdocker/ewsdocker.github.io/wiki">ewsdocker</a>
         </div>
         <div id="headerDockerOSS" align="left"><span class="blue">Open Source Docker Containers</span></div>
-
+        <!-- <div id="headerDockerLDC" align="left"><span class="blue">Linux Docker Containers</span></div> -->
         <div id="headerMenu" align="right"><a 
-	         href="https://hub.docker.com/r/ewsdocker/c-kaptain">Docker Image</a> | <a 
-             href="https://github.com/ewsdocker/c-kaptain">Git Source</a> | <a 
-             href="https://github.com/ewsdocker/c-kaptain/wiki">Wiki</a>
+	         href="https://hub.docker.com/r/ewsdocker/ldc-framework">Docker Image</a> | <a 
+             href="https://github.com/ewsdocker/ldc-framework">Git Source</a> | <a 
+             href="https://github.com/ewsdocker/ldc-framework/wiki">Wiki</a>
         </div>
 
       </div>
@@ -838,27 +863,27 @@
         <!-- --------------------- -->
         <!--    Left Panel Menu    -->
         <!-- --------------------- -->
-        <!--     c-kaptain    -->
+        <!--     ldc-framework    -->
         <!-- --------------------- -->
           <div class="leftMenuTop">
             <span class="leftMenuPanel darkBlue"><a 
-                  href="https://github.com/ewsdocker/c-kaptain/wiki">Wiki</a></span>
+                  href="https://github.com/ewsdocker/ldc-framework/wiki">Wiki</a></span>
           </div>
 
           <div class="leftMenuContent">
             <div class="leftMenuText darkBlue">
               <br />
-              <a href="https://github.com/ewsdocker/c-kaptain/wiki">Home</a><br />
-              <a href="https://github.com/ewsdocker/c-kaptain/wiki/QuickStart">Quick Start</a><br />
-              <a href="https://github.com/ewsdocker/c-kaptain/wiki/Getting">Getting the source</a><br />
-              <a href="https://github.com/ewsdocker/c-kaptain/wiki/Building">Building the Container</a><br />
-              <a href="https://github.com/ewsdocker/c-kaptain/wiki/Edge Testing">Bleeding-edge testing</a><br />
-              <a href="https://github.com/ewsdocker/c-kaptain/wiki/DockerTags">Docker Tags</a><br />
+              <a href="https://github.com/ewsdocker/ldc-framework/wiki">Home</a><br />
+              <a href="https://github.com/ewsdocker/ldc-framework/wiki/QuickStart">Quick Start</a><br />
+              <a href="https://github.com/ewsdocker/ldc-framework/wiki/Getting">Getting the source</a><br />
+              <a href="https://github.com/ewsdocker/ldc-framework/wiki/Building">Building the Container</a><br />
+              <a href="https://github.com/ewsdocker/ldc-framework/wiki/Edge Testing">Bleeding-edge testing</a><br />
+              <a href="https://github.com/ewsdocker/ldc-framework/wiki/DockerTags">Docker Tags</a><br />
             </div>
           </div>
 
           <div class="leftMenuBottom darkBlue">
-            <img src="./images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
+            <img src="images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
           </div> 
         <!-- --------------------- -->
         <!--    Left Panel Menu    -->
@@ -880,13 +905,13 @@
             <div class="leftMenuText">
 
               <br />
-              <a href="https://hub.docker.com/r/ewsdocker/c-kaptain">Docker Image</a><br />
-              <a href="https://github.com/ewsdocker/c-kaptain">GitHub Source</a><br />
+              <a href="https://hub.docker.com/r/ewsdocker/ldc-framework">Docker Image</a><br />
+              <a href="https://github.com/ewsdocker/ldc-framework">GitHub Source</a><br />
             </div>
           </div>
 
           <div class="leftMenuBottom darkBlue">
-            <img src="./images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
+            <img src="images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
           </div> 
         <!-- --------------------- -->
         <!--    Left Panel Menu    -->
@@ -905,12 +930,12 @@
           <div class="leftMenuContent">
             <div class="leftMenuText darkBlue">
               <br />
-              <a href="https://github.com/ewsdocker/c-kaptain/wiki/License">c-kaptain</a><br />
+              <a href="https://github.com/ewsdocker/ldc-framework/wiki/License">ldc-framework</a><br />
             </div>
           </div>
 
           <div class="leftMenuBottom darkBlue">
-            <img src="./images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
+            <img src="images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
           </div> 
         <!-- --------------------- -->
         <!--    Left Panel Menu    -->
@@ -938,7 +963,7 @@
           </div>
 
           <div class="leftMenuBottom darkBlue">
-            <img src="./images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
+            <img src="images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
           </div> 
         <!-- --------------------- -->
         <!--    Left Panel Menu    -->
@@ -957,29 +982,31 @@
       <!-- -------------------- -->
       <!--    contentText       -->
       <!-- -------------------- -->
-        <div id="contentText">
-<!-- 
- 	      <p style="text-align: center;"><img src="./images/christmas/x032.png" /></p>
-          <div id="blockCentered">
-            <a href="https://hub.docker.com/r/ewsdocker/c-kaptain/"><img 
-               src="./images/Firefox-esrSmall.png" 
-               style="vertical-align:middle;border-style:none;" /></a>&nbsp;&nbsp;
-          </div>
--->
-          <span class="title blue">c-kaptain</span>
+      <div id="contentText">
+        <div class="ldctitle darkBlue block" 
+             style="background-color:#FFFFFF;font-size:20px;font-weight:bold;">
+          LDC
           <br />
-          <span class="subtitle gray">Hosted by <a href="http://github.com">GitHub</a></span><br />
-          <div class="darkBlue block" style="background-color:#FFFFFF;">
-            <b>Container Kaptain</b>
+          Linux Docker Containers
+ 
+          <p style="text-align: center;">
+            <img src="images/easter/ETitle.png" />
             <br />
-            <a href="http://kaptain.sourceforge.net/">Kaptain</a> in a Docker container. 
-	      </div>
+            <img src="images/easter/easter3bar-sm.png" />
+          </p>
+
+        </div>
+
+        <span class="title blue">LDC Framework</span>
+        <br />
+        <span class="subtitle gray">Hosted by <a href="http://github.com">GitHub</a></span><br />
+        <br />
 
         <!-- ---------------- -->
         <!--  construction    -->
-        <!-- ---------------- 
+        <!-- ---------------- -->
           <div id="construction">
-            <div class=".construction"><img src="./images/construction.gif" style="width=144px;height=50px;" /></div>
+            <div class=".construction"><img src="images/construction.gif" style="width=144px;height=50px;" /></div>
             <span class="red">Under Construction</span>
 	      </div>
         <!-- ---------------- -->
@@ -995,162 +1022,316 @@
                  style="font-size:18px;font-weight:normal;text-decoration:none;background-color:#FFFFFF;">
               <div class="darkBlue" id="blockCentered"
                 style="font-size:16px;font-weight:normal;text-decoration:none;background-color:#FFFFFF;">
-                <a href="https://hub.docker.com/r/ewsdocker/c-kaptain/">c-kaptain</a> Version <b>0.1.1</b><br />
-                <span style="font-weight:bold;font-size:12px;">January 26, 2019</span>.
+                <a href="https://hub.docker.com/r/ewsdocker/ldc-framework/">
+                   ldc-framework
+                 </a> 
+                 Version 
+                 <span style="font-weight:bold;text-decoration:none;">
+                   0.1.0-b1
+                 </span>
+                 <br />
+                <span style="font-weight:bold;font-size:12px;">April 5, 2020</span>.
               </div>
 
-              <!-- ------------- -->
-              <!--    EDGE       -->
-              <!-- ------------- -->
-              <br />
- 
-              <div class="red" id="blockCentered"
-                style="font-size:16px;font-weight:normal;text-decoration:none;background-color:#FFFFFF;">
-                New <a href="https://hub.docker.com/r/ewsdocker/c-kaptain/">c-kaptain</a> <span 
-                       style="text-color:#990000;">edge-version <b>0.1.2</b></span><br />
-                <span style="font-size:12px;text-color:#990000;">January 26, 2019</span>.
-              </div>
-
-              <!-- ------------- -->
-              <!--    EDGE       -->
-              <!-- ------------- -->
             </div>
 
             <!-- --------------------- -->
             <!--      block            -->
             <!-- --------------------- -->
-            <div class="darkBlue block">
+            <div class="darkBlue block"
+                 style="color:blue;font-size:18px;text-decoration:none;">
 
-              <div id="toc_container">
-                <p class="toc_title">c-kaptain Wiki Contents</p>
- 
-                <ul class="toc_list">
-
-                  <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki">1 c-kaptain</a></li>
-                  <ul>
-                    <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/Home#overview">1.1 Overview</a></li>
-                    <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/Home#newest-version">1.2 Newest Version</a></li>
-                    <li><a style="font-weight:normal;" href="https://ewsdocker.github.io/c-kaptain/">1.3 c-kaptain Web Site</a></li>
-                  </ul>  
-                  <br />  
-                  
-                  <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/QuickStart">2 Quick Start</a></li>
-                  <ul>
-                    <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/QuickStart#installing-c-kaptain">2.1 Installing c-kaptain</a></li>
-                    <ul>
-                      <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/QuickStart#environment-variables">2.1.1 Environment Variables</a></li>
-                      <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/QuickStart#data-volumes">2.1.2 Data Volumes</a></li>
-                    </ul>
-                  </ul>
-                  <br />
-
-                  <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/Getting#getting">3 Getting the source</a></li>
-                  <ul>
-                    <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/Getting#getting-c-kaptain">3.1 Getting C-Kaptain</a></li>
-                    <ul>
-                      <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/Getting#as-git-repository">3.1.1 As Git Repository</a></li>
-                      <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/Getting#as-tarball-or-zip-archive">3.1.2 As tarball or zip archive</a></li>
-                    </ul>
-                  </ul>
-                  <br />
-                  
-                  <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/Building#building-the-container">4 Building the Container</a></li>
-                  <ul>
-                    <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/Building#build-arguments">4.1 Build arguments</a></li>
-                  </ul>
-                  <br />
-
-                  <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/EdgeTesting">5 Bleeding-edge testing</a></li>
-                  <ul>
-                    <li><a style="font-weight:normal;" 
-                           href="https://github.com/ewsdocker/c-kaptain/wiki/EdgeTesting#overview">5.1 Overview</a></li>
-                    <li><a style="font-weight:normal;" 
-                           href="https://github.com/ewsdocker/c-kaptain/wiki/EdgeTesting#installing-c-kaptain-edge">5.2 Installing c-kaptain Edge</a></li>
-                  </ul>
-                  <br />
-
-                  <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/DockerTags">6 Docker Tags</a></li>
-                  <ul>
-                    <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/DockerTags#docker-tag-history">6.1 Docker Tag History</a></li>
-                  </ul>
-                  <br />
-
-                  <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/License">7 Licenses</a></li>
-                  <ul>
-                    <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain/wiki/License">7.1 c-kaptain</a></li>
-                  </ul>
-                  <br />
-
-                  <li><a style="font-weight:normal;" href="#">8 Resources</a></li>
-                  <ul>
-                    <li><a style="font-weight:normal;" href="https://github.com/ewsdocker/c-kaptain">8.1 c-kaptain Source on GitHub</a></li>
-                    <li><a style="font-weight:normal;" href="https://hub.docker.com/r/ewsdocker/c-kaptain">8.2 c-kaptain Image on Docker Hub</a></li>
-                  </ul>
-                  <br />
-
-                </ul>
+              <div class="darkBlue" id="blockCentered"
+                   style="align:center;color:blue;font-size:22px;font-weight:bold;text-decoration:underline;">
+                 ldc-framework: The LDC Framework project.
               </div>
+
+              <p style="color:blue;font-size:20px;font-weight:bold;text-decoration:none;">
+                 Overview
+              </p>
+
+              The primary goal of the <b>LDC Framework</b> project is to 
+              streamline <i>Docker</i> container development by providing:
+
+              <ul>
+                <li>
+                  a container structure which lends itself to replication within 
+                  each created container, including those used as a base 
+                  for a new container;
+                </li>
+                <li>
+                  a directory structure allowing for utility libraries and 
+                  scripts, a standard, expandable <i>Docker</i>-host interface, 
+                  and a common internal structure for consistent, well-defined 
+                  behavior of system daemons and developed applications;
+                </li>
+                <li>
+                  <a href="http://kaptain.sourceforge.net/"
+                     style="color:blue;font-style:italic;font-size:16px;">Kaptain</a>, 
+                  <span style="font-style:italic">Dialog</span>, 
+                  <span style="font-style:italic">Whiptail</span> and 
+                  <span style="font-style:italic">Zenity</span> to provide 
+                    simple dialog boxes;
+                </li>
+                <li>
+                  <span style="font-style:italic;">CKaptain</span> pop-up 
+                  dialog boxes, based on 
+                  <a href="http://kaptain.sourceforge.net/"
+                     style="color:blue;font-style:italic;font-size:16px;">Kaptain</a>, to provide 
+                  <ul>
+                    <li>
+                      form-based user interfaces for scripts and console-based applications,
+                    </li>
+                    <li>
+                      easily defined, form-based input of options for console-based 
+                      applications;
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  framework stacks for 
+                  <ul>
+                    <li>
+                      single development languages (for example: 
+                      <span style="font-style:italic;">C</span>, 
+                      <span style="font-style:italic;">C++</span>, 
+                      <span style="font-style:italic;">Perl</span>, 
+                      <span style="font-style:italic;">PHP</span>, 
+                      <span style="font-style:italic;">Java</span>);
+                    </li>
+                    <li>
+                      multiple development languages, (for example: 
+                      <span style="font-style:italic;">C++</span>, 
+                      <span style="font-style:italic;">GTK</span>, 
+                      <span style="font-style:italic;">Java</span>); and
+                    </li>
+                    <li>
+                      individually tailored, multi-layered stacks for 
+                      applications (for example: 
+                      <span style="font-style:italic;"LibreOffice</span>, 
+                      <span style="font-style:italic;"Firefox</span>, 
+                      <span style="font-style:italic;"Eclipse</span>)
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+            </div>
+
+            <hr />
+
+            <!-- --------------------------------- -->
+            <!--          Framework                -->
+            <!-- --------------------------------- -->
+
+            <div class="blue block"
+                 style="color:blue;font-size:18px;text-decoration:none;">
+              <div style="color:blue;font-size:20px;font-weight:bold;text-decoration:none;">
+                <a href="ldc-framework.html" 
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    Framework</a> 
+                <span style="font-style:italic;font-size:18px;">Construction Blocks</span>
+              </div>  
+
+              <br/>
+
+              The LDC Framework is constructed using multiple levels of 
+              <span style="font-style:italic;">construction blocks</span>, 
+              or frames:
+
+              <dl>
+                <!-- --------------------------------- -->
+                <!--           ldc-core                -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="ldc-core.html" 
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    ldc-core
+                  </a>
+                </dt>
+                  <dd>
+                    The <span style="font-style:italic;">LDC Core</span> 
+                    project is the foundational member of the LDC framework, 
+                    providing the core frame required to construct new 
+                    applications and frames.
+                  </dd>
+                <br />
+
+                <!-- --------------------------------- -->
+                <!--          ldc-library              -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="ldc-library.html" 
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    ldc-library
+                  </a>
+                </dt>
+                  <dd>
+                    The <span style="font-style:italic;">LDC Library</span> 
+                    project provides the scripts, special purpose maintenance 
+                    libraries and applications, and the 
+                    <span style="font-style:italic;">Docker</span>-host 
+                    interface structure, for a standard look and feel 
+                    across all stack frames and derivative projects.
+                  </dd>
+                <br />
+
+                <!-- --------------------------------- -->
+                <!--           ldc-base                -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="ldc-base.html" 
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                   ldc-base
+                  </a>
+                </dt>
+                  <dd>
+                    The <span style="font-style:italic;">LDC Base</span> 
+                    project is the second layer in the framework, 
+                    providing the base frames 
+                    required to construct additional applications 
+                    and frames.
+                  </dd>
+                <br />
+
+                <!-- --------------------------------- -->
+                <!--           ldc-stack               -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="ldc-stack.html" 
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    ldc-stack
+                  </a>
+                </dt>
+                  <dd>
+                    The <span style="font-style:italic;">LDC Stack</span> 
+                    project provides additional 
+                    pre-defined frames required to construct new 
+                    applications and frames.
+                  </dd>
+                <br />
+
+                <!-- --------------------------------- -->
+                <!--        ldc-stack-dev              -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="ldc-stack-dev.html" 
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    ldc-stack-dev
+                  </a>
+                </dt>
+                  <dd>
+                    The <span style="font-style:italic;">LDC Stack-dev</span> 
+                    project contains framework 
+                    stacks designed for applications requiring 
+                    development libraries.
+                  </dd>
+                <br />
+
+                <!-- --------------------------------- -->
+                <!--        ldc-stack-apps             -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="ldc-stack-apps.html" 
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    ldc-stack-apps
+                  </a>
+                </dt>
+                  <dd>
+                    The <span style="font-style:italic;">LDC Stack-apps</span> 
+                    project contains framework stacks designed for 
+                    specific applications and are usually derived 
+                    from more basic frames in 
+                    <span style="font-style:italic;">ldc-stack</span>, 
+                    <span style="font-style:italic;">ldc-stack-dev</span> and 
+                    <span style="font-style:italic;">ldc-stack-apps</span>.
+                  </dd>
+                <br />
+
+                <!-- --------------------------------- -->
+                <!--          ldc-dialog               -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="ldc-dialog.html" 
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    ldc-dialog
+                  </a>
+                </dt>
+                  <dd>
+                    The <span style="font-style:italic;">LDC Dialog</span> 
+                    project provides several methods of 
+                    displaying dialog 
+                    boxes from shell scripts.
+                  </dd>
+                <br />
+
+                <!-- --------------------------------- -->
+                <!--        ldc-ck-library             -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="ldc-ck-library.html" 
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    ck-library
+                  </a>
+                </dt>
+                  <dd>
+                    The <span style="font-style:italic;">LDC CK-Library</span> project is .
+                  </dd>
+                <br />
+
+                <!-- --------------------------------- -->
+                <!--          ldc-ckaptain             -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="ldc-ck-ckaptain.html" 
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    ckaptain
+                  </a>
+                </dt>
+                  <dd>
+                    The <span style="font-style:italic;">LDC CKaptain</span> project is .
+                  </dd>
+
+              </dl>
+
             </div>
 
             <!-- --------------------- -->
             <!--      block            -->
             <!-- --------------------- -->
 
-	        <p style="text-align: center;"><img src="./images/Colorbar-560.gif" /></p>
+	        <p style="text-align: center;"><img src="images/Colorbar-560.gif" /></p>
 			<br />
 
             <!-- --------------------- -->
             <!--      block            -->
             <!-- --------------------- -->
-            <div class="darkBlue border block">
-              <div id="blockCentered">
-                <a href="https://hub.docker.com/r/ewsdocker/debian-firefox/"><img 
-                         src="./images/Firefox-esrSmall.png" 
-                         style="vertical-align:middle;border-style:none;" /></a>&nbsp;&nbsp;
-                <a href="https://hub.docker.com/r/ewsdocker/debian-firefox/" 
-                   class="undecorated" 
-                   style="font-size:16px;font-weight:bold;text-decoration:none;">debian-firefox</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <br />
-                <br />
-<!-- 
- 	            <span style="font-size:16px; font-weight:bold;">Related Project:</span> &nbsp; 
- 	                  <a href="https://github.com/ewsdocker/debian-firefox"><span 
- 	                     style="font-weight:bold;text-decoration:none;color:inherit;">debian-firefox</span></a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
--->
-	          </div>
-
-            </div>
-            <!-- --------------------- -->
-            <!--      block            -->
-            <!-- --------------------- -->
-
-	        <p style="text-align: center;"><img src="./images/Colorbar-560.gif" /></p>
-			<br />
-
-            <!-- --------------------- -->
-            <!--      block            -->
-            <!-- --------------------- -->
-            <div class="green border block">
-
-              <div id="blockCentered">
- 	            <span style="font-size:16px; font-weight:bold;">Featured Project:</span> &nbsp; 
- 	                  <a href="https://ewsdocker.github.io/alpine-nginx"><span 
- 	                     style="font-weight:bold;text-decoration:none;color:inherit;">alpine-nginx</span></a>
+            <div class="red border block">
+               <div id="blockCentered">
+ 	            <span style="font-size:20px; font-weight:bold;">NOTE</span> &nbsp; 
                 &nbsp;&nbsp;&nbsp;&nbsp;
 	          </div>
 
-	          <p>
-            	The <b>alpine-nginx</b> docker server image is based on the latest 
-            	<i>NGINX</i> mainline (<b>edge</b>) version in an  <i>Alpine Linux</i>
-            	<b>edge</b> docker image.
+	          <p class="darkBlue">
+            	<b>ewsdocker/ldc-framework</b> is designed to be used on a Linux system configured 
+            	to support <b>Docker</b> <i>user namespace</i>s, or <i>userns</i>.
+              </p>
+              <p class="darkBlue">
+            	Refer to 
+            	<a href="https://github.com/ewsdocker/ewsdocker.github.io/wiki/UserNS-Overview">
+            	ewsdocker Containers and Docker User Namespaces</a> for an overview and 
+            	additional information.
 	          </p>
 
+	          </div>
+
             </div>
             <!-- --------------------- -->
             <!--      block            -->
             <!-- --------------------- -->
+
+	        <p style="text-align: center;"><img src="images/Colorbar-560.gif" /></p>
+			<br />
 
           </div>
         <!-- ------------- -->
@@ -1172,11 +1353,11 @@
       <!-- ------------ -->
         <div class="footer">
           <div class="footerblock">
-            <a href="https://hub.docker.com/r/ewsdocker/c-kaptain">Docker Image</a> | <a 
-               href="https://github.com/ewsdocker/c-kaptain">Git Source</a> | <a 
-               href="https://github.com/ewsdocker/c-kaptain/wiki">Wiki</a>
+            <a href="https://hub.docker.com/r/ewsdocker/ldc-framework">Docker Image</a> | <a 
+               href="https://github.com/ewsdocker/ldc-framework">Git Source</a> | <a 
+               href="https://github.com/ewsdocker/ldc-framework/wiki">Wiki</a>
             <br />
-            <div class="footerCopyright">Copyright © 2019. EarthWalk Software. Modified 2019-01-26.</div>
+            <div class="footerCopyright">Copyright © 2020. EarthWalk Software. Modified 2020-04-04.</div>
           </div>
         </div> 
       <!-- ------------ -->

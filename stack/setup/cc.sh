@@ -24,7 +24,7 @@ function addPkg()
 # =========================================================================
 #
 #	installList
-#		the instList has been build, now execute it
+#		the instList has been built, now execute it
 #
 #   Enter:
 #		none
