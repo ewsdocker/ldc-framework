@@ -320,17 +320,13 @@ The <b>LDC Dialog</b> project provides
 
 <b>ck-library</b>
 <ul>
-The <b>LDC CK-Library</b> project provides 
- <br><br>
- The <b>ck-library</b> project provides the following sub-project(s):
 
  <dl>
   <dt><u>ldc-ck-library:ck-library</u></dt>
   <dd>
-   <br><b>ldc-ck-library:ck-library</b> extends <b>ldc-ck-library:dqt4-x11</b> to provide
+The <b>LDC CK-Library</b> project provides <b>CKaptain</b> utility libraries, widgets, pop-up dialogs and scripts to provide consistent, well-defined behavior of daemons as well as applications.
   </dd>
  </dl>
-
 </ul>
 
 <hr>
