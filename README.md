@@ -1,5 +1,5 @@
 
-__Preliminary Documentation__ - 2020-03-27
+__Preliminary Documentation__ - 2020-04-12
 ____  
 __ldc-framework: The LDC (Linux Docker Containers) Framework project.__  
 
