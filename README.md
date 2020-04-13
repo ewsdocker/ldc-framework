@@ -4,6 +4,18 @@ ____
 __ldc-framework: The LDC (Linux Docker Containers) Framework project.__  
 
 ____  
+<table>
+ <thead>
+  <tr><th>NOTE</th></tr>
+ </thead>
+ <tbody>
+  <tr><td>The <b>ewsdocker/ldc-framework</b> documentation has moved to the <a href="https://github.com/ewsdocker/ldc-framework/wiki">LDC Framework Wiki Project</a>.  The documentation on this page is being maintained only when upgrades to
+  the project are published. </td>
+  </tr>
+ </tbody>
+</table>  
+
+____  
 ### Overview  
 
 
