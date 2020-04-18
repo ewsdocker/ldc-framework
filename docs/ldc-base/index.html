@@ -839,7 +839,7 @@
               <a href="../index.html">Framework</a><br />
               <hr class="gray">
                 <a href="../ldc-core/index.html">Core</a><br />
-                <a href="./index.html">Library</a><br />
+                <a href="../ldc-library/index.html">Library</a><br />
                 <a href="../ldc-base/index.html">Base</a><br />
                 <a href="../ldc-stack/index.html">Stack</a><br />
                 <a href="../ldc-stack-dev/index.html">Stack Dev</a><br />
@@ -955,26 +955,6 @@
       <!-- -------------------- -->
       <div id="contentText">
 
-        <!-- --------------------------- -->
-        <!--    holiday decoration       -->
-        <!-- --------------------------- --
-
-        <div class="ldctitle darkBlue block" 
-             style="background-color:#FFFFFF;font-size:20px;font-weight:bold;">
-          LDC
-          <br />
-          Linux Docker Containers
-          <p>
-            <div class="holidayBanner">
-            </div>
-            <div class="holidayBar">
-            </div>
-          </p>
-        </div>
-        <!-- --------------------------- -->
-        <!--    holiday decoration       -->
-        <!-- --------------------------- -->
-
         <span class="title blue">LDC Framework</span>
         <p>
           <span class="subtitle gray">Hosted by 
@@ -984,12 +964,11 @@
 
         <!-- ---------------- -->
         <!--  construction    -->
-        <!-- ---------------- --
-          <div id="construction">
-        -->
-            <div class=".construction"><img src="../images/construction.gif" style="width=144px;height=50px;" /></div>
+        <!-- ---------------- -->
+            <div class=".construction">
+              <img src="../images/construction.gif" style="width=144px;height=50px;" />
+            </div>
             <span class="red">Under Construction</span>
-<!-- 	      </div>
         <!-- ---------------- -->
         <!--  construction    -->
         <!-- ---------------- -->
@@ -1004,109 +983,146 @@
           <!-- --------------------- -->
             <div class="darkBlue block"
                  style="color:blue;font-size:18px;text-decoration:none;">
-
+ 
               <div class="darkBlue" id="blockCentered"
                    style="align:center;color:blue;font-size:22px;font-weight:bold;text-decoration:underline;">
-                 ldc-library: The LDC Library project.
+                 ldc-base: The LDC Base Stack project.
               </div>
 
-              <p style="color:blue;font-size:20px;font-weight:bold;text-decoration:none;">
-                 Overview
-              </p>
-
-              <p>
-                The <span style="font-style:italic;">LDC Library</span> 
-                project provides the scripts, special purpose maintenance 
-                libraries and applications, and the 
-                <span style="font-style:italic;">Docker</span>-host 
-                interface structure, for a standard look and feel 
-                across all stack frames and derivative projects.
-              </p>
+              <div class="darkBlue block"
+                   style="color:blue;font-size:18px;text-decoration:none;">
+                <p>
+                  The <span style="font-style:italic;">LDC Base</span> 
+                  project combines the <span style="font-style:italic;">LDC 
+                  Library</span> project with the
+                  <span style="font-style:italic;">LDC Core</span> project 
+                  and additional support frames to provide a progressively 
+                  complex multimedia foundation base.
+                </p>
+              </div>
             </div>
 
             <hr />
 
             <!-- --------------------------------- -->
-            <!--          LDC Library              -->
+            <!--          LDC Base                 -->
             <!-- --------------------------------- -->
 
             <div class="blue block"
                  style="color:blue;font-size:18px;text-decoration:none;">
 
-              <!-- --------------------------------- -->
-              <!--           ldc-library             -->
-              <!-- --------------------------------- -->
               <dl>
+                <!-- --------------------------------- -->
+                <!--           ldc-dbase                -->
+                <!-- --------------------------------- -->
                 <dt>
                   <p>
-                    <a href="./ldc-library/ldc-library.html"
+                    <a href="./ldc-base/dbase.html"
                        style="font-size:18px;font-weight:bold;text-decoration:underline;">
-                      ldc-library
+                      ldc-base:dbase
                     </a>
                   </p>
                 </dt>
                   <dd>
                     <p>
-                      <span style="font-style:italic;">ldc-library</span>
-                      provides a coherent container structure which lends itself 
-                      to replication within each created container, including 
-                      those used as a base for a new container.
-                    </p>
-                    <p>
-                      <span style="font-style:italic;">ldc-library</span>
-                      also creates a directory structure allowing for utility 
-                      libraries and scripts, a standard, expandable 
-                      <i>Docker</i>-host interface, and well defined internal 
-                      structure for consistent behavior of system daemons and 
-                      developed applications.
+                      The <span style="font-style:italic;">LDC Base</span> 
+                      stack adds the 
+                      <span style="font-style:italic;">LDC Library</span> 
+                      stack to the
+                      <span style="font-style:italic;">LDC Core</span> 
+                      stack to provide a base foundation.
                     </p>
                   </dd>
+
+                <!-- --------------------------------- -->
+                <!--           ldc-base:dperl          -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="./ldc-base/dperl.html"
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    ldc-base:dperl</a>
+                </dt>  
+                  <dd>
+                    <p>
+                      <span style="font-style:italic;">dperl</span>
+                      extends 
+                      <span style="font-style:italic;">dbase</span>
+                      by enhancing 
+                      <span style="font-style:italic;">Perl</span>
+                      support, utility scripts and applications to provide an
+                      enhanced environment for console-based (mult-user) 
+                      and gui-based (single user) levels of the framework.
+                    </p>
+                  </dd>  
+
+                <!-- --------------------------------- -->
+                <!--         dx11-base                 -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="./ldc-base/dx11-base.html"
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    dx11-base</a>
+                </dt>
+                  <dd>
+                    <p>
+                      <span style="font-style:italic;">dx11-base</span>
+                      extends 
+                      <span style="font-style:italic;">dperl</span>
+                      by adding minimal 
+                      <span style="font-style:italic;">X11</span>
+                      libraries to extend the console-based operating system
+                      with basic 
+                      <span style="font-style:italic;">X11</span> 
+                      audio capabilites.
+                    </p>
+                  </dd>  
+
+                <!-- --------------------------------- -->
+                <!--         dx11-surface              -->
+                <!-- --------------------------------- -->
+                <dt>
+                  <a href="./ldc-base/dx11-surface.html"
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    dx11-surface</a>
+                </dt>  
+                  <dd>
+                    <p>
+                      <span style="font-style:italic;">dx11-surface</span>
+                      extends 
+                      <span style="font-style:italic;">dx11-base</span>
+                      to provide robust multimedia functionality, including a 
+                      <span style="font-style:italic;">Wayland</span> 
+                      drawing surface, 
+                      <span style="font-style:italic;">Mesa</span> 
+                      (OpenGL) and 
+                      <span style="font-style:italic;">X11</span>
+                      server/client library extensions for gui-based applications.
+                    </p>
+                  </dd>  
+
+                <!-- ---------------------------- -->
+                <!--         dx11-dev             -->
+                <!-- ---------------------------- -->
+                <dt>
+                  <a href="./ldc-base/dx11-dev.html"
+                     style="font-size:18px;font-weight:bold;text-decoration:underline;">
+                    dx11-dev</a>
+                </dt>  
+                  <dd>
+                    <p>
+                      <span style="font-style:italic;">dx11-dev</span>
+                      extends 
+                      <span style="font-style:italic;">dx11-surface</span>
+                      to provide libraries and selected compilers for development of 
+                      gui-based applications.
+                    </p>
+                  </dd>  
+
             </div>
 
-            <!-- --------------------- -->
-            <!--      block            -->
-            <!-- --------------------- --
-
-	        <p style="text-align: center;">
-	          <img src="../images/Colorbar-560.gif" />
-	        </p>
-
-            <!-- --------------------- -->
-            <!--      block            -->
-            <!-- --------------------- --
-            <div class="red border block">
-               <div id="blockCentered">
- 	            <span style="font-size:20px; font-weight:bold;">NOTE</span> &nbsp; 
-                &nbsp;&nbsp;&nbsp;&nbsp;
-	          </div>
-
-	          <p class="darkBlue">
-            	<b>ewsdocker/ldc-framework</b> is designed to be used on a Linux system configured 
-            	to support <b>Docker</b> <i>user namespace</i>s, or <i>userns</i>.
-              </p>
-              <p class="darkBlue">
-            	Refer to 
-            	<a href="https://github.com/ewsdocker/ewsdocker.github.io/wiki/UserNS-Overview">
-            	ewsdocker Containers and Docker User Namespaces</a> for an overview and 
-            	additional information.
-	          </p>
-
-	          </div>
-
-            </div>
-            <!-- --------------------- -->
-            <!--      block            -->
-            <!-- --------------------- --
-
-	        <p style="text-align: center;">
-	          <img src="../images/Colorbar-560.gif" />
-	        </p>
-
-          </div>
         <!-- ------------- -->
         <!--    bodyText   -->
         <!-- ------------- -->
-
 
         </div>
       <!-- ----------------- -->
@@ -1116,21 +1132,24 @@
         <br />
         <br />
 
-      <!-- ------------ -->
-      <!--    Footer    -->
-      <!-- ------------ -->
+        <!-- ------------ -->
+        <!--    Footer    -->
+        <!-- ------------ -->
         <div class="footer">
           <div class="footerblock">
             <a href="https://hub.docker.com/r/ewsdocker/ldc-framework">Docker Image</a> | <a 
                href="https://github.com/ewsdocker/ldc-framework">Git Source</a> | <a 
                href="https://github.com/ewsdocker/ldc-framework/wiki">Wiki</a>
             <br />
-            <div class="footerCopyright">Copyright © 2018-2020. EarthWalk Software. Modified 2020-04-13.</div>
+            <div class="footerCopyright">Copyright © 2018-2020. EarthWalk Software. Modified 2020-04-17.</div>
           </div>
         </div> 
-      <!-- ------------ -->
-      <!--    Footer    -->
-      <!-- ------------ -->
+        <!-- ------------ -->
+        <!--    Footer    -->
+        <!-- ------------ -->
+
+        <br />
+        <br />
 
       </div>
       <!-- ------------- -->

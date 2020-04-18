@@ -782,10 +782,11 @@
 
     <div id="body" align="center">
 
-	  <base href="http://172.17.0.2/ldc-core">
     <!-- 
-	  <base href="https://ewsdocker.github.io/ewsdocker/ldc-core">
+	  <base href="http://172.17.0.2/ldc-base">
      -->
+	  <base href="https://ewsdocker.github.io/ewsdocker/ldc-base">
+
       <!-- ---------------- -->
       <!--     Header       -->
       <!-- ---------------- -->
@@ -823,11 +824,11 @@
       <!-- ------------------- -->
         <div id="leftpanel">
 
-        <!-- --------------------- -->
-        <!--    Left Panel Menu    -->
-        <!-- --------------------- -->
-        <!--     ldc-framework    -->
-        <!-- --------------------- -->
+          <!-- --------------------- -->
+          <!--    Left Panel Menu    -->
+          <!-- --------------------- -->
+          <!--     ldc-framework    -->
+          <!-- --------------------- -->
           <div class="leftMenuTop">
             <span class="leftMenuPanel darkBlue"><a 
                   href="https://github.com/ewsdocker/ldc-framework/wiki">LDC Projects</a></span>
@@ -839,8 +840,8 @@
               <a href="../index.html">Framework</a><br />
               <hr class="gray">
                 <a href="../ldc-core/index.html">Core</a><br />
-                <a href="./index.html">Library</a><br />
-                <a href="../ldc-base/index.html">Base</a><br />
+                <a href="../ldc-library/index.html">Library</a><br />
+                <a href="./ldc-base/index.html">Base</a><br />
                 <a href="../ldc-stack/index.html">Stack</a><br />
                 <a href="../ldc-stack-dev/index.html">Stack Dev</a><br />
                 <a href="../ldc-stack-apps/index.html">Stack Apps</a><br />
@@ -856,17 +857,17 @@
           <div class="leftMenuBottom darkBlue">
             <img src="../images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
           </div> 
-        <!-- --------------------- -->
-        <!--    Left Panel Menu    -->
-        <!-- --------------------- -->
+          <!-- --------------------- -->
+          <!--    Left Panel Menu    -->
+          <!-- --------------------- -->
 
-              <br />
+          <br />
 
-        <!-- --------------------- -->
-        <!--    Left Panel Menu    -->
-        <!-- --------------------- -->
-        <!-- Additional Resources  -->
-        <!-- --------------------- -->
+          <!-- --------------------- -->
+          <!--    Left Panel Menu    -->
+          <!-- --------------------- -->
+          <!-- Additional Resources  -->
+          <!-- --------------------- -->
           <div class="leftMenuTop">
             <span class="leftMenuPanel darkBlue">Resources</span>
           </div>
@@ -884,16 +885,17 @@
           <div class="leftMenuBottom darkBlue">
             <img src="../images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
           </div> 
-        <!-- --------------------- -->
-        <!--    Left Panel Menu    -->
-        <!-- --------------------- -->
+          <!-- --------------------- -->
+          <!--    Left Panel Menu    -->
+          <!-- --------------------- -->
 
           <br />
-        <!-- --------------------- -->
-        <!--    Left Panel Menu    -->
-        <!-- --------------------- -->
-        <!--     Licenses          -->
-        <!-- --------------------- -->
+
+          <!-- --------------------- -->
+          <!--    Left Panel Menu    -->
+          <!-- --------------------- -->
+          <!--     Licenses          -->
+          <!-- --------------------- -->
           <div class="leftMenuTop">
             <span class="leftMenuPanel darkBlue">Licenses</span>
           </div>
@@ -908,17 +910,17 @@
           <div class="leftMenuBottom darkBlue">
             <img src="../images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
           </div> 
-        <!-- --------------------- -->
-        <!--    Left Panel Menu    -->
-        <!-- --------------------- -->
+          <!-- --------------------- -->
+          <!--    Left Panel Menu    -->
+          <!-- --------------------- -->
 
-              <br />
+          <br />
 
-        <!-- --------------------- -->
-        <!--    Left Panel Menu    -->
-        <!-- --------------------- -->
-        <!--     Repositories       -->
-        <!-- --------------------- -->
+          <!-- --------------------- -->
+          <!--    Left Panel Menu    -->
+          <!-- --------------------- -->
+          <!--     Repositories       -->
+          <!-- --------------------- -->
           <div class="leftMenuTop">
             <span class="leftMenuPanel darkBlue">Repositories</span>
           </div>
@@ -930,15 +932,14 @@
               <a class="black" href="https://github.com/ewsdocker?tab=repositories">GitHub</a><br />
               <a class="black" href="https://github.com/ewsdocker/ewsdocker.github.io/wiki">ewsdocker Wiki</a><br />
             </div>
-
           </div>
 
           <div class="leftMenuBottom darkBlue">
             <img src="../images/table_bottom.jpg" width="204" height="23" border="0" alt="" />
           </div> 
-        <!-- --------------------- -->
-        <!--    Left Panel Menu    -->
-        <!-- --------------------- -->
+          <!-- --------------------- -->
+          <!--    Left Panel Menu    -->
+          <!-- --------------------- -->
 
           <br />
 
@@ -955,26 +956,6 @@
       <!-- -------------------- -->
       <div id="contentText">
 
-        <!-- --------------------------- -->
-        <!--    holiday decoration       -->
-        <!-- --------------------------- --
-
-        <div class="ldctitle darkBlue block" 
-             style="background-color:#FFFFFF;font-size:20px;font-weight:bold;">
-          LDC
-          <br />
-          Linux Docker Containers
-          <p>
-            <div class="holidayBanner">
-            </div>
-            <div class="holidayBar">
-            </div>
-          </p>
-        </div>
-        <!-- --------------------------- -->
-        <!--    holiday decoration       -->
-        <!-- --------------------------- -->
-
         <span class="title blue">LDC Framework</span>
         <p>
           <span class="subtitle gray">Hosted by 
@@ -984,12 +965,13 @@
 
         <!-- ---------------- -->
         <!--  construction    -->
-        <!-- ---------------- --
-          <div id="construction">
-        -->
-            <div class=".construction"><img src="../images/construction.gif" style="width=144px;height=50px;" /></div>
-            <span class="red">Under Construction</span>
-<!-- 	      </div>
+        <!-- ---------------- -->
+
+        <div class=".construction"><img src="../images/construction.gif" style="width=144px;height=50px;" /></div>
+          <span class="red">Under Construction</span>
+<!-- 
+        </div>
+-->
         <!-- ---------------- -->
         <!--  construction    -->
         <!-- ---------------- -->
@@ -1007,130 +989,97 @@
 
               <div class="darkBlue" id="blockCentered"
                    style="align:center;color:blue;font-size:22px;font-weight:bold;text-decoration:underline;">
-                 ldc-library: The LDC Library project.
+                 ldc-base
               </div>
-
-              <p style="color:blue;font-size:20px;font-weight:bold;text-decoration:none;">
-                 Overview
-              </p>
-
-              <p>
-                The <span style="font-style:italic;">LDC Library</span> 
-                project provides the scripts, special purpose maintenance 
-                libraries and applications, and the 
-                <span style="font-style:italic;">Docker</span>-host 
-                interface structure, for a standard look and feel 
-                across all stack frames and derivative projects.
-              </p>
+              <div class="darkBlue block"
+                   style="color:blue;font-size:18px;text-decoration:none;">
+                <p>
+                  The <span style="font-style:italic;">LDC Base</span> 
+                  project combines the <span style="font-style:italic;">LDC 
+                  Library</span> project with the
+                  <span style="font-style:italic;">LDC Core</span> project 
+                  and additional support frames to provide a progressively 
+                  complex multimedia foundation base.
+                </p>
             </div>
 
             <hr />
 
             <!-- --------------------------------- -->
-            <!--          LDC Library              -->
+            <!--          LDC Base                 -->
             <!-- --------------------------------- -->
 
             <div class="blue block"
                  style="color:blue;font-size:18px;text-decoration:none;">
 
               <!-- --------------------------------- -->
-              <!--           ldc-library             -->
+              <!--              dbase                -->
               <!-- --------------------------------- -->
               <dl>
                 <dt>
                   <p>
-                    <a href="./ldc-library/ldc-library.html"
+                    <a href="./ldc-base/ldc-base.html"
                        style="font-size:18px;font-weight:bold;text-decoration:underline;">
-                      ldc-library
+                      ldc-base:dbase
                     </a>
                   </p>
                 </dt>
                   <dd>
                     <p>
-                      <span style="font-style:italic;">ldc-library</span>
-                      provides a coherent container structure which lends itself 
-                      to replication within each created container, including 
-                      those used as a base for a new container.
-                    </p>
-                    <p>
-                      <span style="font-style:italic;">ldc-library</span>
-                      also creates a directory structure allowing for utility 
-                      libraries and scripts, a standard, expandable 
-                      <i>Docker</i>-host interface, and well defined internal 
-                      structure for consistent behavior of system daemons and 
-                      developed applications.
+                      <span style="font-style:italic;">
+                        dbase
+                      </span>
+                      extends the 
+                      <span style="font-style:italic;">
+                        ldc-core:dcore LDC Frame
+                      </span> 
+                      by incorporating the utilities and structures in the 
+                      latest version of the 
+                      <span style="font-style:italic;">
+                        LDC Library
+                      </span> 
+                      forming the second, or "base", block of the 
+                      <span style="font-style:italic;">
+                        LDC Frame
+                      </span> 
+                      foundation.
                     </p>
                   </dd>
+
+              </dl>
             </div>
-
-            <!-- --------------------- -->
-            <!--      block            -->
-            <!-- --------------------- --
-
-	        <p style="text-align: center;">
-	          <img src="../images/Colorbar-560.gif" />
-	        </p>
-
-            <!-- --------------------- -->
-            <!--      block            -->
-            <!-- --------------------- --
-            <div class="red border block">
-               <div id="blockCentered">
- 	            <span style="font-size:20px; font-weight:bold;">NOTE</span> &nbsp; 
-                &nbsp;&nbsp;&nbsp;&nbsp;
-	          </div>
-
-	          <p class="darkBlue">
-            	<b>ewsdocker/ldc-framework</b> is designed to be used on a Linux system configured 
-            	to support <b>Docker</b> <i>user namespace</i>s, or <i>userns</i>.
-              </p>
-              <p class="darkBlue">
-            	Refer to 
-            	<a href="https://github.com/ewsdocker/ewsdocker.github.io/wiki/UserNS-Overview">
-            	ewsdocker Containers and Docker User Namespaces</a> for an overview and 
-            	additional information.
-	          </p>
-
-	          </div>
-
-            </div>
-            <!-- --------------------- -->
-            <!--      block            -->
-            <!-- --------------------- --
-
-	        <p style="text-align: center;">
-	          <img src="../images/Colorbar-560.gif" />
-	        </p>
 
           </div>
-        <!-- ------------- -->
-        <!--    bodyText   -->
-        <!-- ------------- -->
-
+          <!-- ------------- -->
+          <!--    bodyText   -->
+          <!-- ------------- -->
 
         </div>
-      <!-- ----------------- -->
-      <!--    contentText    -->
-      <!-- ----------------- -->
+        <!-- ----------------- -->
+        <!--    contentText    -->
+        <!-- ----------------- -->
 
         <br />
         <br />
 
-      <!-- ------------ -->
-      <!--    Footer    -->
-      <!-- ------------ -->
+        <!-- ------------ -->
+        <!--    Footer    -->
+        <!-- ------------ -->
         <div class="footer">
           <div class="footerblock">
             <a href="https://hub.docker.com/r/ewsdocker/ldc-framework">Docker Image</a> | <a 
                href="https://github.com/ewsdocker/ldc-framework">Git Source</a> | <a 
                href="https://github.com/ewsdocker/ldc-framework/wiki">Wiki</a>
             <br />
-            <div class="footerCopyright">Copyright © 2018-2020. EarthWalk Software. Modified 2020-04-13.</div>
+            <div class="footerCopyright">Copyright © 2018-2020. EarthWalk Software. Modified 2020-04-17.</div>
           </div>
         </div> 
-      <!-- ------------ -->
-      <!--    Footer    -->
-      <!-- ------------ -->
+        <!-- ------------ -->
+        <!--    Footer    -->
+        <!-- ------------ -->
+
+        <br />
+        <br />
 
       </div>
       <!-- ------------- -->
@@ -1138,9 +1087,9 @@
       <!-- ------------- -->
 
     </div>
-  <!-- ------------------------ -->
-  <!--     The whole page       -->
-  <!-- ------------------------ -->
+    <!-- ------------------------ -->
+    <!--     The whole page       -->
+    <!-- ------------------------ -->
 
   </body>
 

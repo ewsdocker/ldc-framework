@@ -838,8 +838,8 @@
               <br />
               <a href="../index.html">Framework</a><br />
               <hr class="gray">
-                <a href="../ldc-core/index.html">Core</a><br />
-                <a href="./index.html">Library</a><br />
+                <a href="./index.html">Core</a><br />
+                <a href="../ldc-library/index.html">Library</a><br />
                 <a href="../ldc-base/index.html">Base</a><br />
                 <a href="../ldc-stack/index.html">Stack</a><br />
                 <a href="../ldc-stack-dev/index.html">Stack Dev</a><br />
@@ -1007,7 +1007,7 @@
 
               <div class="darkBlue" id="blockCentered"
                    style="align:center;color:blue;font-size:22px;font-weight:bold;text-decoration:underline;">
-                 ldc-library: The LDC Library project.
+                 ldc-core: The LDC Core project.
               </div>
 
               <p style="color:blue;font-size:20px;font-weight:bold;text-decoration:none;">
@@ -1015,50 +1015,51 @@
               </p>
 
               <p>
-                The <span style="font-style:italic;">LDC Library</span> 
-                project provides the scripts, special purpose maintenance 
-                libraries and applications, and the 
-                <span style="font-style:italic;">Docker</span>-host 
-                interface structure, for a standard look and feel 
-                across all stack frames and derivative projects.
+                The <span style="font-style:italic;">LDC Core</span> 
+                project contains a single sub-project based on the latest
+                <span style="font-style:italic;font-size:18px;">Debian 9</span>
+                operating system for
+                <span style="font-style:italic;font-size:18px;">Docker</span>.
               </p>
             </div>
 
             <hr />
 
             <!-- --------------------------------- -->
-            <!--          LDC Library              -->
+            <!--          LDC Core                 -->
             <!-- --------------------------------- -->
 
             <div class="blue block"
                  style="color:blue;font-size:18px;text-decoration:none;">
 
               <!-- --------------------------------- -->
-              <!--           ldc-library             -->
+              <!--           ldc-core                -->
               <!-- --------------------------------- -->
               <dl>
                 <dt>
                   <p>
-                    <a href="./ldc-library/ldc-library.html"
+                    <a href="./ldc-core/ldc-core.html"
                        style="font-size:18px;font-weight:bold;text-decoration:underline;">
-                      ldc-library
+                      ldc-core
                     </a>
                   </p>
                 </dt>
                   <dd>
                     <p>
-                      <span style="font-style:italic;">ldc-library</span>
-                      provides a coherent container structure which lends itself 
-                      to replication within each created container, including 
-                      those used as a base for a new container.
+                      <span style="font-style:italic;">ldc-core</span>
+                      adds an enhanced supervisor for better system control, 
+                      system initialization software, a minimal amount of
+                      system utilities and libraries to properly utilize the 
+                      <span style="font-style:italic;">
+                        Debian-based Docker
+                      </span> 
+                      image in a "bare bones" console-based container.
+                      It must be extended to be useful.
                     </p>
                     <p>
-                      <span style="font-style:italic;">ldc-library</span>
-                      also creates a directory structure allowing for utility 
-                      libraries and scripts, a standard, expandable 
-                      <i>Docker</i>-host interface, and well defined internal 
-                      structure for consistent behavior of system daemons and 
-                      developed applications.
+                      <span style="font-style:italic;">ldc-core</span> is
+                      the foundation frame of the LDC Framework project.
+                      All other frames are built upon this project.
                     </p>
                   </dd>
             </div>

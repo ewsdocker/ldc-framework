@@ -1,6 +1,3 @@
-    <!-- ------------------- -->
-    <!--        body         -->
-    <!-- ------------------- -->
       #body 
       {
        margin-top: 0px;
@@ -37,10 +34,6 @@
        color:inherit;
       }
 	    
-    <!-- ------------------------- -->
-    <!--       page header         -->
-    <!-- ------------------------- -->
-
       #header
       {
        width: 800px;
@@ -158,10 +151,6 @@
        color:#7DA5E0;
        text-decoration:none;
       }
-
-    <!-- ------------------- -->
-    <!--      leftpanel      -->
-    <!-- ------------------- -->
 
       #leftpanel
       {
@@ -300,10 +289,6 @@
        color:inherit;
       }
 
-    <!-- ------------------- -->
-    <!--      content        -->
-    <!-- ------------------- -->
-
         #content
         {
          width: 800px;
@@ -315,10 +300,6 @@
          width: 580px;
         }
 
-    <!-- ------------------- -->
-    <!--        title        -->
-    <!-- ------------------- -->
-	    
       .title
       {
        font-family: Verdana, Arial, Helvetica, sans-serif; 
@@ -334,10 +315,6 @@
        font-size: 24px; 
        color: #7DA5E0; 
       }
-	    
-    <!-- ----------------------- -->
-    <!--       subtitle          -->
-    <!-- ----------------------- -->
 	    
       .subtitle
       {
@@ -359,21 +336,9 @@
        color:#000099;
       }
 	    
-    <!-- =========================================== -->
-    <!--                                             -->
-    <!--               HOLIDAYS                      -->
-    <!--                                             -->
-    <!-- =========================================== -->
-
-    <!--                       -->
-    <!-- Easter Decorations    -->
-    <!--                       -->
-    <!-- Copy style to holiday -->
-    <!--                       -->
-      
       .easterBanner
       {
-       background-image:url(/images/easter/ETitle.png);
+       background-image:url(./images/easter/ETitle.png);
        background-repeat:no-repeat;
        height:46px;
        width:278px;
@@ -383,7 +348,7 @@
 
       .easterBar
       {
-       background-image:url(/images/easter/easter3bar-sm.png);
+       background-image:url(./images/easter/easter3bar-sm.png);
        background-repeat:no-repeat;
        height:80px;
        width:400px;
@@ -391,10 +356,9 @@
        clear:both;
       }
 
-	    
       .christmasBanner
       {
-       background-image:url(/images/christmas/x032.png);
+       background-image:url(./images/christmas/x032.png);
        background-repeat:no-repeat;
        height:83px;
        width:431px;
@@ -404,7 +368,7 @@
 
       .christmasBar
       {
-       background-image:url(/images/christmas/christmasLites.png);
+       background-image:url(./images/christmas/christmasLites.png);
        background-repeat:no-repeat;
        height:40px;
        width:490px;
@@ -412,13 +376,9 @@
        clear:both;
       }
 
-    <!--                     -->
-    <!-- Holiday Decorations -->
-    <!--                     -->
-
     .holidayBanner
     {
-      background-image:url(/images/easter/ETitle.png);
+      background-image:url(./images/easter/ETitle.png);
       background-repeat:no-repeat;
       height:46px;
       width:278px;
@@ -428,7 +388,7 @@
 
      .holidayBar
      {
-       background-image:url(/images/easter/easter3bar-sm.png);
+       background-image:url(./images/easter/easter3bar-sm.png);
        background-repeat:no-repeat;
        height:80px;
        width:400px;
@@ -436,10 +396,6 @@
        clear:both;
       }
     
-    <!-- ----------------------- -->
-    <!--   Construction Banner   -->
-    <!-- ----------------------- -->
-
       #construction
       {
        align:center;
@@ -456,10 +412,6 @@
        align:center;
       }
 
-    <!-- ------------------- -->
-    <!--      li             -->
-    <!-- ------------------- -->
-	    
       li.disc
       {
        list-style-type: disc;
@@ -481,20 +433,12 @@
        list-style-type: decimal;
       }
 
-    <!-- ------------------- -->
-    <!--      table          -->
-    <!-- ------------------- -->
-	    
       table.center 
       {
        margin-left:auto; 
        margin-right:auto;
       }
 
-    <!-- ------------------- -->
-    <!--      footer         -->
-    <!-- ------------------- -->
-	    
       .footer
       {
        width: 779px;
@@ -536,20 +480,12 @@
        font-weight: bold;
        color:#ffffff;
       }
-	    
-    <!-- ------------------- -->
-    <!--       ldc           -->
-    <!-- ------------------- -->
 
       .ldc a
        {
          font-size:18px;
        }
 
-    <!-- ------------------- -->
-    <!--       block         -->
-    <!-- ------------------- -->
-	    
       .undecorated
       {
        text-decoration:none;
@@ -574,10 +510,6 @@
        text-decoration:none;
        color:inherit;
       }
-	    
-    <!-- ------------------- -->
-    <!--       block         -->
-    <!-- ------------------- -->
 	    
       .block
       {
@@ -644,10 +576,6 @@
        text-decoration:underlined;
       }
 	    
-    <!-- ---------- -->
-    <!--    block   -->
-    <!-- ---------- -->
-	    
      .border
       {
        border-style: solid;
@@ -660,10 +588,6 @@
        background-color: #FFFFFF;
       }
 
-    <!-- ---------------- -->
-    <!--    blockColors   -->
-    <!-- ---------------- -->
-	    
       .gray
       {
        color:#CCCCCC;
@@ -729,10 +653,6 @@
        color:#DC0000;
       }
 
-    <!-- ----------------- -->
-    <!--    blockBorders   -->
-    <!-- ----------------- -->
-	    
       .green.border
       {
        border-color: #008700;
@@ -773,9 +693,6 @@
        border-color: #740000;
       }
 
-    <!-- --------------------- -->
-    <!--    blockBackgrounds   -->
-    <!-- --------------------- -->
       .green.border.background
       {
        background-color: #ECFDF1;
@@ -811,12 +728,6 @@
        background-color:#FEF8FA;
       }
 
-    <!--  ------------------------ -->
-    <!--                           -->
-    <!--  Table of Contents Layout -->
-    <!--                           -->
-    <!--  ------------------------ -->
-
      #toc_container 
      {
       display: table;
@@ -836,4 +747,5 @@
      list-style: outside none none !important;
      font-weight: normal;
     }
+
 
