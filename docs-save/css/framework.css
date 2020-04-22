@@ -1,4 +1,158 @@
-       #leftpanel
+      #body 
+      {
+       margin-top: 0px;
+       margin-left: 0px;
+       margin-right: 0px;
+       margin-bottom: 0px;
+      }
+	    
+      .body 
+      {
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 18px;
+       font-weight: bold;
+       text-decoration:none;
+       color: #000099;
+      }
+	    
+      .body a
+      {
+       text-decoration:none;
+       color:inherit;
+      }
+	    
+      .body a:visited
+      {
+       text-decoration:none;
+       color:inherit;
+      }
+	    
+      .body a:hover
+      {
+       color: inherit;
+       text-decoration:underline;
+       color:inherit;
+      }
+	    
+      #header
+      {
+       width: 800px;
+       position:relative; 
+       height: 162px;
+       background-image:url(./images/header.jpg);
+       background-repeat:no-repeat;
+      }
+
+      #headerDocker 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size:30px;
+       font-weight:bold;
+       margin-top:25px;
+       margin-left:430px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerDocker a
+      {
+       color: #000099;
+       text-decoration: none;
+      }
+
+      #headerDocker a:visited
+      {
+       color: #000099;
+       text-decoration: none;
+      }
+
+      #headerDocker a:hover
+      {
+       color: #000099;
+       text-decoration: underline;
+      }
+
+      #headerDockerOSS 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size: 21px;
+       font-weight: bold;
+       margin-top:60px;
+       margin-left:360px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerDockerLDC 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size: 18px;
+       font-weight: bold;
+       margin-top:85px;
+       margin-left:410px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerCompany 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size: 20px;
+       font-weight: bold;
+       margin-top:10px;
+       margin-left:20px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerCompanySm 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size: 14px;
+       font-weight: bold;
+       margin-top:35px;
+       margin-left:45px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerMenu
+      {
+       position:absolute;
+       bottom: 20px;
+       right: 30px;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 10px;
+       font-weight: normal;
+       color: #000099;
+      }
+
+      #headerMenu a
+      {
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 10px;
+       font-weight: bold;
+       color:#000099;
+       text-decoration:none;
+      }
+
+      #headerMenu a:hover
+      {
+       color:#7DA5E0;
+       text-decoration:none;
+      }
+
+      #leftpanel
       {
        float:left;
        width:200px;
@@ -6,7 +160,10 @@
 
       .leftMenuTop
       {
-	   background-color:#cccccc;
+       width: 204px; 
+       height: 27px;
+       background-image:url(./images/table_top.jpg);
+       background-repeat:no-repeat;
       }
 
       .leftMenuTop a
@@ -49,7 +206,9 @@
 
       .leftMenuContent
       {
-       background-color:#cccccc;
+       width: 204px;
+       background-image:url(./images/table_content.jpg);
+       background-repeat:repeat-y;
       }
 
       .leftTitle
@@ -179,7 +338,7 @@
 	    
       .easterBanner
       {
-       background-image:url(images/easter/ETitle.png);
+       background-image:url(./images/easter/ETitle.png);
        background-repeat:no-repeat;
        height:46px;
        width:278px;
@@ -189,7 +348,7 @@
 
       .easterBar
       {
-       background-image:url(images/easter/easter3bar-sm.png);
+       background-image:url(./images/easter/easter3bar-sm.png);
        background-repeat:no-repeat;
        height:80px;
        width:400px;
@@ -199,7 +358,7 @@
 
       .christmasBanner
       {
-       background-image:url(images/christmas/x032.png);
+       background-image:url(./images/christmas/x032.png);
        background-repeat:no-repeat;
        height:83px;
        width:431px;
@@ -209,7 +368,7 @@
 
       .christmasBar
       {
-       background-image:url(images/christmas/christmasLites.png);
+       background-image:url(./images/christmas/christmasLites.png);
        background-repeat:no-repeat;
        height:40px;
        width:490px;
@@ -219,7 +378,7 @@
 
     .holidayBanner
     {
-      background-image:url(images/easter/ETitle.png);
+      background-image:url(./images/easter/ETitle.png);
       background-repeat:no-repeat;
       height:46px;
       width:278px;
@@ -229,7 +388,7 @@
 
      .holidayBar
      {
-       background-image:url(images/easter/easter3bar-sm.png);
+       background-image:url(./images/easter/easter3bar-sm.png);
        background-repeat:no-repeat;
        height:80px;
        width:400px;
@@ -284,7 +443,7 @@
       {
        width: 779px;
        height: 32px;
-       background-image:url(images/bg_footer.gif);
+       background-image:url(./images/bg_footer.gif);
        background-repeat:no-repeat;
        clear:both;
        font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -588,4 +747,5 @@
      list-style: outside none none !important;
      font-weight: normal;
     }
+
 

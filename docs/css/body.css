@@ -1,0 +1,36 @@
+     #body 
+      {
+       margin-top: 0px;
+       margin-left: 0px;
+       margin-right: 0px;
+       margin-bottom: 0px;
+      }
+	    
+      .body 
+      {
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 18px;
+       font-weight: bold;
+       text-decoration:none;
+       color: #000099;
+      }
+	    
+      .body a
+      {
+       text-decoration:none;
+       color:inherit;
+      }
+	    
+      .body a:visited
+      {
+       text-decoration:none;
+       color:inherit;
+      }
+	    
+      .body a:hover
+      {
+       color: inherit;
+       text-decoration:underline;
+       color:inherit;
+      }
+	    

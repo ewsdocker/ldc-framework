@@ -1,0 +1,115 @@
+      .header
+      {
+       position:relative; 
+       background-color: #cccccc;
+      }
+
+      #headerDocker 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size:30px;
+       font-weight:bold;
+       margin-top:25px;
+       margin-left:430px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerDocker a
+      {
+       color: #000099;
+       text-decoration: none;
+      }
+
+      #headerDocker a:visited
+      {
+       color: #000099;
+       text-decoration: none;
+      }
+
+      #headerDocker a:hover
+      {
+       color: #000099;
+       text-decoration: underline;
+      }
+
+      #headerDockerOSS 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size: 21px;
+       font-weight: bold;
+       margin-top:60px;
+       margin-left:360px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerDockerLDC 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size: 18px;
+       font-weight: bold;
+       margin-top:85px;
+       margin-left:410px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerCompany 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size: 20px;
+       font-weight: bold;
+       margin-top:10px;
+       margin-left:20px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerCompanySm 
+      {
+       position:absolute;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       color: #FFFFFF;
+       font-size: 14px;
+       font-weight: bold;
+       margin-top:35px;
+       margin-left:45px;
+       left: 0px;
+       top: 0px;
+      }
+
+      #headerMenu
+      {
+       position:absolute;
+       bottom: 20px;
+       right: 30px;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 10px;
+       font-weight: normal;
+       color: #000099;
+      }
+
+      #headerMenu a
+      {
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 10px;
+       font-weight: bold;
+       color:#000099;
+       text-decoration:none;
+      }
+
+      #headerMenu a:hover
+      {
+       color:#7DA5E0;
+       text-decoration:none;
+      }
+
