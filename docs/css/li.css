@@ -1,0 +1,21 @@
+      li.disc
+      {
+       list-style-type: disc;
+      }
+
+      li.indent
+      {
+       list-style-type: none;
+      }
+
+      li.indent2
+      {
+       list-style-type: none;
+       margin-left: 24px;
+      }
+
+      li.numbers
+      {
+       list-style-type: decimal;
+      }
+

@@ -1,0 +1,125 @@
+      #leftpanel
+      {
+       float:left;
+       width:200px;
+      }
+
+      .leftMenuTop
+      {
+	   background-color:#cccccc;
+      }
+
+      .leftMenuTop a
+      {
+       text-decoration:none;
+      }
+
+      .leftMenuTop a:visited
+      {
+       text-decoration:none;
+      }
+
+      .leftMenuBottom
+      {
+       width: 204px; 
+       height: 23px;
+      }
+
+      .leftMenuPanel 
+      {
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 14px;
+       font-weight: bold;
+      }
+
+      .leftMenuPanel a
+      {
+       text-decoration:none;
+      }
+
+      .leftMenuPanel a:visited
+      {
+       text-decoration:none;
+      }
+
+      .leftMenuContent
+      {
+       background-color:#cccccc;
+      }
+
+      .leftTitle
+      {
+       margin-left:15px;
+       margin-right:15px;
+       text-align:center;
+       text-decoration:underline;
+       font-size: 12px;
+       font-weight: bold;
+      }
+
+      .leftTitle.left
+      {
+       margin-left:15px;
+       margin-right:15px;
+       text-align:left;
+       text-decoration:underline;
+       font-size: 12px;
+       font-weight: bold;
+      }
+
+      .leftSubTitle
+      {
+       margin-left:18px;
+       margin-right:18px;
+       text-align:center;
+       text-decoration:underline;
+       font-size: 12px;
+       font-weight: bold;
+      }
+
+      .leftSubTitle.left
+      {
+       margin-left:18px;
+       margin-right:18px;
+       text-align:left;
+       text-decoration:underline;
+       font-size: 12px;
+       font-weight: bold;
+      }
+
+      .leftMenuText
+      {
+       margin-left:15px;
+       margin-right:15px;
+       text-align:left;
+       font-size: 12px;
+       font-weight:bold;
+      }
+
+      .leftMenuText.indent
+      {
+       margin-left:18px;
+       margin-right:18px;
+      }
+
+      .leftMenuText a
+      {
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 12px;
+       font-weight: normal;
+       text-decoration:none;
+      }
+
+      .leftMenuText a:hover
+      {
+       font-weight: normal;
+       font-size: 12px;
+       text-decoration:underline;
+      }
+
+      .leftMenuText a:visited
+      {
+       text-decoration:none;
+       color:inherit;
+      }
+

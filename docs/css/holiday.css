@@ -1,0 +1,60 @@
+      .easterBanner
+      {
+       background-image:url(images/easter/ETitle.png);
+       background-repeat:no-repeat;
+       height:46px;
+       width:278px;
+       text-align:center;
+       clear:both;
+      }
+
+      .easterBar
+      {
+       background-image:url(images/easter/easter3bar-sm.png);
+       background-repeat:no-repeat;
+       height:80px;
+       width:400px;
+       text-align:center;
+       clear:both;
+      }
+
+      .christmasBanner
+      {
+       background-image:url(images/christmas/x032.png);
+       background-repeat:no-repeat;
+       height:83px;
+       width:431px;
+       text-align:center;
+       clear:both;
+      }
+
+      .christmasBar
+      {
+       background-image:url(images/christmas/christmasLites.png);
+       background-repeat:no-repeat;
+       height:40px;
+       width:490px;
+       text-align:center;
+       clear:both;
+      }
+
+    .holidayBanner
+    {
+      background-image:url(images/easter/ETitle.png);
+      background-repeat:no-repeat;
+      height:46px;
+      width:278px;
+      text-align:center;
+      clear:both;
+     }
+
+     .holidayBar
+     {
+       background-image:url(images/easter/easter3bar-sm.png);
+       background-repeat:no-repeat;
+       height:80px;
+       width:400px;
+       text-align:center;
+       clear:both;
+      }
+    

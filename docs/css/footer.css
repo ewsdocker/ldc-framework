@@ -1,0 +1,38 @@
+      .footer
+      {
+       clear:both;
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 9px;
+       font-weight: bold;
+       color:#FFFFFF;
+      }
+	    
+      .footer a
+      {
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 9px;
+       font-weight: bold;
+       color:#000099;
+       text-decoration:none;
+      }
+	    
+      .footer a:hover
+      {
+       color:#FFFFFF;
+       text-decoration:none;
+      }
+
+      .footerblock
+      {
+       position: relative;
+       top: 4px;
+      }
+
+      .copyright
+      {
+       font-family: Verdana, Arial, Helvetica, sans-serif;
+       font-size: 8px;
+       font-weight: bold;
+       color:#ffffff;
+      }
+

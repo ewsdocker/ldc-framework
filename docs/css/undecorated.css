@@ -1,0 +1,25 @@
+      .undecorated
+      {
+       text-decoration:none;
+       color:inherit;
+      }
+	    
+      .undecorated a
+      {
+       text-decoration:none;
+       color:inherit;
+      }
+	    
+      .undecorated a:visited
+      {
+       text-decoration:none;
+       color:inherit;
+      }
+	    
+      .undecorated a:hover
+      {
+       font-weight:bold;
+       text-decoration:none;
+       color:inherit;
+      }
+	    

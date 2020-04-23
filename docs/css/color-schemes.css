@@ -1,0 +1,140 @@
+      .gray
+      {
+       color:#CCCCCC;
+      }
+
+      .greenTrue
+      {
+       color:#008080;
+      }
+
+      .green
+      {
+       color:#008700;
+      }
+
+      .darkGreen
+      {
+       color: #037D31;
+      }
+
+      .blue
+      {
+       color: #000099;
+      }
+
+      .darkBlue
+      {
+       color:#001DFB;
+      }
+
+      .dockerBlue
+      {
+       color:#2089C4;
+      }
+
+      .githubBlue
+      {
+       color:#0366D6;
+      }
+
+      .phpBlue
+      {
+       color:#6082BB;
+      }
+
+      .ewsBlue
+      {
+       color: #7DA5E0; 
+      }
+
+      .orange
+      {
+       color: #F97237;
+      }
+
+      .black
+      {
+       color:#000000;
+      }
+
+      .red
+      {
+       color:#DC0000;
+      }
+
+      .green.border
+      {
+       border-color: #008700;
+      }
+
+      .blue.border
+      {
+       border-color: #000099;
+      }
+
+      .darkBlue.border
+      {
+       border-color: #001DFB;
+      }
+
+      .orange.border
+      {
+       border-color: #F97237;
+      }
+
+      .black.border
+      {
+       border-color: #000000;
+      }
+
+      .red.border
+      {
+       border-color: #DC0000;
+      }
+
+      .burgandy
+      {
+       color:#740000;
+      }
+
+      .burgandy.border
+      {
+       border-color: #740000;
+      }
+
+      .green.border.background
+      {
+       background-color: #ECFDF1;
+      }
+
+     .blue.border.background
+      {
+       background-color: #E6EFFC;
+      }
+
+     .darkBlue.border.background
+      {
+       background-color: #D8DBF1;
+      }
+
+     .orange.border.background
+      {
+       background-color:#F9DFD3;
+      }
+	    
+     .black.border.background
+      {
+       background-color:#CCCCCC;
+      }    
+
+      .red.border.background
+      {
+       background-color: #FFF3F5;
+      }
+	    
+      .burgandy.border.background
+      {
+       background-color:#FEF8FA;
+      }
+
