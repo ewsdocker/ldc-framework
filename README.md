@@ -21,7 +21,7 @@ ____
 
 <b>core</b>
 <ul>
- The <b>LDC Core</b> project is the foundational member of <a href="https:// github.com/ewsdocker/ldc-framework.wiki">LDC Framework</a>, providing the core frame required to construct additional frame's and applications.
+ The <b>LDC Core</b> project is the foundational member of <a href="https://github.com/ewsdocker/ldc-framework.wiki">LDC Framework</a>, providing the core frame required to construct additional frame's and applications.
 <br><br>
  The <b>core</b> project provides the following sub-project(s):
  <dl>
