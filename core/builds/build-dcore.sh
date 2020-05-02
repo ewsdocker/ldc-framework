@@ -5,7 +5,7 @@
 #    ldc-core:dcore-0.1.0-b1
 #
 # ===========================================================================
-cd ~/Development/ewsldc/ldc-framework/core
+#cd ~/Development/ewsldc/ldc-framework/core
 
 echo "   ********************************************"
 echo "   ****"
@@ -26,7 +26,7 @@ docker rmi ewsdocker/ldc-core:dcore-0.1.0-b1
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** getting new debian:9.11, if one is available"
+echo "   **** getting new debian:9.12, if one is available"
 echo "   ****"
 echo "   ********************************************"
 echo
