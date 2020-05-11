@@ -94,7 +94,7 @@ case "${QTVER}" in
 
 		echo "*******************************"
 	    echo
-	    echo "          QT 4"
+	    echo "          QT 4 Dev"
 	    echo
 	    echo "*******************************"
 		echo

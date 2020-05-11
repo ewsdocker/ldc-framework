@@ -58,7 +58,7 @@ case ${OJDK_TYPE} in
         ;;
         
     *)
-        echo "Unknown JDK_TYPE = \"${OJDK_TYPE}\""
+        echo "Unknown OJDK_TYPE = \"${OJDK_TYPE}\""
         exit 1
        
         ;;
