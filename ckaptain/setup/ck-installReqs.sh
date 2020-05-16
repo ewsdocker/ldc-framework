@@ -183,7 +183,7 @@ commandExists "kaptain"
 [[ ${CKL_INST} == "1" ]] && 
  {
     echo ""
-    echo "Installing ckaptain library from ${CKL_TARGZIP}"
+    echo "Installing ckaptain library from \"${CKL_TARGZIP}\" \"${CKL_HOST}\" \"${CKL_DEST}\" "
     echo ""
 
  	installLibrary "${CKL_TARGZIP}" "${CKL_HOST}" "${CKL_DEST}"

@@ -36,7 +36,7 @@ docker build \
   --build-arg DNAME="CKAPTAIN" \
   --build-arg QT_VER="QT4" \
   \
-  --build-arg RUN_APP="kaptain-choose.sh" \
+  --build-arg RUN_APP="ck-archive.sh" \
   \
   --build-arg KAPTAIN_HOST="http://alpine-nginx-pkgcache" \
   --build-arg KAPTAIN_VERS="0.8" \
@@ -64,11 +64,12 @@ docker build \
   --build-arg CKLIB_INSTALL="1" \
   \
   --build-arg CKLIB_HOST="http://alpine-nginx-pkgcache" \
-  --build-arg CKLIB_NAME="ckaptain-lib" \
   --build-arg CKLIB_RELEASE="0.1.0-b1" \
   --build-arg CKLIB_VERS="v.0" \
   --build-arg CKLIB_DIR="ck-library" \
+  \
   --build-arg CKLIB_DEST="/opt" \
+  --build-arg CKLIB_NAME="ckaptain-lib" \
   \
   --network=pkgnet \
   \
@@ -111,7 +112,6 @@ docker run \
   -v /etc/localtime:/etc/localtime:ro \
   \
   -v ${HOME}/Documents:/Documents \
-  -v /media/sf_Stories:/Stories \
   \
   --name=ldc-ckaptain-ckaptain-0.1.0-b1 \
 ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b1

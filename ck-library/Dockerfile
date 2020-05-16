@@ -290,6 +290,7 @@ RUN chmod +x /lmstmp/*.sh \
  # ========================================================================
  \
  && mkdir -p /usr/local/bin \
+ && mkdir -p /usr/local/lib/lms \
  \
  && chmod +x /etc/lms/*.sh \
  && chmod +x /my_init \
@@ -298,6 +299,9 @@ RUN chmod +x /lmstmp/*.sh \
  && chmod +x /usr/bin/lms/* \
  && chmod +x /usr/local/bin/*.* \
  && chmod +x /usr/local/bin/* \
+ && chmod +x /usr/local/lib/lms/*.* \
+ \
+ && ln -s /usr/local/lib/bin/ck-archive.sh /usr/local/bin/ck-archive \
  \
  # =========================================================================
  #

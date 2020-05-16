@@ -79,15 +79,23 @@ function archiveLibrary()
 	local    arslt=0
 	local	 opwd=${PWD}
 
+echo "archiveLibrary CKL_NAME: ${CKL_NAME}"
+
 	cd "/${CKL_NAME}" ; arslt=$?
 
 	while [ ${arslt} -eq 0 ]
 	do
+echo "call lmsArchive"
+
 		lmsArchive "${CKL_TARNAME}" "${CKL_NAME}" "${CKL_DIR}" "${CKL_DEST}" "1" ; arslt=$?
 		[[ ${arslt} -eq 0 ]] || break
 
+echo "ckl_dest: ${CKL_DEST}"
+
 		cd "${CKL_DEST}" ; arslt=$?
 		[[ ${arslt} -eq 0 ]] || break
+
+echo "lmsArchiveGzip ${CKL_TARNAME}"
 
 		lmsArchiveGzip "${CKL_TARNAME}" ; arslt=$?
 

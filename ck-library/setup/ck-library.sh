@@ -146,6 +146,8 @@ update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
 ln -s /usr/bin/lms/ck-archive.sh /usr/bin/ck-archive
 chmod +x /usr/bin/lms/ck-archive.sh
 
+echo "ck-library completed"
+
 # =========================================================================
 
 exit 0

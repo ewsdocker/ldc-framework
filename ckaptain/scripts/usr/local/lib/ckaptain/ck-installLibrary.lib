@@ -17,6 +17,8 @@ function installLibrary()
 	local instUrl="${2}"
 	local instDir="${3}"
 
+echo "installLibrary \"${instLib}\" \"${instUrl}\" \"${instDir}\" "
+
     wget "${instUrl}" 
     [[ $? -eq 0 ]] || return $?
 

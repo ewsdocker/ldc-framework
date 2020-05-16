@@ -294,6 +294,7 @@ RUN chmod +x /lmstmp/*.sh \
  # ========================================================================
  \
  && mkdir -p /usr/local/bin \
+ && mkdir -p /usr/local/lib/lms \
  \
  && chmod +x /etc/lms/*.sh \
  && chmod +x /my_init \
