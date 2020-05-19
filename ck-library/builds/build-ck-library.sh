@@ -3,33 +3,31 @@ cd ~/Development/ewsldc/ldc-framework/ck-library
 
 # ===========================================================================
 #
-#    ldc-ckaptain:ck-library-0.1.0-b1
+#    ldc-ck-library:ck-library-0.1.0-b1
 #
 # ===========================================================================
 
-#declare version="0.1.0-b1"
-
 echo "   ********************************************"
 echo "   ****"
-echo "   **** stopping ldc-ckaptain:ck-library container(s)"
+echo "   **** stopping ldc-ck-library:ck-library container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-ckaptain-ck-library-0.1.0-b1
-docker rm ldc-ckaptain-ck-library-0.1.0-b1
+docker stop ldc-ck-library-ck-library-0.1.0-b1
+docker rm ldc-ck-library-ck-library-0.1.0-b1
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** removing ldc-ckaptain-ck-library image(s)"
+echo "   **** removing ldc-ck-library-ck-library image(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
 
-docker rmi ewsdocker/ldc-ckaptain:ck-library-0.1.0-b1
+docker rmi ewsdocker/ldc-ck-library:ck-library-0.1.0-b1
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ldc-ckaptain:ck-library-0.1.0-b1"
+echo "   **** building ldc-ck-library:ck-library-0.1.0-b1"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -49,7 +47,7 @@ docker build \
   --build-arg BUILD_DESKTOP="CK-Lib" \
   --build-arg BUILD_TEMPLATE="run" \
   \
-  --build-arg BUILD_NAME="ldc-ckaptain" \
+  --build-arg BUILD_NAME="ldc-ck-library" \
   --build-arg BUILD_VERSION="ck-library" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
   --build-arg BUILD_EXT_MOD="-b1" \
@@ -76,16 +74,16 @@ docker build \
   --network=pkgnet \
   \
   --file Dockerfile \
--t ewsdocker/ldc-ckaptain:ck-library-0.1.0-b1  .
+-t ewsdocker/ldc-ck-library:ck-library-0.1.0-b1  .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-ckaptain:ck-library-0.1.0-b1 failed."
+ 	echo "build ewsdocker/ldc-ck-library:ck-library-0.1.0-b1 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-ckaptain-ck-library-0.1.0-b1"
+echo "   **** installing ldc-ck-library-ck-library-0.1.0-b1"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -107,25 +105,25 @@ docker run \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-ckaptain-ck-library-0.1.0-b1:/root \
-  -v ${HOME}/.config/docker/ldc-ckaptain-ck-library-0.1.0-b1/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b1:/root \
+  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b1/workspace:/workspace \
   \
   --mount source=pkgcache,target=/repo \
   \
   -v ${HOME}/Source:/source \
   \
-  --name=ldc-ckaptain-ck-library-0.1.0-b1 \
-ewsdocker/ldc-ckaptain:ck-library-0.1.0-b1
+  --name=ldc-ck-library-ck-library-0.1.0-b1 \
+ewsdocker/ldc-ck-library:ck-library-0.1.0-b1
 [[ $? -eq 0 ]] ||
  {
- 	echo "create container ldc-ckaptain-ck-library-0.1.0-b1 failed."
+ 	echo "create container ldc-ck-library-ck-library-0.1.0-b1 failed."
  	exit 1
  }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-ckaptain:ck-library-0.1.0-b1 successfully installed."
+echo "   **** ldc-ck-library:ck-library-0.1.0-b1 successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

@@ -1,39 +1,45 @@
 
-__Preliminary Documentation__ - 2019-12-11
+__Preliminary Documentation__ - 2020-05-18
 ____  
-__ldc-core: The LDC Framework Core project.__  
+__ldc-core: The LDC (Linux Docker Container) Framework Core project.__  
 
-Current Development Version: __0.1.0-b1__  
+Current Development Version: __0.1.6-b1__  
 Latest Release Version: __n/a__  
-
-[LDC Core Wiki](https://github.com/ewsdocker/ldc-core/wiki)  
-[LDC Core Repository](https://github.com/ewsdocker/ldc-core)  
-[LDC Core Docker Images](https://hub.docker.com/r/ewsdocker/ldc-core)
-
-____  
-
-<table>
- <thead>
-  <tr><th>NOTE</th></tr>
- </thead>
- <tbody>
-  <tr><td>The <b>ewsdocker/ldc-core</b> documentation has moved to the <a href="https://github.com/ewsdocker/ldc-core/wiki">LDC Core Wiki</a>.  The documentation on this page is no longer being maintained. </td>
-  </tr>
- </tbody>
-</table>  
-
-____  
-The __LDC Core__ project is the foundational member of the *[LDC Framework](https://github.com/ewsdocker/ldc-framework.wiki)*,  providing the core *LDC Frame*s required to construct *LDC Application*s and *LDC Frame*s.
+LDC Base Resources:  
 
 <ul>
-  <dl>  
-    <dt><b><a href="https://github.com/ewsdocker/ldc-core/wiki/CoreHome">ldc-core:dcore</a></b></dt>  
-      <dd>
-        As the first <i>LDC Frame</i> in the <i>LDC Framework</i>,
-        ldc-core:dcore provides the latest <i>Docker</i> 
-        operating system container, a system supervisor, system
-        services, and frequently needed, console-based applications to 
-        form an extensible <i>LDC Frame</i>.  
-      </dd>  
-  </dl>  
-</ul>  
+  <table>
+    <tr>
+      <td>&nbsp;<a href="https://hub.docker.com/repository/docker/ewsdocker/ldc-core"><b>Docker Repository</b></a>&nbsp;</td>
+      <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/core"><b>GIT Repository</b></a>&nbsp;</td>
+      <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/wiki/Core.md"><b>Wiki</b></a>&nbsp;</td>
+      <td>&nbsp;<a href="https://ewsdocker.github.io/ldc-framework/ldc-core.html"><b>Web Page</b></a>&nbsp;</td>
+    </tr>
+  </table>
+</ul>
+
+____  
+
+__LDC Core Stack:__  
+
+<table border=0>
+  <tr>
+    <th>&nbsp;Stack Container&nbsp;</th>
+    <th>&nbsp;Version&nbsp;</th>
+    <th>&nbsp;Docker pull&nbsp;</th>
+    <th>&nbsp;Wiki&nbsp;</th>
+  </tr>
+  <tr>
+    <td colspan=4>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;<a href="https://ewsdocker.github.io/ldc-framework/core/dcore.html">ldc-core:dcore</a>&nbsp;</td>
+    <td>&nbsp;0.1.6-b1&nbsp;</td>
+    <td>&nbsp;<b>ewsdocker/ldc-core:dcore-0.1.6-b1</b>&nbsp;</td>
+    <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/wiki/core/dcore.md">dcore</a>&nbsp;</td>
+  </tr>
+</table>
+
+____  
+
+
