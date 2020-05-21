@@ -58,7 +58,10 @@ ckaptain
 
 ========================
 
-ldc-browser
+ldc-applications
+================
+
+browser
 
 	ffquantum
 	firefox
@@ -66,36 +69,33 @@ ldc-browser
 	palemoon
 	waterfox
 
-ldc-console
+console
 
 	nano
 	tumblr
 
-ldc-desktop
+desktop
 
 	dia
 	gimp
 	mousepad
 	ripme
 
-ldc-eclipse
+eclipse
 
 	cpp
 	fortran
 	java
 	javascript
 	php
+	qt
 
-ldc-games
+games
 
 	mahjongg
 	sol
 
-ldc-libre
+libre
 
 	office
 	office-jdk
-
-
-
-

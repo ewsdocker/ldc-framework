@@ -46,6 +46,7 @@ docker build \
   --build-arg FROM_EXT="-0.1.0" \
   --build-arg FROM_EXT_MOD="-b1" \
   \
+  --build-arg LIB_INSTALL="0" \
   --build-arg LIB_VERSION="0.1.6" \
   --build-arg LIB_VERS_MOD="-b1" \
   \

@@ -46,7 +46,7 @@ addPkg "apt-get -y install"
 # =======================================================================
 
 addPkg "libgd3"
-addPkg "libicu64"
+addPkg "libicu65"
 
 addPkg "libpcre3"
 addPkg "libmcrypt4"

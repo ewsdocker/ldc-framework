@@ -224,7 +224,7 @@ RUN \
  # ========================================================================
  #
  #   Re-load libraries if LIB_INSTALL is 1, otherwise skip it
- #		Sould only be set to 1 if NOT building dbase.
+ #		Sould only be set to 1 if building dbase.
  #
  # ========================================================================
  && if test "${LMSLIB_INST}" = "1"; then /tmp/install_library.sh; fi \

@@ -30,7 +30,7 @@ echo "   **** getting new debian:9.12, if one is available"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker pull debian:9.11
+docker pull debian:9.12
 
 echo "   ***************************************************"
 echo "   ****"
@@ -51,7 +51,7 @@ docker build \
   \
   --build-arg FROM_REPO="" \
   --build-arg FROM_PARENT="debian" \
-  --build-arg FROM_VERS="9.11" \
+  --build-arg FROM_VERS="9.12" \
   --build-arg FROM_EXT="" \
   --build-arg FROM_EXT_MOD="" \
   \

@@ -48,6 +48,7 @@ docker build \
   \
   --build-arg LIB_VERSION="0.1.6" \
   --build-arg LIB_VERS_MOD="-b1" \
+  --build-arg LIB_INSTALL="1" \
   \
   --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
   --build-arg GOSU_HOST=http://alpine-nginx-pkgcache \
