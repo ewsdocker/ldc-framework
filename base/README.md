@@ -1,5 +1,5 @@
 
-__Preliminary Documentation__ - 2020-05-18
+__Preliminary Documentation__ - 2020-05-22
 ____  
 __ldc-base: The LDC (Linux Docker Container) Framework Base project.__  
 
@@ -24,7 +24,7 @@ __LDC Base Stack:__
 
 <table border=1>
   <tr>
-    <th>&nbsp;Stack Container&nbsp;</th>
+    <th>&nbsp;GIT Container&nbsp;</th>
     <th>&nbsp;Version&nbsp;</th>
     <th>&nbsp;Docker pull&nbsp;</th>
     <th>&nbsp;Wiki&nbsp;</th>
