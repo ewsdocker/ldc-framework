@@ -98,10 +98,12 @@ addPkg "distro-info-data"
 
 addPkg "less"
 
-addPkg "libcurl3"
+addPkg "libcurl4"
 addPkg "libcurl3-gnutls" 
 
-addPkg "libevtlog0"
+#addPkg "libevtlog0"
+
+addPkg "libevt1"
 addPkg "libexpat1"
 
 addPkg "libpopt0"
@@ -129,7 +131,7 @@ addPkg "zip"
 #
 # unicode
 #
-addPkg "libunistring0"
+#addPkg "libunistring2"
 
 #
 # sanitizing
@@ -145,21 +147,21 @@ addPkg "logrotate"
 addPkg "syslog-ng"
 addPkg "syslog-ng-core"
 addPkg "syslog-ng-mod-journal" 
-addPkg "syslog-ng-mod-json"
+#addPkg "syslog-ng-mod-json"
 addPkg "syslog-ng-mod-mongodb"
 addPkg "syslog-ng-mod-sql"
 
 #
 # security
 #
-addPkg "libhogweed4"
+#addPkg "libhogweed4"
 
 addPkg "libk5crypto3"
 addPkg "libkeyutils1"
 
 addPkg "libnghttp2-14"
 
-addPkg "libp11-kit0"
+#addPkg "libp11-kit0"
 
 addPkg "libsasl2-2"
 addPkg "libsasl2-modules-db"
@@ -167,7 +169,7 @@ addPkg "libsasl2-modules-db"
 #
 # ssl
 #
-addPkg "libssl1.0.2"
+#addPkg "libssl1.0.2"
 addPkg "libssl1.1"
 
 #
@@ -178,10 +180,10 @@ addPkg "libivykis0"
 #
 # networking
 #
-addPkg "libgnutls30"
+#addPkg "libgnutls30"
 addPkg "libgssapi-krb5-2" 
 
-addPkg "libidn2-0"
+#addPkg "libidn2-0"
 
 addPkg "libkrb5-3"
 addPkg "libkrb5support0"
@@ -192,7 +194,7 @@ addPkg "librtmp1"
 
 addPkg "libssh2-1"
 
-addPkg "libtasn1-6"
+#addPkg "libtasn1-6"
 
 addPkg "libwrap0"
 
@@ -224,7 +226,7 @@ addPkg "libbson-1.0-0" "Intel Cilk Plus"
 
 addPkg "libc-l10n"
 
-addPkg "libffi6" "Foreign Function Interface"
+#addPkg "libffi6" "Foreign Function Interface"
 
 addPkg "libglib2.0-0"
 
@@ -242,8 +244,8 @@ addPkg "libpython2.7-minimal"
 
 addPkg "libpython3-stdlib"
 
-addPkg "libpython3.5-stdlib"
-addPkg "libpython3.5-minimal"  
+addPkg "libpython3.7-stdlib"
+addPkg "libpython3.7-minimal"  
 
 addPkg "psmisc"
 
@@ -264,7 +266,25 @@ addPkg "python3.5-minimal"
 #
 # graphics
 #
-addPkg "libgmp10"
+#addPkg "libgmp10"
+
+# =======================================================================
+
+addPkg "libbfio1"
+addPkg "libicu63"
+addPkg "libpcre2-8-0"
+addPkg "libpython2-stdlib"
+addPkg "libsnappy1v5"
+addPkg "lsb-base"
+addPkg "python2"
+addPkg "python2-minimal"
+addPkg "python3-distutils"
+addPkg "python3-lib2to3"
+addPkg "python3.7"
+addPkg "python3.7-minimal"
+addPkg "sensible-utils"
+
+# =======================================================================
 
 installList
 

@@ -7,15 +7,15 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.0
-# @copyright © 2017-2019. EarthWalk Software.
+# @version 0.1.0-b2
+# @copyright © 2017-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-base
 # @subpackage Dockerfile.dbase
 #
 # ========================================================================================
 #
-#	Copyright © 2017-2019. EarthWalk Software
+#	Copyright © 2017-2020. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-base.
@@ -41,7 +41,7 @@ ARG FROM_REPO="ewsdocker"
 ARG FROM_PARENT="ldc-base"
 ARG FROM_VERS="dbase"
 ARG FROM_EXT="-0.1.0"
-ARG FROM_EXT_MOD=""
+ARG FROM_EXT_MOD="-b2"
 
 FROM ${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
 
@@ -130,7 +130,7 @@ ENV \
     LMS_VERS_MOD=${BUILD_EXT_MOD} 
 
 ENV LMS_VERS_EXT="${LMS_VERS_X}${LMS_VERS_MOD}" \
-    LMS_PACKAGE="${LMS_PARENT}, Debian 9.11"
+    LMS_PACKAGE="${LMS_PARENT}, Debian 10.4"
 
 ENV \
     LMS_RUN_NAME="${LMS_NAME}-${LMS_VERSION}${LMS_VERS_EXT}" \
@@ -157,7 +157,7 @@ ENV LANG_LOCALE=${LANG:-"en_US"}
 ENV LMSLIB_INST=${LIB_INSTALL:-"0"} \
     LMSLIB_NAME=${LIB_NAME:-"ldc-library"} \
     LMSLIB_VERS=${LIB_VERSION:-"0.1.6"} \
-    LMSLIB_VERS_MOD=${LIB_VERS_MOD:-"-b1"} 
+    LMSLIB_VERS_MOD=${LIB_VERS_MOD:-"-b2"} 
 
 ENV LMSLIB_HOST=${LIB_HOST:-"https://github.com/ewsdocker/ldc-library/releases/download/ldc-library-${LMSLIB_VERS}"}
 
@@ -171,6 +171,8 @@ ENV LMSLIB_URL=${LMSLIB_HOST}/${LMSLIB_PKG}
 # ========================================================================================
 #
 #  https://github.com/tianon/gosu/releases/download/1.4/gosu-amd64
+#  https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64
+#  https://github.com/tianon/gosu/releases/download/1.12/gosu-amd64
 #
 # ========================================================================================
 

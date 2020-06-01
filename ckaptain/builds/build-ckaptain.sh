@@ -3,31 +3,31 @@ cd ~/Development/ewsldc/ldc-framework/ckaptain
 
 # ===========================================================================
 #
-#    ldc-ckaptain:ckaptain-0.1.0-b1
+#    ldc-ckaptain:ckaptain-0.1.0-b2
 #
 # ===========================================================================
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** stopping ldc-ckaptain-ckaptain-0.1.0-b1 container(s)"
+echo "   **** stopping ldc-ckaptain-ckaptain-0.1.0-b2 container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-ckaptain-ckaptain-0.1.0-b1
-docker rm ldc-ckaptain-ckaptain-0.1.0-b1
+docker stop ldc-ckaptain-ckaptain-0.1.0-b2
+docker rm ldc-ckaptain-ckaptain-0.1.0-b2
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** removing ldc-ckaptain:ckaptain-0.1.0-b1 image(s)"
+echo "   **** removing ldc-ckaptain:ckaptain-0.1.0-b2 image(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
 
-docker rmi ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b1
+docker rmi ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b2
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ldc-ckaptain:ckaptain-0.1.0-b1"
+echo "   **** building ldc-ckaptain:ckaptain-0.1.0-b2"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -48,23 +48,23 @@ docker build \
   --build-arg BUILD_NAME="ldc-ckaptain" \
   --build-arg BUILD_VERSION="ckaptain" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b1" \
+  --build-arg BUILD_EXT_MOD="-b2" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-dialog" \
   --build-arg FROM_VERS="kaptain" \
   --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b1" \
+  --build-arg FROM_EXT_MOD="-b2" \
   \
   --build-arg LIB_HOST="http://alpine-nginx-pkgcache" \
   --build-arg LIB_INSTALL="0" \
   --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b1" \
+  --build-arg LIB_VERS_MOD="-b2" \
   \
   --build-arg CKLIB_INSTALL="1" \
   \
   --build-arg CKLIB_HOST="http://alpine-nginx-pkgcache" \
-  --build-arg CKLIB_RELEASE="0.1.0-b1" \
+  --build-arg CKLIB_RELEASE="0.1.0-b2" \
   --build-arg CKLIB_VERS="v.0" \
   --build-arg CKLIB_DIR="ck-library" \
   \
@@ -74,16 +74,16 @@ docker build \
   --network=pkgnet \
   \
   --file Dockerfile \
--t ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b1  .
+-t ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b2  .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b1 failed."
+ 	echo "build ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b2 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-ckaptain-ckaptain-0.1.0-b1"
+echo "   **** installing ldc-ckaptain-ckaptain-0.1.0-b2"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -106,25 +106,25 @@ docker run \
   -v ${HOME}/.local:/usrlocal \
   \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-ckaptain-ckaptain-0.1.0-b1:/root \
-  -v ${HOME}/.config/docker/ldc-ckaptain-ckaptain-0.1.0-b1/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-ckaptain-ckaptain-0.1.0-b2:/root \
+  -v ${HOME}/.config/docker/ldc-ckaptain-ckaptain-0.1.0-b2/workspace:/workspace \
   \
   -v /etc/localtime:/etc/localtime:ro \
   \
   -v ${HOME}/Documents:/Documents \
   \
-  --name=ldc-ckaptain-ckaptain-0.1.0-b1 \
-ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b1
+  --name=ldc-ckaptain-ckaptain-0.1.0-b2 \
+ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b2
 [[ $? -eq 0 ]] || exit $?
 # {
-# 	echo "create container ldc-ckaptain-ckaptain-0.1.0-b1 failed."
+# 	echo "create container ldc-ckaptain-ckaptain-0.1.0-b2 failed."
 # 	exit 1
 # }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-ckaptain:ckaptain-0.1.0-b1 successfully installed."
+echo "   **** ldc-ckaptain:ckaptain-0.1.0-b2 successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

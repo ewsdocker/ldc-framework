@@ -78,11 +78,11 @@ apt-get -y update
 
 addPkg "apt-get -y install"
 
-addPkg "gobjc-6"       "GNU Objective-C compiler"
+addPkg "gobjc-8"       "GNU Objective-C compiler"
 
 addPkg "libgc1c2"      "Garbage collector for C and C++"
 
-addPkg "libobjc-6-dev"
+addPkg "libobjc-8-dev"
 addPkg "libobjc4"      "Runtime library for Objective-C applications"
 
 # =======================================================================

@@ -7,8 +7,8 @@ echo "   **** stopping yad container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-dialog-yad-0.1.0-b1
-docker rm ldc-dialog-yad-0.1.0-b1
+docker stop ldc-dialog-yad-0.1.0-b2
+docker rm ldc-dialog-yad-0.1.0-b2
 
 echo "   ********************************************"
 echo "   ****"
@@ -17,17 +17,17 @@ echo "   ****"
 echo "   ********************************************"
 echo
 
-docker rmi ewsdocker/ldc-dialog:yad-0.1.0-b1
+docker rmi ewsdocker/ldc-dialog:yad-0.1.0-b2
 
 # ===========================================================================
 #
-#    ldc-dialog:yad-0.1.0-b1
+#    ldc-dialog:yad-0.1.0-b2
 #
 # ===========================================================================
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-dialog:yad-0.1.0-b1"
+echo "   **** building ewsdocker/ldc-dialog:yad-0.1.0-b2"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -44,7 +44,7 @@ docker build \
   --build-arg BUILD_NAME="ldc-dialog" \
   --build-arg BUILD_VERSION="yad" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b1" \
+  --build-arg BUILD_EXT_MOD="-b2" \
   \
   --build-arg BUILD_PKG="Yad v. 0.4.0" \
   \
@@ -52,22 +52,22 @@ docker build \
   --build-arg FROM_PARENT="ldc-stack" \
   --build-arg FROM_VERS="dgtk3-x11" \
   --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b1" \
+  --build-arg FROM_EXT_MOD="-b2" \
   \
   --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
   --network=pkgnet \
   \
   --file Dockerfile \
--t ewsdocker/ldc-dialog:yad-0.1.0-b1 .
+-t ewsdocker/ldc-dialog:yad-0.1.0-b2 .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-dialog:yad-0.1.0-b1 failed."
+ 	echo "build ewsdocker/ldc-dialog:yad-0.1.0-b2 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-dialog-yad-0.1.0-b1"
+echo "   **** installing ldc-dialog-yad-0.1.0-b2"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -98,18 +98,18 @@ docker run \
   -v ${HOME}/Documents:/documents \
   -v ${HOME}/Development:/development \
   \
-  --name=ldc-dialog-yad-0.1.0-b1 \
-ewsdocker/ldc-dialog:yad-0.1.0-b1
+  --name=ldc-dialog-yad-0.1.0-b2 \
+ewsdocker/ldc-dialog:yad-0.1.0-b2
 [[ $? -eq 0 ]] ||
  {
- 	echo "create container ldc-dialog-yad-0.1.0-b1 failed."
+ 	echo "create container ldc-dialog-yad-0.1.0-b2 failed."
  	exit 1
  }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-dialog:yad-0.1.0-b1 successfully installed."
+echo "   **** ldc-dialog:yad-0.1.0-b2 successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

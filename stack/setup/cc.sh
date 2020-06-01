@@ -80,20 +80,22 @@ addPkg "apt-get -y install"
 
 addPkg "fakeroot"
 addPkg "g++"
-addPkg "g++-6"
+addPkg "g++-8"
 addPkg "gcc"
-addPkg "gcc-6"
+addPkg "gcc-8"
 
 addPkg "libc-dev-bin"
 addPkg "libc6-dev"
 addPkg "libcc1-0"
-addPkg "libcilkrts5"
 addPkg "libfakeroot"
-addPkg "libgcc-6-dev"
+addPkg "libgcc-8-dev"
 addPkg "libitm1"
-addPkg "libstdc++-6-dev"
+addPkg "libstdc++-8-dev"
+addPkg "libubsan1"
 
 addPkg "linux-libc-dev"
+
+#addPkg "libcilkrts5"
 
 # =======================================================================
 

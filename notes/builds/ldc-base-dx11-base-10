@@ -1,0 +1,35 @@
+ewsdocker/ldc-base  dx11-base-0.1.0-b2
+
+Suggested packages:
+  pinentry-gnome3 scdaemon nas firmware-crystalhd libfftw3-bin libfftw3-dev
+  jackd2 opus-tools librsvg2-bin speex udev pavumeter pavucontrol paman
+  paprefs avahi-daemon
+Recommended packages:
+  gnupg libgdk-pixbuf2.0-bin librsvg2-common va-driver-all | va-driver
+  vdpau-driver-all | vdpau-driver rtkit
+The following NEW packages will be installed:
+  alsa-utils dbus-x11 fontconfig fontconfig-config fonts-dejavu-core
+  gir1.2-gdkpixbuf-2.0 gnupg-agent gpg-agent gpgconf libaom0 libasound2
+  libasound2-data libasound2-plugins libasyncns0 libaudio2 libavcodec58
+  libavresample4 libavutil56 libcairo2 libcodec2-0.8.1 libcroco3 libcrystalhd3
+  libdrm-common libdrm2 libfftw3-single3 libflac8 libfontconfig1 libfreetype6
+  libfribidi0 libgdk-pixbuf2.0-0 libgdk-pixbuf2.0-common libgraphite2-3
+  libgsm1 libharfbuzz0b libice6 libjack-jackd2-0 libjbig0 libjpeg62-turbo
+  libltdl7 libmp3lame0 libnewt0.52 libogg0 libopencore-amrnb0
+  libopencore-amrwb0 libopenjp2-7 libopus0 liborc-0.4-0 libpango-1.0-0
+  libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0 libpng16-16
+  libpulse-mainloop-glib0 libpulse0 libpulsedsp librsvg2-2 libsamplerate0
+  libshine3 libslang2 libsm6 libsndfile1 libsndio7.0 libsoxr0 libspeex1
+  libspeexdsp1 libswresample3 libtdb1 libthai-data libthai0 libtheora0
+  libtiff5 libtwolame0 libva-drm2 libva-x11-2 libva2 libvdpau1 libvo-amrwbenc0
+  libvorbis0a libvorbisenc2 libvpx5 libwavpack1 libwebp6 libwebpmux3
+  libwebrtc-audio-processing1 libx11-6 libx11-data libx11-xcb1 libx264-155
+  libx265-165 libxau6 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-icccm4
+  libxcb-image0 libxcb-keysyms1 libxcb-present0 libxcb-randr0
+  libxcb-render-util0 libxcb-render0 libxcb-shape0 libxcb-shm0 libxcb-sync1
+  libxcb-util0 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1 libxcb1 libxdmcp6
+  libxext6 libxfixes3 libxi6 libxkbcommon-x11-0 libxkbcommon0 libxrender1
+  libxt6 libxtst6 libxvidcore4 libzvbi-common libzvbi0 pulseaudio
+  pulseaudio-utils sndio-tools sndiod ucf whiptail x11-common xkb-data
+0 upgraded, 128 newly installed, 0 to remove and 0 not upgraded.
+Need to get 33.3 MB of archives.

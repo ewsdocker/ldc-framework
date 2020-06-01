@@ -1,0 +1,18 @@
+ewsdocker/ldc-stack-apps  dfortran-jdk13-0.1.0-b2
+
+Suggested packages:
+  gfortran-multilib gfortran-doc gfortran-8-multilib gfortran-8-doc
+  libgfortran5-dbg libhwloc-contrib-plugins opencl-icd keychain libpam-ssh
+  monkeysphere ssh-askpass
+Recommended packages:
+  ibverbs-providers libopenmpi-dev xauth
+The following NEW packages will be installed:
+  gfortran gfortran-8 libcaf-mpich-3 libcaf-openmpi-3 libcoarrays-dev
+  libevent-2.1-6 libevent-core-2.1-6 libevent-pthreads-2.1-6 libfabric1
+  libgfortran-8-dev libgfortran5 libhwloc-plugins libhwloc5 libibverbs1
+  libmpich12 libnl-route-3-200 libopenmpi3 libpmix2 libpsm-infinipath1
+  libpsm2-2 librdmacm1 mpi-default-bin ocl-icd-libopencl1 openmpi-bin
+  openmpi-common openssh-client pciutils
+0 upgraded, 27 newly installed, 0 to remove and 0 not upgraded.
+Need to get 17.5 MB of archives.
+After this operation, 59.6 MB of additional disk space will be used.

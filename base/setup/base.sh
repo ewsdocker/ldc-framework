@@ -77,7 +77,7 @@ addPkg "libcgmanager0"
 
 addPkg "libedit2"
 
-addPkg "libicu57"
+#addPkg "libicu63"
 addPkg "libinput-bin"
 addPkg "libinput10"
 
@@ -92,7 +92,7 @@ addPkg "libnuma1"
 addPkg "libpam-systemd"
 addPkg "libpci3"
 addPkg "libpciaccess0"
-addPkg "libprocps6"
+addPkg "libprocps7"
 
 addPkg "nano" 
 
@@ -102,7 +102,7 @@ addPkg "procps"
 addPkg "shared-mime-info"
 addPkg "software-properties-common"
 addPkg "systemd"
-addPkg "systemd-shim"
+#addPkg "systemd-shim"
 
 #
 # dbus
@@ -124,7 +124,7 @@ addPkg "libxml2"
 #
 # sanitizing
 #
-addPkg "libasan3"
+addPkg "libasan5"
 addPkg "liblsan0"
 addPkg "libsigsegv2"
 addPkg "libubsan0"
@@ -150,8 +150,8 @@ addPkg "libdconf1"
 # security
 #
 addPkg "libapparmor1"
-addPkg "libcryptsetup4"
-addPkg "libseccomp2"
+addPkg "libcryptsetup12"
+#addPkg "libseccomp2"
 
 #
 # Policy Kit
@@ -216,7 +216,7 @@ addPkg "libavahi-common3"
 #
 # database
 #
-addPkg "libgdbm3"
+addPkg "libgdbm6"
 
 addPkg "libjson-glib-1.0-0"
 addPkg "libjson-glib-1.0-common"
@@ -236,8 +236,8 @@ addPkg "libnih1"
 addPkg "libnih-dbus1"
 
 addPkg "cpp"
-addPkg "cpp-6"
-addPkg "gcc-6-locales"
+addPkg "cpp-8"
+addPkg "gcc-8-locales"
 
 addPkg "libassuan0"
 
@@ -250,10 +250,10 @@ addPkg "libevdev2" "wrapper library for evdev (event driven) devices"
 addPkg "libgomp1"
 addPkg "libgudev-1.0-0" "GObject-based wrapper library for libudev"
 
-addPkg "libisl15"
+addPkg "libisl19"
 
 addPkg "libmpc3"
-addPkg "libmpfr4"
+addPkg "libmpfr6"
 addPkg "libmpx2"
 
 addPkg "libquadmath0"
@@ -278,6 +278,20 @@ addPkg "python3-software-properties"
 # Thread Management
 #
 addPkg "libnpth0"
+
+# =======================================================================
+
+addPkg "binutils-common"
+addPkg "binutils-x86-64-linux-gnu"
+addPkg "gcc-7-base"
+addPkg "libargon2-1"
+addPkg "libbinutils"
+addPkg "libidn11"
+addPkg "libncurses6"
+addPkg "libtinfo5"
+addPkg "systemd-sysv"
+
+# =======================================================================
 
 installList
 

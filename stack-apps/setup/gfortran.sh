@@ -79,15 +79,16 @@ apt-get -y upgrade
 addPkg "apt-get -y install"
 
 addPkg "gfortran"
-addPkg "gfortran-6"
+addPkg "gfortran-8"
 
 addPkg "libcoarrays-dev"
-addPkg "libcoarrays0d"
+addPkg "libcaf-openmpi-3"
+addPkg "libcaf-mpich-3"
 
 addPkg "libfabric1"
 
-addPkg "libgfortran-6-dev"
-addPkg "libgfortran3"
+addPkg "libgfortran-8-dev"
+addPkg "libgfortran5"
 
 addPkg "libhwloc-plugins"
 addPkg "libhwloc5"
@@ -96,7 +97,7 @@ addPkg "libibverbs1"
 
 addPkg "libnl-route-3-200"
 
-addPkg "libopenmpi2"
+addPkg "libopenmpi3"
 
 addPkg "libpsm-infinipath1"
 
@@ -110,6 +111,18 @@ addPkg "openmpi-bin"
 addPkg "openmpi-common"
 
 addPkg "pciutils"
+
+# =============================================
+
+addPkg "libevent-2.1-6"
+addPkg "libevent-core-2.1-6"
+addPkg "libevent-pthreads-2.1-6"
+addPkg "libmpich12"
+addPkg "libpmix2"
+addPkg "libpsm2-2"
+addPkg "openssh-client"
+  
+# =============================================
 
 installList
 

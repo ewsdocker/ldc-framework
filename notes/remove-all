@@ -1,0 +1,157 @@
+#
+#
+docker stop ldc-ckaptain-ckaptain-0.1.0-b1
+docker rm ldc-ckaptain-ckaptain-0.1.0-b1
+docker rmi ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b1
+#
+#
+docker stop ldc-ck-library-ck-library-0.1.0-b1
+docker rm ldc-ck-library-ck-library-0.1.0-b1
+docker rmi ewsdocker/ldc-ck-library:ck-library-0.1.0-b1
+#
+#
+docker stop ldc-dialog-zenity-0.1.0-b1
+docker rm ldc-dialog-zenity-0.1.0-b1
+docker rmi ewsdocker/ldc-dialog:zenity-0.1.0-b1
+#
+docker stop ldc-dialog-whiptail-0.1.0-b1
+docker rm ldc-dialog-whiptail-0.1.0-b1
+docker rmi ewsdocker/ldc-dialog:whiptail-0.1.0-b1
+#
+docker stop ldc-dialog-kaptain-0.1.0-b1
+docker rm ldc-dialog-kaptain-0.1.0-b1
+docker rmi ewsdocker/ldc-dialog:kaptain-0.1.0-b1
+#
+docker stop ldc-dialog-dialog-0.1.0-b1
+docker rm ldc-dialog-dialog-0.1.0-b1
+docker rmi ewsdocker/ldc-dialog:dialog-0.1.0-b1
+#
+#
+docker stop ldc-stack-apps-dqt4-jdk13dev-0.1.0-b1
+docker rm ldc-stack-apps-dqt4-jdk13dev-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-apps:dqt4-jdk13dev-0.1.0-b1
+#
+docker stop ldc-stack-apps-dphp5.6-jdk13-0.1.0-b1
+docker rm ldc-stack-apps-dphp5.6-jdk13-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-apps:dphp5.6-jdk13-0.1.0-b1
+#
+docker stop ldc-stack-apps-djs13-jdk13-0.1.0-b1
+docker rm ldc-stack-apps-djs13-jdk13-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-apps:djs13-jdk13-0.1.0-b1
+#
+docker stop ldc-stack-apps-djre8-gtk2-0.1.0-b1
+docker rm ldc-stack-apps-djre8-gtk2-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-apps:djre8-gtk2-0.1.0-b1
+#
+docker stop ldc-stack-apps-djdk13dev-gtk3-0.1.0-b1
+docker rm ldc-stack-apps-djdk13dev-gtk3-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-apps:djdk13dev-gtk3-0.1.0-b1
+#
+docker stop ldc-stack-apps-djdk13-gtk3-0.1.0-b1
+docker rm ldc-stack-apps-djdk13-gtk3-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-apps:djdk13-gtk3-0.1.0-b1
+#
+docker stop ldc-stack-apps-djdk8-gtk2-0.1.0-b1
+docker rm ldc-stack-apps-djdk8-gtk2-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-apps:djdk8-gtk2-0.1.0-b1
+#
+docker stop ldc-stack-apps-dfortran-jdk13-0.1.0-b1
+docker rm ldc-stack-apps-dfortran-jdk13-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-apps:dfortran-jdk13-0.1.0-b1
+#
+docker stop ldc-stack-apps-dfortran-gtk2-0.1.0-b1
+docker rm ldc-stack-apps-dfortran-gtk2-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-apps:dfortran-gtk2-0.1.0-b1
+#
+docker stop ldc-stack-apps-dcpp-jdk13-0.1.0-b1
+docker rm ldc-stack-apps-dcpp-jdk13-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-apps:dcpp-jdk13-0.1.0-b1
+#
+#
+docker stop ldc-stack-dev-dcc-dev-0.1.0-b1
+docker rm ldc-stack-dev-dccc-dev-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b1
+#
+docker stop ldc-stack-dev-dgtk3-dev-0.1.0-b1
+docker rm ldc-stack-dev-dgtk3-dev-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-dev:dgtk3-dev-0.1.0-b1
+#
+docker stop ldc-stack-dev-dqt4-dev-0.1.0-b1
+docker rm ldc-stack-dev-dqt4-dev-0.1.0-b1
+docker rmi ewsdocker/ldc-stack-dev:dqt4-dev-0.1.0-b1
+#
+#
+docker stop ldc-stack-dqt4-0.1.0-b1
+docker rm ldc-stack-dqt4-0.1.0-b1
+docker rmi ewsdocker/ldc-stack:dqt4-0.1.0-b1
+#
+docker stop ldc-stack-dqt4-x11-0.1.0-b1
+docker rm ldc-stack-dqt4-x11-0.1.0-b1
+docker rmi ewsdocker/ldc-stack:dqt4-x11-0.1.0-b1
+#
+docker stop ldc-stack-djre8-x11-0.1.0-b1
+docker rm ldc-stack-djre8-x11-0.1.0-b1
+docker rmi ewsdocker/ldc-stack:djre8-x11-0.1.0-b1
+#
+docker stop ldc-stack-dgtk3-x11-0.1.0-b1
+docker rm ldc-stack-dgtk3-x11-0.1.0-b1
+docker rmi ewsdocker/ldc-stack:dgtk3-x11-0.1.0-b1
+#
+docker stop ldc-stack-dgtk3-0.1.0-b1
+docker rm ldc-stack-dgtk3-0.1.0-b1
+docker rmi ewsdocker/ldc-stack:dgtk3-0.1.0-b1
+#
+docker stop ldc-stack-dgtk2-x11-0.1.0-b1
+docker rm ldc-stack-dgtk2-x11-0.1.0-b1
+docker rmi ewsdocker/ldc-stack:dgtk2-x11-0.1.0-b1
+#
+docker stop ldc-stack-dgtk2-0.1.0-b1
+docker rm ldc-stack-dgtk2-0.1.0-b1
+docker rmi ewsdocker/ldc-stack:dgtk2-0.1.0-b1
+#
+docker stop ldc-stack-dcc-x11-0.1.0-b1
+docker rm ldc-stack-dcc-x11-0.1.0-b1
+docker rmi ewsdocker/ldc-stack:dcc-x11-0.1.0-b1
+#
+docker stop ldc-stack-dcc-0.1.0-b1
+docker rm ldc-stack-dcc-0.1.0-b1
+docker rmi ewsdocker/ldc-stack:dcc-0.1.0-b1
+#
+#
+docker stop ldc-base-dx11-dev-0.1.0-b1
+docker rm ldc-base-dx11-dev-0.1.0-b1
+docker rmi ewsdocker/ldc-base:dx11-dev-0.1.0-b1
+#
+docker stop ldc-base-dx11-surface-0.1.0-b1
+docker rm ldc-base-dx11-surface-0.1.0-b1
+docker rmi ewsdocker/ldc-base:dx11-surface-0.1.0-b1
+#
+docker stop ldc-base-dx11-base-0.1.0-b1
+docker rm ldc-base-dx11-base-0.1.0-b1
+docker rmi ewsdocker/ldc-base:dx11-base-0.1.0-b1
+#
+docker stop ldc-base-dperl-0.1.0-b1
+docker rm ldc-base-dperl-0.1.0-b1
+docker rmi ewsdocker/ldc-base:dperl-0.1.0-b1
+#
+docker stop ldc-base-dbase-0.1.0-b1
+docker rm ldc-base-dbase-0.1.0-b1
+docker rmi ewsdocker/ldc-base:dbase-0.1.0-b1
+#
+#
+docker stop ldc-library-dlibrary-0.1.6-b1
+docker rm ldc-library-dlibrary-0.1.6-b1
+docker rmi ewsdocker/ldc-library:dlibrary-0.1.6-b1
+#
+#
+docker stop ldc-core-dcore-0.1.0-b1
+docker rm ldc-core-dcore-0.1.0-b1
+docker rmi ewsdocker/ldc-core:dcore-0.1.0-b1
+#
+
+
+
+
+
+
+

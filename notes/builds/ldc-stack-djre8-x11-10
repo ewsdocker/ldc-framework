@@ -1,0 +1,13 @@
+ewsdocker/ldc-stack    djre8-x11-0.1.0-b2
+
+Suggested packages:
+  cups-common pcscd libnss-mdns fonts-dejavu-extra fonts-ipafont-gothic
+  fonts-ipafont-mincho fonts-wqy-microhei | fonts-wqy-zenhei fonts-indic
+Recommended packages:
+  libatk-wrapper-java-jni fonts-dejavu-extra
+The following NEW packages will be installed:
+  ca-certificates-java default-jre default-jre-headless java-common libcups2
+  libgif7 libnspr4 libnss3 libpcsclite1 openjdk-11-jre openjdk-11-jre-headless
+0 upgraded, 11 newly installed, 0 to remove and 0 not upgraded.
+Need to get 39.1 MB of archives.
+After this operation, 175 MB of additional disk space will be used.

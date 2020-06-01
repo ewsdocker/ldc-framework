@@ -7,15 +7,15 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.0
-# @copyright © 2017-2019. EarthWalk Software.
+# @version 0.1.0-b2
+# @copyright © 2017-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-core
 # @subpackage Dockerfile.dcore
 #
 # ========================================================================================
 #
-#	Copyright © 2017-2019. EarthWalk Software
+#	Copyright © 2017-2020. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-core.
@@ -39,7 +39,7 @@
 
 ARG FROM_REPO=""
 ARG FROM_PARENT="debian"
-ARG FROM_VERS="9.12"
+ARG FROM_VERS="10.4"
 ARG FROM_EXT=""
 ARG FROM_EXT_MOD=""
 
@@ -116,7 +116,7 @@ ENV \
     LMS_VERS_MOD=${BUILD_EXT_MOD} 
 
 ENV LMS_VERS_EXT="${LMS_VERS_X}${LMS_VERS_MOD}" \
-    LMS_PACKAGE="${LMS_PARENT}, Debian 9.11"
+    LMS_PACKAGE="${LMS_PARENT}, Debian 10.4"
 
 ENV \
     LMS_RUN_NAME="${LMS_NAME}-${LMS_VERSION}${LMS_VERS_EXT}" \
@@ -171,7 +171,7 @@ RUN chmod +x /tmp/*.sh \
  #
  # ========================================================================
  \
- && locale-gen en_US \
+# && locale-gen en_US \
  && update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX 
 
 # =========================================================================

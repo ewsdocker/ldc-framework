@@ -125,8 +125,8 @@ addPkg "hicolor-icon-theme"
 #
 #	Fonts/Font Themes
 #
-addPkg "libgraphite2-3"
-addPkg "librsvg2-2"
+#addPkg "libgraphite2-3"
+#addPkg "librsvg2-2"
 addPkg "librsvg2-common"
 
 #
@@ -139,16 +139,16 @@ addPkg "libcairo-gobject2"
 #
 #  Text layout
 #
-addPkg "libpango-1.0-0"
-addPkg "libpangocairo-1.0-0"
-addPkg "libpangoft2-1.0-0"
+#addPkg "libpango-1.0-0"
+#addPkg "libpangocairo-1.0-0"
+#addPkg "libpangoft2-1.0-0"
 
-addPkg "libharfbuzz0b"
+#addPkg "libharfbuzz0b"
 
 #
 #  CSS
 #
-addPkg "libcroco3"
+#addPkg "libcroco3"
 
 #
 #   HTTP Library in C

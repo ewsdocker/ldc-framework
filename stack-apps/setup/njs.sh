@@ -38,8 +38,17 @@ apt-get -y update
 
 addPkg "apt-get -y install"
 
+addPkg "libnode-dev"
+addPkg "libnode64"
+
+addPkg "node-bindings"
+addPkg "node-gyp"
+addPkg "node-pre-gyp"
+
 addPkg "nodejs"
-addPkg "npm"
+addPkg "nodejs-legacy"
+
+#addPkg "npm"
 
 # =======================================================================
 

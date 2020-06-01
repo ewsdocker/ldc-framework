@@ -90,7 +90,7 @@ addPkg "libxxf86vm1"
 
 addPkg "x11-utils"
 addPkg "x11-xserver-utils"
-addPkg "x11-session-utils"
+addPkg "x11-session-utils" "X session manager and related tools"
 
 addPkg "xdg-utils"
 
@@ -115,10 +115,10 @@ addPkg "libgbm1"
 
 addPkg "libgl1-mesa-glx"
 addPkg "libglapi-mesa"
-addPkg "libglew2.0"
+addPkg "libglew2.1"
 addPkg "libglu1-mesa"
 
-addPkg "libtxc-dxtn-s2tc"
+#addPkg "libtxc-dxtn-s2tc"
 
 addPkg "mesa-utils"
 
@@ -131,7 +131,7 @@ addPkg "libegl1-mesa"
 
 addPkg "libgl1-mesa-dri"
 
-addPkg "libva-wayland1"
+addPkg "libva-wayland2"
 
 addPkg "libwayland-client0"
 addPkg "libwayland-cursor0"
@@ -141,9 +141,9 @@ addPkg "libwayland-server0"
 #
 # Fonts
 #
-addPkg "fontconfig"
+#addPkg "fontconfig"
 addPkg "libfontenc1"
-
+addPkg "x11-xfs-utils" "X font server utilities"
 #
 # Colors
 #
@@ -156,8 +156,8 @@ addPkg "libcolord2"
 #addPkg "colord-data"
 #addPkg "libcolorhug2"
 
-addPkg "libllvm3.9" "Modular compiler & toolchain technologies, runtime library"
-addPkg "libsensors4"
+addPkg "libllvm7" "Modular compiler & toolchain technologies, runtime library"
+addPkg "libsensors5"
 addPkg "libxss1"
 
 addPkg "groff"         "GNU troff text-formatting system"
@@ -166,11 +166,26 @@ addPkg "groff-base"    "GNU troff text-formatting system base components"
 #
 # GStreamer
 #
-addPkg "libcap2-bin"
+#addPkg "libcap2-bin"
 
 addPkg "libgstreamer-plugins-bad1.0-0"
 addPkg "libgstreamer-plugins-base1.0-0"
 addPkg "libgstreamer1.0-0"
+
+# =======================================================================
+
+addPkg "libegl-mesa0"
+addPkg "libegl1"
+addPkg "libfs6"
+addPkg "libgl1"
+addPkg "libglvnd0"
+addPkg "libglx-mesa0"
+addPkg "libglx0"
+addPkg "libsensors-config"
+addPkg "libuchardet0"
+addPkg "libwayland-egl1"
+
+# =======================================================================
 
 installList
 apt-get clean all 

@@ -1,0 +1,20 @@
+ewsdocker/ldc-stack-dev   dqt4-dev-0.1.0-b2
+
+Suggested packages:
+  libqt4-declarative-folderlistmodel libqt4-declarative-gestures
+  libqt4-declarative-particles libqt4-declarative-shaders qt4-qmlviewer
+  default-libmysqlclient-dev firebird-dev libpq-dev libsqlite0-dev
+  libsqlite3-dev qt4-doc unixodbc-dev libicu57 qt4-doc-html
+Recommended packages:
+  qt4-designer qt4-doc
+The following NEW packages will be installed:
+  libmariadb3 libmng1 libphonon4 libpipeline1 libqt4-dbus libqt4-declarative
+  libqt4-designer libqt4-dev libqt4-dev-bin libqt4-help libqt4-network
+  libqt4-opengl libqt4-opengl-dev libqt4-qt3support libqt4-script
+  libqt4-scripttools libqt4-sql libqt4-sql-mysql libqt4-sql-sqlite libqt4-svg
+  libqt4-test libqt4-xml libqt4-xmlpatterns libqtcore4 libqtdbus4 libqtgui4
+  mariadb-common mysql-common qdbus qt-at-spi qt4-dev-tools qt4-linguist-tools
+  qt4-qmake qt4-qtconfig qtchooser qtcore4-l10n
+0 upgraded, 36 newly installed, 0 to remove and 0 not upgraded.
+Need to get 27.3 MB of archives.
+After this operation, 101 MB of additional disk space will be used.

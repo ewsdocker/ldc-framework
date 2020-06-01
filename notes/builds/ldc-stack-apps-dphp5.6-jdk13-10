@@ -1,0 +1,16 @@
+ewsdocker/ldc-stack-apps  dphp5.6-jdk13-0.1.0-b2
+
+SSuggested packages:
+  libgd-tools libmcrypt-dev mcrypt
+Recommended packages:
+  php-apcu-bc
+The following NEW packages will be installed:
+  libgd3 libicu65 libmcrypt4 php-apcu php-common php-pear php5.6 php5.6-cgi
+  php5.6-cli php5.6-common php5.6-curl php5.6-fpm php5.6-gd php5.6-intl
+  php5.6-json php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-opcache
+  php5.6-readline php5.6-xml
+The following packages will be upgraded:
+  libpcre3
+1 upgraded, 21 newly installed, 0 to remove and 7 not upgraded.
+Need to get 15.4 MB of archives.
+After this operation, 64.0 MB of additional disk space will be used.

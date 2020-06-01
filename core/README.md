@@ -1,9 +1,9 @@
 
-__Preliminary Documentation__ - 2020-05-18
+__Preliminary Documentation__ - 2020-05-30
 ____  
 __ldc-core: The LDC (Linux Docker Container) Framework Core project.__  
 
-Current Development Version: __0.1.6-b1__  
+Current Development Version: __0.1.0-b2__  
 Latest Release Version: __n/a__  
 LDC Base Resources:  
 
@@ -34,8 +34,8 @@ __LDC Core Stack:__
   </tr>
   <tr>
     <td>&nbsp;<a href="https://ewsdocker.github.io/ldc-framework/core/dcore.html">ldc-core:dcore</a>&nbsp;</td>
-    <td>&nbsp;0.1.6-b1&nbsp;</td>
-    <td>&nbsp;<b>ewsdocker/ldc-core:dcore-0.1.6-b1</b>&nbsp;</td>
+    <td>&nbsp;0.1.0-b2&nbsp;</td>
+    <td>&nbsp;<b>ewsdocker/ldc-core:dcore-0.1.0-b2</b>&nbsp;</td>
     <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/wiki/core/dcore.md">dcore</a>&nbsp;</td>
   </tr>
 </table>

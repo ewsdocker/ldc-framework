@@ -1,0 +1,14 @@
+ewsdocker/ldc-stack  dqt4-x11-0.1.0-b2
+
+Suggested packages:
+  libqt4-dev libicu57 qt4-qtconfig
+Recommended packages:
+  libqt4-sql-mysql | libqt4-sql-odbc | libqt4-sql-psql | libqt4-sql-sqlite
+  | libqt4-sql-sqlite2 | libqt4-sql-ibase libcups2 qt-at-spi
+The following NEW packages will be installed:
+  libmng1 libpipeline1 libqt4-designer libqt4-network libqt4-qt3support
+  libqt4-script libqt4-sql libqt4-xml libqtcore4 libqtdbus4 libqtgui4
+  qtcore4-l10n
+0 upgraded, 12 newly installed, 0 to remove and 0 not upgraded.
+Need to get 13.7 MB of archives.
+After this operation, 44.2 MB of additional disk space will be used.

@@ -107,6 +107,17 @@ addPkg "xorg-sgml-doctools"
 
 addPkg "xtrans-dev"
 
+# ======================================
+
+addPkg "libgles1"
+addPkg "libgles2"
+addPkg "libglvnd-core-dev"
+addPkg "libglvnd-dev"
+addPkg "libopengl0"
+addPkg "x11proto-dev"
+
+# ======================================
+
 installList
 [[ $? -eq 0 ]] || exit $?
 

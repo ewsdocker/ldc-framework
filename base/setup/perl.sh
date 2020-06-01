@@ -34,38 +34,60 @@ apt-get -y update
 addPkg "apt-get -y install"
 
 #
-# perl 5.24
+# perl 5.28
 #
-addPkg "perl perl-modules-5.24 libapt-pkg-perl libperl5.24"
+addPkg "perl"
+addPkg "perl-modules-5.28"
+addPkg "libapt-pkg-perl"
+addPkg "libperl5.28"
 addPkg "perl-openssl-defaults"
 
 addPkg "sgml-base"
 
-addPkg "libencode-locale-perl liberror-perl"
+addPkg "libencode-locale-perl"
+addPkg "liberror-perl"
 
-addPkg "libfile-listing-perl libfile-mimeinfo-perl"
-addPkg "libfile-basedir-perl libfile-desktopentry-perl"
+addPkg "libfile-listing-perl"
+addPkg "libfile-mimeinfo-perl"
+addPkg "libfile-basedir-perl"
+addPkg "libfile-desktopentry-perl"
 
 addPkg "libhtml-parser-perl"
-addPkg "libhtml-tagset-perl libhtml-tree-perl libhttp-cookies-perl" 
-addPkg "libhttp-date-perl libhttp-message-perl libhttp-negotiate-perl"
+addPkg "libhtml-tagset-perl"
+addPkg "libhtml-tree-perl"
+addPkg "libhttp-cookies-perl" 
+addPkg "libhttp-date-perl"
+addPkg "libhttp-message-perl"
+addPkg "libhttp-negotiate-perl"
 
 addPkg "libipc-system-simple-perl"
-addPkg "libio-html-perl libio-socket-ssl-perl"
-addPkg "liblwp-mediatypes-perl liblwp-protocol-https-perl"
+addPkg "libio-html-perl"
+addPkg "libio-socket-ssl-perl"
+addPkg "liblwp-mediatypes-perl"
+addPkg "liblwp-protocol-https-perl"
 
-addPkg "libnet-dbus-perl libnet-http-perl libnet-ssleay-perl"
+addPkg "libnet-dbus-perl"
+addPkg "libnet-http-perl"
+addPkg "libnet-ssleay-perl"
 
 addPkg "libpcre16-3" "16 bit Perl 5 Compatible Regular Expression Library runtime"
 
 addPkg "libterm-readline-gnu-perl"
 addPkg "libtext-iconv-perl" "converts between character sets in Perl"
 
-addPkg "libtimedate-perl liburi-perl"
-addPkg "libwww-perl libwww-robotrules-perl" 
+addPkg "libtimedate-perl"
+addPkg "liburi-perl"
+addPkg "libwww-perl"
+addPkg "libwww-robotrules-perl" 
 
-addPkg "libxml-parser-perl libxml-twig-perl"
+addPkg "libxml-parser-perl"
+addPkg "libxml-twig-perl"
 addPkg "xml-core"
+
+# =======================================================================
+
+addPkg "libgdbm-compat4"
+addPkg "libtry-tiny-perl"
 
 # =======================================================================
 

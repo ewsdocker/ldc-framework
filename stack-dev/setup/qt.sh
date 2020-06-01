@@ -71,7 +71,7 @@ case "${QTVER}" in
 	    echo "*******************************"
 		echo
 
-		addPkg "libmariadbclient18"
+		addPkg "libmariadb3"
 
         addPkg "libphonon4" "Core Library Phonon (Qt 4 multimedia framework API)"
 
@@ -104,6 +104,8 @@ case "${QTVER}" in
 		addPkg "libqtdbus4"
 
 		addPkg "libqtgui4"
+
+        addPkg "mariadb-common"
 
         addPkg "qdbus"
 

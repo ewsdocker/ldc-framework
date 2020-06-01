@@ -61,9 +61,9 @@ addPkg "libice6"
 
 addPkg "libpixman-1-0"
 
-addPkg "libsm6"
+addPkg "libsm6" "X11 Session Management library"
 
-addPkg "libx11-6"
+addPkg "libx11-6" "X11 client-side library"
 addPkg "libx11-data"
 addPkg "libx11-xcb1"
 
@@ -161,7 +161,7 @@ addPkg "libpulse0"
 addPkg "libpulsedsp"
 
 addPkg "libsndfile1"
-addPkg "libsndio6.1"
+addPkg "libsndio7.0"
 
 addPkg "libwebrtc-audio-processing1"
 
@@ -191,15 +191,15 @@ addPkg "libwavpack1"
 #
 # Audio signal processing
 #
-addPkg "libavresample3"
-addPkg "libavutil55"
+addPkg "libavresample4"
+addPkg "libavutil56"
 
 addPkg "libfftw3-single3"
 
 addPkg "libsamplerate0" 
 addPkg "libsoxr0"
 
-addPkg "libswresample2"
+addPkg "libswresample3"
 
 #
 # Speech
@@ -219,16 +219,16 @@ addPkg "libspeexdsp1"
 #
 # video accelertors and processors
 #
-addPkg "libva-drm1"
-addPkg "libva-x11-1"
+addPkg "libva-drm2"
+addPkg "libva-x11-2"
 
-addPkg "libva1"
+addPkg "libva2"
 addPkg "libvdpau1"
 
 #
 # video encoders/decoders (codec)
 #
-addPkg "libavcodec57"
+addPkg "libavcodec58"
 
 addPkg "libcrystalhd3"
 
@@ -236,10 +236,10 @@ addPkg "libogg0"
 
 addPkg "libtheora0"
 
-addPkg "libvpx4"
+addPkg "libvpx5"
 
-addPkg "libx264-148"
-addPkg "libx265-95"
+addPkg "libx264-155"
+addPkg "libx265-165"
 
 #
 # Video signal processing
@@ -251,7 +251,7 @@ addPkg "libltdl7"
 addPkg "liborc-0.4-0"
 
 addPkg "libslang2"
-addPkg "libsnappy1v5"
+#addPkg "libsnappy1v5"
 
 addPkg "libtdb1"
 
@@ -275,7 +275,7 @@ addPkg "libpng16-16"
 addPkg "libtiff5"
 
 addPkg "libwebp6"
-addPkg "libwebpmux2"
+addPkg "libwebpmux3"
 
 #
 # Buffer processing
@@ -294,6 +294,27 @@ addPkg "libdrm2"
 # pgp
 #
 addPkg "gnupg-agent"
+
+# =======================================================================
+
+addPkg "fontconfig"
+addPkg "gpg-agent"
+addPkg "gpgconf"
+addPkg "libaom0"
+addPkg "libcodec2-0.8.1"
+addPkg "libcroco3"
+addPkg "libdrm-common"
+addPkg "libfribidi0"
+addPkg "libgraphite2-3"
+addPkg "libharfbuzz0b"
+addPkg "libpango-1.0-0"
+addPkg "libpangocairo-1.0-0"
+addPkg "libpangoft2-1.0-0"
+addPkg "librsvg2-2"
+addPkg "libthai-data"
+addPkg "libthai0"
+
+# =======================================================================
 
 installList
 apt-get clean all 

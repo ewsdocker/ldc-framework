@@ -23,6 +23,26 @@ function addPkg()
 
 # =========================================================================
 #
+#	installList
+#		the instList has been built, now execute it
+#
+#   Enter:
+#		none
+#
+# =========================================================================
+function installList()
+{
+	echo ""
+	echo "$instList"
+	echo ""
+
+	$instList
+
+	return $?
+}
+
+# =========================================================================
+#
 #	installPackage
 #		download & install requested package
 #
@@ -49,17 +69,6 @@ function installPackage()
     return 0
 }
 
-function installList()
-{
-	echo ""
-	echo "$instList"
-	echo ""
-
-	$instList
-
-	return $?
-}
-
 # ===============================================
 
 echo "*****************************************************"
@@ -72,69 +81,57 @@ apt-get -y update
 
 addPkg "apt-get -y install" 
 
-addPkg "ca-certificates-java"
-addPkg "default-jre-headless"
-
-addPkg "dbus-java-bin"
-addPkg "java-common " 
-addPkg "libdbus-java"
-#addPkg "libdbus-java-doc"
-addPkg "libmatthew-debug-java"
-addPkg "libnspr4"
-addPkg "libnss3"
-addPkg "libpcsclite1"
-addPkg "libunixsocket-java"
-
-addPkg "openjdk-8-jre-headless" 
+addPkg "java-common"
+addPkg "default-jre"
 
 case ${OJDK_TYPE} in
 
-  "jdk8" | "jre8")
+	"jre8" | "jre11" | "jdk8" | "jdk11")
 
-		addPkg "default-jre"
+        addPkg "ca-certificates-java"
+        addPkg "default-jre-headless"
+        addPkg "libatk-wrapper-java"
+        addPkg "libatk-wrapper-java-jni"
+        addPkg "libgif7"
+        addPkg "libgtk-3-0"
+        addPkg "libgtk-3-common"
+        addPkg "libnspr4"
+        addPkg "libnss3"
+        addPkg "libpcsclite1"
+        addPkg "openjdk-11-jre"
+        addPkg "openjdk-11-jre-headless"
 
-		addPkg "libatk-wrapper-java"
-		addPkg "libatk-wrapper-java-jni"
-		addPkg "libgif7"
-		addPkg "libgtk-3-0"
-		addPkg "libgtk-3-common"
-
-		echo "*****************************************************"
-		echo ""
-		echo "   Processing ${OJDK_TYPE}"
-		echo ""
-		echo "*****************************************************"
-
-    	[[ "${OJDK_TYPE}" -eq "jdk8" ]] &&
-    	 {
-   			addPkg "openjdk-8-jdk"
-   			addPkg "openjdk-8-jdk-headless"
+		[[ ${OJDK_TYPE} == "jdk8" || ${OJDK_TYPE} == "jdk11" ]] &&
+		 {
+	        addPkg "default-jdk"
+            addPkg "default-jdk-headless"
+ 
+            addPkg "openjdk-11-jdk"
+            addPkg "openjdk-11-jdk-headless"
 		 }
 
-		addPkg "openjdk-8-jre"
+		installList
+		[[ $? -eq 0 ]] || exit 1
 
-    	installList
-		[[ $? -eq 0 ]] || exit 3
-		
-		;;
-
+	    ;;
+	    
 	"jre13" | "jdk13")
+
+		installList
+		[[ $? -eq 0 ]] || exit 2
 
     	mkdir -p /usr/lib/jvm
 
     	installPackage ${OJDK_PKG} ${OJDK_URL} "/usr/lib/jvm"
 
-    	installList
-		[[ $? -eq 0 ]] || exit 3
-
-#    	ln -s /usr/lib/jvm/jdk-${OJDK_VERS}/bin/java /usr/bin/java
-#    	ln -s /usr/lib/jvm/jdk-${OJDK_VERS}/bin/java /etc/alternatives/java
+    	ln -s /usr/lib/jvm/jdk-${OJDK_VERS}/bin/java /usr/bin/java
+    	ln -s /usr/lib/jvm/jdk-${OJDK_VERS}/bin/java /etc/alternatives/java
 
     	;;
 
   	*)  
     	echo "Unknow type: ${OJDK_TYPE}"
-    	exit 1
+    	exit 3
     	
     	;;
 esac

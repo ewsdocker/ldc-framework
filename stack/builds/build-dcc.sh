@@ -3,7 +3,7 @@
 #
 #  dcc - debian C Runitime Dependencies
 #
-#    ldc-stack:dcc-0.1.0-b1
+#    ldc-stack:dcc-0.1.0-b2
 #
 # ===========================================================================
 cd ~/Development/ewsldc/ldc-framework/stack
@@ -14,7 +14,7 @@ echo "   **** stopping ldc-stack:dcc container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rm ldc-stack-dcc-0.1.0-b1
+docker rm ldc-stack-dcc-0.1.0-b2
 
 echo "   ********************************************"
 echo "   ****"
@@ -22,11 +22,11 @@ echo "   **** removing ldc-stack:dcc image(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rmi ewsdocker/ldc-stack:dcc-0.1.0-b1
+docker rmi ewsdocker/ldc-stack:dcc-0.1.0-b2
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-stack:dcc-0.1.0-b1"
+echo "   **** building ewsdocker/ldc-stack:dcc-0.1.0-b2"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -43,32 +43,32 @@ docker build \
   --build-arg BUILD_NAME="ldc-stack" \
   --build-arg BUILD_VERSION="dcc" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b1" \
+  --build-arg BUILD_EXT_MOD="-b2" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-base" \
   --build-arg FROM_VERS="dx11-base" \
   --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b1" \
+  --build-arg FROM_EXT_MOD="-b2" \
   \
   --build-arg LIB_INSTALL="0" \
   --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b1" \
+  --build-arg LIB_VERS_MOD="-b2" \
   --build-arg LIB_HOST="http://alpine-nginx-pkgcache" \
   \
   --network=pkgnet \
   \
   --file Dockerfile \
-  -t ewsdocker/ldc-stack:dcc-0.1.0-b1 .
+  -t ewsdocker/ldc-stack:dcc-0.1.0-b2 .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-stack:dcc-0.1.0-b1 failed."
+ 	echo "build ewsdocker/ldc-stack:dcc-0.1.0-b2 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-stack-dcc-0.1.0-b1"
+echo "   **** installing ldc-stack-dcc-0.1.0-b2"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -89,25 +89,25 @@ docker run \
   -v ${HOME}/.config/docker/ldc-stack-dcc-0.1.0:/root \
   -v ${HOME}/.config/docker/ldc-stack-dcc-0.1.0/workspace:/workspace \
   \
-  --name=ldc-stack-dcc-0.1.0-b1 \
-ewsdocker/ldc-stack:dcc-0.1.0-b1
+  --name=ldc-stack-dcc-0.1.0-b2 \
+ewsdocker/ldc-stack:dcc-0.1.0-b2
 [[ $? -eq 0 ]] ||
  {
- 	echo "build container ldc-stack-dcc-0.1.0-b1 failed."
+ 	echo "build container ldc-stack-dcc-0.1.0-b2 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** stopping ldc-stack-dcc-0.1.0-b1 daemon"
+echo "   **** stopping ldc-stack-dcc-0.1.0-b2 daemon"
 echo "   ****"
 echo "   ***********************************************"
 echo
 
-docker stop ldc-stack-dcc-0.1.0-b1
+docker stop ldc-stack-dcc-0.1.0-b2
 [[ $? -eq 0 ]] ||
  {
- 	echo "stop ldc-stack-dcc-0.1.0-b1 failed."
+ 	echo "stop ldc-stack-dcc-0.1.0-b2 failed."
  }
 
 echo "   ********************************************"

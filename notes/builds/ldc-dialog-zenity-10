@@ -1,0 +1,23 @@
+ewsdocker/ldc-dialog   zenity-0.1.0-b2
+
+The following additional packages will be installed:
+  aspell aspell-en bubblewrap dictionaries-common emacsen-common libaspell15
+  libbrotli1 libenchant1c2a libgstreamer-gl1.0-0 libharfbuzz-icu0
+  libhunspell-1.7-0 libhyphen0 libjavascriptcoregtk-4.0-18 libwebpdemux2
+  libwoff1 xdg-dbus-proxy
+Suggested packages:
+  aspell-doc spellutils wordlist libenchant-voikko
+  browser-plugin-freshplayer-pepperflash
+Recommended packages:
+  enchant gstreamer1.0-gl hunspell-en-us | hunspell-dictionary
+  | myspell-dictionary notification-daemon gstreamer1.0-plugins-good
+  gstreamer1.0-pulseaudio | gstreamer1.0-alsa gstreamer1.0-libav
+The following NEW packages will be installed:
+  aspell aspell-en bubblewrap dictionaries-common emacsen-common libaspell15
+  libbrotli1 libenchant1c2a libgstreamer-gl1.0-0 libharfbuzz-icu0
+  libhunspell-1.7-0 libhyphen0 libjavascriptcoregtk-4.0-18 libnotify4
+  libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-37-gtk2 libwebpdemux2 libwoff1
+  xdg-dbus-proxy zenity zenity-common
+0 upgraded, 21 newly installed, 0 to remove and 0 not upgraded.
+Need to get 26.6 MB of archives.
+After this operation, 93.2 MB of additional disk space will be used.

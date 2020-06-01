@@ -35,9 +35,9 @@ stack-apps
 	djdk13-gtk3
 	djdk13dev-gtk3
 	dcpp-jdk13
-	dfortran-jdk13
 	dfortran-gtk2
-	djs13-jdk13
+	dfortran-jdk13
+##	djs13-jdk13
 	dphp5.6-jdk13
 	dqt4-jdk13dev
 
@@ -67,7 +67,7 @@ browser
 	firefox
 	netsurf
 	palemoon
-	waterfox
+	waterfox-classic
 
 console
 
