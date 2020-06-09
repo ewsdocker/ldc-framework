@@ -2,45 +2,45 @@
 # ========================================================================================
 #
 #	Dockerfile
-#	  Dockerfile for ldc-devstack:dstack in a Docker container.
+#	  Dockerfile for ldc-stack-apps in a Docker container.
 #
 # ========================================================================================
 #
 # @author Jay Wheeler.
 # @version 0.1.0
-# @copyright © 2019. EarthWalk Software.
+# @copyright © 2019-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
-# @package ewsdocker/ldc-devstack
-# @subpackage Dockerfile.dstack
+# @package ewsdocker/ldc-stack-apps
+# @subpackage Dockerfile
 #
 # ========================================================================================
 #
-#	Copyright © 2019. EarthWalk Software
+#	Copyright © 2019-2020. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
-#   This file is part of ewsdocker/ldc-devstack.
+#   This file is part of ewsdocker/ldc-stack-apps.
 #
-#   ewsdocker/ldc-devstack is free software: you can redistribute 
+#   ewsdocker/ldc-stack-apps is free software: you can redistribute 
 #   it and/or modify it under the terms of the GNU General Public License 
 #   as published by the Free Software Foundation, either version 3 of the 
 #   License, or (at your option) any later version.
 #
-#   ewsdocker/ldc-devstack is distributed in the hope that it will 
+#   ewsdocker/ldc-stack-apps is distributed in the hope that it will 
 #   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
 #   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
 #
 #   You should have received a copy of the GNU General Public License
-#   along with ewsdocker/ldc-devstack.  If not, see <http://www.gnu.org/licenses/>.
+#   along with ewsdocker/ldc-stack-apps.  If not, see <http://www.gnu.org/licenses/>.
 #
 # ========================================================================================
 # ========================================================================================
 
 ARG FROM_REPO="ewsdocker"
-ARG FROM_PARENT="ldc-lang"
+ARG FROM_PARENT="ldc-stack"
 ARG FROM_VERS="dcc"
 ARG FROM_EXT="-0.1.0"
-ARG FROM_EXT_MOD="-b1"
+ARG FROM_EXT_MOD="-b2"
 
 FROM ${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
 
@@ -130,7 +130,7 @@ ENV FOR_VER=${FORTRAN_VER:-"6"}
 
 # =========================================================================
 
-ENV NJS_VER=${NODEJS_VER:-"11"} \
+ENV NJS_VER=${NODEJS_VER:-"14"} \
     NJS_HOST=${NODEJS_HOST:-"https://deb.nodesource.com"} \
     NJS_DIR="NodeJS" 
 
@@ -205,7 +205,7 @@ ENV \
     LMS_NAME=${BUILD_NAME:-"ldc-stack-apps"} \
     LMS_VERSION=${BUILD_VERSION:-"dstack-apps"} \
     LMS_VERS_X=${BUILD_VERS_EXT:-"-0.1.0"} \
-    LMS_VERS_MOD=${BUILD_EXT_MOD:-"-b1"} 
+    LMS_VERS_MOD=${BUILD_EXT_MOD:-"-b2"} 
 
 ENV LMS_VERS_EXT="${LMS_VERS_X}${LMS_VERS_MOD}" 
 
@@ -220,7 +220,7 @@ ENV LMS_DOCKER="${LMS_REPO}/${LMS_DOCKER_NAME}" \
 #
 #	ldc-library
 #
-# https://github.com/ewsdocker/ldc-utilities/releases/download/ldc-utilities-0.1.6/ldc-library-0.1.6-b1.tar.gz
+# https://github.com/ewsdocker/ldc-utilities/releases/download/ldc-utilities-0.1.6/ldc-library-0.1.6-b2.tar.gz
 #
 # ========================================================================================
 # ========================================================================================

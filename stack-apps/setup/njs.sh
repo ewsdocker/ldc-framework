@@ -26,7 +26,7 @@ function addPkg()
 
 echo "*****************************************************"
 echo ""
-echo "   Installing NodeJS 13 from sury"
+echo "   Installing NodeJS 14 from sury"
 echo ""
 echo "*****************************************************"
 
@@ -38,17 +38,13 @@ apt-get -y update
 
 addPkg "apt-get -y install"
 
-addPkg "libnode-dev"
-addPkg "libnode64"
+addPkg "build-essential"
 
-addPkg "node-bindings"
-addPkg "node-gyp"
-addPkg "node-pre-gyp"
+addPkg "dpkg-dev"
+
+addPkg "libdpkg-perl"
 
 addPkg "nodejs"
-addPkg "nodejs-legacy"
-
-#addPkg "npm"
 
 # =======================================================================
 

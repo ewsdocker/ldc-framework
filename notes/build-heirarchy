@@ -37,7 +37,7 @@ stack-apps
 	dcpp-jdk13
 	dfortran-gtk2
 	dfortran-jdk13
-##	djs13-jdk13
+	djs14-jdk13
 	dphp5.6-jdk13
 	dqt4-jdk13dev
 
@@ -63,11 +63,12 @@ ldc-applications
 
 browser
 
-	ffquantum
+##	ffquantum
 	firefox
-	netsurf
+##	netsurf
 	palemoon
 	waterfox-classic
+	waterfox-current
 
 console
 
