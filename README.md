@@ -1,5 +1,5 @@
 
-__Preliminary Documentation__ - 2020-06-10
+__Preliminary Documentation__ - 2020-06-11
 ____  
 __ldc-framework: The LDC (Linux Docker Containers) Framework project.__  
 ____  
@@ -131,14 +131,14 @@ All release versions are available in both <i>Zip</i> and <i>Tar-Gzip</i> archiv
  <tr>
   <td>&nbsp;0.1.0-b3&nbsp;</td>
   <td>&nbsp;Development&nbsp;</td>
-  <td>&nbsp;2020-06-10&nbsp;</td>
+  <td>&nbsp;2020-06-11&nbsp;</td>
   <td>&nbsp;&nbsp;</td>
   <td>&nbsp;&nbsp;</td>
  </tr>
  <tr>
   <td>&nbsp;0.1.0-b2&nbsp;</td>
   <td>&nbsp;Released&nbsp;</td>
-  <td>&nbsp;2020-06-10&nbsp;</td>
+  <td>&nbsp;2020-06-11&nbsp;</td>
   <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/archive/ldc-framework-0.1.0-b2.zip">0.1.0-b2.zip</a>&nbsp;</td>
   <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/archive/ldc-framework-0.1.0-b2.tar.gz">0.1.0-b2-tar-gz</a>&nbsp;</td>
  </tr>
