@@ -1,5 +1,5 @@
 
-__Preliminary Documentation__ - 2020-06-11
+__Preliminary Documentation__ - 2020-06-12
 ____  
 __ldc-framework: The LDC (Linux Docker Containers) Framework project.__  
 ____  
@@ -120,7 +120,7 @@ All release versions are available in both <i>Zip</i> and <i>Tar-Gzip</i> archiv
 
 <a name="rellink"><b><u>Release Version Links</u></b></a>
 <ul>
-<table border=1>
+<table border=0>
  <tr>
   <th>&nbsp;Release&nbsp;</th>
   <th>&nbsp;Status&nbsp;</th>
