@@ -1,7 +1,7 @@
 #!/bin/bash
 # ===========================================================================
 #
-#    ldc-stack-dev:dcc-dev-0.1.0-b2
+#    ldc-stack-dev:dcc-dev-0.1.0-b3
 #
 # ===========================================================================
 cd ~/Development/ewsldc/ldc-framework/stack-dev
@@ -12,7 +12,7 @@ echo "   **** stopping dcc-x11 container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rm ldc-stack-dev-dcc-dev-0.1.0-b2
+docker rm ldc-stack-dev-dcc-dev-0.1.0-b3
 
 echo "   ********************************************"
 echo "   ****"
@@ -20,11 +20,11 @@ echo "   **** removing dcc-x11 image(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rmi ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b2
+docker rmi ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b3
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b2"
+echo "   **** building ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b3"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -40,32 +40,32 @@ docker build \
   --build-arg BUILD_NAME="ldc-stack-dev" \
   --build-arg BUILD_VERSION="dcc-dev" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b2" \
+  --build-arg BUILD_EXT_MOD="-b3" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-base" \
   --build-arg FROM_VERS="dx11-dev" \
   --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b2" \
+  --build-arg FROM_EXT_MOD="-b3" \
   \
   --build-arg LIB_INSTALL="0" \
   --build-arg LIB_HOST="http://alpine-nginx-pkgcache" \
   --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b2" \
+  --build-arg LIB_VERS_MOD="-b3" \
   \
   --network=pkgnet \
   \
   --file Dockerfile \
-  -t ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b2 .
+  -t ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b3 .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b2 failed."
+ 	echo "build ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b3 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-stack-dev-dcc-dev-0.1.0-b2"
+echo "   **** installing ldc-stack-dev-dcc-dev-0.1.0-b3"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -92,25 +92,25 @@ docker run \
   -v /dev/shm:/dev/shm \
   --device /dev/snd \
   \
-  --name=ldc-stack-dev-dcc-dev-0.1.0-b2 \
-ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b2
+  --name=ldc-stack-dev-dcc-dev-0.1.0-b3 \
+ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b3
 [[ $? -eq 0 ]] ||
  {
- 	echo "build container ldc-stack-dev-dcc-dev-0.1.0-b2 failed."
+ 	echo "build container ldc-stack-dev-dcc-dev-0.1.0-b3 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** stopping ldc-stack-dev-dcc-dev-0.1.0-b2 daemon"
+echo "   **** stopping ldc-stack-dev-dcc-dev-0.1.0-b3 daemon"
 echo "   ****"
 echo "   ***********************************************"
 echo
 
-docker stop ldc-stack-dev-dcc-dev-0.1.0-b2
+docker stop ldc-stack-dev-dcc-dev-0.1.0-b3
 [[ $? -eq 0 ]] ||
  {
- 	echo "stop ldc-stack-dev-dcc-dev-0.1.0-b2 failed."
+ 	echo "stop ldc-stack-dev-dcc-dev-0.1.0-b3 failed."
  }
 
 echo "   ********************************************"

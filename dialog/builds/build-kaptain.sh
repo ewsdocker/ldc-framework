@@ -7,8 +7,8 @@ echo "   **** stopping dkaptain container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-dialog-kaptain-0.1.0-b2
-docker rm ldc-dialog-kaptain-0.1.0-b2
+docker stop ldc-dialog-kaptain-0.1.0-b3
+docker rm ldc-dialog-kaptain-0.1.0-b3
 
 echo "   ********************************************"
 echo "   ****"
@@ -17,17 +17,17 @@ echo "   ****"
 echo "   ********************************************"
 echo
 
-docker rmi ewsdocker/ldc-dialog:kaptain-0.1.0-b2
+docker rmi ewsdocker/ldc-dialog:kaptain-0.1.0-b3
 
 # ===========================================================================
 #
-#    ldc-dialog:kaptain-0.1.0-b2
+#    ldc-dialog:kaptain-0.1.0-b3
 #
 # ===========================================================================
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-dialog:kaptain-0.1.0-b2"
+echo "   **** building ewsdocker/ldc-dialog:kaptain-0.1.0-b3"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -47,33 +47,33 @@ docker build \
   --build-arg BUILD_NAME="ldc-dialog" \
   --build-arg BUILD_VERSION="kaptain" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b2" \
+  --build-arg BUILD_EXT_MOD="-b3" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-stack" \
   --build-arg FROM_VERS="dqt4-x11" \
   --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b2" \
+  --build-arg FROM_EXT_MOD="-b3" \
   \
   --build-arg LIB_INSTALL="0" \
   --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b2" \
+  --build-arg LIB_VERS_MOD="-b3" \
   \
   --build-arg KAPTAIN_HOST="http://alpine-nginx-pkgcache"\
   --build-arg LIB_HOST="http://alpine-nginx-pkgcache" \
   --network=pkgnet \
   \
   --file Dockerfile \
-  -t ewsdocker/ldc-dialog:kaptain-0.1.0-b2  .
+  -t ewsdocker/ldc-dialog:kaptain-0.1.0-b3  .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-dialog:kaptain-0.1.0-b2 failed."
+ 	echo "build ewsdocker/ldc-dialog:kaptain-0.1.0-b3 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-dialog-kaptain-0.1.0-b2"
+echo "   **** installing ldc-dialog-kaptain-0.1.0-b3"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -98,26 +98,26 @@ docker run \
       -v ${HOME}/bin:/userbin \
       -v ${HOME}/.local:/usrlocal \
       -v ${HOME}/.config/docker:/conf \
-      -v ${HOME}/.config/docker/ldc-dialog-kaptain-0.1.0-b2:/root \
-      -v ${HOME}/.config/docker/ldc-dialog-kaptain-0.1.0-b2/workspace:/workspace \
+      -v ${HOME}/.config/docker/ldc-dialog-kaptain-0.1.0-b3:/root \
+      -v ${HOME}/.config/docker/ldc-dialog-kaptain-0.1.0-b3/workspace:/workspace \
       \
       -v ${HOME}/Source:/source \
       -v ${HOME}/Pictures:/pictures \
       -v ${HOME}/Documents:/documents \
       -v ${HOME}/Development:/development \
       \
-      --name=ldc-dialog-kaptain-0.1.0-b2 \
-    ewsdocker/ldc-dialog:kaptain-0.1.0-b2
+      --name=ldc-dialog-kaptain-0.1.0-b3 \
+    ewsdocker/ldc-dialog:kaptain-0.1.0-b3
 [[ $? -eq 0 ]] ||
  {
- 	echo "create container ldc-dialog-kaptain-0.1.0-b2 failed."
+ 	echo "create container ldc-dialog-kaptain-0.1.0-b3 failed."
  	exit 1
  }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-dialog:kaptain-0.1.0-b2 successfully installed."
+echo "   **** ldc-dialog:kaptain-0.1.0-b3 successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

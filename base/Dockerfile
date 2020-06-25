@@ -7,7 +7,7 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.0-b2
+# @version 0.1.0-b3
 # @copyright © 2017-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-base
@@ -41,7 +41,7 @@ ARG FROM_REPO="ewsdocker"
 ARG FROM_PARENT="ldc-base"
 ARG FROM_VERS="dbase"
 ARG FROM_EXT="-0.1.0"
-ARG FROM_EXT_MOD="-b2"
+ARG FROM_EXT_MOD="-b3"
 
 FROM ${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
 
@@ -157,7 +157,7 @@ ENV LANG_LOCALE=${LANG:-"en_US"}
 ENV LMSLIB_INST=${LIB_INSTALL:-"0"} \
     LMSLIB_NAME=${LIB_NAME:-"ldc-library"} \
     LMSLIB_VERS=${LIB_VERSION:-"0.1.6"} \
-    LMSLIB_VERS_MOD=${LIB_VERS_MOD:-"-b2"} 
+    LMSLIB_VERS_MOD=${LIB_VERS_MOD:-"-b3"} 
 
 ENV LMSLIB_HOST=${LIB_HOST:-"https://github.com/ewsdocker/ldc-library/releases/download/ldc-library-${LMSLIB_VERS}"}
 

@@ -3,7 +3,7 @@ cd ~/Development/ewsldc/ldc-framework/ck-library
 
 # ===========================================================================
 #
-#    ldc-ck-library:ck-library-0.1.0-b2
+#    ldc-ck-library:ck-library-0.1.0-b3
 #
 # ===========================================================================
 
@@ -13,8 +13,8 @@ echo "   **** stopping ldc-ck-library:ck-library container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-ck-library-ck-library-0.1.0-b2
-docker rm ldc-ck-library-ck-library-0.1.0-b2
+docker stop ldc-ck-library-ck-library-0.1.0-b3
+docker rm ldc-ck-library-ck-library-0.1.0-b3
 
 echo "   ********************************************"
 echo "   ****"
@@ -23,11 +23,11 @@ echo "   ****"
 echo "   ********************************************"
 echo
 
-docker rmi ewsdocker/ldc-ck-library:ck-library-0.1.0-b2
+docker rmi ewsdocker/ldc-ck-library:ck-library-0.1.0-b3
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ldc-ck-library:ck-library-0.1.0-b2"
+echo "   **** building ldc-ck-library:ck-library-0.1.0-b3"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -50,23 +50,23 @@ docker build \
   --build-arg BUILD_NAME="ldc-ck-library" \
   --build-arg BUILD_VERSION="ck-library" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b2" \
+  --build-arg BUILD_EXT_MOD="-b3" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-stack" \
   --build-arg FROM_VERS="dqt4-x11" \
   --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b2" \
+  --build-arg FROM_EXT_MOD="-b3" \
   \
   --build-arg LIB_HOST="http://alpine-nginx-pkgcache" \
   --build-arg LIB_INSTALL="0" \
   --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b2" \
+  --build-arg LIB_VERS_MOD="-b3" \
   \
   --build-arg CKLIB_HOST="http://alpine-nginx-pkgcache" \
   --build-arg CKLIB_DIR="/ckaptain-lib" \
   --build-arg CKLIB_VERS="0.1.0" \
-  --build-arg CKLIB_VERSX="-b2" \
+  --build-arg CKLIB_VERSX="-b3" \
   --build-arg CKLIB_RELEASE="v.0" \
   --build-arg CKLIB_NAME="ckaptain-lib" \
   --build-arg CKLIB_DEST="/repo" \
@@ -74,16 +74,16 @@ docker build \
   --network=pkgnet \
   \
   --file Dockerfile \
--t ewsdocker/ldc-ck-library:ck-library-0.1.0-b2  .
+-t ewsdocker/ldc-ck-library:ck-library-0.1.0-b3  .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-ck-library:ck-library-0.1.0-b2 failed."
+ 	echo "build ewsdocker/ldc-ck-library:ck-library-0.1.0-b3 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-ck-library-ck-library-0.1.0-b2"
+echo "   **** installing ldc-ck-library-ck-library-0.1.0-b3"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -105,25 +105,25 @@ docker run \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b2:/root \
-  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b2/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b3:/root \
+  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b3/workspace:/workspace \
   \
   --mount source=pkgcache,target=/repo \
   \
   -v ${HOME}/Source:/source \
   \
-  --name=ldc-ck-library-ck-library-0.1.0-b2 \
-ewsdocker/ldc-ck-library:ck-library-0.1.0-b2
+  --name=ldc-ck-library-ck-library-0.1.0-b3 \
+ewsdocker/ldc-ck-library:ck-library-0.1.0-b3
 [[ $? -eq 0 ]] ||
  {
- 	echo "create container ldc-ck-library-ck-library-0.1.0-b2 failed."
+ 	echo "create container ldc-ck-library-ck-library-0.1.0-b3 failed."
  	exit 1
  }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-ck-library:ck-library-0.1.0-b2 successfully installed."
+echo "   **** ldc-ck-library:ck-library-0.1.0-b3 successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

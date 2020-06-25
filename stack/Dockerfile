@@ -7,7 +7,7 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.0-b2
+# @version 0.1.0-b3
 # @copyright © 2019-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-dstack
@@ -40,7 +40,7 @@ ARG FROM_REPO="ewsdocker"
 ARG FROM_PARENT="ldc-base"
 ARG FROM_VERS="dbase"
 ARG FROM_EXT="-0.1.0"
-ARG FROM_EXT_MOD="-b2"
+ARG FROM_EXT_MOD="-b3"
 
 FROM ${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
 
@@ -268,7 +268,7 @@ ENV \
     LMS_NAME=${BUILD_NAME:-"ldc-stack"} \
     LMS_VERSION=${BUILD_VERSION:-"dcc"} \
     LMS_VERS_X=${BUILD_VERS_EXT:-"-0.1.0"} \
-    LMS_VERS_MOD=${BUILD_EXT_MOD:-"-b2"} 
+    LMS_VERS_MOD=${BUILD_EXT_MOD:-"-b3"} 
 
 ENV LMS_VERS_EXT="${LMS_VERS_X}${LMS_VERS_MOD}" 
 
@@ -283,7 +283,7 @@ ENV LMS_DOCKER="${LMS_REPO}/${LMS_DOCKER_NAME}" \
 #
 #	ldc-library
 #
-# https://github.com/ewsdocker/ldc-utilities/releases/download/ldc-utilities-0.1.6/ldc-library-0.1.6-b2.tar.gz
+# https://github.com/ewsdocker/ldc-utilities/releases/download/ldc-utilities-0.1.6/ldc-library-0.1.6-b3.tar.gz
 #
 # ========================================================================================
 # ========================================================================================
@@ -291,7 +291,7 @@ ENV LMS_DOCKER="${LMS_REPO}/${LMS_DOCKER_NAME}" \
 ENV LMSLIB_INST=${LIB_INSTALL:-"0"} \
     LMSLIB_NAME=${LIB_NAME:-"ldc-library"} \
     LMSLIB_VERS=${LIB_VERSION:-"0.1.6"} \
-    LMSLIB_VERS_MOD=${LIB_VERS_MOD:-"-b2"}
+    LMSLIB_VERS_MOD=${LIB_VERS_MOD:-"-b3"}
 
 ENV LMSLIB_HOST=${LIB_HOST:-"https://github.com/ewsdocker/ldc-utilities/releases/download/ldc-utilities-${LMSLIB_VERS}"}
 

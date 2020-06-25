@@ -7,7 +7,7 @@ cd ~/Development/ewsldc/ckaptain
 #
 # ===========================================================================
 
-declare version="0.1.0-b1"
+declare version="0.1.0-b3"
 
 echo "   ********************************************"
 echo "   ****"
@@ -52,24 +52,24 @@ docker build \
   --build-arg BUILD_NAME="ldc-ckaptain" \
   --build-arg BUILD_VERSION="ck-base" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b1" \
+  --build-arg BUILD_EXT_MOD="-b3" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-ckaptain" \
   --build-arg FROM_VERS="ck-stack-qt4" \
   --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b1" \
+  --build-arg FROM_EXT_MOD="-b3" \
   \
   --build-arg LIB_HOST="http://alpine-nginx-pkgcache" \
   --build-arg LIB_INSTALL="0" \
   --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b1" \
+  --build-arg LIB_VERS_MOD="-b3" \
   \
   --build-arg CKLIB_HOST="http://alpine-nginx-pkgcache" \
   --build-arg CKLIB_NAME="ldc-ckaptain" \
   --build-arg CKLIB_DIR="ckaptain-lib" \
   --build-arg CKLIB_VERS="0.1.0" \
-  --build-arg CKLIB_VERSX="-b1" \
+  --build-arg CKLIB_VERSX="-b3" \
   --build-arg CKLIB_DEST="/repo" \
   \
   --network=pkgnet \

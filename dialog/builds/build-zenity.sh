@@ -7,8 +7,8 @@ echo "   **** stopping zenity container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-dialog-zenity-0.1.0-b2
-docker rm ldc-dialog-zenity-0.1.0-b2
+docker stop ldc-dialog-zenity-0.1.0-b3
+docker rm ldc-dialog-zenity-0.1.0-b3
 
 echo "   ********************************************"
 echo "   ****"
@@ -17,17 +17,17 @@ echo "   ****"
 echo "   ********************************************"
 echo
 
-docker rmi ewsdocker/ldc-dialog:zenity-0.1.0-b2
+docker rmi ewsdocker/ldc-dialog:zenity-0.1.0-b3
 
 # ===========================================================================
 #
-#    ldc-dialog:zenity-0.1.0-b2
+#    ldc-dialog:zenity-0.1.0-b3
 #
 # ===========================================================================
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-dialog:zenity-0.1.0-b2"
+echo "   **** building ewsdocker/ldc-dialog:zenity-0.1.0-b3"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -44,7 +44,7 @@ docker build \
   --build-arg BUILD_NAME="ldc-dialog" \
   --build-arg BUILD_VERSION="zenity" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b2" \
+  --build-arg BUILD_EXT_MOD="-b3" \
   \
   --build-arg BUILD_PKG="Zenity v. 3.22.0" \
   \
@@ -52,22 +52,22 @@ docker build \
   --build-arg FROM_PARENT="ldc-stack" \
   --build-arg FROM_VERS="dgtk3-x11" \
   --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b2" \
+  --build-arg FROM_EXT_MOD="-b3" \
   \
   --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
   --network=pkgnet \
   \
   --file Dockerfile \
--t ewsdocker/ldc-dialog:zenity-0.1.0-b2 .
+-t ewsdocker/ldc-dialog:zenity-0.1.0-b3 .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-dialog:zenity-0.1.0-b2 failed."
+ 	echo "build ewsdocker/ldc-dialog:zenity-0.1.0-b3 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-dialog-zenity-0.1.0-b2"
+echo "   **** installing ldc-dialog-zenity-0.1.0-b3"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -100,18 +100,18 @@ docker run \
   -v ${HOME}/Documents:/documents \
   -v ${HOME}/Development:/development \
   \
-  --name=ldc-dialog-zenity-0.1.0-b2 \
-ewsdocker/ldc-dialog:zenity-0.1.0-b2
+  --name=ldc-dialog-zenity-0.1.0-b3 \
+ewsdocker/ldc-dialog:zenity-0.1.0-b3
 [[ $? -eq 0 ]] ||
  {
- 	echo "create container ldc-dialog-zenity-0.1.0-b2 failed."
+ 	echo "create container ldc-dialog-zenity-0.1.0-b3 failed."
  	exit 1
  }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-dialog:zenity-0.1.0-b2 successfully installed."
+echo "   **** ldc-dialog:zenity-0.1.0-b3 successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

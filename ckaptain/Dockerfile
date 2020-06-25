@@ -41,7 +41,7 @@ ARG FROM_REPO="ewsdocker"
 ARG FROM_PARENT="ldc-stack"
 ARG FROM_VERS="dqt4-x11"
 ARG FROM_EXT="-0.1.0"
-ARG FROM_EXT_MOD="-b1"
+ARG FROM_EXT_MOD="-b3"
 
 FROM ${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
 
@@ -124,7 +124,7 @@ ARG CKLIB_DEST
 # ========================================================================================
 # ========================================================================================
 #
-# https://github.com/ewsdocker/ldc-ckaptain/releases/download/ldc-ckaptain-0.1.0/ckaptain-lib-0.1.0-b1-v.0.tar.gz
+# https://github.com/ewsdocker/ldc-ckaptain/releases/download/ldc-ckaptain-0.1.0/ckaptain-lib-0.1.0-b3-v.0.tar.gz
 #
 # ========================================================================================
 #
@@ -227,7 +227,7 @@ ENV LMS_DOCKER="${LMS_REPO}/${LMS_DOCKER_NAME}"
 # =========================================================================
 # =========================================================================
 #
-# https://github.com/ewsdocker/ldc-utilities/releases/download/ldc-utilities-0.1.6/ldc-library-0.1.6-b1.tar.gz
+# https://github.com/ewsdocker/ldc-utilities/releases/download/ldc-utilities-0.1.6/ldc-library-0.1.6-b3.tar.gz
 #
 # =========================================================================
 # =========================================================================

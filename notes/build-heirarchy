@@ -63,9 +63,10 @@ ldc-applications
 
 browser
 
-##	ffquantum
+	ffquantum
 	firefox
-##	netsurf
+	firefox-esr
+	netsurf
 	palemoon
 	waterfox-classic
 	waterfox-current
@@ -80,6 +81,7 @@ desktop
 	dia
 	gimp
 	mousepad
+	shotcut
 	ripme
 
 eclipse

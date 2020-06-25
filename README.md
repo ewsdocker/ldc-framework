@@ -157,7 +157,30 @@ All release versions are available in both <i>Zip</i> and <i>Tar-Gzip</i> archiv
  <dl>
   <dt>0.1.0-b3</dt>
    <dd>
-    <li></li>
+    <li>
+     Fixes:
+     <ul>
+      <li>
+       Re-factor all framework projects to reduce the size of the final Docker image;
+      </li>
+      <li>
+       Restore automatic desktop environment generation;
+      </li>
+      <li>
+       Create Wiki and Readme documentation for each application;
+      </li>
+      <li>
+       Add wiki documentation for each application to the application web page;
+      </li>
+      <li>
+       x
+      </li>
+     </ul>
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
    </dd>
 
   <br />
