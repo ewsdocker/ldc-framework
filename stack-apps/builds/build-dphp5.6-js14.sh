@@ -1,63 +1,70 @@
 #!/bin/bash
 # ===========================================================================
 #
-#    ldc-stack-apps:djs14-jdk13-0.1.0-b3
+#    ldc-stack-apps:dphp5.6-js14-0.1.0-b3
 #
 # ===========================================================================
 cd ~/Development/ewsldc/ldc-framework/stack-apps
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** stopping djs14-jdk13 container(s)"
+echo "   **** stopping dphp5.6-js14 container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rm ldc-stack-apps-djs14-jdk13-0.1.0-b3
+docker rm ldc-stack-apps-dphp5.6-js14-0.1.0-b3
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** removing djs14-jdk13 image(s)"
+echo "   **** removing dphp5.6-js14 image(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rmi ewsdocker/ldc-stack-apps:djs14-jdk13-0.1.0-b3
+docker rmi ewsdocker/ldc-stack-apps:dphp5.6-js14-0.1.0-b3
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-stack-apps:djs14-jdk13-0.1.0-b3"
+echo "   **** building ewsdocker/ldc-stack-apps:dphp5.6-js14-0.1.0-b3"
 echo "   ****"
 echo "   ***************************************************"
 echo
 docker build \
-  --build-arg DNAME="NJS" \
+  --build-arg DNAME="PHP" \
+  --build-arg PHP_VER="5.6" \
+  --build-arg PHP_COMP="1" \
   \
-  --build-arg NODEJS_HOST="http://alpine-nginx-pkgcache" \
-  --build-arg NODEJS_VER="14" \
+  --build-arg BUILD_DAEMON="1" \
+  --build-arg BUILD_TEMPLATE="run" \
   \
   --build-arg BUILD_NAME="ldc-stack-apps" \
-  --build-arg BUILD_VERSION="djs14-jdk13" \
+  --build-arg BUILD_VERSION="dphp5.6-js14" \
   --build-arg BUILD_VERS_EXT="-0.1.0" \
   --build-arg BUILD_EXT_MOD="-b3" \
   \
+  --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-stack-apps" \
-  --build-arg FROM_VERS="djdk13-gtk3" \
+  --build-arg FROM_VERS="djs14-jdk13" \
   --build-arg FROM_EXT="-0.1.0" \
   --build-arg FROM_EXT_MOD="-b3" \
+  \
+  --build-arg LIB_INSTALL="0" \
+  --build-arg LIB_VERSION="0.1.6" \
+  --build-arg LIB_VERS_MOD="-b3" \
   \
   --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
   --network=pkgnet \
   \
   --file Dockerfile \
--t ewsdocker/ldc-stack-apps:djs14-jdk13-0.1.0-b3 .
+-t ewsdocker/ldc-stack-apps:dphp5.6-js14-0.1.0-b3 .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-stack-apps:djs14-jdk13-0.1.0-b3 failed."
+ 	echo "build ewsdocker/ldc-stack-apps:dphp5.6-js14-0.1.0-b3 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-stack-apps-djs14-jdk13-0.1.0-b3"
+echo "   **** installing ldc-stack-apps-dphp5.6-js14-0.1.0-b3"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -72,11 +79,9 @@ docker run \
   -e LMS_HOME="${HOME}" \
   -e LMS_CONF="${HOME}/.config" \
   \
-  -v ${HOME}/bin:/userbin \
-  -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-stack-apps-djs14-jdk13-0.1.0:/root \
-  -v ${HOME}/.config/docker/ldc-stack-apps-djs14-jdk13-0.1.0/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-stack-apps-dphp5.6-js14-0.1.0-b3:/root \
+  -v ${HOME}/.config/docker/ldc-stack-apps-dphp5.6-js14-0.1.0-b3/workspace:/workspace \
   \
   -e DISPLAY=unix${DISPLAY} \
   -v ${HOME}/.Xauthority:/root/.Xauthority \
@@ -86,32 +91,32 @@ docker run \
   \
   -v ${HOME}/Downloads:/Downloads \
   \
-  --name=ldc-stack-apps-djs14-jdk13-0.1.0-b3 \
-ewsdocker/ldc-stack-apps:djs14-jdk13-0.1.0-b3
+  --name=ldc-stack-apps-dphp5.6-js14-0.1.0-b3 \
+ewsdocker/ldc-stack-apps:dphp5.6-js14-0.1.0-b3
 [[ $? -eq 0 ]] ||
  {
- 	echo "build container ldc-stack-apps-djs14-jdk13-0.1.0-b3 failed."
+ 	echo "build container ldc-stack-apps-dphp5.6-js14-0.1.0-b3 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** stopping ldc-stack-apps-djs14-jdk13-0.1.0-b3 daemon"
+echo "   **** stopping ldc-stack-apps-dphp5.6-js14-0.1.0-b3 daemon"
 echo "   ****"
 echo "   ***********************************************"
 echo
 
-docker stop ldc-stack-apps-djs14-jdk13-0.1.0-b3
+docker stop ldc-stack-apps-dphp5.6-js14-0.1.0-b3
 [[ $? -eq 0 ]] ||
  {
- 	echo "stop ldc-stack-apps-djs14-jdk13-0.1.0-b3 failed."
+ 	echo "stop ldc-stack-apps-dphp5.6-js14-0.1.0-b3 failed."
  }
 
-echo "   ******************************************************"
+echo "   ****************************************************"
 echo "   ****"
-echo "   **** ldc-stack-apps:djs14-jdk13-0.1.0-b3 successfully installed."
+echo "   **** ldc-stack-apps:dphp5.6-js14-0.1.0-b3 successfully installed."
 echo "   ****"
-echo "   ******************************************************"
+echo "   ****************************************************"
 echo
 
 exit 0

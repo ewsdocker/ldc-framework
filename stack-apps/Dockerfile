@@ -129,6 +129,10 @@ ARG NODEJS_VER
 ENV FOR_VER=${FORTRAN_VER:-"6"} 
 
 # =========================================================================
+#
+# https://nodejs.org/dist/v14.8.0/node-v14.8.0-linux-x64.tar.xz
+#
+# =========================================================================
 
 ENV NJS_VER=${NODEJS_VER:-"14"} \
     NJS_HOST=${NODEJS_HOST:-"https://deb.nodesource.com"} \
