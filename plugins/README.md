@@ -3,6 +3,10 @@ __Preliminary Documentation__ - 2020-08-24
 ____  
 __plugins/aptpkg: The LDC (Linux Docker Container) Framework Plugins project.__  
 
+<hr />
+
+<ul>
+
 <dl>
 <dt>aptpkg - Install the requested packages.</dt>
  <dd>
@@ -76,3 +80,7 @@ Installation:
 </dd>
 
 </dl>
+
+<hr \>
+
+</ul>
