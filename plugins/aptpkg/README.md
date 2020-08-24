@@ -29,7 +29,12 @@ __plugins/aptpkg: The LDC (Linux Docker Container) Framework Plugins project.__
 
 Installation:
 <ul>
-     
+ <li>
+  The <i>aptpkg</i> plugin has no requirements other than a <i>bash</i> interpreter.
+ </li>
+ <li>
+  Install all plugin scripts before local script code;
+ </li>
 </ul>
 </dd>
 
