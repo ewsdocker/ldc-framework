@@ -7,8 +7,7 @@ __plugins/aptpkg: The LDC (Linux Docker Container) Framework Plugins project.__
 <dt>aptpkg - Install the requested packages.</dt>
  <dd>
  <b>apt-get</b> package <b>installer</b>. 
- The following functions are provided to initialize the pkgList buffer,
- add a package name to the pkgList buffer, and execute the pkgList buffer.
+ 
 
  <ul>
  <dl>
@@ -37,6 +36,8 @@ Installation:
  </li>
 </ul>
 </dd>
+
+<hr \>
 
 <dt>nodejs - Install the specified NodeJS packages.</dt>
  <dd>
