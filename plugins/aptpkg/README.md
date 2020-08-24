@@ -16,7 +16,7 @@ __plugins/aptpkg: The LDC (Linux Docker Container) Framework Plugins project.__
    <dd>
    Initializes the pkgList buffer to "apt-get -y install".
    </dd>
-  <dt>pkgAddItem</dt>
+  <dt>pkgAddItem ${itemPkg} ${itemComment}</dt>
    <dd>
    Adds the specified package to the installation list.
    </dd>
