@@ -41,8 +41,8 @@ declare pkgList=" "
 
 # ===================================================================================
 #
-#	pkgInit
-#		Initialize the pkgList buffer to apt-get install command
+#	pkgInstall
+#		Initialize the pkgList buffer to "apt-get -y install" command
 #
 #   Enter:
 #		none
@@ -51,9 +51,27 @@ declare pkgList=" "
 #       non-zero = error code
 #
 # ===================================================================================
-function pkgInit()
+function pkgInstall()
 {
     pkgList="apt-get -y install"
+    return 0
+}
+
+# ===================================================================================
+#
+#	pkgUpdate
+#		Initialize the pkgList buffer to "apt-get -y update" command
+#
+#   Enter:
+#		none
+#   Exit:
+#       0 = no error
+#       non-zero = error code
+#
+# ===================================================================================
+function pkgUpdate()
+{
+    pkgList="apt-get -y update"
     return 0
 }
 
@@ -81,7 +99,7 @@ function pkgAddItem()
 
 # ===================================================================================
 #
-#	pkgInstall
+#	pkgExecute
 #		the pkgList has been built, now execute it
 #
 #   Enter:
@@ -91,7 +109,7 @@ function pkgAddItem()
 #       non-zero = error code
 #
 # ===================================================================================
-function pkgInstall()
+function pkgExecute()
 {
 	echo ""
 	echo "$pkgList"

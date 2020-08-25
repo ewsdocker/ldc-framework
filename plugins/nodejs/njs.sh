@@ -39,7 +39,7 @@
 
 # ===================================================================================
 #
-#	njsInstallArchive - Install the NodeJS Archive into the APT archive.
+#	njsInstallRepository - Install the NodeJS Repository into the APT Repository.
 #
 #   Enter:
 #       njsUrl = network address of NodeJs version to be installed (NJS_URL)
@@ -49,7 +49,7 @@
 #       non-zero = error code
 #
 # ===================================================================================
-function njsInstallArchive()
+function njsInstallRepository()
 {
 	local njsUrl="${1}"
 	local njsName="${2}"
@@ -69,9 +69,11 @@ function njsInstallArchive()
         ./${njsName}
         [[ $? -eq 0 ]] || break
 
-        rm ${njsName}
-    
-        apt-get -y update
+        rm ./${njsName}
+
+        pkgUpdate
+
+        pkgExecute
         [[ $? -eq 0 ]] || break
 
     done
@@ -81,8 +83,8 @@ function njsInstallArchive()
 
 # ===================================================================================
 #
-#	njsInstallJs - The archive is already install in APT, so now
-#                    install the nodejs and specified packages.
+#	njsInstallJs - The Repository is already install in APT,
+#                  install the selected NodeJS version and support packages.
 #
 #   Enter:
 #       none
@@ -97,17 +99,19 @@ function njsInstallJs()
     echo "*********** Installing NodeJS ***********"
     echo
 
-    addPkg "apt-get -y install"
-	addPkg "build-essential"
-	addPkg "dpkg-dev"
-	addPkg "libdpkg-perl"
-	addPkg "nodejs"
+    pkgUpdate
 
-    echo ""
-    echo "$instList"
-    echo ""
+    pkgExecute
+    [[ $? -eq 0 ]] || return $?
 
-    $instList
+    pkgInstall
+
+	pkgAddItem "build-essential"
+	pkgAddItem "dpkg-dev"
+	pkgAddItem "libdpkg-perl"
+	pkgAddItem "nodejs"
+
+    pkgExecute
     [[ $? -eq 0 ]] || return $?
 
     apt-get clean all
@@ -116,9 +120,8 @@ function njsInstallJs()
 
 # ===================================================================================
 #
-#	njsInstall - Install the specified NJS_URL/NJS_NAME NodeJS version
-#                  into the APT Package archive, then install the
-#                  specified NodeJS module.
+#	njsInstall - Install the specified NodeJS repository into the 
+#                APT Package Repository and the NodeJS version.
 #
 #   Enter:
 #       njsUrl = network address of NodeJs version to be installed (NJS_URL)
@@ -135,7 +138,7 @@ function njsInstall()
 
 	[[ -z "${njs_url}" || -z "${njs_name}" ]] && return 1
 
-    njsInstallArchive ${njs_url} ${njs_name}
+    njsInstallRepository ${njs_url} ${njs_name}
     [[ $? -eq 0 ]] || return $?
 
     njsInstallJs || return $?

@@ -10,7 +10,7 @@ __plugins/aptpkg: The LDC (Linux Docker Container) Framework Plugins project.__
 <dl>
 <dt>aptpkg - Install the requested packages.</dt>
  <dd>
- <b>apt-get</b> package <b>installer</b>. 
+ <i>apt-get</i> package installer. 
  
 
  <ul>
@@ -43,27 +43,25 @@ Installation:
 
 <hr \>
 
-<dt>nodejs - Install the specified NodeJS packages.</dt>
+<dt>nodejs</dt>
  <dd>
- Install <b>NodeJS</b> APT repository and packages. 
+ Install the specified <i>NodeJS</i> repository and version. 
  
-
  <ul>
  <dl>
-  <dt>njsInstallArchive ${NJS_URL} ${NJS_NAME}</dt>
+  <dt>njsInstallRepository</dt>
    <dd>
-   Install the NodeJS repository into the APT index.
+   Install the NodeJS Repository into the APT Repository.
    </dd>
   <dt>njsInstallJs</dt>
    <dd>
-   The archive is already install in APT, so now
-   install the nodejs and specified packages.
+   The Repository is already installed in the APT, 
+   install the selected NodeJS version and support packages.
    </dd>
   <dt>njsInstall ${NJS_URL} ${NJS_NAME}</dt>
    <dd>
-   Install the specified NJS_URL/NJS_NAME NodeJS version
-   into the APT Package archive, then install the
-   specified NodeJS module.
+   Install the specified NodeJS repository into the APT Package Repository 
+   and the NodeJS version.
   </dd>
  </dl>
 </ul>
@@ -71,16 +69,18 @@ Installation:
 Installation:
 <ul>
  <li>
-  The <i>njs</i> plugin requires the presence of the <b>aptpkg</b> plugin.
+  The <i>njs</i> plugin requires the presence of the <i>aptpkg</i> plugin.
  </li>
  <li>
-  Should be installed after the <b>aptpkg</b> plugin.
+  Should be installed after the <i>aptpkg</i> plugin.
  </li>
 </ul>
 </dd>
 
 </dl>
 
+</ul>
+
 <hr \>
 
-</ul>
+
