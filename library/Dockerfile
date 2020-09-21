@@ -7,7 +7,7 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.6-b3
+# @version 0.1.6-b4
 # @copyright © 2017-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-library
@@ -41,7 +41,7 @@ ARG FROM_REPO="ewsdocker"
 ARG FROM_PARENT="ldc-core"
 ARG FROM_VERS="dcore"
 ARG FROM_EXT="-0.1.0"
-ARG FROM_EXT_MOD="-b3"
+ARG FROM_EXT_MOD="-b4"
 
 FROM ${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
 
@@ -114,7 +114,7 @@ ENV \
     \
     LMS_NAME=${BUILD_NAME:-"ldc-library"} \
     LMS_VERSION=${BUILD_VERSION:-"0.1.6"} \
-    LMS_VERS_EXT=${BUILD_VERS_EXT:-"-b3"} \
+    LMS_VERS_EXT=${BUILD_VERS_EXT:-"-b4"} \
     \
     LMS_PACKAGE="${LMS_PARENT}, Debian 10.4"
 

@@ -2,56 +2,58 @@ cd ~/Development/ewsldc/ldc-framework
 #=============
 #
 cd core
-builds/build-dcore.sh
+build/dcore.sh
 #
 cd ../library
-builds/build-dlibrary.sh
+build/dlibrary.sh
 #
 cd ../base
-builds/build-dbase.sh
-builds/build-dperl.sh
-builds/build-dx11-base.sh
-builds/build-dx11-surface.sh
-builds/build-dx11-dev.sh
+build/dbase.sh
+build/dperl.sh
+build/dx11-base.sh
+build/dx11-surface.sh
+build/dx11-dev.sh
 #
 cd ../stack
-builds/build-dcc.sh
-builds/build-dcc-x11.sh
-builds/build-dgtk2.sh
-builds/build-dgtk3.sh
-builds/build-dgtk2-x11.sh
-builds/build-dgtk3-x11.sh
-builds/build-dqt4.sh
-builds/build-dqt4-x11.sh
+build/dcc.sh
+build/dcc-x11.sh
+build/dgtk2.sh
+build/dgtk3.sh
+build/dgtk2-x11.sh
+build/dgtk3-x11.sh
+build/dqt4.sh
+build/dqt4-x11.sh
 #
 cd ../stack-dev
-builds/build-dcc-dev.sh
-builds/build-dgtk3-dev.sh
-builds/build-dqt4-dev.sh
+build/dcc-dev.sh
+build/dgtk3-dev.sh
+build/dqt4-dev.sh
 #
 cd ../stack-apps
-builds/build-djre8-gtk2.sh
-builds/build-djdk8-gtk2.sh
-builds/build-djdk13-gtk3.sh
-builds/build-djdk13dev-gtk3.sh
-builds/build-dcpp-jdk13.sh
-builds/build-dfortran-jdk13.sh
-builds/build-dfortran-gtk2.sh
-builds/build-djs13-jdk13.sh
-builds/build-dphp5.6-jdk13.sh
-builds/build-dqt4-jdk13dev.sh
+build/djre8-gtk2.sh
+build/djdk8-gtk2.sh
+build/djdk13-gtk3.sh
+build/djdk13dev-gtk3.sh
+build/dcpp-jdk13.sh
+build/dfortran-jdk13.sh
+build/dfortran-gtk2.sh
+build/djs13-jdk13.sh
+build/djs14-jdk13.sh
+build/dphp5.6-jdk13.sh
+build/dphp5.6-js14.sh  
+build/dqt4-jdk13dev.sh
 #
 cd ../dialog
-builds/build-dialog.sh
-builds/build-kaptain.sh
-builds/build-whiptail.sh
-builds/build-zenity.sh
+build/dialog.sh
+build/kaptain.sh
+build/whiptail.sh
+build/zenity.sh
 #
 cd ../ck-library
-builds/build-ck-library.sh
+build/ck-library.sh      
 #
 cd ../ckaptain
-builds/build-ckaptain.sh
+build/ckaptain.sh        
 #
 #========================
 #
@@ -59,34 +61,38 @@ cd ../../ldc-applications
 #================
 #
 cd ../browser
-#builds/build-ffquantum.sh
-builds/build-firefox.sh
-builds/build-netsurf.sh
-builds/build-palemoon.sh
-builds/build-waterfox-classic.sh
+build/ffquantum.sh
+build/firefox.sh
+build/firefox-esr.sh
+build/netsurf.sh
+build/palemoon.sh
+build/waterfox-classic.sh
+build/waterfox-current.sh
 #
 cd ../console
-builds/build-nano.sh
-builds/build-tumblr.sh
+build/nano.sh
+build/tumblr.sh
 #
 cd ../desktop
-builds/build-dia.sh
-builds/build-gimp.sh
-builds/build-mousepad.sh
-builds/build-ripme.sh
+build/dia.sh
+build/gimp.sh
+build/mousepad.sh
+build/obs-studio.sh
+build/ripme.sh
+build/shotcut.sh
 #
 cd ../eclipse
-builds/build-cpp.sh
-builds/build-fortran.sh
-builds/build-java.sh
-builds/build-javascript.sh
-builds/build-php.sh
-builds/build-qt.sh
+build/cpp.sh
+build/fortran.sh
+build/java.sh
+build/javascript.sh
+build/php.sh
+build/qt.sh
 #
 cd ../games
-builds/build-mahjongg.sh
-builds/build-sol.sh
+build/mahjongg.sh
+build/sol.sh
 #
 cd ../libre
-builds/build-office.sh
-builds/build-office-jdk.sh
+build/office.sh
+build/office-jdk.sh

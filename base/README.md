@@ -1,9 +1,9 @@
 
-__Preliminary Documentation__ - 2020-05-30
+__Preliminary Documentation__ - 2020-06-20
 ____  
 __ldc-base: The LDC (Linux Docker Container) Framework Base project.__  
 
-Current Development Version: __0.1.0-b2__  
+Current Development Version: __0.1.0-b4__  
 Latest Release Version: __n/a__  
 LDC Base Resources:  
 
@@ -34,32 +34,32 @@ __LDC Base Stack:__
   </tr>
   <tr>
     <td>&nbsp;<a href="https://ewsdocker.github.io/ldc-framework/base/dbase.html">ldc-base:dbase</a>&nbsp;</td>
-    <td>&nbsp;0.1.0-b2&nbsp;</td>
-    <td>&nbsp;<b>ewsdocker/ldc-base:dbase-0.1.0-b2</b>&nbsp;</td>
+    <td>&nbsp;0.1.0-b3&nbsp;</td>
+    <td>&nbsp;<b>ewsdocker/ldc-base:dbase-0.1.0-b3</b>&nbsp;</td>
     <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/wiki/base-dbase.md">dbase</a>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;<a href="https://ewsdocker.github.io/ldc-framework/base/dperl.html">ldc-base:dperl</a>&nbsp;</td>
-    <td>&nbsp;0.1.0-b2&nbsp;</td>
-    <td>&nbsp;<b>ewsdocker/ldc-base:dperl-0.1.0-b2</b>&nbsp;</td>
+    <td>&nbsp;0.1.0-b3&nbsp;</td>
+    <td>&nbsp;<b>ewsdocker/ldc-base:dperl-0.1.0-b3</b>&nbsp;</td>
     <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/wiki/base-dperl.md">dperl</a>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;<a href="https://ewsdocker.github.io/ldc-framework/base/dx11-base.html">ldc-base:dx11-base</a>&nbsp;</td>
-    <td>&nbsp;0.1.0-b2&nbsp;</td>
-    <td>&nbsp;<b>ewsdocker/ldc-base:dx11-base-0.1.0-b2</b>&nbsp;</td>
+    <td>&nbsp;0.1.0-b3&nbsp;</td>
+    <td>&nbsp;<b>ewsdocker/ldc-base:dx11-base-0.1.0-b3</b>&nbsp;</td>
     <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/wiki/base-dx11-base.md">dx11-base</a>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;<a href="https://ewsdocker.github.io/ldc-framework/base/dx11-surface.html">ldc-base:dx11-surface</a>&nbsp;</td>
-    <td>&nbsp;0.1.0-b2&nbsp;</td>
-    <td>&nbsp;<b>ewsdocker/ldc-base:dx11-surface-0.1.0-b2</b>&nbsp;</td>
+    <td>&nbsp;0.1.0-b3&nbsp;</td>
+    <td>&nbsp;<b>ewsdocker/ldc-base:dx11-surface-0.1.0-b3</b>&nbsp;</td>
     <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/wiki/base-dx11-surface.md">dx11-surface</a>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;<a href="https://ewsdocker.github.io/ldc-framework/base/dx11-dev.html">ldc-base:dx11-dev</a>&nbsp;</td>
-    <td>&nbsp;0.1.0-b2&nbsp;</td>
-    <td>&nbsp;<b>ewsdocker/ldc-base:dx11-dev-0.1.0-b2</b>&nbsp;</td>
+    <td>&nbsp;0.1.0-b3&nbsp;</td>
+    <td>&nbsp;<b>ewsdocker/ldc-base:dx11-dev-0.1.0-b3</b>&nbsp;</td>
     <td>&nbsp;<a href="https://github.com/ewsdocker/ldc-framework/wiki/base-dx11-dev.md">dx11-dev</a>&nbsp;</td>
   </tr>
 </table>

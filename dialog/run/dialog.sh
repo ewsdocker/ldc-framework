@@ -1,0 +1,58 @@
+#!/bin/bash
+
+echo "   ********************************************"
+echo "   ****"
+echo "   **** stopping dialog container(s)"
+echo "   ****"
+echo "   ********************************************"
+echo
+docker stop ldc-dialog-dialog-0.1.0-b4
+docker rm ldc-dialog-dialog-0.1.0-b4
+
+echo "   ***********************************************"
+echo "   ****"
+echo "   **** installing ldc-dialog-dialog-0.1.0-b4"
+echo "   ****"
+echo "   ***********************************************"
+echo
+
+docker run \
+      -it \
+      --rm \
+  -v /etc/localtime:/etc/localtime:ro \
+  \
+      -e LRUN_APP="/bin/bash" \
+      \
+      -e LMS_BASE="${HOME}/.local" \
+      -e LMS_HOME="${HOME}" \
+      -e LMS_CONF="${HOME}/.config" \
+      \
+      -v ${HOME}/bin:/userbin \
+      -v ${HOME}/.local:/usrlocal \
+      -v ${HOME}/.config/docker:/conf \
+      -v ${HOME}/.config/docker/ldc-dialog-dialog-0.1.0:/root \
+      -v ${HOME}/.config/docker/ldc-dialog-dialog-0.1.0/workspace:/workspace \
+      \
+      -v ${HOME}/Source:/source \
+      -v ${HOME}/Documents:/documents \
+      -v ${HOME}/Development:/development \
+      \
+      --name=ldc-dialog-dialog-0.1.0-b4 \
+    ewsdocker/ldc-dialog:dialog-0.1.0-b4
+[[ $? -eq 0 ]] ||
+ {
+ 	echo "create container ldc-dialog-dialog-0.1.0-b4 failed."
+ 	exit 1
+ }
+
+echo
+echo "   ****************************************************************"
+echo "   ****"
+echo "   **** ldc-dialog:dialog-0.1.0-b4 successfully installed."
+echo "   ****"
+echo "   ****************************************************************"
+echo
+echo
+
+exit 0
+

@@ -1,0 +1,10 @@
+
+ENV NJS_INCLUDE=${NODEJS:-""}
+ENV NJS_BASH=${NODEJS_BASH:-""}
+
+ENV NJS_VER=${NODEJS_VER:-"14"} \
+    NJS_HOST=${NODEJS_HOST:-"https://deb.nodesource.com"} \
+    NJS_DIR="NodeJS" 
+
+ENV NJS_NAME="setup_${NJS_VER}.x" 
+ENV NJS_URL=${NJS_HOST}/${NJS_NAME}  
