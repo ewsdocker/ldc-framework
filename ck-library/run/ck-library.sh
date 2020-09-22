@@ -2,7 +2,7 @@
 
 # ===========================================================================
 #
-#    ldc-ck-library:ck-library-0.1.0-b3
+#    ldc-ck-library:ck-library-0.1.0-b4
 #
 # ===========================================================================
 
@@ -12,12 +12,12 @@ echo "   **** stopping ldc-ck-library:ck-library container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-ck-library-ck-library-0.1.0-b3
-docker rm ldc-ck-library-ck-library-0.1.0-b3
+docker stop ldc-ck-library-ck-library-0.1.0-b4
+docker rm ldc-ck-library-ck-library-0.1.0-b4
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-ck-library-ck-library-0.1.0-b3"
+echo "   **** installing ldc-ck-library-ck-library-0.1.0-b4"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -39,25 +39,25 @@ docker run \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b3:/root \
-  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b3/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b4:/root \
+  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b4/workspace:/workspace \
   \
   --mount source=pkgcache,target=/repo \
   \
   -v ${HOME}/Source:/source \
   \
-  --name=ldc-ck-library-ck-library-0.1.0-b3 \
-ewsdocker/ldc-ck-library:ck-library-0.1.0-b3
+  --name=ldc-ck-library-ck-library-0.1.0-b4 \
+ewsdocker/ldc-ck-library:ck-library-0.1.0-b4
 [[ $? -eq 0 ]] ||
  {
- 	echo "create container ldc-ck-library-ck-library-0.1.0-b3 failed."
+ 	echo "create container ldc-ck-library-ck-library-0.1.0-b4 failed."
  	exit 2
  }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-ck-library:ck-library-0.1.0-b3 successfully installed."
+echo "   **** ldc-ck-library:ck-library-0.1.0-b4 successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

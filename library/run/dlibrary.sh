@@ -7,12 +7,12 @@
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** stopping dialog container(s)"
+echo "   **** stopping library container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-dialog-dialog-0.1.0-b4
-docker rm ldc-dialog-dialog-0.1.0-b4
+docker stop ldc-library-dlibrary-0.1.0-b4
+docker rm ldc-library-dlibrary-0.1.0-b4
 
 echo "   ********************************************"
 echo "   ****"

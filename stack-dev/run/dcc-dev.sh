@@ -14,60 +14,62 @@ echo
 docker stop ldc-stack-dev-dcc-dev-0.1.0-b4
 docker rm ldc-stack-dev-dcc-dev-0.1.0-b4
 
-echo "   ********************************************"
+echo "   ***********************************************"
 echo "   ****"
-echo "   **** removing dcc-x11 image(s)"
+echo "   **** installing ldc-stack-dev-dcc-dev-0.1.0-b4"
 echo "   ****"
-echo "   ********************************************"
-echo
-docker rmi ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b4
-
-echo "   ***************************************************"
-echo "   ****"
-echo "   **** building ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b4"
-echo "   ****"
-echo "   ***************************************************"
+echo "   ***********************************************"
 echo
 
-docker build \
-  --build-arg DNAME="CPP" \
+docker run \
+  -d \
+  --rm \
   \
-  --build-arg CC_VER="6" \
+  -v /etc/localtime:/etc/localtime:ro \
   \
-  --build-arg BUILD_DAEMON="1" \
-  --build-arg BUILD_TEMPLATE="run" \
+  -e LMS_BASE="${HOME}/.local" \
+  -e LMS_HOME="${HOME}" \
+  -e LMS_CONF="${HOME}/.config" \
   \
-  --build-arg BUILD_NAME="ldc-stack-dev" \
-  --build-arg BUILD_VERSION="dcc-dev" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  -v ${HOME}/bin:/userbin \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.config/docker:/conf \
+  -v ${HOME}/.config/docker/ldc-stack-dev-dcc-dev-0.1.0:/root \
+  -v ${HOME}/.config/docker/ldc-stack-dev-dcc-dev-0.1.0/workspace:/workspace \
   \
-  --build-arg FROM_REPO="ewsdocker" \
-  --build-arg FROM_PARENT="ldc-base" \
-  --build-arg FROM_VERS="dx11-dev" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  -e DISPLAY=unix${DISPLAY} \
+  -v ${HOME}/.Xauthority:/root/.Xauthority \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v /dev/shm:/dev/shm \
+  --device /dev/snd \
   \
-  --build-arg LIB_INSTALL="0" \
-  --build-arg LIB_HOST="http://alpine-nginx-pkgcache" \
-  --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b4" \
-  \
-  --network=pkgnet \
-  \
-  --file Dockerfile \
-  -t ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b4 .
+  --name=ldc-stack-dev-dcc-dev-0.1.0-b4 \
+ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b4
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-stack-dev:dcc-dev-0.1.0-b4 failed."
+ 	echo "build container ldc-stack-dev-dcc-dev-0.1.0-b4 failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** created ldc-stack-dev-dcc-dev-0.1.0-b4"
+echo "   **** stopping ldc-stack-dev-dcc-dev-0.1.0-b4 daemon"
 echo "   ****"
 echo "   ***********************************************"
 echo
 
-. run/dcc-dev.sh
+docker stop ldc-stack-dev-dcc-dev-0.1.0-b4
+[[ $? -eq 0 ]] ||
+ {
+ 	echo "stop ldc-stack-dev-dcc-dev-0.1.0-b4 failed."
+ }
+
+echo "   ********************************************"
+echo "   ****"
+echo "   **** ldc-stack-dev:dcc-dev successfully installed."
+echo "   ****"
+echo "   ********************************************"
+echo
+
+exit 0
+

@@ -1,7 +1,7 @@
 #!/bin/bash
 # ===========================================================================
 #
-#    ldc-stack-apps:djdk13dev-gtk3-0.1.0-b3
+#    ldc-stack-apps:djdk13dev-gtk3-0.1.0-b4
 #
 # ===========================================================================
 
@@ -11,12 +11,12 @@ echo "   **** stopping ldc-stack-apps:djdk13dev-gtk3 container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-stack-apps-djdk13dev-gtk3-0.1.0-b3
-docker rm ldc-stack-apps-djdk13dev-gtk3-0.1.0-b3
+docker stop ldc-stack-apps-djdk13dev-gtk3-0.1.0-b4
+docker rm ldc-stack-apps-djdk13dev-gtk3-0.1.0-b4
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-stack-apps-djdk13dev-gtk3-0.1.0-b3"
+echo "   **** installing ldc-stack-apps-djdk13dev-gtk3-0.1.0-b4"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -45,31 +45,31 @@ docker run \
    \
    -v ${HOME}/Downloads:/Downloads \
    \
-   --name=ldc-stack-apps-djdk13dev-gtk3-0.1.0-b3 \
- ewsdocker/ldc-stack-apps:djdk13dev-gtk3-0.1.0-b3
+   --name=ldc-stack-apps-djdk13dev-gtk3-0.1.0-b4 \
+ ewsdocker/ldc-stack-apps:djdk13dev-gtk3-0.1.0-b4
 [[ $? -eq 0 ]] ||
  {
- 	echo "build container ldc-stack-apps-djdk13dev-gtk3-0.1.0-b3 failed."
+ 	echo "build container ldc-stack-apps-djdk13dev-gtk3-0.1.0-b4 failed."
  	exit 2
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** stopping ldc-stack-apps-djdk13dev-gtk3-0.1.0-b3 daemon"
+echo "   **** stopping ldc-stack-apps-djdk13dev-gtk3-0.1.0-b4 daemon"
 echo "   ****"
 echo "   ***********************************************"
 echo
 
-docker stop ldc-stack-apps-djdk13dev-gtk3-0.1.0-b3
+docker stop ldc-stack-apps-djdk13dev-gtk3-0.1.0-b4
 [[ $? -eq 0 ]] ||
  {
- 	echo "stop ldc-stack-apps-djdk13dev-gtk3-0.1.0-b3 failed."
+ 	echo "stop ldc-stack-apps-djdk13dev-gtk3-0.1.0-b4 failed."
 	exit 3
  }
 
 echo "   ******************************************************"
 echo "   ****"
-echo "   **** ldc-stack-apps:djdk13dev-gtk3-0.1.0-b3 successfully installed."
+echo "   **** ldc-stack-apps:djdk13dev-gtk3-0.1.0-b4 successfully installed."
 echo "   ****"
 echo "   ******************************************************"
 echo

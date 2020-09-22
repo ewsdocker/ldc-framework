@@ -11,7 +11,7 @@ echo "   **** stopping ldc-stack-apps:djdk13-gtk3 container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker image ldc-stack-apps-djdk13-gtk3-0.1.0-b4
+docker stop ldc-stack-apps-djdk13-gtk3-0.1.0-b4
 docker rm ldc-stack-apps-djdk13-gtk3-0.1.0-b4
 
 echo "   ***********************************************"

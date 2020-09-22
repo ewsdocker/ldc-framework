@@ -11,6 +11,7 @@ echo "   **** stopping ldc-base-dx11-surface container"
 echo "   ****"
 echo "   ********************************************"
 echo
+docker stop ldc-base-dx11-surface-0.1.0-b4
 docker rm ldc-base-dx11-surface-0.1.0-b4
 
 echo "   ********************************************"

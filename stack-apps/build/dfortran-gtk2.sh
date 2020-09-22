@@ -69,4 +69,4 @@ echo "   ****"
 echo "   ***********************************************"
 echo
 
-. run/dfortran-gtk2,sh
+. run/dfortran-gtk2.sh
