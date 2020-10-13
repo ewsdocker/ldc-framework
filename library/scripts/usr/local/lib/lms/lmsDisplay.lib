@@ -50,6 +50,7 @@ declare    lmscli_optDebug=1
 #	parameters:
 #		message = message to display
 #       override = 1 to override lmsopt
+#       noeol = do not output an end-of-line sequence
 #	returns:
 #		0 = no errors
 #		non-zero = error code
@@ -59,10 +60,10 @@ function lmsDisplay()
 {
     local lmscon_buffer="${1}"
     local override=${2:-0}
-    local noret=${3:-""}
+    local noeol=${3:-""}
 
     [[ ${lmscli_optQuiet} -ne 0  &&  ${override} -eq 0 ]] && return 0
-    [[ -z "${noret}" ]] && echo "${lmscon_buffer}" || echo -n "${lmscon_buffer}"
+    [[ -z "${noeol}" ]] && echo "${lmscon_buffer}" || echo -n "${lmscon_buffer}"
 
     return 0
 }

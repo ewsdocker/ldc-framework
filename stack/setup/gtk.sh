@@ -166,8 +166,8 @@ addPkg "librest-0.7-0"
 #
 #	WebKit
 #
-#addPkg "libwebkit2gtk-4.0.37" "Web content engine library for GTK+"
-#addPkg "libjavascriptcoregtk-4.0-18" "JavaScript engine library from WebKitGTK+"
+addPkg "libwebkit2gtk-4.0.37" "Web content engine library for GTK+"
+addPkg "libjavascriptcoregtk-4.0-18" "JavaScript engine library from WebKitGTK+"
 
 # =======================================================================
 
