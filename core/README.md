@@ -1,5 +1,5 @@
 
-__Preliminary Documentation__ - 2020-09-20
+__Preliminary Documentation__ - 2020-1015
 ____  
 __ldc-core: The LDC (Linux Docker Container) Framework Core project.__  
 

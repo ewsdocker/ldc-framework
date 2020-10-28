@@ -1,5 +1,5 @@
 
-__Preliminary Documentation__ - 2020-06-20
+__Preliminary Documentation__ - 2020-10-15
 ____  
 __ldc-base: The LDC (Linux Docker Container) Framework Base project.__  
 

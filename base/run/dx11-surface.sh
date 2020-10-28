@@ -14,14 +14,6 @@ echo
 docker stop ldc-base-dx11-surface-0.1.0-b4
 docker rm ldc-base-dx11-surface-0.1.0-b4
 
-echo "   ********************************************"
-echo "   ****"
-echo "   **** removing ldc-base:dx11-surface images"
-echo "   ****"
-echo "   ********************************************"
-echo
-docker rmi ewsdocker/ldc-base:dx11-surface-0.1.0-b4
-
 echo "   ***********************************************"
 echo "   ****"
 echo "   **** installing ldc-base-dx11-surface-0.1.0-b4 container"

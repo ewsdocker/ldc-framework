@@ -39,7 +39,9 @@
 # =========================================================================
 
 . /usr/local/lib/lms/lmsconCli.lib
+. /usr/local/lib/lms/lmsDeclare.lib
 . /usr/local/lib/lms/lmsDisplay.lib
+. /usr/local/lib/lms/lmsStr.lib
 . /usr/local/lib/lms/lmsVersion.lib
 
 # =========================================================================

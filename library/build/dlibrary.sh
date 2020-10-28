@@ -27,6 +27,7 @@ docker build \
   \
   --build-arg BUILD_DAEMON="0" \
   --build-arg BUILD_TEMPLATE="run" \
+  \
   --build-arg BUILD_NAME="ldc-library" \
   --build-arg BUILD_VERSION="dlibrary" \
   --build-arg BUILD_VERS_EXT="-0.1.6" \

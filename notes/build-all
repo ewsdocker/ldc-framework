@@ -1,98 +1,160 @@
-cd ~/Development/ewsldc/ldc-framework
-#=============
+#!/bin/bash
+
+function buildScript()
+{
+    local scriptName=${1:-""}
+
+    [[ -z "${scriptName}" ]] && return 1
+    build/${scriptName}.sh
+
+    return $?
+}
+
 #
-cd core
-build/dcore.sh
+#==================================================
 #
+
+cd ~/Development/ewsldc/ldc-framework/core
+
+#
+#==================================================
+#
+
+cd ../core
+
+#build/dcore.sh
+buildScript "dcore" ; [[ $? -eq 0 ]] || exit $?
+
+#
+#==================================================
+#
+
 cd ../library
-build/dlibrary.sh
+
+#build/dlibrary.sh
+buildScript "dlibrary" ; [[ $? -eq 0 ]] || exit $?
+
 #
+#==================================================
+#
+
 cd ../base
-build/dbase.sh
-build/dperl.sh
-build/dx11-base.sh
-build/dx11-surface.sh
-build/dx11-dev.sh
+
+buildScript "dbase" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dperl" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dx11-base" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dx11-surface" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dx11-dev" ; [[ $? -eq 0 ]] || exit $?
+
 #
 cd ../stack
-build/dcc.sh
-build/dcc-x11.sh
-build/dgtk2.sh
-build/dgtk3.sh
-build/dgtk2-x11.sh
-build/dgtk3-x11.sh
-build/dqt4.sh
-build/dqt4-x11.sh
+
+buildScript "dcc" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dcc-x11" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dgtk2" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dgtk3" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dgtk2-x11" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dgtk3-x11" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dqt4" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dqt4-x11" ; [[ $? -eq 0 ]] || exit $?
+
 #
 cd ../stack-dev
-build/dcc-dev.sh
-build/dgtk3-dev.sh
-build/dqt4-dev.sh
+
+buildScript "dcc-dev" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dgtk3-dev" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dqt4-dev" ; [[ $? -eq 0 ]] || exit $?
+
 #
 cd ../stack-apps
-build/djre8-gtk2.sh
-build/djdk8-gtk2.sh
-build/djdk13-gtk3.sh
-build/djdk13dev-gtk3.sh
-build/dcpp-jdk13.sh
-build/dfortran-jdk13.sh
-build/dfortran-gtk2.sh
-build/djs13-jdk13.sh
-build/djs14-jdk13.sh
-build/dphp5.6-jdk13.sh
-build/dphp5.6-js14.sh  
-build/dqt4-jdk13dev.sh
+
+buildScript "djre8-gtk2" ; [[ $? -eq 0 ]] || exit $?
+buildScript "djdk8-gtk2" ; [[ $? -eq 0 ]] || exit $?
+buildScript "djdk13-gtk3" ; [[ $? -eq 0 ]] || exit $?
+buildScript "djdk13dev-gtk3" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dcpp-jdk13" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dfortran-jdk13" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dfortran-gtk2" ; [[ $? -eq 0 ]] || exit $?
+buildScript "djs13-jdk13" ; [[ $? -eq 0 ]] || exit $?
+buildScript "djs14-jdk13" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dphp5.6-jdk13" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dphp5.6-js14" ; [[ $? -eq 0 ]] || exit $?
+buildScript "dqt4-jdk13dev" ; [[ $? -eq 0 ]] || exit $?
+
 #
 cd ../dialog
-build/dialog.sh
-build/kaptain.sh
-build/whiptail.sh
-build/zenity.sh
+
+buildScript "dialog" ; [[ $? -eq 0 ]] || exit $?
+buildScript "kaptain" ; [[ $? -eq 0 ]] || exit $?
+buildScript "whiptail" ; [[ $? -eq 0 ]] || exit $?
+buildScript "zenity" ; [[ $? -eq 0 ]] || exit $?
+
 #
 cd ../ck-library
-build/ck-library.sh      
+
+buildScript "ck-library" ; [[ $? -eq 0 ]] || exit $?
+
 #
 cd ../ckaptain
-build/ckaptain.sh        
+
+buildScript "ckaptain" ; [[ $? -eq 0 ]] || exit $?
+
 #
 #========================
 #
-cd ../../ldc-applications
-#================
+
+cd ~/Development/ewsldc/ldc-applications/browser
+
 #
 cd ../browser
-build/ffquantum.sh
-build/firefox.sh
-build/firefox-esr.sh
-build/netsurf.sh
-build/palemoon.sh
-build/waterfox-classic.sh
-build/waterfox-current.sh
+
+buildScript "ffquantum" ; [[ $? -eq 0 ]] || exit $?
+#buildScript "firefox" ; [[ $? -eq 0 ]] || exit $?
+buildScript "firefox-esr" ; [[ $? -eq 0 ]] || exit $?
+buildScript "netsurf" ; [[ $? -eq 0 ]] || exit $?
+buildScript "palemoon" ; [[ $? -eq 0 ]] || exit $?
+buildScript "waterfox-classic" ; [[ $? -eq 0 ]] || exit $?
+buildScript "waterfox-current" ; [[ $? -eq 0 ]] || exit $?
+
 #
+
 cd ../console
-build/nano.sh
-build/tumblr.sh
+
+buildScript "nano" ; [[ $? -eq 0 ]] || exit $?
+buildScript "tumblr"
+
 #
+
 cd ../desktop
-build/dia.sh
-build/gimp.sh
-build/mousepad.sh
-build/obs-studio.sh
-build/ripme.sh
-build/shotcut.sh
+
+buildScript "dia" ; [[ $? -eq 0 ]] || exit $?
+buildScript "gimp" ; [[ $? -eq 0 ]] || exit $?
+buildScript "mousepad" ; [[ $? -eq 0 ]] || exit $?
+buildScript "obs-studio" 
+buildScript "ripme" ; [[ $? -eq 0 ]] || exit $?
+buildScript "shotcut" ; [[ $? -eq 0 ]] || exit $?
+
 #
+
 cd ../eclipse
-build/cpp.sh
-build/fortran.sh
-build/java.sh
-build/javascript.sh
-build/php.sh
-build/qt.sh
+
+buildScript "cpp" ; [[ $? -eq 0 ]] || exit $?
+buildScript "fortran" ; [[ $? -eq 0 ]] || exit $?
+buildScript "java" ; [[ $? -eq 0 ]] || exit $?
+buildScript "javascript" ; [[ $? -eq 0 ]] || exit $?
+buildScript "php" ; [[ $? -eq 0 ]] || exit $?
+buildScript "qt" ; [[ $? -eq 0 ]] || exit $?
+
 #
+
 cd ../games
-build/mahjongg.sh
-build/sol.sh
+
+buildScript "mahjongg" ; [[ $? -eq 0 ]] || exit $?
+buildScript "sol" ; [[ $? -eq 0 ]] || exit $?
+
 #
+
 cd ../libre
-build/office.sh
-build/office-jdk.sh
+
+buildScript "office" ; [[ $? -eq 0 ]] || exit $?
+buildScript "office-jdk" ; [[ $? -eq 0 ]] || exit $?

@@ -26,11 +26,11 @@ docker rmi ewsdocker/ldc-core:dcore-0.1.0-b4
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** getting new debian:10.4, if one is available"
+echo "   **** getting new debian:10.6, if one is available"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker pull debian:10.5
+docker pull debian:10.6
 
 echo "   ***************************************************"
 echo "   ****"
@@ -51,7 +51,7 @@ docker build \
   \
   --build-arg FROM_REPO="" \
   --build-arg FROM_PARENT="debian" \
-  --build-arg FROM_VERS="10.4" \
+  --build-arg FROM_VERS="10.6" \
   --build-arg FROM_EXT="" \
   --build-arg FROM_EXT_MOD="" \
   \
