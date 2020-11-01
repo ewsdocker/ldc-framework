@@ -14,10 +14,11 @@ function buildScript()
 #==================================================
 #
 
-cd ~/Development/ewsldc/ldc-applications/browser
+cd ~/Development/ewsldc/ldc-applications/desktop
 
 #
-cd ../desktop
+#==================================================
+#
 
 buildScript "ripme" ; [[ $? -eq 0 ]] || exit $?
 buildScript "shotcut" ; [[ $? -eq 0 ]] || exit $?

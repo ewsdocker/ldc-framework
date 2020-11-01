@@ -1,0 +1,60 @@
+/usr/local/lib/lms/lmssetupTemplates.lib: line 128: /usrlocal/bin/ldc-dialog-kaptain-0.1.0-b4: Not a directory
+chmod: cannot access '/usrlocal/bin/ldc-dialog-kaptain-0.1.0-b4': Not a directory
+
+
+===========================================================================================
+
+   ***********************************************
+   ****
+   **** installing ldc-ckaptain-ckaptain-0.1.0-b4
+   ****
+   ***********************************************
+
+cp: target '/usrlocal/lib/lms' is not a directory
+/usr/local/lib/lms/lmssetupTemplates.lib: line 128: /usrlocal/bin/ldc-ckaptain-ckaptain-0.1.0-b4: Not a directory
+chmod: cannot access '/usrlocal/bin/ldc-ckaptain-ckaptain-0.1.0-b4': Not a directory
+
+===========================================================================================
+
+   ***************************************************
+   ****
+   **** building ewsdocker/ldc-browser:netsurf-0.1.0-b4
+   ****
+   ***************************************************
+
+E: Could not configure 'libc6:amd64'. 
+E: Could not perform immediate configuration on 'libnss-nis:amd64'. Please see man 5 apt.conf under APT::Immediate-Configure for details. (2)
+The command '/bin/sh -c chmod +x /tmp/*.sh    && mkdir -p /opt   && apt-get -y update  && apt-get -y upgrade   && case ${DSTACK} in  	  "FQUANT")  /tmp/ffquantum.sh           ;;       "FFOX")    /tmp/firefox-un.sh          ;;       "EFOX")    /tmp/firefox-esr.sh         ;;  	  "NETSURF") /tmp/netsurf-testing.sh     ;;  	  "PMOON")   /tmp/palemoon.sh            ;;  	  "WFOX")    /tmp/waterfox.sh            ;;  	  "WCFOX")   /tmp/waterfox-current.sh    ;;       *)         echo "UNKNOWN STACK NAME: ${DSTACK}"; exit 1 ;;  esac   && apt-get clean all    &&  if test "${FLINST}" = "1"; then wget ${FLURL}; mkdir -p ${FLDIR}; tar -xvf ${FLNAME} -C ${FLDIR}; rm ${FLNAME}; fi    && if test "${LMSLIB_INST}" = "1"; then cd / ; wget "${LMSLIB_URL}"; tar -xvf "${LMSLIB_PKG}"; rm "${LMSLIB_PKG}"; cd \root; fi    && mkdir -p /usr/bin/lms  && mkdir -p /usr/local/bin  && mkdir -p /usr/local/share/applications   && chmod +x /usr/local/bin/*.*  && chmod +x /usr/local/bin/*   && chmod +x /usr/bin/lms/*.*  && chmod +x /usr/bin/lms/*  && chmod +x /etc/lms/*.sh   && chmod +x /my_init  && chmod +x /my_service    && printf "${LMS_DOCKER} (${LMS_PACKAGE}), %s @ %s\n" `date '+%Y-%m-%d'` `date '+%H:%M:%S'` >> /etc/ewsdocker-builds.txt' returned a non-zero code: 1
+build ewsdocker/ldc-browser:netsurf-0.1.0-b4 failed.
+
+===========================================================================================
+
+   ***********************************************
+   ****
+   **** installing ldc-desktop-obs-studio-0.1.0-b4
+   ****
+   ***********************************************
+
+cp: target '/usrlocal/lib/lms' is not a directory
+/usr/local/lib/lms/lmssetupTemplates.lib: line 128: /usrlocal/bin/ldc-desktop-obs-studio-0.1.0-b4: Not a directory
+chmod: cannot access '/usrlocal/bin/ldc-desktop-obs-studio-0.1.0-b4': Not a directory
+
+===========================================================================================
+
+**************************************************
+
+Building: Office - ewsdocker/ldc-libre:office-jdk-0.1.0-b4
+From:     ewsdocker/ldc-stack-apps:djdk13-gtk3-0.1.0-b4
+
+**************************************************
+
+Hit:1 http://security.debian.org/debian-security buster/updates InRelease
+Hit:2 http://deb.debian.org/debian buster InRelease
+Hit:3 http://deb.debian.org/debian buster-updates InRelease
+Reading package lists...
+--2020-10-29 00:34:53--  http://alpine-nginx-pkgcache/LibreOffice_6.4.4_Linux_x86-64_deb.tar.gz
+Resolving alpine-nginx-pkgcache (alpine-nginx-pkgcache)... 172.32.0.2
+Connecting to alpine-nginx-pkgcache (alpine-nginx-pkgcache)|172.32.0.2|:80... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2020-10-29 00:34:53 ERROR 404: Not Found.
+
