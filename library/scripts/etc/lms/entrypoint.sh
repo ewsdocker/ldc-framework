@@ -9,14 +9,14 @@
 #
 # @author Jay Wheeler.
 # @version 0.1.2
-# @copyright © 2019. EarthWalk Software.
+# @copyright © 2019-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-library
 # @subpackage entrypoint
 #
 # ========================================================================================
 #
-#	Copyright © 2019. EarthWalk Software
+#	Copyright © 2019-2020. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-library.

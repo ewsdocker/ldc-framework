@@ -114,8 +114,8 @@ declare    ldc_libcfgroot="${ldc_cfgroot}-libs"
 declare -a ldc_cnames=()		# cli input in an array
 
 declare    ldc_iname=""			# image name (e.g. - ldc-core:dcore-0.1.0 )
-declare    ldc_container=""		# container name (e.g. - ldc-coredcore-0.1.0 )
-declare    ldc_rname=""			# container run name (e.g. - ldc-coredcore-0.1.0 )
+declare    ldc_container=""		# container name (e.g. - ldc-core-dcore-0.1.0 )
+declare    ldc_rname=""			# container run name (e.g. - ldc-core-dcore-0.1.0 )
 
 declare    ldc_start=""			# name of the container to start/create
 

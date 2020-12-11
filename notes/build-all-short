@@ -14,36 +14,6 @@ function buildScript()
 #==================================================
 #
 
-cd ~/Development/ewsldc/ldc-applications/desktop
+cd ~/Development/ewsldc/ldc-applications/libre
 
-#
-#==================================================
-#
-
-buildScript "ripme" ; [[ $? -eq 0 ]] || exit $?
-buildScript "shotcut" ; [[ $? -eq 0 ]] || exit $?
-
-#
-
-cd ../eclipse
-
-buildScript "cpp" ; [[ $? -eq 0 ]] || exit $?
-buildScript "fortran" ; [[ $? -eq 0 ]] || exit $?
-buildScript "java" ; [[ $? -eq 0 ]] || exit $?
-buildScript "javascript" ; [[ $? -eq 0 ]] || exit $?
-buildScript "php" ; [[ $? -eq 0 ]] || exit $?
-buildScript "qt" ; [[ $? -eq 0 ]] || exit $?
-
-#
-
-cd ../games
-
-buildScript "mahjongg" ; [[ $? -eq 0 ]] || exit $?
-buildScript "sol" ; [[ $? -eq 0 ]] || exit $?
-
-#
-
-cd ../libre
-
-buildScript "office" ; [[ $? -eq 0 ]] || exit $?
 buildScript "office-jdk" ; [[ $? -eq 0 ]] || exit $?
