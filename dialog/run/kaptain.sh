@@ -1,17 +1,20 @@
 #!/bin/bash
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
+
 echo "   ********************************************"
 echo "   ****"
 echo "   **** stopping dkaptain container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-dialog-kaptain-0.1.0-b4
-docker rm ldc-dialog-kaptain-0.1.0-b4
+docker stop ldc-dialog-kaptain${ldcvers}${ldcextv}
+docker rm ldc-dialog-kaptain${ldcvers}${ldcextv}
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-dialog-kaptain-0.1.0-b4"
+echo "   **** installing ldc-dialog-kaptain${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -36,26 +39,26 @@ docker run \
       -v ${HOME}/bin:/userbin \
       -v ${HOME}/.local:/usrlocal \
       -v ${HOME}/.config/docker:/conf \
-      -v ${HOME}/.config/docker/ldc-dialog-kaptain-0.1.0-b4:/root \
-      -v ${HOME}/.config/docker/ldc-dialog-kaptain-0.1.0-b4/workspace:/workspace \
+      -v ${HOME}/.config/docker/ldc-dialog-kaptain${ldcvers}${ldcextv}:/root \
+      -v ${HOME}/.config/docker/ldc-dialog-kaptain${ldcvers}${ldcextv}/workspace:/workspace \
       \
       -v ${HOME}/Source:/source \
       -v ${HOME}/Pictures:/pictures \
       -v ${HOME}/Documents:/documents \
       -v ${HOME}/Development:/development \
       \
-      --name=ldc-dialog-kaptain-0.1.0-b4 \
-    ewsdocker/ldc-dialog:kaptain-0.1.0-b4
+      --name=ldc-dialog-kaptain${ldcvers}${ldcextv} \
+    ewsdocker/ldc-dialog:kaptain${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "create container ldc-dialog-kaptain-0.1.0-b4 failed."
+ 	echo "create container ldc-dialog-kaptain${ldcvers}${ldcextv} failed."
  	exit 1
  }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-dialog:kaptain-0.1.0-b4 successfully installed."
+echo "   **** ldc-dialog:kaptain${ldcvers}${ldcextv} successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

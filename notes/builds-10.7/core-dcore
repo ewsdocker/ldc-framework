@@ -1,0 +1,63 @@
+  apt-get -y install 
+    cron curl distro-info-data less libcurl4 libcurl3-gnutls libevt1 libexpat1 
+    libpopt0 libreadline7 locales lsb-release mime-support readline-common sudo 
+    supervisor unzip wget xz-utils zip libatomic1 libtsan0 logrotate 
+    syslog-ng syslog-ng-core syslog-ng-mod-journal syslog-ng-mod-mongodb syslog-ng-mod-sql 
+    libk5crypto3 libkeyutils1 libnghttp2-14 libsasl2-2 libsasl2-modules-db 
+    libssl1.1 libivykis0 libgssapi-krb5-2 libkrb5-3 libkrb5support0 libnet1 
+    librtmp1 libssh2-1 libwrap0 libpsl5 libdbi1 libjson-c3 libldap-2.4-2 libldap-common 
+    libmongoc-1.0-0 libsqlite3-0 libyajl2 libbson-1.0-0 libc-l10n libglib2.0-0 
+    libmpdec2 dh-python libpython-stdlib libpython2.7-stdlib libpython2.7-minimal 
+    libpython3-stdlib libpython3.7-stdlib libpython3.7-minimal psmisc python python-meld3 
+    python-minimal python-pkg-resources python2.7 python2.7-minimal python3 python3-minimal 
+    python3.5 python3.5-minimal libbfio1 libicu63 libpcre2-8-0 libpython2-stdlib 
+    libsnappy1v5 lsb-base python2 python2-minimal python3-distutils python3-lib2to3 
+    python3.7 python3.7-minimal sensible-utils
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+
+Suggested packages:
+  anacron checksecurity libdpkg-perl dpkg-dev krb5-doc krb5-user lsb
+  python-doc python-tk python-setuptools python2-doc python2.7-doc binutils
+  binfmt-support python3-doc python3-tk python3-venv python3.7-venv
+  python3.7-doc readline-doc supervisor-doc syslog-ng-mod-smtp
+  syslog-ng-mod-amqp syslog-ng-mod-geoip syslog-ng-mod-geoip2
+  syslog-ng-mod-pacctformat syslog-ng-mod-redis syslog-ng-mod-stomp
+  syslog-ng-mod-riemann syslog-ng-mod-graphite syslog-ng-mod-python
+  syslog-ng-mod-add-contextual-data syslog-ng-mod-getent
+  syslog-ng-mod-stardate syslog-ng-mod-map-value-pairs
+  syslog-ng-mod-snmptrapd-parser syslog-ng-mod-xml-parser syslog-ng-mod-extra
+  syslog-ng-mod-tag-parser syslog-ng-mod-examples mongodb-server libdbd-mysql
+  libdbd-pgsql libdbd-sqlite3
+Recommended packages:
+  default-mta | mail-transport-agent ca-certificates libglib2.0-data
+  shared-mime-info xdg-user-dirs krb5-locales publicsuffix libsasl2-modules
+  bsd-mailx | mailx bzip2 file syslog-ng-mod-smtp syslog-ng-mod-amqp
+  syslog-ng-mod-geoip syslog-ng-mod-geoip2 syslog-ng-mod-pacctformat
+  syslog-ng-mod-redis syslog-ng-mod-stomp syslog-ng-mod-riemann
+  syslog-ng-mod-graphite syslog-ng-mod-python
+  syslog-ng-mod-add-contextual-data syslog-ng-mod-getent
+  syslog-ng-mod-stardate syslog-ng-mod-map-value-pairs
+  syslog-ng-mod-snmptrapd-parser syslog-ng-mod-xml-parser syslog-ng-mod-extra
+  syslog-ng-mod-tag-parser syslog-ng-mod-examples systemd
+The following NEW packages will be installed:
+  cron curl dh-python distro-info-data less libatomic1 libbfio1 libbson-1.0-0
+  libc-l10n libcurl3-gnutls libcurl4 libdbi1 libevt1 libexpat1 libglib2.0-0
+  libgssapi-krb5-2 libicu63 libivykis0 libjson-c3 libk5crypto3 libkeyutils1
+  libkrb5-3 libkrb5support0 libldap-2.4-2 libldap-common libmongoc-1.0-0
+  libmpdec2 libnet1 libnghttp2-14 libpcre2-8-0 libpopt0 libpsl5
+  libpython-stdlib libpython2-stdlib libpython2.7-minimal libpython2.7-stdlib
+  libpython3-stdlib libpython3.7-minimal libpython3.7-stdlib libreadline7
+  librtmp1 libsasl2-2 libsasl2-modules-db libsnappy1v5 libsqlite3-0 libssh2-1
+  libssl1.1 libtsan0 libwrap0 libyajl2 locales logrotate lsb-base lsb-release
+  mime-support psmisc python python-meld3 python-minimal python-pkg-resources
+  python2 python2-minimal python2.7 python2.7-minimal python3
+  python3-distutils python3-lib2to3 python3-minimal python3.7
+  python3.7-minimal readline-common sensible-utils sudo supervisor syslog-ng
+  syslog-ng-core syslog-ng-mod-journal syslog-ng-mod-mongodb syslog-ng-mod-sql
+  unzip wget xz-utils zip
+0 upgraded, 83 newly installed, 0 to remove and 1 not upgraded.
+Need to get 34.8 MB of archives.
+After this operation, 132 MB of additional disk space will be used.

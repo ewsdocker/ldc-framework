@@ -1,7 +1,10 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-stack-apps:dphp5.6-js14-0.1.0-b4
+#    ldc-stack-apps:dphp5.6-js14${ldcvers}${ldcextv}
 #
 # ===========================================================================
 cd ~/Development/ewsldc/ldc-framework/stack-apps
@@ -12,8 +15,8 @@ echo "   **** stopping dphp5.6-js14 container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-stack-apps-dphp5.6-js14-0.1.0-b4
-docker rm ldc-stack-apps-dphp5.6-js14-0.1.0-b4
+docker stop ldc-stack-apps-dphp5.6-js14${ldcvers}${ldcextv}
+docker rm ldc-stack-apps-dphp5.6-js14${ldcvers}${ldcextv}
 
 echo "   ********************************************"
 echo "   ****"
@@ -21,11 +24,11 @@ echo "   **** removing dphp5.6-js14 image(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rmi ewsdocker/ldc-stack-apps:dphp5.6-js14-0.1.0-b4
+docker rmi ewsdocker/ldc-stack-apps:dphp5.6-js14${ldcvers}${ldcextv}
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-stack-apps:dphp5.6-js14-0.1.0-b4"
+echo "   **** building ewsdocker/ldc-stack-apps:dphp5.6-js14${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -39,33 +42,28 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-stack-apps" \
   --build-arg BUILD_VERSION="dphp5.6-js14" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-stack-apps" \
   --build-arg FROM_VERS="djs14-jdk13" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_EXT="${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
-  --build-arg LIB_INSTALL="0" \
-  --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b4" \
-  \
-  --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
   --network=pkgnet \
   \
   --file Dockerfile \
--t ewsdocker/ldc-stack-apps:dphp5.6-js14-0.1.0-b4 .
+-t ewsdocker/ldc-stack-apps:dphp5.6-js14${ldcvers}${ldcextv} .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-stack-apps:dphp5.6-js14-0.1.0-b4 failed."
+ 	echo "build ewsdocker/ldc-stack-apps:dphp5.6-js14${ldcvers}${ldcextv} failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** created ldc-stack-apps-dphp5.6-js14-0.1.0-b4"
+echo "   **** created ldc-stack-apps-dphp5.6-js14${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***********************************************"
 echo

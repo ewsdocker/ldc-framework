@@ -1,5 +1,23 @@
 #!/bin/bash
 
+declare ldcvers="-0.1.0"
+declare ldcextv="-b4"
+
+declare ldccont="${ldcvers}"
+declare ldclib="-0.1.6"
+
+# =====================================================================
+#
+#    buildScript
+#        Build the docker image and then the docker container
+#
+#    Enter:
+#        scriptName = the name of the script
+#    Exit:
+#        0 = no error
+#        non-zero = error code
+#
+# =====================================================================
 function buildScript()
 {
     local scriptName=${1:-""}
@@ -22,7 +40,6 @@ cd ~/Development/ewsldc/ldc-framework/core
 
 cd ../core
 
-#build/dcore.sh
 buildScript "dcore" ; [[ $? -eq 0 ]] || exit $?
 
 #
@@ -31,7 +48,6 @@ buildScript "dcore" ; [[ $? -eq 0 ]] || exit $?
 
 cd ../library
 
-#build/dlibrary.sh
 buildScript "dlibrary" ; [[ $? -eq 0 ]] || exit $?
 
 #
@@ -99,17 +115,18 @@ cd ../ckaptain
 
 buildScript "ckaptain" ; [[ $? -eq 0 ]] || exit $?
 
+# ===============================================
 #
-#========================
+# ldc-applications
 #
+# ===============================================
 
 cd ~/Development/ewsldc/ldc-applications/browser
 
-#
 cd ../browser
 
 buildScript "ffquantum" ; [[ $? -eq 0 ]] || exit $?
-#buildScript "firefox" ; [[ $? -eq 0 ]] || exit $?
+buildScript "firefox"  ; [[ $? -eq 0 ]] || exit $?
 buildScript "firefox-esr" ; [[ $? -eq 0 ]] || exit $?
 buildScript "netsurf" ; [[ $? -eq 0 ]] || exit $?
 buildScript "palemoon" ; [[ $? -eq 0 ]] || exit $?
@@ -130,7 +147,7 @@ cd ../desktop
 buildScript "dia" ; [[ $? -eq 0 ]] || exit $?
 buildScript "gimp" ; [[ $? -eq 0 ]] || exit $?
 buildScript "mousepad" ; [[ $? -eq 0 ]] || exit $?
-buildScript "obs-studio" 
+buildScript "obs-studio"  ; [[ $? -eq 0 ]] || exit $?
 buildScript "ripme" ; [[ $? -eq 0 ]] || exit $?
 buildScript "shotcut" ; [[ $? -eq 0 ]] || exit $?
 
@@ -144,6 +161,7 @@ buildScript "java" ; [[ $? -eq 0 ]] || exit $?
 buildScript "javascript" ; [[ $? -eq 0 ]] || exit $?
 buildScript "php" ; [[ $? -eq 0 ]] || exit $?
 buildScript "qt" ; [[ $? -eq 0 ]] || exit $?
+buildScript "bash" ; [[ $? -eq 0 ]] || exit $?
 
 #
 
@@ -158,3 +176,38 @@ cd ../libre
 
 buildScript "office" ; [[ $? -eq 0 ]] || exit $?
 buildScript "office-jdk" ; [[ $? -eq 0 ]] || exit $?
+
+# ===============================================
+#
+# ldc-alpine
+#
+# ===============================================
+
+cd ~/Development/ewsldc/ldc-alpine/console
+
+#
+cd ../console
+
+buildScript "htop" ; [[ $? -eq 0 ]] || exit $?
+
+#
+cd ../foundation
+
+buildScript "core" ; [[ $? -eq 0 ]] || exit $?
+buildScript "base" ; [[ $? -eq 0 ]] || exit $?
+
+#
+cd ../server
+
+buildScript "ftp" ; [[ $? -eq 0 ]] || exit $?
+buildScript "httpd" ; [[ $? -eq 0 ]] || exit $?
+buildScript "nginx" ; [[ $? -eq 0 ]] || exit $?
+buildScript "nginx-dev" ; [[ $? -eq 0 ]] || exit $?
+buildScript "nginx-pkgcache" ; [[ $? -eq 0 ]] || exit $?
+
+#
+cd ../server-client
+
+buildScript "nginx" ; [[ $? -eq 0 ]] || exit $?
+buildScript "pkgcache" ; [[ $? -eq 0 ]] || exit $?
+

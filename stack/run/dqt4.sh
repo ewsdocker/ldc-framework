@@ -1,7 +1,10 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-stack:dqt4-0.1.0-b4
+#    ldc-stack:dqt4${ldcvers}${ldcextv}
 #
 # ===========================================================================
 
@@ -11,12 +14,12 @@ echo "   **** stopping ldc-stack-dqt4 container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-stack-dqt4-0.1.0-b4
-docker rm ldc-stack-dqt4-0.1.0-b4
+docker stop ldc-stack-dqt4${ldcvers}${ldcextv}
+docker rm ldc-stack-dqt4${ldcvers}${ldcextv}
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-stack-dqt4-0.1.0-b4"
+echo "   **** installing ldc-stack-dqt4${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -34,8 +37,8 @@ docker run \
    -v ${HOME}/bin:/userbin \
    -v ${HOME}/.local:/usrlocal \
    -v ${HOME}/.config/docker:/conf \
-   -v ${HOME}/.config/docker/ldc-stack-dqt4-0.1.0:/root \
-   -v ${HOME}/.config/docker/ldc-stack-dqt4-0.1.0/workspace:/workspace \
+   -v ${HOME}/.config/docker/ldc-stack-dqt4${ldcvers}:/root \
+   -v ${HOME}/.config/docker/ldc-stack-dqt4${ldcvers}/workspace:/workspace \
    \
    -e DISPLAY=unix${DISPLAY} \
    -v ${HOME}/.Xauthority:/root/.Xauthority \
@@ -45,31 +48,31 @@ docker run \
    \
    -v ${HOME}/Downloads:/Downloads \
    \
-   --name=ldc-stack-dqt4-0.1.0-b4 \
- ewsdocker/ldc-stack:dqt4-0.1.0-b4
+   --name=ldc-stack-dqt4${ldcvers}${ldcextv} \
+ ewsdocker/ldc-stack:dqt4${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "build container ldc-stack-dqt4-0.1.0-b4 failed."
+ 	echo "build container ldc-stack-dqt4${ldcvers}${ldcextv} failed."
  	exit 2
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** stopping ldc-stack-dqt4-0.1.0-b4 daemon"
+echo "   **** stopping ldc-stack-dqt4${ldcvers}${ldcextv} daemon"
 echo "   ****"
 echo "   ***********************************************"
 echo
 
-docker stop ldc-stack-dqt4-0.1.0-b4
+docker stop ldc-stack-dqt4${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "stop ldc-stack-dqt4-0.1.0-b4 failed."
+ 	echo "stop ldc-stack-dqt4${ldcvers}${ldcextv} failed."
     exit 3
  }
 
 echo "   ******************************************************"
 echo "   ****"
-echo "   **** ldc-stack:dqt4-0.1.0-b4 successfully installed."
+echo "   **** ldc-stack:dqt4${ldcvers}${ldcextv} successfully installed."
 echo "   ****"
 echo "   ******************************************************"
 echo

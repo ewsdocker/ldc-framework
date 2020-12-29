@@ -1,0 +1,21 @@
+  apt-get -y install java-common default-jre ca-certificates-java default-jre-headless libatk-wrapper-java libatk-wrapper-java-jni libgif7 libgtk-3-0 libgtk-3-common libnspr4 libnss3 libpcsclite1 openjdk-11-jre openjdk-11-jre-headless
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+libgtk-3-0 is already the newest version (3.24.5-1).
+libgtk-3-0 set to manually installed.
+libgtk-3-common is already the newest version (3.24.5-1).
+libgtk-3-common set to manually installed.
+Suggested packages:
+  pcscd libnss-mdns fonts-dejavu-extra fonts-ipafont-gothic
+  fonts-ipafont-mincho fonts-wqy-microhei | fonts-wqy-zenhei fonts-indic
+Recommended packages:
+  fonts-dejavu-extra
+The following NEW packages will be installed:
+  ca-certificates-java default-jre default-jre-headless java-common
+  libatk-wrapper-java libatk-wrapper-java-jni libgif7 libnspr4 libnss3
+  libpcsclite1 openjdk-11-jre openjdk-11-jre-headless
+0 upgraded, 12 newly installed, 0 to remove and 0 not upgraded.
+Need to get 39.3 MB of archives.
+After this operation, 176 MB of additional disk space will be used.

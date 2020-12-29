@@ -1,7 +1,10 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-stack-apps:dcpp-jdk13-0.1.0-b4
+#    ldc-stack-apps:dcpp-jdk13${ldcvers}${ldcextv}
 #
 # ===========================================================================
 cd ~/Development/ewsldc/ldc-framework/stack-apps
@@ -12,8 +15,8 @@ echo "   **** stopping ldc-stack-apps-dcpp-jdk13 container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-stack-apps-dcpp-jdk13-0.1.0-b4
-docker rm ldc-stack-apps-dcpp-jdk13-0.1.0-b4
+docker stop ldc-stack-apps-dcpp-jdk13${ldcvers}${ldcextv}
+docker rm ldc-stack-apps-dcpp-jdk13${ldcvers}${ldcextv}
 
 echo "   ********************************************"
 echo "   ****"
@@ -21,11 +24,11 @@ echo "   **** removing ldc-stack-apps:dcpp-jdk13 image(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rmi ewsdocker/ldc-stack-apps:dcpp-jdk13-0.1.0-b4
+docker rmi ewsdocker/ldc-stack-apps:dcpp-jdk13${ldcvers}${ldcextv}
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-stack-apps:dcpp-jdk13-0.1.0-b4"
+echo "   **** building ewsdocker/ldc-stack-apps:dcpp-jdk13${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -38,33 +41,28 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-stack-apps" \
   --build-arg BUILD_VERSION="dcpp-jdk13" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-stack-apps" \
   --build-arg FROM_VERS="djdk13-gtk3" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_EXT="${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
-  --build-arg LIB_INSTALL="0" \
-  --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b4" \
-  \
-  --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
-  --network=pkgnet \
+  --network="${pkgnet}" \
   \
   --file Dockerfile \
--t ewsdocker/ldc-stack-apps:dcpp-jdk13-0.1.0-b4 .
+-t ewsdocker/ldc-stack-apps:dcpp-jdk13${ldcvers}${ldcextv} .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-stack-apps:dcpp-jdk13-0.1.0-b4 failed."
+ 	echo "build ewsdocker/ldc-stack-apps:dcpp-jdk13${ldcvers}${ldcextv} failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** ldc-stack-apps-dcpp-jdk13-0.1.0-b4 image created."
+echo "   **** ldc-stack-apps-dcpp-jdk13${ldcvers}${ldcextv} image created."
 echo "   ****"
 echo "   ***********************************************"
 echo

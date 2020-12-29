@@ -1,7 +1,10 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-library:dlibrary-0.1.6-b4
+#    ldc-library:dlibrary${ldclib}${ldcextv}
 #
 # ===========================================================================
 
@@ -11,12 +14,12 @@ echo "   **** stopping library container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-library-dlibrary-0.1.0-b4
-docker rm ldc-library-dlibrary-0.1.0-b4
+docker stop ldc-library-dlibrary${ldclib}${ldcextv}
+docker rm ldc-library-dlibrary${ldclib}${ldcextv}
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** installing ldc-library-dlibrary-0.1.6-b4 library"
+echo "   **** installing ldc-library-dlibrary${ldclib}${ldcextv} library"
 echo "   ****"
 echo "   ********************************************"
 echo
@@ -32,16 +35,16 @@ docker run \
       -v ${HOME}/bin:/userbin \
       -v ${HOME}/.local:/usrlocal \
       -v ${HOME}/.config/docker:/conf \
-      -v ${HOME}/.config/docker/ldc-library-dlibrary-0.1.6-b4:/root \
-      -v ${HOME}/.config/docker/ldc-library-dlibrary-0.1.6-b4/workspace:/workspace \
+      -v ${HOME}/.config/docker/ldc-library-dlibrary${ldclib}${ldcextv}:/root \
+      -v ${HOME}/.config/docker/ldc-library-dlibrary${ldclib}${ldcextv}/workspace:/workspace \
       \
       --mount source=pkgcache,target=/repo \
       \
       --name=ldc-library \
-ewsdocker/ldc-library:dlibrary-0.1.6-b4 
+ewsdocker/ldc-library:dlibrary${ldclib}${ldcextv} 
 [[ $? -eq 0 ]] ||
  {
- 	echo "ldc-library-dlibrary-0.1.6-b4 failed."
+ 	echo "ldc-library-dlibrary${ldclib}${ldcextv} failed."
  	exit 2
  }
 
@@ -50,7 +53,7 @@ ewsdocker/ldc-library:dlibrary-0.1.6-b4
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** ldc-library:dlibrary-0.1.6-b4 successfully installed."
+echo "   **** ldc-library:dlibrary${ldclib}${ldcextv} successfully installed."
 echo "   ****"
 echo "   ********************************************"
 echo

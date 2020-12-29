@@ -7,7 +7,7 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.0-b2
+# @version 0.1.0-b4
 # @copyright © 2017-2020. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-core
@@ -39,7 +39,7 @@
 
 ARG FROM_REPO=""
 ARG FROM_PARENT="debian"
-ARG FROM_VERS="10.6"
+ARG FROM_VERS="10.7"
 ARG FROM_EXT=""
 ARG FROM_EXT_MOD=""
 
@@ -116,7 +116,7 @@ ENV \
     LMS_VERS_MOD=${BUILD_EXT_MOD} 
 
 ENV LMS_VERS_EXT="${LMS_VERS_X}${LMS_VERS_MOD}" \
-    LMS_PACKAGE="${LMS_PARENT}, Debian 10.4"
+    LMS_PACKAGE="${LMS_PARENT}, Debian ${FROM_VERS}"
 
 ENV \
     LMS_RUN_NAME="${LMS_NAME}-${LMS_VERSION}${LMS_VERS_EXT}" \

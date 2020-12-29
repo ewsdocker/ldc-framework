@@ -1,17 +1,20 @@
 #!/bin/bash
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
+
 echo "   ********************************************"
 echo "   ****"
 echo "   **** stopping ldc-dialog-whiptail container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-dialog-whiptail-0.1.0-b4
-docker rm ldc-dialog-whiptail-0.1.0-b4
+docker stop ldc-dialog-whiptail${ldcvers}${ldcextv}
+docker rm ldc-dialog-whiptail${ldcvers}${ldcextv}
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** ldc-dialog-whiptail-0.1.0-b4 "
+echo "   **** ldc-dialog-whiptail${ldcvers}${ldcextv} "
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -36,25 +39,25 @@ docker run \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-dialog-whiptail-0.1.0:/root \
-  -v ${HOME}/.config/docker/ldc-dialog-whiptail-0.1.0/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-dialog-whiptail${ldcvers}:/root \
+  -v ${HOME}/.config/docker/ldc-dialog-whiptail${ldcvers}/workspace:/workspace \
   \
   -v ${HOME}/Source:/source \
   -v ${HOME}/Documents:/documents \
   -v ${HOME}/Development:/development \
   \
-  --name=ldc-dialog-whiptail-0.1.0-b4 \
-ewsdocker/ldc-dialog:whiptail-0.1.0-b4
+  --name=ldc-dialog-whiptail${ldcvers}${ldcextv} \
+ewsdocker/ldc-dialog:whiptail${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "create container ldc-dialog-whiptail-0.1.0-b4 failed."
+ 	echo "create container ldc-dialog-whiptail${ldcvers}${ldcextv} failed."
  	exit 2
  }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-dialog:whiptail-0.1.0-b4 successfully installed."
+echo "   **** ldc-dialog:whiptail${ldcvers}${ldcextv} successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

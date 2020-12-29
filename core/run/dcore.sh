@@ -1,8 +1,10 @@
 #!/bin/bash
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-core:dcore-0.1.0-b4
+#    ldc-core:dcore${ldcvers}${ldcextv}
 #
 # ===========================================================================
 
@@ -12,12 +14,12 @@ echo "   **** stopping dcore container"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-core-dcore-0.1.0-b4 2>null
-docker rm ldc-core-dcore-0.1.0-b4 2>null
+docker stop ldc-core-dcore${ldcvers}${ldcextv} 2>null
+docker rm ldc-core-dcore${ldcvers}${ldcextv} 2>null
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-core-dcore-0.1.0-b4 container"
+echo "   **** installing ldc-core-dcore${ldcvers}${ldcextv} container"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -33,28 +35,28 @@ docker run \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-core-dcore-0.1.0:/root \
-  -v ${HOME}/.config/docker/ldc-core-dcore-0.1.0/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-core-dcore${ldcvers}:/root \
+  -v ${HOME}/.config/docker/ldc-core-dcore${ldcvers}/workspace:/workspace \
   \
-  --name=ldc-core-dcore-0.1.0-b4 \
-ewsdocker/ldc-core:dcore-0.1.0-b4
+  --name=ldc-core-dcore${ldcvers}${ldcextv} \
+ewsdocker/ldc-core:dcore${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "build container ldc-core-dcore-0.1.0-b4 failed."
+ 	echo "build container ldc-core-dcore${ldcvers}${ldcextv} failed."
  	exit 2
  }
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** stopping ldc-core-dcore-0.1.0-b4 daemon"
+echo "   **** stopping ldc-core-dcore${ldcvers}${ldcextv} daemon"
 echo "   ****"
 echo "   ********************************************"
 echo
 
-docker stop ldc-core-dcore-0.1.0-b4
+docker stop ldc-core-dcore${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "stop ldc-core-dcore-0.1.0-b4 failed."
+ 	echo "stop ldc-core-dcore${ldcvers}${ldcextv} failed."
 	exit 3
  }
 

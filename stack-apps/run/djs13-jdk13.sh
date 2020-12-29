@@ -1,7 +1,10 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-stack-apps:djs13-jdk13-0.1.0-b4
+#    ldc-stack-apps:djs13-jdk13${ldcvers}${ldcextv}
 #
 # ===========================================================================
 
@@ -11,12 +14,12 @@ echo "   **** stopping djs13-jdk13 container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-stack-apps-djs13-jdk13-0.1.0-b4
-docker rm ldc-stack-apps-djs13-jdk13-0.1.0-b4
+docker stop ldc-stack-apps-djs13-jdk13${ldcvers}${ldcextv}
+docker rm ldc-stack-apps-djs13-jdk13${ldcvers}${ldcextv}
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-stack-apps-djs13-jdk13-0.1.0-b4"
+echo "   **** installing ldc-stack-apps-djs13-jdk13${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -34,8 +37,8 @@ docker run \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-stack-apps-djs13-jdk13-0.1.0:/root \
-  -v ${HOME}/.config/docker/ldc-stack-apps-djs13-jdk13-0.1.0/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-stack-apps-djs13-jdk13${ldcvers}:/root \
+  -v ${HOME}/.config/docker/ldc-stack-apps-djs13-jdk13${ldcvers}/workspace:/workspace \
   \
   -e DISPLAY=unix${DISPLAY} \
   -v ${HOME}/.Xauthority:/root/.Xauthority \
@@ -45,31 +48,31 @@ docker run \
   \
   -v ${HOME}/Downloads:/Downloads \
   \
-  --name=ldc-stack-apps-djs13-jdk13-0.1.0-b4 \
-ewsdocker/ldc-stack-apps:djs13-jdk13-0.1.0-b4
+  --name=ldc-stack-apps-djs13-jdk13${ldcvers}${ldcextv} \
+ewsdocker/ldc-stack-apps:djs13-jdk13${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "build container ldc-stack-apps-djs13-jdk13-0.1.0-b4 failed."
+ 	echo "build container ldc-stack-apps-djs13-jdk13${ldcvers}${ldcextv} failed."
  	exit 21
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** stopping ldc-stack-apps-djs13-jdk13-0.1.0-b4 daemon"
+echo "   **** stopping ldc-stack-apps-djs13-jdk13${ldcvers}${ldcextv} daemon"
 echo "   ****"
 echo "   ***********************************************"
 echo
 
-docker stop ldc-stack-apps-djs13-jdk13-0.1.0-b4
+docker stop ldc-stack-apps-djs13-jdk13${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "stop ldc-stack-apps-djs13-jdk13-0.1.0-b4 failed."
+ 	echo "stop ldc-stack-apps-djs13-jdk13${ldcvers}${ldcextv} failed."
 	exit 3
  }
 
 echo "   ******************************************************"
 echo "   ****"
-echo "   **** ldc-stack-apps:djs13-jdk13-0.1.0-b4 successfully installed."
+echo "   **** ldc-stack-apps:djs13-jdk13${ldcvers}${ldcextv} successfully installed."
 echo "   ****"
 echo "   ******************************************************"
 echo

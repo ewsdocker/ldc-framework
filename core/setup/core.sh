@@ -82,6 +82,11 @@ echo 'APT::Install-Recommends 0;' >> /etc/apt/apt.conf.d/01norecommends
 echo 'APT::Install-Suggests 0;' >> /etc/apt/apt.conf.d/02nosuggests
 sed -i 's/^#\s*\(deb.*multiverse\)$/\1/g' /etc/apt/sources.list
 
+echo "***********************"
+echo ""
+echo "   updating... ${debvers}"
+echo ""
+echo "***********************"
 apt-get -y update 
 
 # =======================================================================

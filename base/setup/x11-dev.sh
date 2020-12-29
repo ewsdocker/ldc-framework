@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare instList=""
+declare instList="apt-get -y install"
 
 # =========================================================================
 #
@@ -14,8 +14,8 @@ declare instList=""
 # =========================================================================
 function addPkg()
 {
-	local instPkg="${1}"
-	local instComment="${2}"
+    local instPkg="${1}"
+    local instComment="${2}"
 
     printf -v instList "%s %s" "${instList}" "${instPkg}"
     return 0
@@ -32,22 +32,17 @@ function addPkg()
 # =========================================================================
 function installList()
 {
-	echo ""
-	echo "$instList"
-	echo ""
+    echo ""
+    echo "$instList"
+    echo ""
 
-	$instList
-	[[ $? -eq 0 ]] || exit $?
+    $instList
+    [[ $? -eq 0 ]] || exit $?
 
     return 0
 }
 
 # =========================================================================
-
-apt-get -y update
-
-addPkg "apt-get -y install"
-
 
 addPkg "libdrm-dev"
 

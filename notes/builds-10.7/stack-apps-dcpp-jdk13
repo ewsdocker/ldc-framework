@@ -1,0 +1,12 @@
+  apt-get -y install gobjc-8 libgc1c2 libobjc-8-dev libobjc4
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Suggested packages:
+  gobjc-8-multilib gcc-8-doc libobjc4-dbg
+The following NEW packages will be installed:
+  gobjc-8 libgc1c2 libobjc-8-dev libobjc4
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 9170 kB of archives.
+After this operation, 28.6 MB of additional disk space will be used.

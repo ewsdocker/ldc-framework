@@ -1,0 +1,14 @@
+ apt-get install -y libnotify4 libwebkit2gtk-4.0.37 zenity zenity-common
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+libnotify4 is already the newest version (0.7.7-4).
+libnotify4 set to manually installed.
+libwebkit2gtk-4.0-37 is already the newest version (2.30.4-1~deb10u1).
+libwebkit2gtk-4.0-37-gtk2 is already the newest version (2.30.4-1~deb10u1).
+The following NEW packages will be installed:
+  zenity zenity-common
+0 upgraded, 2 newly installed, 0 to remove and 2 not upgraded.
+Need to get 4425 kB of archives.
+After this operation, 7778 kB of additional disk space will be used.

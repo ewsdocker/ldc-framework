@@ -1,7 +1,10 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-stack:dcc-0.1.0-b4
+#    ldc-stack:dcc${ldcvers}${ldcextv}
 #
 # ===========================================================================
 echo "   ********************************************"
@@ -10,12 +13,12 @@ echo "   **** stopping ldc-stack:dcc container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-stack-dcc-0.1.0-b4
-docker rm ldc-stack-dcc-0.1.0-b4
+docker stop ldc-stack-dcc${ldcvers}${ldcextv}
+docker rm ldc-stack-dcc${ldcvers}${ldcextv}
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-stack-dcc-0.1.0-b4"
+echo "   **** installing ldc-stack-dcc${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -33,28 +36,28 @@ docker run \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-stack-dcc-0.1.0:/root \
-  -v ${HOME}/.config/docker/ldc-stack-dcc-0.1.0/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-stack-dcc${ldcvers}:/root \
+  -v ${HOME}/.config/docker/ldc-stack-dcc${ldcvers}/workspace:/workspace \
   \
-  --name=ldc-stack-dcc-0.1.0-b4 \
-ewsdocker/ldc-stack:dcc-0.1.0-b4
+  --name=ldc-stack-dcc${ldcvers}${ldcextv} \
+ewsdocker/ldc-stack:dcc${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "build container ldc-stack-dcc-0.1.0-b4 failed."
+ 	echo "build container ldc-stack-dcc${ldcvers}${ldcextv} failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** stopping ldc-stack-dcc-0.1.0-b4 daemon"
+echo "   **** stopping ldc-stack-dcc${ldcvers}${ldcextv} daemon"
 echo "   ****"
 echo "   ***********************************************"
 echo
 
-docker stop ldc-stack-dcc-0.1.0-b4
+docker stop ldc-stack-dcc${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "stop ldc-stack-dcc-0.1.0-b4 failed."
+ 	echo "stop ldc-stack-dcc${ldcvers}${ldcextv} failed."
  }
 
 echo "   ********************************************"

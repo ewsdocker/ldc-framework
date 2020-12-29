@@ -1,8 +1,11 @@
 #!/bin/bash
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
+
 # ===========================================================================
 #
-#    ldc-dialog:whiptail-0.1.0-b4
+#    ldc-dialog:whiptail${ldcvers}${ldcextv}
 #
 # ===========================================================================
 cd ~/Development/ewsldc/ldc-framework/dialog
@@ -13,8 +16,8 @@ echo "   **** stopping ldc-dialog-whiptail container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-dialog-whiptail-0.1.0-b4
-docker rm ldc-dialog-whiptail-0.1.0-b4
+docker stop ldc-dialog-whiptail${ldcvers}${ldcextv}
+docker rm ldc-dialog-whiptail${ldcvers}${ldcextv}
 
 echo "   ********************************************"
 echo "   ****"
@@ -23,11 +26,11 @@ echo "   ****"
 echo "   ********************************************"
 echo
 
-docker rmi ewsdocker/ldc-dialog:whiptail-0.1.0-b4
+docker rmi ewsdocker/ldc-dialog:whiptail${ldcvers}${ldcextv}
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-dialog:whiptail-0.1.0-b4"
+echo "   **** building ewsdocker/ldc-dialog:whiptail${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -44,22 +47,22 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-dialog" \
   --build-arg BUILD_VERSION="whiptail" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-base" \
   --build-arg FROM_VERS="dbase" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_EXT="${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
-  --network=pkgnet \
+  --network="${pkgnet}" \
   \
   --file Dockerfile \
-  -t ewsdocker/ldc-dialog:whiptail-0.1.0-b4  .
+  -t ewsdocker/ldc-dialog:whiptail${ldcvers}${ldcextv}  .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-dialog:whiptail-0.1.0-b4 failed."
+ 	echo "build ewsdocker/ldc-dialog:whiptail${ldcvers}${ldcextv} failed."
  	exit 1
  }
 

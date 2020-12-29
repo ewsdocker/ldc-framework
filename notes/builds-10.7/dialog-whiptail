@@ -1,0 +1,10 @@
+ apt-get install -y libfribidi0 libnewt0.52 libslang2 whiptail
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  libfribidi0 libnewt0.52 libslang2 whiptail
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 683 kB of archives.
+After this operation, 2300 kB of additional disk space will be used.

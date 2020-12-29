@@ -1,0 +1,19 @@
+  apt-get -y install java-common default-jre
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  ca-certificates-java default-jre-headless libgif7 libnspr4 libnss3
+  libpcsclite1 openjdk-11-jre openjdk-11-jre-headless
+Suggested packages:
+  pcscd libnss-mdns fonts-dejavu-extra fonts-ipafont-gothic
+  fonts-ipafont-mincho fonts-wqy-microhei | fonts-wqy-zenhei fonts-indic
+Recommended packages:
+  libatk-wrapper-java-jni fonts-dejavu-extra
+The following NEW packages will be installed:
+  ca-certificates-java default-jre default-jre-headless java-common libgif7
+  libnspr4 libnss3 libpcsclite1 openjdk-11-jre openjdk-11-jre-headless
+0 upgraded, 10 newly installed, 0 to remove and 0 not upgraded.
+Need to get 39.2 MB of archives.
+After this operation, 176 MB of additional disk space will be used.

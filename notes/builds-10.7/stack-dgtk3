@@ -1,0 +1,31 @@
+  apt-get -y install at-spi2-core libatspi2.0-0 libatk1.0-0 libatk1.0-data libatk-bridge2.0-0 cups-common libcups2 libgail18 libgail-common libgtk2.0-0 libgtk2.0-common adwaita-icon-theme gnome-icon-theme gtk-update-icon-cache hicolor-icon-theme librsvg2-common libcairo-gobject2 libsoup-gnome2.4-1 libsoup2.4-1 librest-0.7-0 libwebkit2gtk-4.0.37 libjavascriptcoregtk-4.0-18 libdbusmenu-gtk3-4 libdbusmenu-gtk4 libgtk-3-0 libgtk-3-bin libgtk-3-common libgtkextra-3.0
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  aspell aspell-en bubblewrap dictionaries-common emacsen-common libaspell15
+  libbrotli1 libenchant1c2a libgstreamer-gl1.0-0 libharfbuzz-icu0
+  libhunspell-1.7-0 libhyphen0 libnotify4 libwebpdemux2 libwoff1
+  xdg-dbus-proxy
+Suggested packages:
+  aspell-doc spellutils wordlist libenchant-voikko gvfs
+  browser-plugin-freshplayer-pepperflash
+Recommended packages:
+  enchant gstreamer1.0-gl libgtk2.0-bin hunspell-en-us | hunspell-dictionary
+  | myspell-dictionary notification-daemon gstreamer1.0-plugins-good
+  gstreamer1.0-pulseaudio | gstreamer1.0-alsa gstreamer1.0-libav
+The following NEW packages will be installed:
+  adwaita-icon-theme aspell aspell-en at-spi2-core bubblewrap cups-common
+  dictionaries-common emacsen-common gnome-icon-theme gtk-update-icon-cache
+  hicolor-icon-theme libaspell15 libatk-bridge2.0-0 libatk1.0-0 libatk1.0-data
+  libatspi2.0-0 libbrotli1 libcairo-gobject2 libcups2 libdbusmenu-gtk3-4
+  libdbusmenu-gtk4 libenchant1c2a libgail-common libgail18
+  libgstreamer-gl1.0-0 libgtk-3-0 libgtk-3-bin libgtk-3-common libgtk2.0-0
+  libgtk2.0-common libgtkextra-3.0 libharfbuzz-icu0 libhunspell-1.7-0
+  libhyphen0 libjavascriptcoregtk-4.0-18 libnotify4 librest-0.7-0
+  librsvg2-common libsoup-gnome2.4-1 libsoup2.4-1 libwebkit2gtk-4.0-37
+  libwebkit2gtk-4.0-37-gtk2 libwebpdemux2 libwoff1 xdg-dbus-proxy
+0 upgraded, 45 newly installed, 0 to remove and 0 not upgraded.
+Need to get 57.8 MB of archives.
+After this operation, 204 MB of additional disk space will be used.

@@ -1,7 +1,10 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-base:dx11-dev-0.1.0-b4
+#    ldc-base:dx11-dev${ldcvers}${ldcextv}
 #
 # ===========================================================================
 
@@ -11,12 +14,12 @@ echo "   **** stopping ldc-base-dx11-dev container"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-base-dx11-dev-0.1.0-b4
-docker rm ldc-base-dx11-dev-0.1.0-b4
+docker stop ldc-base-dx11-dev${ldcvers}${ldcextv}
+docker rm ldc-base-dx11-dev${ldcvers}${ldcextv}
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-base-dx11-dev-0.1.0-b4 container"
+echo "   **** installing ldc-base-dx11-dev${ldcvers}${ldcextv} container"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -33,8 +36,8 @@ docker run \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-base-dx11-dev-0.1.0:/root \
-  -v ${HOME}/.config/docker/ldc-base-dx11-dev-0.1.0/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-base-dx11-dev${ldcvers}:/root \
+  -v ${HOME}/.config/docker/ldc-base-dx11-dev${ldcvers}/workspace:/workspace \
   \
   -e DISPLAY=unix${DISPLAY} \
   -v ${HOME}/.Xauthority:/root/.Xauthority \
@@ -44,39 +47,39 @@ docker run \
   \
   -v ${HOME}/Downloads:/Downloads \
   \
-  --name=ldc-base-dx11-dev-0.1.0-b4 \
-ewsdocker/ldc-base:dx11-dev-0.1.0-b4 
+  --name=ldc-base-dx11-dev${ldcvers}${ldcextv} \
+ewsdocker/ldc-base:dx11-dev${ldcvers}${ldcextv} 
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-base:dx11-dev-0.1.0-b4 failed."
+ 	echo "build ewsdocker/ldc-base:dx11-dev${ldcvers}${ldcextv} failed."
  	exit 2
  }
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** stopping ldc-base-dx11-dev-0.1.0-b4 daemon"
+echo "   **** stopping ldc-base-dx11-dev${ldcvers}${ldcextv} daemon"
 echo "   ****"
 echo "   ********************************************"
 echo
 
-docker stop ldc-base-dx11-dev-0.1.0-b4
+docker stop ldc-base-dx11-dev${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "stop ldc-base-dx11-dev-0.1.0-b4 failed."
+ 	echo "stop ldc-base-dx11-dev${ldcvers}${ldcextv} failed."
 	exit 3
  }
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** removing ldc-base-dx11-dev-0.1.0-b4 container"
+echo "   **** removing ldc-base-dx11-dev${ldcvers}${ldcextv} container"
 echo "   ****"
 echo "   ********************************************"
 echo
 
-docker rm ldc-base-dx11-dev-0.1.0-b4
+docker rm ldc-base-dx11-dev${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "rm ldc-base-dx11-dev-0.1.0-b4 failed."
+ 	echo "rm ldc-base-dx11-dev${ldcvers}${ldcextv} failed."
 	exit 4
  }
 

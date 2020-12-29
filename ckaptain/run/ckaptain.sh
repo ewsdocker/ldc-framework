@@ -1,23 +1,25 @@
 #!/bin/bash
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-ckaptain:ckaptain-0.1.0-b4
+#    ldc-ckaptain:ckaptain${ldcvers}${ldcextv}
 #
 # ===========================================================================
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** stopping ldc-ckaptain-ckaptain-0.1.0-b4 container(s)"
+echo "   **** stopping ldc-ckaptain-ckaptain${ldcvers}${ldcextv} container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-ckaptain-ckaptain-0.1.0-b4
-docker rm ldc-ckaptain-ckaptain-0.1.0-b4
+docker stop ldc-ckaptain-ckaptain${ldcvers}${ldcextv}
+docker rm ldc-ckaptain-ckaptain${ldcvers}${ldcextv}
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-ckaptain-ckaptain-0.1.0-b4"
+echo "   **** installing ldc-ckaptain-ckaptain${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -40,25 +42,25 @@ docker run \
   -v ${HOME}/.local:/usrlocal \
   \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-ckaptain-ckaptain-0.1.0-b4:/root \
-  -v ${HOME}/.config/docker/ldc-ckaptain-ckaptain-0.1.0-b4/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-ckaptain-ckaptain${ldcvers}${ldcextv}:/root \
+  -v ${HOME}/.config/docker/ldc-ckaptain-ckaptain${ldcvers}${ldcextv}/workspace:/workspace \
   \
   -v /etc/localtime:/etc/localtime:ro \
   \
   -v ${HOME}/Documents:/Documents \
   \
-  --name=ldc-ckaptain-ckaptain-0.1.0-b4 \
-ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b4
+  --name=ldc-ckaptain-ckaptain${ldcvers}${ldcextv} \
+ewsdocker/ldc-ckaptain:ckaptain${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] || exit $?
 # {
-# 	echo "create container ldc-ckaptain-ckaptain-0.1.0-b4 failed."
+# 	echo "create container ldc-ckaptain-ckaptain${ldcvers}${ldcextv} failed."
 # 	exit 1
 # }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-ckaptain:ckaptain-0.1.0-b4 successfully installed."
+echo "   **** ldc-ckaptain:ckaptain${ldcvers}${ldcextv} successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

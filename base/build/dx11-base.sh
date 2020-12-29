@@ -1,7 +1,10 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-base:dx11-base-0.1.0-b4
+#    ldc-base:dx11-base${ldcvers}${ldcextv}
 #
 # ===========================================================================
 cd ~/Development/ewsldc/ldc-framework/base
@@ -12,8 +15,8 @@ echo "   **** stopping ldc-base:dx11-base container"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-base-dx11-base-0.1.0-b4
-docker rm ldc-base-dx11-base-0.1.0-b4
+docker stop ldc-base-dx11-base${ldcvers}${ldcextv}
+docker rm ldc-base-dx11-base${ldcvers}${ldcextv}
 
 echo "   ********************************************"
 echo "   ****"
@@ -21,11 +24,11 @@ echo "   **** removing ldc-base:dx11-base images"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rmi ewsdocker/ldc-base:dx11-base-0.1.0-b4
+docker rmi ewsdocker/ldc-base:dx11-base${ldcvers}${ldcextv}
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-base:dx11-base-0.1.0-b4"
+echo "   **** building ewsdocker/ldc-base:dx11-base${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ********************************************"
 echo
@@ -37,33 +40,27 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-base" \
   --build-arg BUILD_VERSION="dx11-base" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-base" \
   --build-arg FROM_VERS="dperl" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_EXT="${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
-  --build-arg LIB_INSTALL="0" \
-  --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b4" \
-  --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
-  \
-  --network=pkgnet \
   --file Dockerfile \
   \
-  -t ewsdocker/ldc-base:dx11-base-0.1.0-b4  .
+-t ewsdocker/ldc-base:dx11-base${ldcvers}${ldcextv}  .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-base:dx11-base-0.1.0-b4 failed."
+ 	echo "build ewsdocker/ldc-base:dx11-base${ldcvers}${ldcextv} failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** ldc-base-dx11-base-0.1.0-b4 image created."
+echo "   **** ldc-base-dx11-base${ldcvers}${ldcextv} image created."
 echo "   ****"
 echo "   ***********************************************"
 echo

@@ -1,17 +1,20 @@
 #!/bin/bash
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
+
 echo "   ********************************************"
 echo "   ****"
 echo "   **** stopping zenity container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-dialog-zenity-0.1.0-b4
-docker rm ldc-dialog-zenity-0.1.0-b4
+docker stop ldc-dialog-zenity${ldcvers}${ldcextv}
+docker rm ldc-dialog-zenity${ldcvers}${ldcextv}
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-dialog-zenity-0.1.0-b4"
+echo "   **** installing ldc-dialog-zenity${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -36,26 +39,26 @@ docker run \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-dialog-zenity-0.1.0:/root \
-  -v ${HOME}/.config/docker/ldc-dialog-zenity-0.1.0/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-dialog-zenity${ldcvers}:/root \
+  -v ${HOME}/.config/docker/ldc-dialog-zenity${ldcvers}/workspace:/workspace \
   \
   -v ${HOME}/Source:/source \
   -v ${HOME}/Pictures:/pictures \
   -v ${HOME}/Documents:/documents \
   -v ${HOME}/Development:/development \
   \
-  --name=ldc-dialog-zenity-0.1.0-b4 \
-ewsdocker/ldc-dialog:zenity-0.1.0-b4
+  --name=ldc-dialog-zenity${ldcvers}${ldcextv} \
+ewsdocker/ldc-dialog:zenity${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "create container ldc-dialog-zenity-0.1.0-b4 failed."
+ 	echo "create container ldc-dialog-zenity${ldcvers}${ldcextv} failed."
  	exit 2
  }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-dialog:zenity-0.1.0-b4 successfully installed."
+echo "   **** ldc-dialog:zenity${ldcvers}${ldcextv} successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

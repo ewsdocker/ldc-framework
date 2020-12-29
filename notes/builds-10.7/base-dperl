@@ -1,0 +1,39 @@
+
+  apt-get -y install perl perl-modules-5.28 libapt-pkg-perl libperl5.28 perl-openssl-defaults 
+                     sgml-base libencode-locale-perl liberror-perl libfile-listing-perl 
+                     libfile-mimeinfo-perl libfile-basedir-perl libfile-desktopentry-perl 
+                     libhtml-parser-perl libhtml-tagset-perl libhtml-tree-perl 
+                     libhttp-cookies-perl libhttp-date-perl libhttp-message-perl 
+                     libhttp-negotiate-perl libipc-system-simple-perl libio-html-perl 
+                     libio-socket-ssl-perl liblwp-mediatypes-perl liblwp-protocol-https-perl 
+                     libnet-dbus-perl libnet-http-perl libnet-ssleay-perl libpcre16-3 
+                     libterm-readline-gnu-perl libtext-iconv-perl libtimedate-perl 
+                     liburi-perl libwww-perl libwww-robotrules-perl libxml-parser-perl 
+                     libxml-twig-perl xml-core libgdbm-compat4 libtry-tiny-perl
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Suggested packages:
+  libdata-dump-perl libcrypt-ssleay-perl libauthen-ntlm-perl
+  libunicode-map8-perl libunicode-string-perl xml-twig-tools perl-doc
+  libb-debug-perl liblocale-codes-perl sgml-base-doc debhelper
+Recommended packages:
+  libio-stringy-perl libhtml-format-perl libdata-dump-perl libhtml-form-perl
+  libhttp-daemon-perl libmailtools-perl libtie-ixhash-perl
+  libxml-xpathengine-perl | libxml-xpath-perl
+The following NEW packages will be installed:
+  libapt-pkg-perl libencode-locale-perl liberror-perl libfile-basedir-perl
+  libfile-desktopentry-perl libfile-listing-perl libfile-mimeinfo-perl
+  libgdbm-compat4 libhtml-parser-perl libhtml-tagset-perl libhtml-tree-perl
+  libhttp-cookies-perl libhttp-date-perl libhttp-message-perl
+  libhttp-negotiate-perl libio-html-perl libio-socket-ssl-perl
+  libipc-system-simple-perl liblwp-mediatypes-perl liblwp-protocol-https-perl
+  libnet-dbus-perl libnet-http-perl libnet-ssleay-perl libpcre16-3 libperl5.28
+  libterm-readline-gnu-perl libtext-iconv-perl libtimedate-perl
+  libtry-tiny-perl liburi-perl libwww-perl libwww-robotrules-perl
+  libxml-parser-perl libxml-twig-perl perl perl-modules-5.28
+  perl-openssl-defaults sgml-base xml-core
+0 upgraded, 39 newly installed, 0 to remove and 0 not upgraded.
+Need to get 9643 kB of archives.
+After this operation, 54.6 MB of additional disk space will be used.

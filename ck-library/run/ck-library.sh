@@ -1,8 +1,10 @@
 #!/bin/bash
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-ck-library:ck-library-0.1.0-b4
+#    ldc-ck-library:ck-library${ldcvers}${ldcextv}
 #
 # ===========================================================================
 
@@ -12,12 +14,12 @@ echo "   **** stopping ldc-ck-library:ck-library container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-ck-library-ck-library-0.1.0-b4
-docker rm ldc-ck-library-ck-library-0.1.0-b4
+docker stop ldc-ck-library-ck-library${ldcvers}${ldcextv}
+docker rm ldc-ck-library-ck-library${ldcvers}${ldcextv}
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** installing ldc-ck-library-ck-library-0.1.0-b4"
+echo "   **** installing ldc-ck-library-ck-library${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***********************************************"
 echo
@@ -39,25 +41,25 @@ docker run \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
   -v ${HOME}/.config/docker:/conf \
-  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b4:/root \
-  -v ${HOME}/.config/docker/ldc-ck-library-ck-library-0.1.0-b4/workspace:/workspace \
+  -v ${HOME}/.config/docker/ldc-ck-library-ck-library${ldcvers}${ldcextv}:/root \
+  -v ${HOME}/.config/docker/ldc-ck-library-ck-library${ldcvers}${ldcextv}/workspace:/workspace \
   \
   --mount source=pkgcache,target=/repo \
   \
   -v ${HOME}/Source:/source \
   \
-  --name=ldc-ck-library-ck-library-0.1.0-b4 \
-ewsdocker/ldc-ck-library:ck-library-0.1.0-b4
+  --name=ldc-ck-library-ck-library${ldcvers}${ldcextv} \
+ewsdocker/ldc-ck-library:ck-library${ldcvers}${ldcextv}
 [[ $? -eq 0 ]] ||
  {
- 	echo "create container ldc-ck-library-ck-library-0.1.0-b4 failed."
+ 	echo "create container ldc-ck-library-ck-library${ldcvers}${ldcextv} failed."
  	exit 2
  }
 
 echo
 echo "   ****************************************************************"
 echo "   ****"
-echo "   **** ldc-ck-library:ck-library-0.1.0-b4 successfully installed."
+echo "   **** ldc-ck-library:ck-library${ldcvers}${ldcextv} successfully installed."
 echo "   ****"
 echo "   ****************************************************************"
 echo

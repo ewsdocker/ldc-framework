@@ -1,33 +1,35 @@
 #!/bin/bash
 
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-ckaptain:ckaptain-0.1.0-b4
+#    ldc-ckaptain:ckaptain${ldcvers}${ldcextv}
 #
 # ===========================================================================
 cd ~/Development/ewsldc/ldc-framework/ckaptain
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** stopping ldc-ckaptain-ckaptain-0.1.0-b4 container(s)"
+echo "   **** stopping ldc-ckaptain-ckaptain${ldcvers}${ldcextv} container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-ckaptain-ckaptain-0.1.0-b4
-docker rm ldc-ckaptain-ckaptain-0.1.0-b4
+docker stop ldc-ckaptain-ckaptain${ldcvers}${ldcextv}
+docker rm ldc-ckaptain-ckaptain${ldcvers}${ldcextv}
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** removing ldc-ckaptain:ckaptain-0.1.0-b4 image(s)"
+echo "   **** removing ldc-ckaptain:ckaptain${ldcvers}${ldcextv} image(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
 
-docker rmi ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b4
+docker rmi ewsdocker/ldc-ckaptain:ckaptain${ldcvers}${ldcextv}
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ldc-ckaptain:ckaptain-0.1.0-b4"
+echo "   **** building ldc-ckaptain:ckaptain${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -38,7 +40,7 @@ docker build \
   \
   --build-arg RUN_APP="ck-archive.sh" \
   \
-  --build-arg KAPTAIN_HOST="http://alpine-nginx-pkgcache" \
+  --build-arg KAPTAIN_HOST="${pkgserver}" \
   --build-arg KAPTAIN_VERS="0.8" \
   \
   --build-arg BUILD_DAEMON="0" \
@@ -47,43 +49,38 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-ckaptain" \
   --build-arg BUILD_VERSION="ckaptain" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-dialog" \
   --build-arg FROM_VERS="kaptain" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
-  \
-  --build-arg LIB_HOST="http://alpine-nginx-pkgcache" \
-  --build-arg LIB_INSTALL="0" \
-  --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b4" \
+  --build-arg FROM_EXT="${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
   --build-arg CKLIB_INSTALL="1" \
   \
-  --build-arg CKLIB_HOST="http://alpine-nginx-pkgcache" \
-  --build-arg CKLIB_RELEASE="0.1.0-b4" \
+  --build-arg CKLIB_HOST="${pkgserver}" \
+  --build-arg CKLIB_RELEASE="${ldcbasev}${ldcextv}" \
   --build-arg CKLIB_VERS="v.0" \
   --build-arg CKLIB_DIR="ck-library" \
   \
   --build-arg CKLIB_DEST="/opt" \
   --build-arg CKLIB_NAME="ckaptain-lib" \
   \
-  --network=pkgnet \
+  --network="${pkgnet}" \
   \
   --file Dockerfile \
--t ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b4  .
+-t ewsdocker/ldc-ckaptain:ckaptain${ldcvers}${ldcextv}  .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-ckaptain:ckaptain-0.1.0-b4 failed."
+ 	echo "build ewsdocker/ldc-ckaptain:ckaptain${ldcvers}${ldcextv} failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** ldc-ckaptain-ckaptain-0.1.0-b4 successful built."
+echo "   **** ldc-ckaptain-ckaptain${ldcvers}${ldcextv} successful built."
 echo "   ****"
 echo "   ***********************************************"
 echo

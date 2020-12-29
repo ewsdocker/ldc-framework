@@ -1,7 +1,10 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-base:dbase-0.1.0-b4
+#    ldc-base:dbase${ldcvers}${ldcextv}
 #
 # ===========================================================================
 cd ~/Development/ewsldc/ldc-framework/base
@@ -12,8 +15,8 @@ echo "   **** stopping ldc-base:dbase container"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-base-dbase-0.1.0-b4 2>null
-docker rm ldc-base-dbase-0.1.0-b4 2>null
+docker stop ldc-base-dbase${ldcvers}${ldcextv} 2>null
+docker rm ldc-base-dbase${ldcvers}${ldcextv} 2>null
 
 echo "   ********************************************"
 echo "   ****"
@@ -21,11 +24,11 @@ echo "   **** removing ldc-base:dbase image"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker rmi ewsdocker/ldc-base:dbase-0.1.0-b4 
+docker rmi ewsdocker/ldc-base:dbase${ldcvers}${ldcextv} 
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-base:dbase-0.1.0-b4 image "
+echo "   **** building ewsdocker/ldc-base:dbase${ldcvers}${ldcextv} image "
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -41,33 +44,33 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-base" \
   --build-arg BUILD_VERSION="dbase" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-core" \
   --build-arg FROM_VERS="dcore" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_EXT="${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
-  --build-arg LIB_VERSION="0.1.6" \
-  --build-arg LIB_VERS_MOD="-b4" \
+  --build-arg LIB_VERSION="${libver}" \
+  --build-arg LIB_VERS_MOD="${ldcextv}" \
   --build-arg LIB_INSTALL="1" \
   \
   --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
   --network=pkgnet \
   \
   --file Dockerfile \
-  -t ewsdocker/ldc-base:dbase-0.1.0-b4  .
+  -t ewsdocker/ldc-base:dbase${ldcvers}${ldcextv}  .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-base:dbase-0.1.0-b4 failed."
+ 	echo "build ewsdocker/ldc-base:dbase${ldcvers}${ldcextv} failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** ldc-base-dbase-0.1.0-b4 image created."
+echo "   **** ldc-base-dbase${ldcvers}${ldcextv} image created."
 echo "   ****"
 echo "   ***********************************************"
 echo

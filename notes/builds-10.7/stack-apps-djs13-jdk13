@@ -1,0 +1,14 @@
+  apt-get -y install build-essential dpkg-dev libdpkg-perl nodejs
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Suggested packages:
+  debian-keyring git bzr
+Recommended packages:
+  libalgorithm-merge-perl libfile-fcntllock-perl liblocale-gettext-perl
+The following NEW packages will be installed:
+  build-essential dpkg-dev libdpkg-perl nodejs
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 27.5 MB of archives.
+After this operation, 122 MB of additional disk space will be used.

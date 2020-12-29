@@ -1,7 +1,10 @@
 #!/bin/bash
+
+. ~/Development/ewsldc/ldc/ldc-common.sh
+
 # ===========================================================================
 #
-#    ldc-dialog:zenity-0.1.0-b4
+#    ldc-dialog:zenity${ldcvers}${ldcextv}
 #
 # ===========================================================================
 
@@ -13,8 +16,8 @@ echo "   **** stopping zenity container(s)"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker stop ldc-dialog-zenity-0.1.0-b4
-docker rm ldc-dialog-zenity-0.1.0-b4
+docker stop ldc-dialog-zenity${ldcvers}${ldcextv}
+docker rm ldc-dialog-zenity${ldcvers}${ldcextv}
 
 echo "   ********************************************"
 echo "   ****"
@@ -23,11 +26,11 @@ echo "   ****"
 echo "   ********************************************"
 echo
 
-docker rmi ewsdocker/ldc-dialog:zenity-0.1.0-b4
+docker rmi ewsdocker/ldc-dialog:zenity${ldcvers}${ldcextv}
 
 echo "   ***************************************************"
 echo "   ****"
-echo "   **** building ewsdocker/ldc-dialog:zenity-0.1.0-b4"
+echo "   **** building ewsdocker/ldc-dialog:zenity${ldcvers}${ldcextv}"
 echo "   ****"
 echo "   ***************************************************"
 echo
@@ -43,31 +46,30 @@ docker build \
   \
   --build-arg BUILD_NAME="ldc-dialog" \
   --build-arg BUILD_VERSION="zenity" \
-  --build-arg BUILD_VERS_EXT="-0.1.0" \
-  --build-arg BUILD_EXT_MOD="-b4" \
+  --build-arg BUILD_VERS_EXT="${ldcvers}" \
+  --build-arg BUILD_EXT_MOD="${ldcextv}" \
   \
   --build-arg BUILD_PKG="Zenity v. 3.22.0" \
   \
   --build-arg FROM_REPO="ewsdocker" \
   --build-arg FROM_PARENT="ldc-stack" \
   --build-arg FROM_VERS="dgtk3-x11" \
-  --build-arg FROM_EXT="-0.1.0" \
-  --build-arg FROM_EXT_MOD="-b4" \
+  --build-arg FROM_EXT="${ldcvers}" \
+  --build-arg FROM_EXT_MOD="${ldcextv}" \
   \
-  --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
-  --network=pkgnet \
+  --network="${pkgnet}" \
   \
   --file Dockerfile \
--t ewsdocker/ldc-dialog:zenity-0.1.0-b4 .
+-t ewsdocker/ldc-dialog:zenity${ldcvers}${ldcextv} .
 [[ $? -eq 0 ]] ||
  {
- 	echo "build ewsdocker/ldc-dialog:zenity-0.1.0-b4 failed."
+ 	echo "build ewsdocker/ldc-dialog:zenity${ldcvers}${ldcextv} failed."
  	exit 1
  }
 
 echo "   ***********************************************"
 echo "   ****"
-echo "   **** ldc-dialog-zenity-0.1.0-b4 image created."
+echo "   **** ldc-dialog-zenity${ldcvers}${ldcextv} image created."
 echo "   ****"
 echo "   ***********************************************"
 echo

@@ -1,0 +1,26 @@
+Fetched 374 kB in 2s (184 kB/s)
+Reading package lists...
+Installing kaptain
+--2020-12-27 17:37:28--  http://anginx-pkgcache/kaptain_0.8_amd64_debian.deb
+Resolving anginx-pkgcache (anginx-pkgcache)... 172.30.0.2
+Connecting to anginx-pkgcache (anginx-pkgcache)|172.30.0.2|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 330954 (323K) [application/octet-stream]
+Saving to: 'kaptain_0.8_amd64_debian.deb'
+
+     0K .......... .......... .......... .......... .......... 15% 6.86M 0s
+    50K .......... .......... .......... .......... .......... 30%  105M 0s
+   100K .......... .......... .......... .......... .......... 46% 19.7M 0s
+   150K .......... .......... .......... .......... .......... 61%  230M 0s
+   200K .......... .......... .......... .......... .......... 77%  245M 0s
+   250K .......... .......... .......... .......... .......... 92% 30.0M 0s
+   300K .......... .......... ...                             100% 29.1M=0.01s
+
+2020-12-27 17:37:28 (24.5 MB/s) - 'kaptain_0.8_amd64_debian.deb' saved [330954/330954]
+
+Selecting previously unselected package kaptain.
+(Reading database ... 22978 files and directories currently installed.)
+Preparing to unpack kaptain_0.8_amd64_debian.deb ...
+Unpacking kaptain (1:0.73-2) ...
+Setting up kaptain (1:0.73-2) ...
+ck-library completed
