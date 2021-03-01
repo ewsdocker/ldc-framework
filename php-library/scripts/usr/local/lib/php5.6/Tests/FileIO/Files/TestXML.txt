@@ -1,0 +1,6 @@
+<PHPTests>
+	<AssertTest>
+		<Name></Name>
+		<File></File>
+	</AssertTest>
+</PHPTests>

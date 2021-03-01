@@ -1,0 +1,271 @@
+#!/binbash
+# ******************************************************************************
+# ******************************************************************************
+#
+#   	ldcJq.lib
+#			Provides access to jq to perform queries on json files
+#
+# *****************************************************************************
+#
+# @author Jay Wheeler.
+# @version 0.0.1
+# @copyright © 2016-2021. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package Linux Management Scripts
+# @subpackage libJq
+#
+# *****************************************************************************
+#
+#	Copyright © 2016-2021. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-bash.
+#
+#   ewsdocker/ldc-bash is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-bash is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-bash.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# *****************************************************************************
+#
+#	Version 0.0.1 - 01-29-2021.
+#
+# ******************************************************************************
+#
+#	Dependencies
+#
+#		/usr/bin/jq
+#
+# *****************************************************************************
+#
+#	Functions:
+#
+#		ldcJqFile
+#			Set the name of the json file to process 
+#
+#		ldcJqInit
+#			initialize query vars and set the json file to query
+#
+#		ldcJqOptions
+#			Set the command options, if any. 
+#				This is persistent... it will last until changed 
+#
+#		ldcJqQuery
+#			execute a query and set the query result value
+#
+#		ldcJqReset
+#			reset query vars
+#
+# ******************************************************************************
+# ******************************************************************************
+
+declare -r ldclib_ldcJq="0.0.1"					# version of ldcJq
+declare    ldcjq_Jq="/usr/bin/jq"				# path to jq
+
+# ******************************************************************************
+#
+#	Global declarations
+#
+# ******************************************************************************
+
+declare    ldcjq_Path="."						# Path to the json file directory
+declare    ldcjq_FileName=""					# name of the json file to query
+declare -i ldcjq_FileExists=0					# true if the json file exists
+
+declare    ldcjq_Query=""						# the current (or last executed) query
+declare    ldcjq_QueryResult=""					# the result of the last executed query
+
+declare    ldcjq_QueryOpts=""					# list of query options
+
+declare -i ldcjq_Initialized=false				# true if initialized (first time)
+declare    ldcjq_Result=0						# status returned from Jq function call
+
+# ******************************************************************************
+# ******************************************************************************
+#
+#						Functions
+#
+# ******************************************************************************
+# ******************************************************************************
+
+# ******************************************************************************
+#
+#	ldcJqInit
+#
+#		initialize query vars and set the json file to query
+#
+#	parameters:
+#		file = absolute path to the json file to query
+#		jqpath = (optional) path to the jq program
+#
+#	returns:
+#		0 = no error
+#		non-zero = error code
+#
+# ******************************************************************************
+function ldcJqInit()
+{
+	local file="${1}"
+	local jqpath=${2:-"."}
+
+	ldcjq_Result=0
+	ldcjq_Initialized=0
+
+	ldcJqReset
+
+	ldcjq_Path="${jqpath}"
+
+    [[ -z "${file}" ]] ||
+	 {
+		ldcJqFile "${file}"
+		[[ $? -eq 0 ]] || return 1
+	 }
+
+	ldcjq_Initialized=1
+	return 0
+}
+
+# ******************************************************************************
+#
+#	ldcJqReset
+#
+#		reset query vars
+#
+#	parameters:
+#		none
+#
+#	returns:
+#		0 => no error
+#
+# ******************************************************************************
+function ldcJqReset()
+{
+	set -o pipefail
+
+	ldcjq_Path="."
+	ldcjq_Query=""
+	ldcjq_QueryOpts=""
+
+	ldcjq_QueryResult=""
+
+	ldcjq_FileName=""
+}
+
+# ******************************************************************************
+#
+#	ldcJqOptions
+#
+#		Set the command options, if any. 
+#			This is persistent... it will last until changed 
+#
+#	parameters:
+#		jopts = the command options, null ("") to clear.
+#
+#	returns:
+#		0 => no error
+#		1 => query error
+#
+# ******************************************************************************
+function ldcJqOptions()
+{
+	ldcjq_QueryOpts="${1}"
+	ldcjq_Result=0
+
+	return $ldcjq_Result
+}
+
+# ******************************************************************************
+#
+#	ldcJqFile
+#
+#		Set the name of the json file to process 
+#
+#	parameters:
+#		jfile = the name of the json file to process
+#
+#	returns:
+#		0 => no error
+#		1 => query error
+#
+# ******************************************************************************
+function ldcJqFile()
+{
+	ldcjq_FileExists=0
+	ldcjq_Result=1
+
+	while [ true ]
+	do
+		[[ -z "${1}" ]] && break
+
+		(( ldcjq_Result++ ))
+
+		local jfile="${1}"
+		[[ -e "${ldcjq_Path}/${jfile}" ]] || break
+
+		ldcjq_FileExists=1
+		ldcjq_FileName=${jfile}
+
+		ldcjq_Result=0
+		break
+
+    done			
+
+	return $ldcjq_Result
+}
+
+# ******************************************************************************
+#
+#	ldcJqQuery
+#
+#		execute a query and set the query result value
+#
+#	parameters:
+#		jquery = jq query to execute
+#       jopts  = (optional) override global jq options values and use these instead
+#								(only for this call)
+#
+#	returns:
+#		0 = no error
+#		non-zero = error code
+#
+# ******************************************************************************
+function ldcJqQuery()
+{
+	ldcjq_QueryResult=""
+	ldcjq_Result=1
+
+	while [ true ]
+	do
+		[[ -z "${1}" ]] && break
+
+    	(( ldcjq_Result++ ))
+
+		ldcjq_Query=${1}
+		local jopts=${2:-"$ldcjq_QueryOpts"}
+
+		ldcjq_QueryResult=$( ${ldcjq_Jq} ${jopts} '${ldcjq_Query}' "${ldcjq_Path}/${ldcjq_QueryFile}" )
+		[[ $? -eq 0 ]] || break
+
+    	(( ldcjq_Result++ ))
+
+		[[ -z "${ldcjq_QueryResult}" ]] && break
+
+		ldcjq_Result=0
+		break
+    done
+
+	return $ldcjq_Result
+}
+
+# ******************************************************************************
+# ******************************************************************************
+

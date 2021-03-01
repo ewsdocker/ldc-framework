@@ -4,18 +4,18 @@ declare instList=" "
 
 # =========================================================================
 #
-#	addPkg
-#		add specified package to install list
+#   addPkg
+#	add specified package to install list
 #
 #   Enter:
-#		instPkg = "package" name to add to the installation list
-#		instComment = comment... not used, but tolerated for documentation
+#	instPkg = "package" name to add to the installation list
+#	instComment = comment... not used, but tolerated for documentation
 #
 # =========================================================================
 function addPkg()
 {
-	local instPkg="${1}"
-	local instComment="${2}"
+    local instPkg="${1}"
+    local instComment="${2}"
 
     printf -v instList "%s %s" "${instList}" "${instPkg}"
     return 0
@@ -23,41 +23,41 @@ function addPkg()
 
 # =========================================================================
 #
-#	installList
-#		the instList has been built, now execute it
+#   installList
+#	the instList has been built, now execute it
 #
 #   Enter:
-#		none
+#	none
 #
 # =========================================================================
 function installList()
 {
-	echo ""
-	echo "$instList"
-	echo ""
+    echo ""
+    echo "$instList"
+    echo ""
 
-	$instList
-	[[ $? -eq 0 ]] || exit $?
+    $instList
+    [[ $? -eq 0 ]] || exit $?
 
     return 0
 }
 
 # =========================================================================
 #
-#	installPackage
-#		download & install requested package
+#   installPackage
+#	download & install requested package
 #
 #   Enter:
-#		instPkg = "package" name downloaded - what you are going to extract from
-#		instUrl = server to download the pkg from
-#		instDir = directory to extract to
+#	instPkg = "package" name downloaded - what you are going to extract from
+#	instUrl = server to download the pkg from
+#	instDir = directory to extract to
 #
 # =========================================================================
 function installPackage()
 {
-	local instPkg="${1}"
-	local instUrl="${2}"
-	local instDir="${3}"
+    local instPkg="${1}"
+    local instUrl="${2}"
+    local instDir="${3}"
 
     wget "${instUrl}" 
     [[ $? -eq 0 ]] || return $?
@@ -72,7 +72,7 @@ function installPackage()
 
 # =======================================================================
 
-apt-get -y update
+#apt-get -y update
 
 # =======================================================================
 

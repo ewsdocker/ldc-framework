@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+                  xmlns:tns="http://taxengine.sourceforge.net/SOAP/taxEngineServer" 
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+                  name="MCPtv"
+                  targetNamespace="http://192.168.0.115/SOAP/tvServer">
+
+  <!-- ================================ -->
+  <!--                                  -->
+  <!--    	processLookup			    -->
+  <!--                                  -->
+  <!-- ================================ -->
+  <wsdl:message name="processLookupRequest">
+    <wsdl:part name="seriesId" type="xsd:string" />
+    <wsdl:part name="maxSeries" type="xsd:integer" />
+  </wsdl:message>
+
+  <wsdl:message name="processLookupResponse">
+    <wsdl:part name="seriesResults" type="xsd:string" />
+  </wsdl:message>
+
+  <!-- ================================ -->
+  <!--                                  -->
+  <!--    		wsdl:portType    		-->
+  <!--                                  -->
+  <!-- ================================ -->
+  <wsdl:portType name="MCPtvPort">
+
+    <!-- ================================ -->
+    <!--                                  -->
+    <!--    	processLookup  			  -->
+    <!--                                  -->
+    <!-- ================================ -->
+    <wsdl:operation name="processLookup">
+      <wsdl:input  message="tns:processLookupRequest"/>
+      <wsdl:output message="tns:processLookupResponse"/>
+    </wsdl:operation>
+
+  </wsdl:portType>
+
+  <!-- ================================ -->
+  <!--                                  -->
+  <!--    		wsdl:binding    		-->
+  <!--                                  -->
+  <!-- ================================ -->
+
+  <wsdl:binding name="taxEngineBinding" type="tns:taxEnginePort">
+
+  	<soap:binding style="rpc"
+  		          transport="http://schemas.xmlsoap.org/soap/http" />
+
+  	<!-- ================================ -->
+  	<!--                                  -->
+  	<!--    	Compute	    			  -->
+  	<!--                                  -->
+  	<!-- ================================ -->
+  	<wsdl:operation name="compute">
+		<soap:operation soapAction="urn:tax-engine#Compute" />
+
+  		<wsdl:input>
+  			<soap:body use="encoded"
+  					   namespace="urn:tax-engine"
+  					   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+  		</wsdl:input>
+
+  		<wsdl:output>
+  			<soap:body use="encoded"
+  					   namespace="urn:tax-engine"
+  					   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+  		</wsdl:output>
+
+  	</wsdl:operation>
+
+  </wsdl:binding>
+
+  <!-- ================================ -->
+  <!--                                  -->
+  <!--    		wsdl:service    		-->
+  <!--                                  -->
+  <!-- ================================ -->
+  <wsdl:service name="taxEngine">
+    <wsdl:port binding="tns:taxEngineBinding" name="taxEnginePort">
+      <soap:address location="http://taxengine.sourceforge.net/SOAP/taxEngineServer/serverindex.php"/>
+    </wsdl:port>
+  </wsdl:service>
+
+</wsdl:definitions>

@@ -8,15 +8,15 @@
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 0.0.6
-# @copyright © 2018-2020. EarthWalk Software.
+# @version 0.0.7
+# @copyright © 2018-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-library
 # @subpackage lmsArchiveUtilities.lib
 #
 # =========================================================================
 #
-#	Copyright © 2018-2020. EarthWalk Software
+#	Copyright © 2018-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-library.
@@ -117,9 +117,7 @@ function lmsArchiveGzip()
 	do
 		[[ -z ${tarball} ]] && rslt=1
 
-		[[ $rslt -eq 0 ]] || break
-
-		gzip "${tarball}.tar"
+		[[ $rslt -eq 0 ]] && gzip "${tarball}.tar"
 		[[ $? -eq 0 ]] || rslt=3
 
 		break

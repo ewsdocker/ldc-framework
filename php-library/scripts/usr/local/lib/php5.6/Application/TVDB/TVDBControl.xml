@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<configdata>
+	<name>TVDBControl.xml</name>
+	<copyright>Copyright 2015. EarthWalk Software. Created by Jay Wheeler.</copyright>
+	<production>
+
+		<Verbose>0</Verbose>
+
+		<PHPProjectLibrary>/usr/local/include/php/PHPProjectLibrary</PHPProjectLibrary>
+
+		<Launcher>
+		    <ConfigRequired>1</ConfigRequired>
+			<ConfigPath>Application\Launcher</ConfigPath>
+			<ConfigAdapter>fileobject</ConfigAdapter>
+			<ConfigMode>r</ConfigMode>
+			<ConfigName>launcherConfig</ConfigName>
+			<ConfigType>xml</ConfigType>
+			<ConfigIOAdapter>fileio</ConfigIOAdapter>
+			<ConfigIOAdapterType>fileobject</ConfigIOAdapterType>
+		</Launcher>
+
+		<Log>
+			<TVDBControl>
+				<Name>TVDBControl</Name>
+				<SkipLevels>4</SkipLevels>
+				<Adapter>fileio</Adapter>
+				<Format>timestamp</Format>
+				<Level>errors</Level>
+				<Exception>NoError</Exception>
+				<Error>NoError</Error>
+				<Program>TVDBControl</Program>
+				<FileAdapter>fileobject</FileAdapter>
+				<FileMode>w</FileMode>
+				<FileDestination>TVDBControl</FileDestination>
+				<FileType>log</FileType>
+				<IOAdapter>fileio</IOAdapter>
+				<IOAdapterType>fileobject</IOAdapterType>
+		    </TVDBControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>0</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>0</DisplayErrors>
+			<EnableExceptions>0</EnableExceptions>
+			<LogErrors>0</LogErrors>
+			<LogLevel>errors</LogLevel>
+		</ErrorHandler>
+
+		<TVDB>
+			<DbHost>192.168.0.115</DbHost>
+			<DbPort>3306</DbPort>
+			<DbName>TVDB</DbName>
+			<DbDriver>mysql</DbDriver>
+			<DbUser>phplibuser</DbUser>
+			<DbPassword>phplibpwd</DbPassword>
+
+			<AccountUrl>http://thetvdb.com/api/</AccountUrl>
+			<AccountKey>D29BEE8036451BD0</AccountKey>
+			<AccountNumber>9FC72AE60462A27C</AccountNumber>
+			<AccountOwner>jaywheeler</AccountOwner>
+			<AccountPassword>MurPhy22</AccountPassword>
+			
+			<ZipDirectory>/var/local/archive/TVDB/zips</ZipDirectory>
+			<ZipExtractDirectory>/var/local/archive/TVDB/Series</ZipExtractDirectory></TVDB>
+
+	</production>
+
+	<development extends="production">
+
+		<Verbose>1</Verbose>
+
+		<Launcher>
+		    <ConfigRequired>0</ConfigRequired>
+		</Launcher>
+
+		<Log>
+			<TVDBControl>
+				<Level>debug</Level>
+			</TVDBControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>1</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>1</DisplayErrors>
+			<EnableExceptions>1</EnableExceptions>
+			<LogErrors>1</LogErrors>
+			<LogLevel>debug</LogLevel>
+		</ErrorHandler>
+
+	</development>
+
+	<testing extends="production">
+
+		<Verbose>2</Verbose>
+
+		<Launcher>
+		    <ConfigRequired>0</ConfigRequired>
+		</Launcher>
+
+		<Log>
+			<TVDBControl>
+				<Level>debug</Level>
+			</TVDBControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>1</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>1</DisplayErrors>
+			<EnableExceptions>1</EnableExceptions>
+			<LogErrors>1</LogErrors>
+			<LogLevel>debug</LogLevel>
+		</ErrorHandler>
+
+		<TVDB>
+			<DbHost>10.10.10.2</DbHost>
+		</TVDB>
+
+	</testing>
+
+</configdata>

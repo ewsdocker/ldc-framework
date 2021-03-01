@@ -33,6 +33,8 @@ docker run \
   \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
   -v ${HOME}/.config/docker:/conf \
   -v ${HOME}/.config/docker/ldc-dialog-yad-0.1.0:/root \
   -v ${HOME}/.config/docker/ldc-dialog-yad-0.1.0/workspace:/workspace \

@@ -1,0 +1,383 @@
+#!/bin/bash
+# =========================================================================================
+# =========================================================================================
+#
+#	lmsDockerNetwork.lib
+#	  Simple queries of docker container/image state.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.1
+# @copyright © 2019-2021. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/lms-utilities
+# @subpackage lmsDockerNetwork.lib
+#
+# =========================================================================================
+#
+#	Copyright © 2019-2021. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/lms-utilities.
+#
+#   ewsdocker/lms-utilities is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/lms-utilities is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/lms-utilities.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+
+# =========================================================================================
+# =========================================================================================
+#
+#	Dependencies:
+#		lmsDockerQuery.lib
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+# =========================================================================================
+#
+#	Library functions
+#
+#   	dnInit 
+#			Initialize dnNetwork variables and states.
+#
+#       dnCommand
+#  		    Execute the requested docker command.
+#
+#       dnConnect
+#  		    Connect a container to a network.
+#
+#       dnCreate
+#  		    Create a network.
+#
+#       dnDisconnect
+#  		    Disconnect from a network
+#
+#       dnInspect
+#  		    Inspect a network (returns information in dq_cmndbuffer)
+#
+#       dnLs
+#  		    List all the networks known to Docker.
+#
+#       dnPrune
+#  		    Remove all networks which are not referenced by any containers.
+#
+#       dnRm
+#  		    Remove one or more networks.
+#
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+# =========================================================================================
+#
+#	global declarations
+#
+# =========================================================================================
+# =========================================================================================
+
+declare    dn_name="";
+
+# =========================================================================================
+#
+#	dnAddErrors
+#
+#		Add error names and associated messages to the lmsErrorMsg library.
+#
+#	parameters:
+#		none
+#
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dnAddErrors()
+{
+    # =====================================================================================
+    #
+    #    State Errors
+    #
+    # =====================================================================================
+
+    lmsErrorAdd "dnerror_command"           "An error during command execution occured."
+	lmsErrorAdd "dnerror_create"            "Create network error."
+	lmsErrorAdd "dnerror_inspect"           "Inspect network error."
+	lmsErrorAdd "dnerror_ls"                "List network(s) error."
+	lmsErrorAdd "dnerror_prune"             "Pruning network(s) error."
+	lmsErrorAdd "dnerror_rm"                "Remove network(s) error."
+}
+
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#	dnInit
+#
+#		Initialize dqVolume variables and states.
+#
+#	parameters:
+#		none
+#
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dnInit()
+{
+	dn_name="";
+
+	dnAddErrors
+
+	lmsErrorSet "none"
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dnCommand
+#
+#  		Execute the requested docker command.
+#
+#   parameters:
+#		dn_command = (optional) docker command, default = current global dq_command
+#		dn_cmdlist = (optional) command options list
+#
+#	returns:
+#      0 = started
+#      1 = not started
+#
+# =========================================================================================
+function dnCommand()
+{
+	local dn_command=${1:-"$dq_command"}
+	local dn_cmdlist=${2:-""}
+
+	lmsErrorSet "none"
+
+    dqCommand "synch" "network" "${dn_command} ${dn_cmdlist}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dnerror_command"
+
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dnConnect
+#
+#  		Connect a container to a network.
+#
+#   parameters:
+#		dn_name = (optional) docker network name (default = $dn_name)
+#       dn_container = (optional) docker container name to connect (default = $dq_cname )
+#       dn_options = (optional) docker network options list
+#
+#	returns:
+#      0 = created
+#      non-zero = not created
+#
+# =========================================================================================
+function dnConnect()
+{
+	local dnname=${1:-"$dn_name"}
+
+	local dn_container=${2:-"$dq_cname"}
+	local dn_options=${3:-""}
+
+	lmsErrorSet "none"
+
+	dnCommand "connect" "${dn_options} ${dnname} ${dq_cname}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dnerror_connect"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dnCreate
+#
+#  		Create a network
+#
+#   parameters:
+#		dn_name = (optional) docker network name (default = $dn_name)
+#       dn_options = (optional) docker network creation options list
+#
+#	returns:
+#      0 = created
+#      non-zero = not created
+#
+# =========================================================================================
+function dnCreate()
+{
+	local dnname=${1:-"$dn_name"}
+	local dn_options=${2:-""}
+
+	lmsErrorSet "none"
+
+	dnCommand "create" "${dn_options} ${dnname}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dnerror_create"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dnDisconnect
+#
+#  		Disconnect from a network
+#
+#   parameters:
+#		dn_name = (optional) docker network name (default = $dn_name)
+#       dn_container = (optional) docker container name to connect (default = $dq_cname )
+#       dn_options = (optional) docker network options list
+#
+#	returns:
+#      0 = created
+#      non-zero = not created
+#
+# =========================================================================================
+function dnDisconnect()
+{
+	local dnname=${1:-"$dn_name"}
+
+	local dn_container=${2:-"$dq_cname"}
+	local dn_options=${3:-""}
+
+	lmsErrorSet "none"
+
+	dnCommand "disconnect" "${dn_options} ${dnname} ${dq_cname}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dnerror_disconnect"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dnInspect
+#
+#  		Returns information about one or more networks. 
+#
+#   parameters:
+#		dn_name = (optional) docker network name(s) (default = $dn_name)
+#       dn_options = (optional) docker network creation options list
+#
+#	returns:
+#      0 = network exists, information returned
+#      non-zero = no volume match
+#
+# =========================================================================================
+function dnInspect()
+{
+	local dnname=${1:-"$dn_name"}
+	local dn_options=${2:-""}
+
+	lmsErrorSet "none"
+
+	dnCommand "inspect" "${dn_options} ${dnname}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dnerror_inspect"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dnLs
+#
+#  		List all the networks known to Docker.
+#
+#   parameters:
+#       dn_options = (optional) list options.
+#
+#	returns:
+#      0 = list information returned
+#      non-zero = no networks
+#
+# =========================================================================================
+function dnLs()
+{
+	local dn_options=${1:-""}
+
+	lmsErrorSet "none"
+
+	dnCommand "ls" "${dn_options}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dnerror_ls"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dnPrune
+#
+#  		Remove all networks which are not referenced by any containers.
+#
+#   parameters:
+#       dn_options = (optional) list options.
+#
+#	returns:
+#      0 = network exists, information returned
+#      non-zero = no network match
+#
+# =========================================================================================
+function dnPrune()
+{
+	local dn_options=${1:-""}
+
+	lmsErrorSet "none"
+
+	dnCommand "prune" "${dn_options}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dnerror_prune"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dnRm
+#
+#  		Removes one or more disconnected networks by name or identifier.
+#
+#   parameters:
+#		dn_names = (optional) docker network names (default = $dn_name)
+#
+#	returns:
+#      0 = network exists, information returned
+#      non-zero = no network match
+#
+# =========================================================================================
+function dnRm()
+{
+	local dnname=${1:-"$dn_name"}
+
+	lmsErrorSet "none"
+
+	dnCommand "rm" "${dnname}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dnerror_rm"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+# =========================================================================================
+#
+#		End of Library
+#
+# =========================================================================================
+# =========================================================================================
+

@@ -206,4 +206,6 @@ WORKDIR /root
 
 # =========================================================================
 
-CMD ["lms-library-install"]
+CMD ["/bin/bash"]
+
+#CMD ["lms-library-install"]

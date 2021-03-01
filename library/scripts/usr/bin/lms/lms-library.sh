@@ -8,15 +8,15 @@
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.2
-# @copyright © 2018-2020. EarthWalk Software.
+# @version 0.1.3
+# @copyright © 2018-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-library
 # @subpackage ldc-library
 #
 # =========================================================================
 #
-#	Copyright © 2018-2020. EarthWalk Software
+#	Copyright © 2018-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-library.
@@ -127,6 +127,25 @@ lmsMessage="   Created archive: ${LMSU_TARBALL}"
 
 lmsDisplay ""
 lmsDisplay "${lmsMessage}"
+
+# **********************************************************************************
+
+lmsCRm=$( rm -Rf "/opt/dlibrary/${LMSU_VERS}${LMSU_VERSX}" >/dev/null 2>/dev/null )
+
+lmsDisplay ""
+lmsDisplay "untar ${LMSU_DEST}/${LMSU_TARGZIP}"
+lmsDisplay ""
+
+mkdir -p "/opt/dlibrary/${LMSU_VERS}${LMSU_VERSX}"
+
+oPwd="${PWD}"
+cd "/opt/dlibrary/${LMSU_VERS}${LMSU_VERSX}"
+
+tar -xvf "${LMSU_DEST}/${LMSU_TARGZIP}"
+
+cd "${oPwd}"
+
+# **********************************************************************************
 
 lmsDisplay ""
 lmsDisplay "*************************************************************"

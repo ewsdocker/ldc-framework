@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<configdata>
+	<name>AudioControl.xml</name>
+	<copyright>Copyright 2015. EarthWalk Software. Created by Jay Wheeler.</copyright>
+	<production>
+
+		<Verbose>0</Verbose>
+
+		<PHPProjectLibrary>/usr/local/share/php/PHPProjectLibrary</PHPProjectLibrary>
+
+		<Launcher>
+		    <ConfigRequired>1</ConfigRequired>
+			<ConfigPath>Application\Launcher</ConfigPath>
+			<ConfigAdapter>fileobject</ConfigAdapter>
+			<ConfigMode>r</ConfigMode>
+			<ConfigName>launcherConfig</ConfigName>
+			<ConfigType>xml</ConfigType>
+			<ConfigIOAdapter>fileio</ConfigIOAdapter>
+			<ConfigIOAdapterType>fileobject</ConfigIOAdapterType>
+		</Launcher>
+
+		<Log>
+			<jackAudioControl>
+				<Name>jackAudioControl</Name>
+				<SkipLevels>4</SkipLevels>
+				<Adapter>fileio</Adapter>
+				<Format>timestamp</Format>
+				<Level>errors</Level>
+				<Exception>NoError</Exception>
+				<Error>NoError</Error>
+				<Program>jackAudioControl</Program>
+				<FileAdapter>fileobject</FileAdapter>
+				<FileMode>w</FileMode>
+				<FileDestination>jackAudioControl</FileDestination>
+				<FileType>log</FileType>
+				<IOAdapter>fileio</IOAdapter>
+				<IOAdapterType>fileobject</IOAdapterType>
+		    </jackAudioControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>0</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>0</DisplayErrors>
+			<EnableExceptions>0</EnableExceptions>
+			<LogErrors>0</LogErrors>
+			<LogLevel>errors</LogLevel>
+		</ErrorHandler>
+
+		<Audio>
+			<Radio>
+				<QJackCtl>
+					<Start>
+						<Sequence>10</Sequence>
+						<Command>/usr/bin/qjackctl -s -a /home/jay/Jack/EarthWalkRadio.xml</Command>
+					</Start>
+					<Stop>
+						<Sequence>110</Sequence>
+						<Command>/usr/bin/qjackctl</Command>
+					</Stop>
+				</QJackCtl>
+				<Zita-mu1>
+					<Start>
+						<Sequence>20</Sequence>
+						<Command>/usr/bin/zita-rev1</Command>
+					</Start>
+					<Stop>
+						<Sequence>90</Sequence>
+						<Command>/usr/bin/zita-rev1</Command>
+					</Stop>
+				</Zita-mu1>
+				<Zita-mu1-1>
+					<Start>
+						<Sequence>30</Sequence>
+						<Command>/usr/bin/zita-rev1</Command>
+					</Start>
+					<Stop>
+						<Sequence>80</Sequence>
+						<Command>/usr/bin/zita-rev1</Command>
+					</Stop>
+				</Zita-mu1-1>
+				<Jamin>
+					<Start>
+						<Sequence>40</Sequence>
+						<Command>/usr/bin/jamin</Command>
+					</Start>
+					<Stop>
+						<Sequence>70</Sequence>
+						<Command>/usr/bin/jamin</Command>
+					</Stop>
+				</Jamin>
+				<IDJC>
+					<Start>
+						<Sequence>50</Sequence>
+						<Command>/usr/bin/idjc</Command>
+					</Start>
+					<Stop>
+						<Sequence>60</Sequence>
+						<Command>/usr/bin/python /usr/bin/idjc</Command>
+					</Stop>
+				</IDJC>
+			</Radio>
+	
+		</Audio>
+
+	</production>
+
+	<development extends="production">
+
+		<Verbose>1</Verbose>
+
+		<Launcher>
+		    <ConfigRequired>0</ConfigRequired>
+		</Launcher>
+
+		<Log>
+			<jackAudioControl>
+				<Level>debug</Level>
+			</jackAudioControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>1</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>1</DisplayErrors>
+			<EnableExceptions>1</EnableExceptions>
+			<LogErrors>1</LogErrors>
+			<LogLevel>debug</LogLevel>
+		</ErrorHandler>
+
+	</development>
+
+	<testing extends="production">
+
+		<Verbose>2</Verbose>
+
+		<Launcher>
+		    <ConfigRequired>0</ConfigRequired>
+		</Launcher>
+
+		<Log>
+			<jackAudioControl>
+				<Level>debug</Level>
+			</jackAudioControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>1</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>1</DisplayErrors>
+			<EnableExceptions>1</EnableExceptions>
+			<LogErrors>1</LogErrors>
+			<LogLevel>debug</LogLevel>
+		</ErrorHandler>
+
+		<Audio>
+			<Jack>
+				<QJackCtl>
+					<Start>
+						<Sequence>10</Sequence>
+						<Command>/usr/bin/qjackctl -s -a /home/jay/Jack/EarthWalkRadio.xml</Command>
+					</Start>
+					<Stop>
+						<Sequence>110</Sequence>
+						<Command>/usr/bin/qjackctl</Command>
+					</Stop>
+				</QJackCtl>
+				<Jamin>
+					<Start>
+						<Sequence>30</Sequence>
+						<Command>/usr/bin/jamin</Command>
+					</Start>
+					<Stop>
+						<Sequence>80</Sequence>
+						<Command>/usr/bin/jamin</Command>
+					</Stop>
+				</Jamin>
+				<IDJC>
+					<Start>
+						<Sequence>50</Sequence>
+						<Command>/usr/bin/idjc</Command>
+					</Start>
+					<Stop>
+						<Sequence>60</Sequence>
+						<Command>/usr/bin/python /usr/bin/idjc</Command>
+					</Stop>
+				</IDJC>
+			</Jack>
+		</Audio>
+	</testing>
+</configdata>

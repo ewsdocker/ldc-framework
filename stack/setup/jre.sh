@@ -72,7 +72,7 @@ function installPackage()
 
 # ========================================================
 
-apt-get -y update
+#apt-get -y update
 
 instList="apt-get -y install "
 

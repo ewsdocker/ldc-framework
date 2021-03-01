@@ -1,10 +1,6 @@
 #!/bin/bash
 
-declare ldcvers="-0.1.0"
-declare ldcextv="-b4"
-
-declare ldccont="${ldcvers}"
-declare ldclib="-0.1.6"
+. ~/Development/ewsldc/ldc/ldc-common.sh
 
 # =====================================================================
 #
@@ -80,57 +76,12 @@ function removeImage()
 #
 # =====================================================================
 
-ldcvers="${ldccont}"
-
 echo "*****************************************************************************"
 echo
 echo "Removing all docker ldc images and containers"
 echo
 echo "*****************************************************************************"
 
-removeContainer "browser" "ffquantum" "1"
-removeContainer "browser" "firefox-esr" "1"
-removeContainer "browser" "firefox" "1"
-
-removeImage "browser" "waterfox-current"
-removeImage "browser" "waterfox"
-removeImage "browser" "palemoon"
-removeImage "browser" "netsurf"
-removeImage "browser" "firefox"
-removeImage "browser" "firefox-esr"
-removeImage "browser" "ffquantum"
-
-removeImage "console" "tumblr"
-removeImage "console" "nano"
-
-removeImage "desktop" "shotcut"
-removeImage "desktop" "ripme"
-removeImage "desktop" "obs-studio"
-removeImage "desktop" "mousepad"
-removeImage "desktop" "gimp"
-removeImage "desktop" "dia"
-#
-removeImage "eclipse" "rust"
-removeImage "eclipse" "qt"
-removeImage "eclipse" "php"
-removeImage "eclipse" "javascript"
-removeImage "eclipse" "java"
-removeImage "eclipse" "fortran"
-removeImage "eclipse" "cpp"
-removeImage "eclipse" "bash"
-#
-#
-removeImage "games" "sol"
-removeImage "games" "mahjongg"
-#
-#
-removeImage "libre" "office-jdk"
-removeImage "libre" "office"
-#
-#
-# ==============================================================
-#
-#
 removeImage "ckaptain" "ckaptain"
 #
 #

@@ -1,0 +1,893 @@
+#!/bin/bash
+# =========================================================================================
+# =========================================================================================
+#
+#	ldcDockerQuery.lib
+#	  Simple queries of docker container/image state.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.2
+# @copyright © 2019-2021. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-framework
+# @subpackage library/ldcDockerQuery.lib
+#
+# =========================================================================================
+#
+#	Copyright © 2019-2021. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-framework.
+#
+#   ewsdocker/ldc-framework is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-framework is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-framework.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+
+# =========================================================================================
+# =========================================================================================
+#
+#	Dependencies:
+#		ldcDeclare.lib
+#       ldcErrorMsg.lib
+#		ldcParseColumns.lib
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+# =========================================================================================
+#
+#	Library functions
+#
+#   	dqCheckContainer	
+#			check if the required docker CONTAINER exists.
+#
+#   	dqCheckImage [ <image-name> ]
+#			check if the required docker IMAGE exists.
+#
+#		dqCheckExited		
+#			Check whether or not the container is in an exited state.
+#
+#   	dqCheckRunning		
+#			Check whether or not the container is in a running state.
+#
+#   	dqCheckStatus [ <pStatus> ] [ <pSearch> ]
+#			Check the requested status and the search string present
+#
+#   	dqCheckUserDef [ <pStatus> ] [ <pSearch> ]
+#			Check user defined CONTAINER status.
+#
+#       dqCommand
+#  		    Execute the command in dq_command in selected blocking mode (dq_exectype).
+#
+#   	dqCreateContainer	[ <run-name> ]
+#			Run the container's "docker create" script.
+#
+#		dqFqnToNames
+#			parse the docker fqn to extract the docker image/container/run names
+#
+#		dqGetContainer [ <container-status> ] [ <global-status> ]
+#			get the requested CONTAINER information
+#
+#		dqGetStatus			
+#			get the current status of the CONTAINER
+#
+#   	dqPullImage	[ <image-name> ]		
+#			Pull the required docker IMAGE.
+#
+#   	dqRmContainer [ <container-name> ]
+#			Rm an exited (not running) container.
+#
+#   	dqRmImage [ <image-name> ]
+#			Rmi an image.
+#
+#		dqSetNames [ <repository-name> ] [ <image-name> ] [ <container-name> ] [ <run-name> ]
+#			Set the Repository, Image, Container and Container-Run names
+#
+#   	dqStartContainer [ <container-name> ]
+#			Start an exited (not running) container.
+#
+#   	dqStopContainer	[ <run-name> ]
+#			Stop an exited (not running) container.
+#
+#   	dqWaitEvent [ <wait-event> ] [ <timeout> ]
+#			wait for $event to be true, or timeout expires
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+# =========================================================================================
+#
+#	global declarations
+#
+# =========================================================================================
+# =========================================================================================
+
+declare -i dq_timeout=30		# wait event timeout
+
+declare    dq_iname=""			# image name and version (e.g. - ldc-core:dcore-0.1.0 )
+declare    dq_cname=""			# container name (e.g. - ldc-core-dcore-0.1.0 )
+declare    dq_rname=""			# container run name (e.g. - ldc-core-dcore-0.1.0 )
+
+# =========================================================================================
+
+declare    dq_repo="ewsdocker"	# IMAGE repository name (default = "ewsdocker")
+
+declare -a dq_istatus=()		# IMAGE status array returned from "docker image ls"
+declare -a dq_cstatus=()		# CONTAINER status array returned from "docker container ls"
+
+declare    dq_status=""			# first status line in dq_cstatus array (dq_cstatus[1])
+declare    dq_gstatus=""		# contains the name of the alternative to dq_status
+
+declare    dq_contStatus=""     # last returned container status field
+
+declare -i dq_pcRemap=1			# set to 1 if a pcmap needs re-generation
+
+declare    dq_fieldName="STATUS"
+								# field name to search for (STATUS)
+# =========================================================================================
+
+declare    dq_exectype="synch"	# execution type = asynch, synch
+declare    dq_command=""		# the last command executed (or in process)
+declare	   dq_cmdlist=""		# list of options to the docker command
+
+declare    dq_cmndbuffer=""		# command execution input buffer 
+								#	(console output from command execution)
+declare    dq_logfile=""		# logfile fqn (file name), empty = no log file
+
+# =========================================================================================
+#
+#	Wait Events
+#
+# =========================================================================================
+
+declare    dq_eventRunning=0
+declare    dq_eventExiting=1
+declare    dq_eventUserDef=2
+
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#	dqAddErrors
+#
+#		Add error names and associated messages to the ldcErrorMsg library.
+#
+#	parameters:
+#		none
+#
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dqAddErrors()
+{
+    # =====================================================================================
+    #
+    #    State Errors
+    #
+    # =====================================================================================
+
+	ldcErrorAdd "dqerror_none"            "No error(s)."
+	ldcErrorAdd "dqerror_state"           "Invalid state."
+    ldcErrorAdd "dqerror_template"        "Template error."
+    ldcErrorAdd "dqerror_unknown"         "Unknown error."
+
+    ldcErrorAdd "dqerror_container"       "Docker container error."
+    ldcErrorAdd "dqerror_run"             "Docker container RUN error."
+	ldcErrorAdd "dqerror_start"           "Docker container START error."
+
+	ldcErrorAdd "dqerror_status"          "Bad or invalid status."
+	ldcErrorAdd "dqerror_check"           "Check status error."
+
+	ldcErrorAdd "dqerror_running"         "Docker container is not running."
+	ldcErrorAdd "dqerror_exited"          "Docker container exited."
+
+	ldcErrorAdd "dqerror_event"           "Event error."
+
+	ldcErrorAdd "dqerror_pull"            "Docker container PULL error."
+	ldcErrorAdd "dqerror_stop"            "Docker container STOP error."
+	ldcErrorAdd "dqerror_rm"              "Docker container RM error."
+	ldcErrorAdd "dqerror_rmi"             "Docker image RMI error."
+
+	ldcErrorAdd "dqerror_command"         "Unknown docker command."
+	ldcErrorAdd "dqerror_arg"             "Missing argument(s)."
+	ldcErrorAdd "dqerror_function"        "External function error."
+
+	ldcErrorAdd "dqerror_no_image"        "Unknown image."
+	ldcErrorAdd "dqerror_no_container"    "Unknown container."
+
+	ldcErrorAdd "dqerror_parse_cli"       "Command-line parsing error."
+	ldcErrorAdd "dqerror_strsub"          "Substring error."
+	ldcErrorAdd "dqerror_column"          "Column Title/Index error."
+	
+	return 0
+}                            
+
+# =========================================================================================
+#
+#	dqInitialize
+#
+#		Initialize all fields to their default settings
+#
+#	parameters:
+#		none
+#
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dqInitialize()
+{
+	ldcErrorSet "none"
+
+	dq_timeout=30			# wait event timeout
+
+	dq_iname=""				# image name and version (e.g. - ldc-core:dcore-0.1.0 )
+	dq_cname=""				# container name (e.g. - ldc-core-dcore-0.1.0 )
+	dq_rname=""				# container run name (e.g. - ldc-core-dcore-0.1.0 )
+
+	dq_istatus=()			# IMAGE status array returned from "docker image ls"
+	dq_cstatus=()			# CONTAINER status array returned from "docker container ls"
+
+	dq_pcRemap=1			# set to 1 if need to re-map pcMap
+
+	dq_fieldName="STATUS"	# field name to search for (STATUS)
+	dq_contStatus=""		# last container status query response
+
+	dq_status=""			# first status line in dq_cstatus array (dq_cstatus[1])
+	dq_gstatus=""			# contains the name of the alternative to dq_status
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqCommand
+#
+#  		Execute the command in dq_command in selected blocking mode (dq_exectype).
+#
+#   parameters:
+#		dq_exectype = (optional) command execution type: asynch or synch, default = synch
+#		dq_command = (optional) docker command, default = current global dq_command
+#		dq_cmdlist = (optional) command options list
+#
+#	returns:
+#      0 = started
+#      non-zero = not started
+#
+# =========================================================================================
+function dqCommand()
+{
+	dq_exectype=${1:-"synch"}
+	dq_command=${2:-"$dq_command"}
+	dq_cmdlist=${3:-""}
+
+	ldcErrorSet "none"
+
+	dq_execString="docker ${dq_command} ${dq_cmdlist} "
+	[[ ${dq_exectype} -eq "asynch" ]] && dq_execString="${dq_execString} &"
+
+	dq_cmndbuffer=$( bash -c "${dq_execString}" )
+	[[ $? -eq 0 ]] || ldcErrorSet "dqerror_command"
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#	dqSetNames
+#
+#		Initialize docker reository/image/container/run names
+#
+#	parameters:
+#		repo      = name of the docker repository (e.g. - ewsdocker)
+#		iname     = (optional) IMAGE name (e.g. ldcDockerQuery:latest)
+#       container = (optional) CONTAINER name (e.g. ldcDockerQuery-latest)
+#       rname     = (optional) CONTAINER run name (e.g. ldcDockerQuery)
+#
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dqSetNames()
+{
+	dq_repo=${1:-"ewsdocker"}
+	dq_iname=${2:-"$dq_iname"}
+	dq_cname=${3:-"$dq_cname"}
+	dq_rname=${4:-"$dq_rname"}
+}
+
+# =========================================================================================
+#
+#	dqFqnToNames
+#
+#		parse the docker fqn to extract the docker image/container/run names
+#			( owner/repository:version )
+#
+#	parameters:
+#		image = (optional) name of the docker image
+#					(e.g. - ldcDockerQuery:0.1.0 )
+#
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dqFqnToNames()
+{
+	local l_cliName=${1:-"${cliBuffer[0]}"}
+	local -a l_cnames=()
+
+	[[ -z ${l_cliName} ]] && return 1
+
+	local l_ifs="$IFS"
+	IFS=":"
+    	read -a l_cnames <<< "${l_cliName}"
+	IFS="$l_ifs"
+
+	if [[ ${#l_cnames[@]} -eq 2 ]]
+	then
+		dqSetNames ${dq_repo} "${l_cnames[0]}:${l_cnames[1]}" "${l_cnames[0]}-${l_cnames[1]}" "${l_cnames[0]}-${l_cnames[1]}"
+	else
+		dqSetNames ${dq_repo} "${l_cnames[0]}:latest" "${l_cnames[0]}-latest" "${l_cnames[0]}"
+	fi
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#	dqContainerColumn
+#
+#		locates the boundaries of the specified field in cstatus[0] and
+#			sets "contents" from cstatus[1] field.
+#
+#	parameters:
+#		field     = (optional) the name of the column (default is current dq_fieldName)
+#		fsubstr   = (optional) field title separator (defaults to "  ")
+#		contents  = the name of the global variable to return the result in (default to dq_contStatus)
+#
+#    Returns:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dqContainerColumn()
+{
+	dq_fieldName=${1:-"${dq_fieldName}"}
+	dq_fieldsubstr=${2:-"$dq_fieldsubstr"}
+	local l_contents=${3:-"dq_contStatus"}
+
+	ldcErrorSet "none"
+
+	while [ "${ldcError_name}" == "none" ]
+	do
+		[[ ${dq_pcRemap} -eq 1 ]] &&
+		 {
+			pcMap "${dq_fieldsubstr}" "${dq_cstatus[0]}"
+			[[ $? -eq 0 ]] || 
+			 {
+				ldcErrorSet "dqerror_function"
+				break
+			 }
+
+			pcMapFind "$dq_fieldName"
+			[[ $? -eq 0 ]] ||
+			 {
+		 		ldcErrorSet "dqerror_column"
+		 		break
+			 }
+
+			(( pc_prev=${#pc_colstart[*]}-1 ))
+	 		(( pc_coldata[$pc_prev]=${#dq_cstatus[1]}-${pc_colstart[$pc_prev]} ))
+	 		
+	 		dq_pcRemap=0
+	 	 }
+
+		ldcDeclareStr ${l_contents} "${dq_cstatus[1]:${pc_colstart[$pc_index]}:${pc_coldata[$pc_index]} }"
+		[[ $? -eq 0 ]] || ldcErrorSet "dqerror_function"
+		
+		break
+	done
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#	dqGetStatus
+#
+#		get the current status of the CONTAINER
+#
+#	parameters:
+#      $pStatus = (optional) Status string to check for (refer to docker container ls)
+#      $gStatus = (optional) name of the global variable to populate with reply
+#
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dqGetStatus()
+{
+	local status=${1:-""}
+	dq_gstatus=${2:-""}
+
+	[[ -z ${dq_gstatus} ]] && dq_gstatus="dq_contStatus"
+	ldcErrorSet "none"
+
+	local    lFilter="ls -a --filter name=${dq_cname} "
+	[[ -n ${status} ]] && lFilter="${lFilter} --filter status=${status}"
+
+	dq_pcRemap=1
+		
+	dqCommand "synch" "container" "${lFilter}"
+   	[[ $? -eq 0 ]] || ldcErrorSet "dqerror_status"
+
+	local    oifs=$IFS
+		IFS=$'\n' read -rd '' -a dq_cstatus <<< "${dq_cmndbuffer}"
+	IFS=${oifs}
+
+	[[ ${#dq_cstatus[*]} -lt 2 ]] && ldcErrorSet "dqerror_status"
+
+	dqContainerColumn "STATUS" "  " 
+
+	[[ "$ldcErrorName" == "none" ]] &&
+	 { 
+		[[ -n ${dq_gstatus} ]] &&
+		 {
+			ldcDeclareStr ${dq_gstatus} "${dq_contStatus}"
+			[[ $? -eq 0 ]] || ldcErrorSet "dqerror_function"
+		 }
+	 }
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#	dqGetContainer
+#
+#		get the requested CONTAINER information
+#
+#	parameters:
+#      $pStatus = (optional) Status string to check for (refer to docker container ls)
+#      $gStatus = (optional) name of the global variable to populate with reply
+#
+#    Result:
+#        0 = found container information
+#        non-zero = no container found
+#
+# =========================================================================================
+function dqGetContainer()
+{
+	dqGetStatus ${1:-""} ${2:-""}
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqCheckStatus
+#
+#  		Check the requested status and the search string present
+#
+#   parameters:
+#      $pStatus = (string) Status to check for (refer to docker ps)
+#      $pSearch = (optional) (string) Value to search for in $dq_status
+#
+#	returns:
+#      0 = status matched and search value was found
+#      non-zero = error code
+#
+# =========================================================================================
+function dqCheckStatus()
+{
+    local pStatus=${1:-""}
+    local pSearch=${2:-""}
+
+	ldcErrorSet "none"
+
+	while [ true ]
+	do
+		dqGetStatus $pStatus
+		[[ $? -eq 0 ]] || break
+
+		[[ -z "${pSearch}" ]] && break
+
+		if echo "${dq_contStatus}" | grep -q "${pSearch}" ; then break ; fi
+
+		ldcErrorSet "dqerror_check"
+		break
+
+	done
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqCheckRunning
+#
+#  		Check whether or not the container is a running state.
+#
+#   parameters:
+#		None
+#
+#	returns:
+#      0 = running
+#      1 = not running
+#
+# =========================================================================================
+function dqCheckRunning()
+{
+	ldcErrorSet "none"
+
+	dqCheckStatus "running" "Up"
+	[[ $? -eq 0 ]] || ldcErrorSet "dqerror_running"
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqCheckExited
+#
+#  		Check whether or not the container is in an exited state.
+#
+#   parameters:
+#		None
+#
+#	returns:
+#      0 = exited
+#      1 = not exited
+#
+# =========================================================================================
+function dqCheckExited()
+{
+	ldcErrorSet "none"
+
+    dqCheckStatus "exited" "Exited" 
+	[[ $? -eq 0 ]] || ldcErrorSet "dqerror_exited"
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqCheckUserDef
+#
+#  		Check user defined CONTAINER status.
+#
+#   parameters:
+#      $uStatus = (string) Status to check for (refer to docker ps)
+#      $uSearch = (Optional)(string) Value to search for in $dq_status
+#
+#	returns:
+#      0 = exited
+#      non-zero = not exited
+#
+# =========================================================================================
+function dqCheckUserDef()
+{
+    local uStatus=${1:-""}
+    local uSearch=${2:-""}
+
+ 	ldcErrorSet "none"
+ 
+    dqCheckStatus "${uStatus}" "${uSearch}"
+    [[ $? -eq 0 ]]|| ldcErrorSet "dqerror_exited"
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#   dqRmImage
+#
+#  		Rmi an image.
+#
+#   parameters:
+#		None
+#
+#	returns:
+#      0 = started
+#      non-zero = not started
+#
+# =========================================================================================
+function dqRmImage()
+{
+	dq_iname=${1:-"$dq_iname"}
+	ldcErrorSet "none"
+
+	dqCommand "synch" "rmi" "${dq_repo}/${dq_iname}"
+    [[ $? -eq 0 ]] || ldcErrorSet "dqerror_rmi"
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqRmContainer
+#
+#  		Rm an exited (not running) container.
+#
+#   parameters:
+#		rname = (optional) container-run name
+#
+#	returns:
+#      0 = started
+#      non-zero = not started
+#
+# =========================================================================================
+function dqRmContainer()
+{
+	dq_rname=${1:-"$dq_rname"}
+	ldcErrorSet "none"
+
+	dqCommand "synch" "rm" "${dq_rname}"
+    [[ $? -eq 0 ]] || ldcErrorSet "dqerror_rm"
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqStopContainer
+#
+#  		Stop a running container.
+#
+#   parameters:
+#		rname = (optional) container-run name
+#
+#	returns:
+#      0 = started
+#      non-zero = not started
+#
+# =========================================================================================
+function dqStopContainer()
+{
+	dq_cname=${1:-"$dq_cname"}
+	ldcErrorSet "none"
+
+	dqCommand "synch" "stop" "${dq_rname}"
+    [[ $? -eq 0 ]] || ldcErrorSet "dqerror_stop"
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqStartContainer
+#
+#  		Start an exited or created (not running) container.
+#
+#   parameters:
+#		rname = (optional) container-run name
+#
+#	returns:
+#      0 = started
+#      non-zero = not started
+#
+# =========================================================================================
+function dqStartContainer()
+{
+	dq_cname=${1:-"$dq_rname"}
+	ldcErrorSet "none"
+
+	dqCommand "asynch" "start" "${dq_rname}"
+    [[ $? -eq 0 ]] || ldcErrorSet "dqerror_start"
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqCreateContainer
+#
+#  		Run the container's "docker create" script.
+#
+#   parameters:
+#		rname = (optional) name of the container's "docker create" script
+#							defaults to the current $dq_rname value
+#
+#	returns:
+#      0 = created
+#      non-zero = not created
+#
+# =========================================================================================
+function dqCreateContainer()
+{
+	dq_rname=${1:-"$dq_rname"}
+	ldcErrorSet "none"
+
+	dqCommand "synch" "create" "${dq_binpath}/${dq_rname}"
+	[[ $? -eq 0 ]] || ldcErrorSet "dqerror_run"
+	
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqPullImage
+#
+#  		Pull the required docker IMAGE.
+#
+#   parameters:
+#		iname = (optional) docker image name (e.g. ldc-core:0.1.0)
+#							defaults to the current $dq_iname value
+#
+#	returns:
+#      0 = pulled
+#      non-zero = not pulled
+#
+# =========================================================================================
+function dqPullImage()
+{
+	dq_iname=${1:-"$dq_iname"}
+	ldcErrorSet "none"
+
+	dqCommand "synch" "pull" "${dq_repo}/${dq_iname}"
+    [[ $? -eq 0 ]] || ldcErrorSet "dqerror_pull"
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#   dqCheckContainer
+#
+#  		check if the required docker CONTAINER exists.
+#
+#   parameters:
+#		cname = (optional) container name (default = dq_cname, the current global value)
+#
+#	returns:
+#      0 = container exists
+#      non-zero = container does not exist
+#
+# =========================================================================================
+function dqCheckContainer()
+{
+	dq_cname=${1:-"$dq_cname"}
+
+	[[ -z ${dq_cname} ]] && ldcErrorSet "dqerror_arg" || ldcErrorSet "none"
+
+	[[ "${ldcError_name}" == "none" ]] &&
+	 {
+		dqGetContainer
+		[[ $? -eq 0 ]] || ldcErrorSet "dqerror_no_container"
+	 }
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+#
+#   dqCheckImage
+#
+#  		check if the required docker IMAGE exists.
+#
+#   parameters:
+#		iname = (optional) docker image name (e.g. ldc-core:0.1.0)
+#							defaults to the current $dq_iname value
+#
+#	returns:
+#      0 = exists
+#      non-zero = does not exist
+#
+# =========================================================================================
+function dqCheckImage()
+{
+	dq_iname=${1:-"$dq_iname"}
+	[[ -z ${dq_iname} ]] && ldcErrorSet "dqerror_arg}" || ldcErrorSet "none"
+
+	[[ "${ldcError_name}" == "none" ]] &&
+	 {
+		dqCommand "synch" "image" "inspect ${dq_repo}/${dq_iname}"
+		[[ $? -eq 0 ]] || ldcErrorSet "dqerror_no_image"
+	 }
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#   dqWaitEvent
+#
+#		wait for $event to be true, or $timeout expires
+#
+#	parameters:
+#		event = event number (default = dq_eventRunning, the current global value )
+#		timeout = (optional) number of seconds to wait (default = dq_timeout, the current global value)
+#		interval = (optional) pause interval in seconds (default = "1s"}
+#
+#	returns:
+#		0 = running
+#		non-zero = timeout expired
+#
+# =========================================================================================
+function dqWaitEvent()
+{
+	local levent=${1:-"${dq_eventRunning}"}
+	local ltimeout=${2:-"$dq_timeout"}
+	local linterval=${3:-"1s"}
+
+	local dq_lresult=0
+
+	ldcErrorSet "none"
+
+	while [[ ${ltimeout} -gt 0 ]]
+	do
+
+		sleep ${linterval}
+
+		case ${levent} in 
+
+			${dq_eventRunning} )
+
+				dqCheckRunning
+				dq_lresult=$?
+				;;
+
+			${dq_eventExiting} )
+
+				dqCheckExited
+				dq_lresult=$?
+				;;
+
+			${dq_eventUserDef} )
+
+				dqCheckUserDef
+				dq_lresult=$?
+				;;
+
+			*)	break
+				;;
+
+		esac
+
+		[[ ${dq_lresult} -eq 0 ]] && break
+		(( ltimeout-- ))
+	done
+
+	[[ ${dq_lresult} -eq 0 ]] || ldcErrorSet "dqerror_event"
+	return $ldcError_code
+}
+
+# =========================================================================================
+# =========================================================================================
+#
+#		End of Library
+#
+# =========================================================================================
+# =========================================================================================
+

@@ -1,0 +1,111 @@
+test=\Tests\Testing\Template
+test=\Tests\Autoload\AutoloadTest
+test=\Tests\Autoload\LibrariesTest
+test=\Tests\Autoload\SplTest
+test=\Tests\Properties\PropertiesTest
+test=\Tests\Std\ConvertTest
+test=\Tests\Std\toStdTest
+test=\Tests\Error\CodeTest
+test=\Tests\Log\LogTest
+test=\Tests\Utilities\FormatVarTest
+test=\Tests\Utilities\PHPModuleTest
+test=\Tests\Exception\DescriptorTest
+test=\Tests\Exception\ExceptionTest
+test=\Tests\CliParameters\CliParametersTest app=php bin=/usr/bin/php
+test=\Tests\CliParameters\CliParametersTest app=php bin=/usr/bin/php quoted="Quoted"
+test=\Tests\CliParameters\CliParametersTest app=php bin=/usr/bin/php quoted="Multi-word quotable quote"
+test=\Tests\Serialize\SerializeTest adapter=buffer
+test=\Tests\Serialize\SerializeTest adapter=file
+test=\Tests\Stack\FactoryTest
+test=\Tests\Stack\StackTest object=stack
+test=\Tests\Stack\ExtensionTest
+test=\Tests\Stack\StackFactoryTest object=stack
+test=\Tests\Stack\QueueTest
+test=\Tests\Stack\QueueStaticTest
+test=\Tests\LLRBTree\LLRBNodeTest
+test=\Tests\LLRBTree\LLRBTreeTest
+test=\Tests\Debug\TracebackTest
+test=\Tests\Factory\FactoryTest
+test=\Tests\Factory\InstantiateClassTest
+test=\Tests\Factory\InvokeClassMethodTest
+test=\Tests\Factory\InvokeFunctionTest
+test=\Tests\FileIO\ObjectFactoryTest object=splobject
+test=\Tests\FileIO\ObjectFactoryTest object=fileio adapter=splobject
+test=\Tests\Stream\FactoryTest
+test=\Tests\Url\UrlTest
+test=\Tests\Url\ParseTest
+test=\Tests\HTTP\ClientTest adapter=http uri=http://localhost/
+#test=\Tests\HTTP\ClientTest adapter=curl uri=http://thetvdb.com//api/D29BEE8036451BD0/series/78029/all/en.zip dest=Tests/FileIO/Files/78029.zip fileobject=fileio fileadapter=fileobject binary=1
+test=\Tests\HTTP\ClientTest adapter=zend uri=http://localhost/
+test=\Tests\DOM\DocumentIOTest adapter=file url=Tests\DOM\Testfiles\XMLDocument.xml ioadapter=fileobject
+test=\Tests\DOM\DocumentIOTest url=http://localhost/tests/XMLDocument.xml adapter=http ioadapter=curl
+test=\Tests\Compress\CompressTest adapter=zlib
+test=\Tests\PrintU\PrintUTest
+test=\Tests\TestStats\TestStatsTest
+test=\Tests\Directory\DirectoryContentsTest directory=/usr/local/share/php/PHPProjectLibrary/Library
+test=\Tests\Directory\DirectoryContentsTest directory=/usr/local/share/php/PHPProjectLibrary/Tests
+test=\Tests\Directory\DirectorySearchTest directory=/usr/local/share/php/PHPProjectLibrary/Library pattern=*.php
+test=\Tests\Directory\DirectorySearchTest directory=/etc pattern=*.conf
+test=\Tests\Directory\DirectoryTreeTest directory=/usr/local/share/php/PHPProjectLibrary/Library
+test=\Tests\Stream\StreamTest object=fileobject online=0
+test=\Tests\Accept\InputTest
+test=\Tests\Parse\RangeTests
+test=\Tests\Records\LoadFileTests file=Tests/standardTests
+test=\Tests\Error\HandlerTest
+test=\Tests\Select\DescriptorTest
+test=\Tests\Select\StorageTest
+test=\Tests\Select\RegisterTest
+test=\Tests\Select\PollTest
+test=\Tests\Select\ProcessTest
+test=\Tests\Select\SelectTest
+test=\Tests\Subversion\FileInfoTest
+test=\Tests\Subversion\SubversionTest repository=http://10.10.10.2/svn/GeoCalc/trunk
+test=\Tests\Subversion\RepositoryTreeTest repository=http://10.10.10.2/svn/PHPProjectLibrary/trunk/Library cat=Library/Subversion.php
+test=\Tests\ProgramExec\ProcTests
+# #######################################################
+#
+# DBO and Driver Class Tests
+#
+# #######################################################
+test=\Tests\DBO\Table\Column\DescriptorTest table=TestUsers
+test=\Tests\DBO\Table\Key\DescriptorTest table=TestUsers
+test=\Tests\DBO\Table\DescriptorTest table=TestUsers
+test=\Tests\DBO\Table\BuildDescriptorTest table=TestUsers
+test=\Tests\DBO\ParseDsnTest host=10.10.10.2 db=ProjectLibraryTests
+#
+test=\Tests\MySql\DbTest host=10.10.10.2 db=ProjectLibraryTests user=phplibuser password=phplibpwd
+test=\Tests\MySql\DriverTest host=10.10.10.2 db=ProjectLibraryTests user=phplibuser password=phplibpwd
+test=\Tests\MySql\TableTest host=10.10.10.2 db=ProjectLibraryTests user=phplibuser password=phplibpwd table=Users
+test=\Tests\MySql\BuildTableTest host=10.10.10.2 db=ProjectLibraryTests user=phplibuser password=phplibpwd table=Users
+#
+test=\Tests\Compress\GetZipTest dest=Tests/FileIO/Files/78029.zip source=http://thetvdb.com/api/D29BEE8036451BD0/series/78029/all/en.zip
+test=\Tests\Compress\GetZipTest dest=/var/local/archive/TVDB/zips/78029.zip source=http://thetvdb.com/api/D29BEE8036451BD0/series/78029/all/en.zip
+test=\Tests\Compress\GetZipTest dest=/var/local/archive/TVDB/zips/78029.zip source=http://thetvdb.com/api/D29BEE8036451BD0/series/78029/all/en.zip extract=/var/local/archive/TVDB/Series/78029
+#
+# #######################################################
+#
+#
+#  Failing tests should be moved below here and commented out until the test works using single application testing
+#
+#
+# #######################################################
+#test=\Tests\ProgramExec\ProcStatusTest
+#test=\Tests\Stack\StackTest object=splstackex
+#test=\Tests\Stack\StackFactoryTest object=splstack
+#test=\Tests\FileIO\InfoFactoryTest info=fileinfo
+#test=\Tests\FileIO\ObjectFactoryTest object=fileobject
+#test=\Tests\FileIO\InfoFactoryTest info=splinfo
+#test=\Tests\FileIO\InfoFactoryTest info=info adapter=fileinfo
+#test=\Tests\FileIO\ObjectFactoryTest object=fileio adapter=fileobject
+#test=\Tests\FileIO\InfoFactoryTest info=info adapter=splinfo
+#test=\Tests\Stream\FileObjectTest object=fileobject online=0
+#test=\Tests\DB\MySql\DbTest driver=mysql host=localhost user=jay password=7mcMF596gcYa
+#test=\Tests\DB\MySql\TableDescriptorTest driver=mysql host=localhost user=jay password=7mcMF596gcYa
+#test=\Tests\Config\ConfigTest adapter=file type=ini
+#test=\Tests\Config\ConfigTest adapter=file type=xml
+#test=\Tests\ProgramExec\ProcTests
+#test=\Tests\ProgramExec\ProcStatusTest
+#
+# the following test should be last, as it will abort the tester
+#
+#test=\Tests\Testing\ExceptionTest

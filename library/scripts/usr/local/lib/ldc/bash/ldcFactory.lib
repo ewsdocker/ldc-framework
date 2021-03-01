@@ -1,0 +1,470 @@
+#!/bin/bash
+# ******************************************************************************
+# ******************************************************************************
+#
+#   	ldcFactory.lib
+#
+# *****************************************************************************
+#
+# @author Jay Wheeler.
+# @version 0.0.1
+# @copyright © 2021. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldcLibrary
+# @subpackage ldcFactory
+#
+# *****************************************************************************
+#
+#	Copyright © 2021. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldcLibrary.
+#
+#   ewsdocker/ldcLibrary is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldcLibrary is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldcLibrary.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# *****************************************************************************
+#
+#	Version 0.0.1 - 02-06-2021.
+#
+# ******************************************************************************
+#
+#	Dependencies:
+#
+#		ldcDeclare.lib
+#		ldcUId.lib
+#		ldcUtilities.lib
+#
+# ******************************************************************************
+#
+#	Functions:
+#
+#		ldcFactoryInit
+#
+#			Initialize factory array(s)
+#
+#		ldcFactoryAdd factoryName bridgeName description uidLength
+#
+#			Add/Create factory name and create/update factory bridge array. 
+#
+#		ldcFactoryExists factoryName
+#
+#			If the Factory Name is valid return 0, otherwise return 1
+#
+#		ldcFactoryBridgeExists bridgeName
+#
+#			Check for the requested bridge name available.
+#
+# ******************************************************************************
+# ******************************************************************************
+
+declare -r ldclib_ldcFactory="0.1.0"	# version of library
+
+# ******************************************************************************
+#
+#	Required global declarations
+#
+# ******************************************************************************
+
+declare -i ldcfac_initalized=0
+
+# ***************************************************************************************************
+# ***************************************************************************************************
+#
+#          ldcfac_registry                  ldcfac_<uid1>
+#          key    : attribute            key         : attribute
+#		***********************        *******************************
+#		*  Help   : <uid1>    *======> * JQ          : <description> *
+#		***********************        *******************************
+#		*  Errors : <uid2>    *        * XML         : <description> *
+#		***********************        *******************************
+#
+# ***************************************************************************************************
+# ***************************************************************************************************
+
+# ******************************************************************************
+# ******************************************************************************
+#
+#						Functions
+#
+# ******************************************************************************
+# ******************************************************************************
+
+# ****************************************************************************
+#
+#	ldcFactoryInit
+#
+#		Initialize factory array(s)
+#
+#	parameters:
+#		none
+#
+#	returns:
+#		0 = no errors
+#		non-zero = error number
+#
+# ****************************************************************************
+function ldcFactoryInit()
+{
+	local li_error=0
+
+	while [ true ]
+	do
+	    [[ ${ldcfac_initalized} -eq 0 ]] || break
+
+		(( li_error++ ))
+
+		ldcDeclareAssoc "ldcfac_registry"
+		[[ $? -eq 0 ]] || break
+		
+		(( li_error++ ))
+
+		li_error=0
+		ldcfac_initialized=1
+
+		break
+	done
+
+	return ${li_error}
+}
+
+# ***********************************************************************************************************
+#
+#	ldcFactoryLookup
+#
+#		If the Factory Name is valid, return 
+#
+#	Parameters:
+#		facname = factory name
+#
+#	Returns:
+#       0 = valid key
+#		1 = not a valid key
+#
+# ********************************************************************************************************
+function ldcFactoryExits()
+{
+	ll_facname=${1:-""}
+	ll_facerr=1
+	
+	while [ true ]
+	do
+		[[ -z "$ll_facname" ]] && break
+
+		(( ll_facerr++ ))
+
+		[[ "${!ldcfac_registry[@]}" =~ "${ll_facname}" ]] break
+
+		ll_facerr=0
+		break
+	done
+
+	return ${ll_facerr}
+}
+
+# ***********************************************************************************************************
+#
+#	ldcFactoryExists
+#
+#		If the Factory Name is valid return 0, otherwise return 1
+#
+#	Parameters:
+#		facname = factory name
+#
+#	Returns:
+#       0 = valid key
+#		1 = not a valid key
+#
+# ********************************************************************************************************
+function ldcFactoryExits()
+{
+	ll_facname=${1:-""}
+	ll_facerr=1
+	
+	while [ true ]
+	do
+		[[ -z "$ll_facname" ]] && break
+
+		(( ll_facerr++ ))
+
+		[[ "${!ldcfac_registry[@]}" =~ "${ll_facname}" ]] break
+
+		ll_facerr=0
+		break
+	done
+
+	return ${ll_facerr}
+}
+
+# ***********************************************************************************************************
+#
+#	ldcFactoryBridgeExists
+#
+#		Check for the requested factory:bridge name available.
+#			Returns 0 if the bridge name is available, 1 if not
+#
+#	Parameters:
+#		bridge = bridge name to check for
+#
+#	Returns:
+#		0 = valid
+#		1 = not valid
+#
+# ********************************************************************************************************
+function ldcFactoryBridgeExists()
+{
+	local    ll_bridgeName="${1}"
+	local -a bridgeKeys=()
+
+	local -i br_error=1
+
+	while [ true ]
+	do
+		[[ -z "$ll_bridgeName" ]] && break
+
+		(( br_error++ ))
+
+		eval 'bridgeKeys=$'"{!$ll_bridgeName[@]}"
+
+		[[ "${bridgeKeys[@]}" =~ "${ll_bridgeName}" ]] || break
+
+		br_error=0
+		break
+	done
+
+	unset bridgeKeys
+
+	return $br_error
+}
+
+# ****************************************************************************
+#
+#	ldcFactoryCBridge
+#
+#		Create/Update factory bridge array. 
+#
+#	parameters:
+#		factory = function name
+#		bridge = function bridge name (e.g. - XML, JQ)
+#		description = description of the factory bridge
+#		uidLength = (optional) number of characters in the uid (default=12)
+#
+#	returns:
+#		0 = no errors
+#		non-zero = error number
+#
+# ****************************************************************************
+function ldcFactoryCBridge()
+{
+	local factory=${1:-""}
+
+	local bridge=${2:-""}
+	local description=${3:-""}
+	
+	local uidLength=${4:-"12"}
+
+	local factoryUid=""
+	local bridgeUid=""
+    local bridgeArray=""
+
+	local facError=1
+
+	while [ true ]
+	do
+		[[ -z "${factory}" || -z "${bridge}" ]] && break
+
+		(( facError++ ))
+
+		#
+		#	check for factoryname in the registry
+		#
+		ldcFactoryExists ${factory}
+		[[ $? -eq 0 ]] || 
+         {
+			#
+			#  If NOT, create a factory with a new uid
+			#
+			ldcUIdUnique factoryUid ${uidLength}
+			[[ $? -eq 0 ]] || break
+			
+			(( facError++ ))
+
+			#
+			#  store the factory name in the registry with the factory uid
+			#
+			ldcDeclareArrayEl "ldcfac_registry" "${factory}" "${factoryUid}"
+			[[ $? -eq 0 ]] || break
+		 }
+
+		(( facError++ ))
+
+		#
+		#	fetch the factory uid from the registry
+		#
+		factoryUid=${ldcfac_registry[$factory]}
+
+		#
+		#	create the name of the factory bridge array
+		#
+		bridgeArray="ldcfac_${factory}_${factoryUid}"
+
+		#
+		#	see if it exists
+		#
+		declare -p "${bridgeArray}" > /dev/null 2>&1
+		[[ $? -eq 0 ]] || 
+		 {
+			#
+			#  if not, create the bridge array
+			#
+			ldcDeclareAssoc "${bridgeArray}"
+			[[ $? -eq 0 ]] || break
+		 }
+
+		(( facError++ ))
+
+		#
+		#	check if the bridge name exists in the bridge array
+		#
+		ldcFactoryBridgeExists "${bridgeArray}" "${bridge}"
+		[[ $? -eq 0 ]] || 
+         {
+			#
+			#  if not, create a bridge name entry in the bridge array
+			#
+			ldcDeclareArrayEl "${bridgeArray}" "${bridge}" "${description}"
+			[[ $? -eq 0 ]] || break
+		 }
+
+		(( facError++ ))
+
+
+		facError=0
+		break
+	done
+
+	return $facError
+}
+
+# ****************************************************************************
+#
+#	ldcFactoryAdd
+#
+#		Add/Create factory name and create/update factory bridge array. 
+#
+#	parameters:
+#		factory = function name
+#		bridge = function bridge name (e.g. - XML, JQ)
+#		description = description of the factory bridge
+#		uidLength = (optional) number of characters in the uid (default=12)
+#
+#	returns:
+#		0 = no errors
+#		non-zero = error number
+#
+# ****************************************************************************
+function ldcFactoryAdd()
+{
+	local factory=${1:-""}
+
+	local bridge=${2:-""}
+	local description=${3:-""}
+	
+	local uidLength=${4:-"12"}
+
+	local factoryUid=""
+	local bridgeUid=""
+    local bridgeArray=""
+
+	local facError=1
+
+	while [ true ]
+	do
+		[[ -z "${factory}" || -z "${bridge}" ]] && break
+
+		(( facError++ ))
+
+		#
+		#	check for factoryname in the registry
+		#
+		ldcFactoryExists ${factory}
+		[[ $? -eq 0 ]] || 
+         {
+			#
+			#  If NOT, create a factory with a new uid
+			#
+			ldcUIdUnique factoryUid ${uidLength}
+			[[ $? -eq 0 ]] || break
+			
+			(( facError++ ))
+
+			#
+			#  store the factory name in the registry with the factory uid
+			#
+			ldcDeclareArrayEl "ldcfac_registry" "${factory}" "${factoryUid}"
+			[[ $? -eq 0 ]] || break
+		 }
+
+		(( facError++ ))
+
+		#
+		#	fetch the factory uid from the registry
+		#
+		factoryUid=${ldcfac_registry[$factory]}
+
+		#
+		#	create the name of the factory bridge array
+		#
+		bridgeArray="ldcfac_${factory}_${factoryUid}"
+
+		#
+		#	see if it exists
+		#
+		declare -p "${bridgeArray}" > /dev/null 2>&1
+		[[ $? -eq 0 ]] || 
+		 {
+			#
+			#  if not, create the bridge array
+			#
+			ldcDeclareAssoc "${bridgeArray}"
+			[[ $? -eq 0 ]] || break
+		 }
+
+		(( facError++ ))
+
+		#
+		#	check if the bridge name exists in the bridge array
+		#
+		ldcFactoryBridgeExists "${bridgeArray}" "${bridge}"
+		[[ $? -eq 0 ]] || 
+         {
+			#
+			#  if not, create a bridge name entry in the bridge array
+			#
+			ldcDeclareArrayEl "${bridgeArray}" "${bridge}" "${description}"
+			[[ $? -eq 0 ]] || break
+		 }
+
+		(( facError++ ))
+
+
+		facError=0
+		break
+	done
+
+	return $facError
+}
+
+# ******************************************************************************
+# ******************************************************************************

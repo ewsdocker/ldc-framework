@@ -8,15 +8,15 @@
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 0.0.7
-# @copyright © 2017-2019. EarthWalk Software.
+# @version 0.1.0
+# @copyright © 2017-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-library
 # @subpackage dockerRun
 #
 # =========================================================================
 #
-#	Copyright © 2017-2019. EarthWalk Software
+#	Copyright © 2017-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-library.
@@ -41,7 +41,7 @@
 #	A simple state machine based on stately binary functions.
 #
 #	Each function 
-#		- processes a single state and 
+#		- processes a single state; and 
 #		- returns a binary result (0 = true, 1 = false) 
 #		    used to select the next state
 #
@@ -66,10 +66,38 @@
 # =========================================================================
 # =========================================================================
 #
-#	Runs in the docker host system, NOT in the container!
+#	Runs in the docker host system, NOT within the container!
 #
-# =========================================================================
-# =========================================================================
+# ========================================================================
+# ========================================================================
+
+# ========================================================================
+# ========================================================================
+#
+#	Pre-run functions
+#
+#   	prInstallLib
+#  			Download and install the required ldc-library.
+#
+#   	prInitialize
+#  			Initialize the pre-run variables to ensure a successful startup.
+#
+#   	preRun
+#  			Initialize variables and install libraries.
+#
+# ========================================================================
+# ========================================================================
+#
+#	State Machine Functions
+#
+#   	dqInitProcessor
+#  			Initialize the state processor variables and validate the container.
+#
+#   	execContainer
+#   		returns 0 if able to start, error code if not
+#
+# ========================================================================
+# ========================================================================
 
 # ========================================================================
 # ========================================================================
@@ -97,7 +125,7 @@ declare -i pkgcache=1			# 1 = use local pkgcache, 0 = use git-hub version
 
 declare    ldc_repo="ewsdocker" # repository name
 
-declare    ldc_libvers="0.1.5"	# ldc library version
+declare    ldc_libvers="0.1.6"	# ldc library version
 
 declare -i ldc_optDev=1
 
@@ -129,10 +157,10 @@ declare    ldc_start=""			# name of the container to start/create
 
 #
 # From github.com
-# 		https://github.com/ewsdocker/ldc-library/releases/download/ldc-library-0.1.5/ldc-library-0.1.5.tar.gz
+# 		https://github.com/ewsdocker/ldc-library/releases/download/ldc-library-0.1.6/ldc-library-0.1.5.tar.gz
 #
 # or local pkgcache
-#		http://alpine-nginx-pkgcache/ldc-library-0.1.5.tar.gz
+#		http://alpine-nginx-pkgcache/ldc-library-0.1.6.tar.gz
 #
 
 declare    ldc_libname="ldc-library"
@@ -143,13 +171,13 @@ declare    ldc_libloc="${ldc_library}/${ldc_libvers}"
 declare    ldc_libpname="${ldc_libname}-${ldc_libvers}"
 declare    ldc_libpkg="${ldc_libpname}.tar.gz"
 
-declare    ldc_libsrv="https://github.com"
 declare    ldc_libdevname="ldc-library"
+declare    ldc_libsrv="https://github.com"
 declare    ldc_libsrvpath="ewsdocker/${ldc_libdevname}/releases/download/${ldc_libpname}"
 
 declare    ldc_libhost="${ldc_libsrv}/${ldc_libsrvpath}"}
 
-	[[ ${ldc_optDev} -eq 0 ]] || ldc_libhost="172.32.0.2"
+	[[ ${ldc_optDev} -eq 0 ]] || ldc_libhost="http://alpine-nginx-pkgcache"
 	
 declare    ldc_liburl="${ldc_libhost}/${ldcpkg}"
 
@@ -274,8 +302,8 @@ function prInitialize()
 	ldc_root=${LMS_BASE}
 	
 	ldc_binpath=${ldc_libloc}/usr/local/bin
-	ldc_libpath=${ldc_libloc}/usr/local/lib/lms
-	ldc_sharepath=${ldc_libloc}/usr/local/share/lms
+	ldc_libpath=${ldc_libloc}/usr/local/lib/ldc/bash
+	ldc_sharepath=${ldc_libloc}/usr/local/share/ldc
 }
 
 # ========================================================================
@@ -327,14 +355,14 @@ function preRun()
 #	Required Libraries
 #
 
-. ${ldc_libpath}/lmsBashVars.lib
-. ${ldc_libpath}/lmsconCli.lib
-. ${ldc_libpath}/lmsDeclare.lib
-. ${ldc_libpath}/lmsDisplay.lib
-. ${ldc_libpath}/lmsDockerQuery.lib
-. ${ldc_libpath}/lmsParseColumns.lib
-. ${ldc_libpath}/lmsStr.lib
-. ${ldc_libpath}/lmsUtilities.lib
+. ${ldc_libpath}/ldcBashVars.lib
+. ${ldc_libpath}/ldcconCli.lib
+. ${ldc_libpath}/ldcDeclare.lib
+. ${ldc_libpath}/ldcDisplay.lib
+. ${ldc_libpath}/ldcDockerQuery.lib
+. ${ldc_libpath}/ldcParseColumns.lib
+. ${ldc_libpath}/ldcStr.lib
+. ${ldc_libpath}/ldcUtilities.lib
 
 #
 #	only refer to dq_ vars, not ldc_ vars, except in dqInitProcessor (state 0).
@@ -359,7 +387,7 @@ function dqInitProcessor()
 {
 	dq_error=${dqerror_none}
 
-	lmsCliParse
+	ldcCliParse
 	[[ $? -eq 0 ]] || dq_error=${dqerror_parse_cli}
 	
 	while [ ${dq_error} == ${dqerror_none} ]
@@ -370,23 +398,23 @@ function dqInitProcessor()
 			case $key in 
 
 				"repo")
-					lmsDeclareStr "ldc_repo" "${cliParam[$key]}"
+					ldcDeclareStr "ldc_repo" "${cliParam[$key]}"
 					;;
 
 				"image")
-					lmsDeclareStr "ldc_iname" "${cliParam[$key]}"
+					ldcDeclareStr "ldc_iname" "${cliParam[$key]}"
 					;;
 
 				"container")
-					lmsDeclareStr "ldc_container" "${cliParam[$key]}"
+					ldcDeclareStr "ldc_container" "${cliParam[$key]}"
 					;;
 
 				"runlabel")
-					lmsDeclareStr "ldc_rname" "${cliParam[$key]}"
+					ldcDeclareStr "ldc_rname" "${cliParam[$key]}"
 					;;
 
 				*)
-					lmsDeclareStr "ldc_start" "${cliParam[$key]}"
+					ldcDeclareStr "ldc_start" "${cliParam[$key]}"
 					;;
 
 			esac
@@ -514,7 +542,7 @@ function execContainer()
 # ========================================================================
 # ========================================================================
 
-lmscli_optQuiet=0
+ldccli_optQuiet=0
 
 preRun
 [[ $? -eq 0 ]] ||
@@ -523,13 +551,13 @@ preRun
 	exit ${inerror}
  }
 
-lmsDisplay "  Processing \"${ldc_container}\""
+ldcDisplay "  Processing \"${ldc_container}\""
 
 execContainer
 [[ $? -eq 0 ]] || 
  {
- 	lmsDisplay "Unable to start \"${dq_container}\""
- 	lmsDisplay "Error: ($dq_error) ${dqerror_message[$dq_error]}"
+ 	ldcDisplay "Unable to start \"${dq_container}\""
+ 	ldcDisplay "Error: ($dq_error) ${dqerror_message[$dq_error]}"
  }
 
 exit ${dq_error}

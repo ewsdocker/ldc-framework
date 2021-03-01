@@ -34,8 +34,11 @@ docker run \
   -e LMS_HOME="${HOME}" \
   -e LMS_CONF="${HOME}/.config" \
   \
-  -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
+  -v ${HOME}/bin:/userbin \
+  \
   -v ${HOME}/.config/docker:/conf \
   -v ${HOME}/.config/docker/ldc-stack-dev-dcc-dev${ldcvers}:/root \
   -v ${HOME}/.config/docker/ldc-stack-dev-dcc-dev${ldcvers}/workspace:/workspace \

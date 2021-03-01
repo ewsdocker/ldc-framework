@@ -35,6 +35,8 @@ docker run \
   \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
   -v ${HOME}/.config/docker:/conf \
   -v ${HOME}/.config/docker/ldc-base-dbase${ldcvers}:/root \
   -v ${HOME}/.config/docker/ldc-base-dbase${ldcvers}/workspace:/workspace \

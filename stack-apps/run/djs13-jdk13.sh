@@ -36,6 +36,8 @@ docker run \
   \
   -v ${HOME}/bin:/userbin \
   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
   -v ${HOME}/.config/docker:/conf \
   -v ${HOME}/.config/docker/ldc-stack-apps-djs13-jdk13${ldcvers}:/root \
   -v ${HOME}/.config/docker/ldc-stack-apps-djs13-jdk13${ldcvers}/workspace:/workspace \

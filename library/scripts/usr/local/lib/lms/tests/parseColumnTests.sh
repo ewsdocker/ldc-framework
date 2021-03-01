@@ -52,7 +52,6 @@ declare    pct_libRoot="."
 #
 # =========================================================================
 
-. ${pct_libRoot}/scripts/usr/local/lib/lms/lmsTestUtilities.lib
 . ${pct_libRoot}/scripts/usr/local/lib/lms/lmsBashVars.lib
 . ${pct_libRoot}/scripts/usr/local/lib/lms/lmsconCli.lib
 . ${pct_libRoot}/scripts/usr/local/lib/lms/lmsColorDef.lib

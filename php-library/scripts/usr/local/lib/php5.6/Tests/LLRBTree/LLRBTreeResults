@@ -1,0 +1,341 @@
+inserted: cat, root = cat
+	 1 - cat = 1, left = null, right = null, flag = BLACK
+**************************
+inserted: animal, root = cat
+	 1 - animal = 2, left = null, right = null, flag = RED
+	 2 - cat = 1, left = animal, right = null, flag = BLACK
+**************************
+inserted: donkey, root = cat
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - cat = 1, left = animal, right = donkey, flag = BLACK
+	 3 - donkey = 3, left = null, right = null, flag = BLACK
+**************************
+inserted: bear, root = cat
+	 1 - animal = 2, left = null, right = null, flag = RED
+	 2 - bear = 4, left = animal, right = null, flag = BLACK
+	 3 - cat = 1, left = bear, right = donkey, flag = BLACK
+	 4 - donkey = 3, left = null, right = null, flag = BLACK
+**************************
+inserted: bat, root = cat
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = RED
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = donkey, flag = BLACK
+	 5 - donkey = 3, left = null, right = null, flag = BLACK
+**************************
+inserted: dog, root = cat
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = RED
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = donkey, flag = BLACK
+	 5 - dog = 6, left = null, right = null, flag = RED
+	 6 - donkey = 3, left = dog, right = null, flag = BLACK
+**************************
+inserted: elephant, root = cat
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = BLACK
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = donkey, flag = BLACK
+	 5 - dog = 6, left = null, right = null, flag = BLACK
+	 6 - donkey = 3, left = dog, right = elephant, flag = BLACK
+	 7 - elephant = 7, left = null, right = null, flag = BLACK
+**************************
+inserted: gazelle, root = cat
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = BLACK
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = donkey, flag = BLACK
+	 5 - dog = 6, left = null, right = null, flag = BLACK
+	 6 - donkey = 3, left = dog, right = gazelle, flag = BLACK
+	 7 - elephant = 7, left = null, right = null, flag = RED
+	 8 - gazelle = 8, left = elephant, right = null, flag = BLACK
+**************************
+inserted: llama, root = cat
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = BLACK
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = gazelle, flag = BLACK
+	 5 - dog = 6, left = null, right = null, flag = BLACK
+	 6 - donkey = 3, left = dog, right = elephant, flag = RED
+	 7 - elephant = 7, left = null, right = null, flag = BLACK
+	 8 - gazelle = 8, left = donkey, right = llama, flag = BLACK
+	 9 - llama = 9, left = null, right = null, flag = BLACK
+**************************
+inserted: zebra, root = cat
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = BLACK
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = gazelle, flag = BLACK
+	 5 - dog = 6, left = null, right = null, flag = BLACK
+	 6 - donkey = 3, left = dog, right = elephant, flag = RED
+	 7 - elephant = 7, left = null, right = null, flag = BLACK
+	 8 - gazelle = 8, left = donkey, right = zebra, flag = BLACK
+	 9 - llama = 9, left = null, right = null, flag = RED
+	10 - zebra = 10, left = llama, right = null, flag = BLACK
+**************************
+inserted: horse, root = gazelle
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = BLACK
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = donkey, flag = RED
+	 5 - dog = 6, left = null, right = null, flag = BLACK
+	 6 - donkey = 3, left = dog, right = elephant, flag = BLACK
+	 7 - elephant = 7, left = null, right = null, flag = BLACK
+	 8 - gazelle = 8, left = cat, right = llama, flag = BLACK
+	 9 - horse = 11, left = null, right = null, flag = BLACK
+	10 - llama = 9, left = horse, right = zebra, flag = BLACK
+	11 - zebra = 10, left = null, right = null, flag = BLACK
+**************************
+inserted: ferret, root = gazelle
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = BLACK
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = donkey, flag = RED
+	 5 - dog = 6, left = null, right = null, flag = BLACK
+	 6 - donkey = 3, left = dog, right = ferret, flag = BLACK
+	 7 - elephant = 7, left = null, right = null, flag = RED
+	 8 - ferret = 12, left = elephant, right = null, flag = BLACK
+	 9 - gazelle = 8, left = cat, right = llama, flag = BLACK
+	10 - horse = 11, left = null, right = null, flag = BLACK
+	11 - llama = 9, left = horse, right = zebra, flag = BLACK
+	12 - zebra = 10, left = null, right = null, flag = BLACK
+**************************
+inserted: wombat, root = gazelle
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = BLACK
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = donkey, flag = RED
+	 5 - dog = 6, left = null, right = null, flag = BLACK
+	 6 - donkey = 3, left = dog, right = ferret, flag = BLACK
+	 7 - elephant = 7, left = null, right = null, flag = RED
+	 8 - ferret = 12, left = elephant, right = null, flag = BLACK
+	 9 - gazelle = 8, left = cat, right = llama, flag = BLACK
+	10 - horse = 11, left = null, right = null, flag = BLACK
+	11 - llama = 9, left = horse, right = zebra, flag = BLACK
+	12 - wombat = 13, left = null, right = null, flag = RED
+	13 - zebra = 10, left = wombat, right = null, flag = BLACK
+**************************
+**************************
+minimum = animal
+**************************
+deleted: elephant, root = gazelle
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = BLACK
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = donkey, flag = RED
+	 5 - dog = 6, left = null, right = null, flag = BLACK
+	 6 - donkey = 3, left = dog, right = ferret, flag = BLACK
+	 7 - ferret = 12, left = null, right = null, flag = BLACK
+	 8 - gazelle = 8, left = cat, right = llama, flag = BLACK
+	 9 - horse = 11, left = null, right = null, flag = BLACK
+	10 - llama = 9, left = horse, right = zebra, flag = BLACK
+	11 - wombat = 13, left = null, right = null, flag = RED
+	12 - zebra = 10, left = wombat, right = null, flag = BLACK
+**************************
+deleted: gazelle, root = horse
+	 1 - animal = 2, left = null, right = null, flag = BLACK
+	 2 - bat = 5, left = animal, right = bear, flag = BLACK
+	 3 - bear = 4, left = null, right = null, flag = BLACK
+	 4 - cat = 1, left = bat, right = donkey, flag = RED
+	 5 - dog = 6, left = null, right = null, flag = BLACK
+	 6 - donkey = 3, left = dog, right = ferret, flag = BLACK
+	 7 - ferret = 12, left = null, right = null, flag = BLACK
+	 8 - horse = 11, left = cat, right = wombat, flag = BLACK
+	 9 - llama = 9, left = null, right = null, flag = BLACK
+	10 - wombat = 13, left = llama, right = zebra, flag = BLACK
+	11 - zebra = 10, left = null, right = null, flag = BLACK
+**************************
+deleted: animal, root = horse
+	 1 - bat = 5, left = null, right = null, flag = RED
+	 2 - bear = 4, left = bat, right = null, flag = BLACK
+	 3 - cat = 1, left = bear, right = dog, flag = RED
+	 4 - dog = 6, left = null, right = null, flag = BLACK
+	 5 - donkey = 3, left = cat, right = ferret, flag = BLACK
+	 6 - ferret = 12, left = null, right = null, flag = BLACK
+	 7 - horse = 11, left = donkey, right = wombat, flag = BLACK
+	 8 - llama = 9, left = null, right = null, flag = BLACK
+	 9 - wombat = 13, left = llama, right = zebra, flag = BLACK
+	10 - zebra = 10, left = null, right = null, flag = BLACK
+**************************
+deleted: horse, root = donkey
+	 1 - bat = 5, left = null, right = null, flag = RED
+	 2 - bear = 4, left = bat, right = null, flag = BLACK
+	 3 - cat = 1, left = bear, right = dog, flag = BLACK
+	 4 - dog = 6, left = null, right = null, flag = BLACK
+	 5 - donkey = 3, left = cat, right = llama, flag = BLACK
+	 6 - ferret = 12, left = null, right = null, flag = BLACK
+	 7 - llama = 9, left = ferret, right = zebra, flag = BLACK
+	 8 - wombat = 13, left = null, right = null, flag = RED
+	 9 - zebra = 10, left = wombat, right = null, flag = BLACK
+**************************
+deleted: wombat, root = donkey
+	 1 - bat = 5, left = null, right = null, flag = RED
+	 2 - bear = 4, left = bat, right = null, flag = BLACK
+	 3 - cat = 1, left = bear, right = dog, flag = BLACK
+	 4 - dog = 6, left = null, right = null, flag = BLACK
+	 5 - donkey = 3, left = cat, right = llama, flag = BLACK
+	 6 - ferret = 12, left = null, right = null, flag = BLACK
+	 7 - llama = 9, left = ferret, right = zebra, flag = BLACK
+	 8 - zebra = 10, left = null, right = null, flag = BLACK
+**************************
+deleted: cat, root = donkey
+	 1 - bat = 5, left = null, right = null, flag = BLACK
+	 2 - bear = 4, left = bat, right = dog, flag = BLACK
+	 3 - dog = 6, left = null, right = null, flag = BLACK
+	 4 - donkey = 3, left = bear, right = llama, flag = BLACK
+	 5 - ferret = 12, left = null, right = null, flag = BLACK
+	 6 - llama = 9, left = ferret, right = zebra, flag = BLACK
+	 7 - zebra = 10, left = null, right = null, flag = BLACK
+**************************
+deleted: zebra, root = donkey
+	 1 - bat = 5, left = null, right = null, flag = BLACK
+	 2 - bear = 4, left = bat, right = dog, flag = RED
+	 3 - dog = 6, left = null, right = null, flag = BLACK
+	 4 - donkey = 3, left = bear, right = llama, flag = BLACK
+	 5 - ferret = 12, left = null, right = null, flag = RED
+	 6 - llama = 9, left = ferret, right = null, flag = BLACK
+**************************
+deleted: ferret, root = donkey
+	 1 - bat = 5, left = null, right = null, flag = BLACK
+	 2 - bear = 4, left = bat, right = dog, flag = RED
+	 3 - dog = 6, left = null, right = null, flag = BLACK
+	 4 - donkey = 3, left = bear, right = llama, flag = BLACK
+	 5 - llama = 9, left = null, right = null, flag = BLACK
+**************************
+deleted: donkey, root = bear
+	 1 - bat = 5, left = null, right = null, flag = BLACK
+	 2 - bear = 4, left = bat, right = llama, flag = BLACK
+	 3 - dog = 6, left = null, right = null, flag = RED
+	 4 - llama = 9, left = dog, right = null, flag = BLACK
+**************************
+deleted: bat, root = dog
+	 1 - bear = 4, left = null, right = null, flag = BLACK
+	 2 - dog = 6, left = bear, right = llama, flag = BLACK
+	 3 - llama = 9, left = null, right = null, flag = BLACK
+**************************
+deleted: llama, root = dog
+	 1 - bear = 4, left = null, right = null, flag = RED
+	 2 - dog = 6, left = bear, right = null, flag = BLACK
+**************************
+deleted: dog, root = bear
+	 1 - bear = 4, left = null, right = null, flag = BLACK
+**************************
+deleted: bear, root = null
+**************************
+inserted: animal, root = animal
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+**************************
+inserted: bat, root = bat
+	 1 - animal = 1, left = null, right = null, flag = RED
+	 2 - bat = 2, left = animal, right = null, flag = BLACK
+**************************
+inserted: bear, root = bat
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = bear, flag = BLACK
+	 3 - bear = 3, left = null, right = null, flag = BLACK
+**************************
+inserted: cat, root = bat
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = cat, flag = BLACK
+	 3 - bear = 3, left = null, right = null, flag = RED
+	 4 - cat = 4, left = bear, right = null, flag = BLACK
+**************************
+inserted: dog, root = cat
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = bear, flag = RED
+	 3 - bear = 3, left = null, right = null, flag = BLACK
+	 4 - cat = 4, left = bat, right = dog, flag = BLACK
+	 5 - dog = 5, left = null, right = null, flag = BLACK
+**************************
+inserted: donkey, root = cat
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = bear, flag = RED
+	 3 - bear = 3, left = null, right = null, flag = BLACK
+	 4 - cat = 4, left = bat, right = donkey, flag = BLACK
+	 5 - dog = 5, left = null, right = null, flag = RED
+	 6 - donkey = 6, left = dog, right = null, flag = BLACK
+**************************
+inserted: elephant, root = cat
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = bear, flag = BLACK
+	 3 - bear = 3, left = null, right = null, flag = BLACK
+	 4 - cat = 4, left = bat, right = donkey, flag = BLACK
+	 5 - dog = 5, left = null, right = null, flag = BLACK
+	 6 - donkey = 6, left = dog, right = elephant, flag = BLACK
+	 7 - elephant = 7, left = null, right = null, flag = BLACK
+**************************
+inserted: ferret, root = cat
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = bear, flag = BLACK
+	 3 - bear = 3, left = null, right = null, flag = BLACK
+	 4 - cat = 4, left = bat, right = donkey, flag = BLACK
+	 5 - dog = 5, left = null, right = null, flag = BLACK
+	 6 - donkey = 6, left = dog, right = ferret, flag = BLACK
+	 7 - elephant = 7, left = null, right = null, flag = RED
+	 8 - ferret = 8, left = elephant, right = null, flag = BLACK
+**************************
+inserted: gazelle, root = cat
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = bear, flag = BLACK
+	 3 - bear = 3, left = null, right = null, flag = BLACK
+	 4 - cat = 4, left = bat, right = ferret, flag = BLACK
+	 5 - dog = 5, left = null, right = null, flag = BLACK
+	 6 - donkey = 6, left = dog, right = elephant, flag = RED
+	 7 - elephant = 7, left = null, right = null, flag = BLACK
+	 8 - ferret = 8, left = donkey, right = gazelle, flag = BLACK
+	 9 - gazelle = 9, left = null, right = null, flag = BLACK
+**************************
+inserted: horse, root = cat
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = bear, flag = BLACK
+	 3 - bear = 3, left = null, right = null, flag = BLACK
+	 4 - cat = 4, left = bat, right = ferret, flag = BLACK
+	 5 - dog = 5, left = null, right = null, flag = BLACK
+	 6 - donkey = 6, left = dog, right = elephant, flag = RED
+	 7 - elephant = 7, left = null, right = null, flag = BLACK
+	 8 - ferret = 8, left = donkey, right = horse, flag = BLACK
+	 9 - gazelle = 9, left = null, right = null, flag = RED
+	10 - horse = 10, left = gazelle, right = null, flag = BLACK
+**************************
+inserted: llama, root = ferret
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = bear, flag = BLACK
+	 3 - bear = 3, left = null, right = null, flag = BLACK
+	 4 - cat = 4, left = bat, right = donkey, flag = RED
+	 5 - dog = 5, left = null, right = null, flag = BLACK
+	 6 - donkey = 6, left = dog, right = elephant, flag = BLACK
+	 7 - elephant = 7, left = null, right = null, flag = BLACK
+	 8 - ferret = 8, left = cat, right = horse, flag = BLACK
+	 9 - gazelle = 9, left = null, right = null, flag = BLACK
+	10 - horse = 10, left = gazelle, right = llama, flag = BLACK
+	11 - llama = 11, left = null, right = null, flag = BLACK
+**************************
+inserted: wombat, root = ferret
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = bear, flag = BLACK
+	 3 - bear = 3, left = null, right = null, flag = BLACK
+	 4 - cat = 4, left = bat, right = donkey, flag = RED
+	 5 - dog = 5, left = null, right = null, flag = BLACK
+	 6 - donkey = 6, left = dog, right = elephant, flag = BLACK
+	 7 - elephant = 7, left = null, right = null, flag = BLACK
+	 8 - ferret = 8, left = cat, right = horse, flag = BLACK
+	 9 - gazelle = 9, left = null, right = null, flag = BLACK
+	10 - horse = 10, left = gazelle, right = wombat, flag = BLACK
+	11 - llama = 11, left = null, right = null, flag = RED
+	12 - wombat = 12, left = llama, right = null, flag = BLACK
+**************************
+inserted: zebra, root = ferret
+	 1 - animal = 1, left = null, right = null, flag = BLACK
+	 2 - bat = 2, left = animal, right = bear, flag = BLACK
+	 3 - bear = 3, left = null, right = null, flag = BLACK
+	 4 - cat = 4, left = bat, right = donkey, flag = RED
+	 5 - dog = 5, left = null, right = null, flag = BLACK
+	 6 - donkey = 6, left = dog, right = elephant, flag = BLACK
+	 7 - elephant = 7, left = null, right = null, flag = BLACK
+	 8 - ferret = 8, left = cat, right = wombat, flag = BLACK
+	 9 - gazelle = 9, left = null, right = null, flag = BLACK
+	10 - horse = 10, left = gazelle, right = llama, flag = RED
+	11 - llama = 11, left = null, right = null, flag = BLACK
+	12 - wombat = 12, left = horse, right = zebra, flag = BLACK
+	13 - zebra = 13, left = null, right = null, flag = BLACK
+**************************

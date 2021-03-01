@@ -35,7 +35,9 @@ docker run \
    -e LMS_CONF="${HOME}/.config" \
    \
    -v ${HOME}/bin:/userbin \
-   -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
    -v ${HOME}/.config/docker:/conf \
    -v ${HOME}/.config/docker/ldc-stack-apps-djdk13dev-gtk3${ldcvers}:/root \
    -v ${HOME}/.config/docker/ldc-stack-apps-djdk13dev-gtk3${ldcvers}/workspace:/workspace \

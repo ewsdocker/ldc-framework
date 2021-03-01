@@ -7,14 +7,14 @@
 #
 # @author Jay Wheeler.
 # @version 0.4.0
-# @copyright © 2016-2020. EarthWalk Software.
+# @copyright © 2016-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-library
 # @subpackage lmsStr
 #
 # *****************************************************************************
 #
-#	Copyright © 2016-2020. EarthWalk Software
+#	Copyright © 2016-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-library.
@@ -52,10 +52,12 @@
 #
 #					0.4.0 - 01-28-2020.
 #
+#					0.5.0 - 01-15-2021.
+#
 # ***********************************************************************************************************
 # ***********************************************************************************************************
 
-declare -r lmslib_lmsStr="0.4.0"	# version of library
+declare -r lmslib_lmsStr="0.5.0"	# version of library
 
 # ***********************************************************************************************************
 
@@ -370,4 +372,5 @@ function lmsStrFill()
 	return 0
 }
 
+# ***********************************************************************************************************
 # ***********************************************************************************************************

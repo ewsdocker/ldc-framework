@@ -28,11 +28,11 @@ docker rmi ewsdocker/ldc-core:dcore${ldcvers}${ldcextv}
 
 echo "   ********************************************"
 echo "   ****"
-echo "   **** getting new debian:${debvers}, if one is available"
+echo "   **** getting new debian:${ldcdebian}, if one is available"
 echo "   ****"
 echo "   ********************************************"
 echo
-docker pull debian:"${debvers}"
+docker pull debian:"${ldcdebian}"
 
 echo "   ***************************************************"
 echo "   ****"
@@ -53,7 +53,7 @@ docker build \
   \
   --build-arg FROM_REPO="" \
   --build-arg FROM_PARENT="debian" \
-  --build-arg FROM_VERS="${debvers}" \
+  --build-arg FROM_VERS="${ldcdebian}" \
   --build-arg FROM_EXT="" \
   --build-arg FROM_EXT_MOD="" \
   \

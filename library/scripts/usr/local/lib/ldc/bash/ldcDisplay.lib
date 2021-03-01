@@ -1,0 +1,111 @@
+#!/bin/bash
+# =========================================================================
+# =========================================================================
+#
+#	ldcDisplay
+#     display a message on the console and/or to a log file
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2016-2021. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-library
+# @subpackage ldcDisplay
+#
+# =========================================================================
+#
+#	Copyright © 2016-2021. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-library.
+#
+#   ewsdocker/ldc-library is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-library is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-library.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+#
+#	Dependencies
+#		ldcUtilities.lib
+#		
+# =========================================================================
+#
+#	Functions:
+#
+#		ldcDisplay
+#			display message on the console
+#		ldcDisplayTs
+#			display message with timestamp on the console
+#
+#
+# =========================================================================
+
+declare -r ldclib_ldcDisplay="0.1.0"	# version of library
+
+# =========================================================================
+#
+#   ldcDisplay
+#		display message on the console
+#
+#	parameters:
+#		message = message to display
+#       override = 1 to override ldcopt
+#       noeol = do not output an end-of-line sequence
+#	returns:
+#		0 = no errors
+#		non-zero = error code
+#
+# =========================================================================
+function ldcDisplay()
+{
+    local ldccon_buffer="${1}"
+    local override=${2:-0}
+    local noeol=${3:-""}
+
+    [[ ${ldccli_optSilent} -ne 0  &&  ${override} -eq 0 ]] && return 0
+    [[ -z "${noeol}" ]] && echo "${ldccon_buffer}" || echo -n "${ldccon_buffer}"
+
+    return 0
+}
+
+# =========================================================================
+#
+#   ldcDisplayTs
+#		display message with timestamp on the console
+#
+#	parameters:
+#		message = message to display
+#       override = 1 to override ldcopt
+#       
+#	returns:
+#		0 = no errors
+#		non-zero = error code
+#
+# =========================================================================
+function ldcDisplayTs()
+{
+	local buffer=${1:-""}
+    local oride=${2:-0}
+    local no=${3:-""}
+
+ 	ldcUtilTimestamp 0
+
+	local tS
+	printf -v tS "%s %s" "${ldcutl_timestamp}" "${buffer}"
+
+	ldcDisplay "${tS}" "${oride}" "${no}"	
+}
+

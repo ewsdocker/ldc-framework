@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<configdata>
+	<name>TVDBQueryControl.xml</name>
+	<copyright>Copyright 2016. EarthWalk Software. Created by Jay Wheeler.</copyright>
+	<production>
+
+		<Verbose>0</Verbose>
+
+		<PHPProjectLibrary>/usr/local/include/php/PHPProjectLibrary</PHPProjectLibrary>
+
+		<Launcher>
+		    <ConfigRequired>1</ConfigRequired>
+			<ConfigPath>Application\Launcher</ConfigPath>
+			<ConfigAdapter>fileobject</ConfigAdapter>
+			<ConfigMode>r</ConfigMode>
+			<ConfigName>launcherConfig</ConfigName>
+			<ConfigType>xml</ConfigType>
+			<ConfigIOAdapter>fileio</ConfigIOAdapter>
+			<ConfigIOAdapterType>fileobject</ConfigIOAdapterType>
+		</Launcher>
+
+		<Log>
+			<TVDBQueryControl>
+				<Name>TVDBQueryControl</Name>
+				<SkipLevels>4</SkipLevels>
+				<Adapter>fileio</Adapter>
+				<Format>timestamp</Format>
+				<Level>errors</Level>
+				<Exception>NoError</Exception>
+				<Error>NoError</Error>
+				<Program>TVDBQueryControl</Program>
+				<FileAdapter>fileobject</FileAdapter>
+				<FileMode>w</FileMode>
+				<FileDestination>TVDBQueryControl</FileDestination>
+				<FileType>log</FileType>
+				<IOAdapter>fileio</IOAdapter>
+				<IOAdapterType>fileobject</IOAdapterType>
+		    </TVDBQueryControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>0</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>0</DisplayErrors>
+			<EnableExceptions>0</EnableExceptions>
+			<LogErrors>0</LogErrors>
+			<LogLevel>errors</LogLevel>
+		</ErrorHandler>
+
+		<TVDB>
+			<DbDriver>mysql</DbDriver>
+			<DbHost>192.168.0.115</DbHost>
+			<DbPort>3306</DbPort>
+			<DbName>TVDB</DbName>
+			<DbUser>phplibuser</DbUser>
+			<DbPassword>phplibpwd</DbPassword>
+		</TVDB>
+
+	</production>
+
+	<development extends="production">
+
+		<Verbose>1</Verbose>
+
+		<Launcher>
+		    <ConfigRequired>0</ConfigRequired>
+		</Launcher>
+
+		<Log>
+			<TVDBQueryControl>
+				<Level>debug</Level>
+			</TVDBQueryControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>1</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>0</DisplayErrors>
+			<EnableExceptions>1</EnableExceptions>
+			<LogErrors>1</LogErrors>
+			<LogLevel>debug</LogLevel>
+		</ErrorHandler>
+
+		<TVDB>
+			<DbHost>10.10.10.2</DbHost>
+			<DbPort>3306</DbPort>
+			<DbName>TVDBTest</DbName>
+			<DbUser>phplibuser</DbUser>
+			<DbPassword>phplibpwd</DbPassword>
+		</TVDB>
+
+	</development>
+
+	<testing extends="production">
+
+		<Verbose>2</Verbose>
+
+		<Launcher>
+		    <ConfigRequired>0</ConfigRequired>
+		</Launcher>
+
+		<Log>
+			<TVDBQueryControl>
+				<Level>debug</Level>
+			</TVDBQueryControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>1</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>1</DisplayErrors>
+			<EnableExceptions>1</EnableExceptions>
+			<LogErrors>1</LogErrors>
+			<LogLevel>debug</LogLevel>
+		</ErrorHandler>
+
+		<TVDB>
+			<DbHost>10.10.10.5</DbHost>
+			<DbName>TVDB</DbName>
+			<DbUser>phplibuser</DbUser>
+			<DbPassword>phplibpwd</DbPassword>
+		</TVDB>
+
+	</testing>
+
+</configdata>

@@ -8,14 +8,14 @@
 #
 # @author Jay Wheeler.
 # @version 0.1.0
-# @copyright © 2019. EarthWalk Software.
+# @copyright © 2019-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-library
 # @subpackage lmaBashVars.lib
 #
 # =========================================================================
 #
-#	Copyright © 2019. EarthWalk Software
+#	Copyright © 2019-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-library.

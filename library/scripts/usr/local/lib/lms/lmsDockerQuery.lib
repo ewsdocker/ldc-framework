@@ -8,31 +8,31 @@
 # =========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.0.1
-# @copyright © 2019. EarthWalk Software.
+# @version 0.0.2
+# @copyright © 2019-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
-# @package ewsdocker/lms-utilities
-# @subpackage lmsDockerQuery.lib
+# @package ewsdocker/ldc-framework
+# @subpackage library/lmsDockerQuery.lib
 #
 # =========================================================================================
 #
-#	Copyright © 2019. EarthWalk Software
+#	Copyright © 2019-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
-#   This file is part of ewsdocker/lms-utilities.
+#   This file is part of ewsdocker/ldc-framework.
 #
-#   ewsdocker/lms-utilities is free software: you can redistribute 
+#   ewsdocker/ldc-framework is free software: you can redistribute 
 #   it and/or modify it under the terms of the GNU General Public License 
 #   as published by the Free Software Foundation, either version 3 of the 
 #   License, or (at your option) any later version.
 #
-#   ewsdocker/lms-utilities is distributed in the hope that it will 
+#   ewsdocker/ldc-framework is distributed in the hope that it will 
 #   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
 #   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
 #
 #   You should have received a copy of the GNU General Public License
-#   along with ewsdocker/lms-utilities.  If not, see 
+#   along with ewsdocker/ldc-framework.  If not, see 
 #   <http://www.gnu.org/licenses/>.
 #
 # =========================================================================================
@@ -42,6 +42,7 @@
 #
 #	Dependencies:
 #		lmsDeclare.lib
+#       lmsErrorMsg.lib
 #		lmsParseColumns.lib
 #
 # =========================================================================================
@@ -62,13 +63,16 @@
 #			Check whether or not the container is in an exited state.
 #
 #   	dqCheckRunning		
-#			Check whether or not the container is a running state.
+#			Check whether or not the container is in a running state.
 #
 #   	dqCheckStatus [ <pStatus> ] [ <pSearch> ]
 #			Check the requested status and the search string present
 #
 #   	dqCheckUserDef [ <pStatus> ] [ <pSearch> ]
 #			Check user defined CONTAINER status.
+#
+#       dqCommand
+#  		    Execute the command in dq_command in selected blocking mode (dq_exectype).
 #
 #   	dqCreateContainer	[ <run-name> ]
 #			Run the container's "docker create" script.
@@ -112,68 +116,6 @@
 #	global declarations
 #
 # =========================================================================================
-# =========================================================================================
-
-# =========================================================================================
-#
-#	State Errors
-#
-# =========================================================================================
-
-declare -i dqerror_none=0
-declare -i dqerror_state=1
-declare -i dqerror_template=2
-declare -i dqerror_unknown=3
-declare -i dqerror_container=4
-declare -i dqerror_run=5
-declare -i dqerror_start=6
-declare -i dqerror_status=7
-declare -i dqerror_check=8
-declare -i dqerror_running=9
-declare -i dqerror_exited=10
-declare -i dqerror_event=11
-declare -i dqerror_pull=12
-declare -i dqerror_stop=13
-declare -i dqerror_rm=14
-declare -i dqerror_rmi=15
-declare -i dqerror_command=16
-
-declare -i dqerror_arg=20
-declare -i dqerror_function=21
-declare -i dqerror_no_image=22
-declare -i dqerror_no_container=23
-declare -i dqerror_parse_cli=24
-declare -i dqerror_strsub=25
-declare -i dqerror_column=26
-
-declare -i dq_error=${dqerror_none}
-
-declare -A dqerror_message=(["${dqerror_none}"]="No error(s)."
-                            ["${dqerror_state}"]="Invalid state."
-                            ["${dqerror_template}"]="Template error."
-                            ["${dqerror_unknown}"]="Unknown error."
-                            ["${dqerror_container}"]="Docker container error."
-                            ["${dqerror_run}"]="Docker container RUN error."
-						    ["${dqerror_start}"]="Docker container START error."
-						    ["${dqerror_status}"]="Bad or invalid status."
-                            ["${dqerror_check}"]="Check status error."
-						    ["${dqerror_running}"]="Docker container is not running."
-                            ["${dqerror_exited}"]="Docker container exited."
-						    ["${dqerror_event}"]="Event error."
-                            ["${dqerror_pull}"]="Docker image PULL error."
-						    ["${dqerror_stop}"]="Docker image STOP error."
-                            ["${dqerror_rm}"]="Docker image RM error."
-						    ["${dqerror_rmi}"]="Docker container RMI error."
-						    ["${dqerror_command}"]="Unknown docker command."
-                            ["${dqerror_arg}"]="Missing argument(s)."
-						    ["${dqerror_function}"]="External function error."
-						    ["${dqerror_no_image}"]="Unknown image."
-						    ["${dqerror_no_container}"]="Unknown container."
-						    ["${dqerror_parse_cli}"]="Command-line parsing error."
-						    ["${dqerror_strsub}"]="Substring error."
-						    ["${dqerror_column}"]="Column Title/Index error."
-                            )
-
 # =========================================================================================
 
 declare -i dq_timeout=30		# wait event timeout
@@ -223,6 +165,64 @@ declare    dq_eventUserDef=2
 
 # =========================================================================================
 #
+#	dqAddErrors
+#
+#		Add error names and associated messages to the lmsErrorMsg library.
+#
+#	parameters:
+#		none
+#
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dqAddErrors()
+{
+    # =====================================================================================
+    #
+    #    State Errors
+    #
+    # =====================================================================================
+
+	lmsErrorAdd "dqerror_none"            "No error(s)."
+	lmsErrorAdd "dqerror_state"           "Invalid state."
+    lmsErrorAdd "dqerror_template"        "Template error."
+    lmsErrorAdd "dqerror_unknown"         "Unknown error."
+
+    lmsErrorAdd "dqerror_container"       "Docker container error."
+    lmsErrorAdd "dqerror_run"             "Docker container RUN error."
+	lmsErrorAdd "dqerror_start"           "Docker container START error."
+
+	lmsErrorAdd "dqerror_status"          "Bad or invalid status."
+	lmsErrorAdd "dqerror_check"           "Check status error."
+
+	lmsErrorAdd "dqerror_running"         "Docker container is not running."
+	lmsErrorAdd "dqerror_exited"          "Docker container exited."
+
+	lmsErrorAdd "dqerror_event"           "Event error."
+
+	lmsErrorAdd "dqerror_pull"            "Docker container PULL error."
+	lmsErrorAdd "dqerror_stop"            "Docker container STOP error."
+	lmsErrorAdd "dqerror_rm"              "Docker container RM error."
+	lmsErrorAdd "dqerror_rmi"             "Docker image RMI error."
+
+	lmsErrorAdd "dqerror_command"         "Unknown docker command."
+	lmsErrorAdd "dqerror_arg"             "Missing argument(s)."
+	lmsErrorAdd "dqerror_function"        "External function error."
+
+	lmsErrorAdd "dqerror_no_image"        "Unknown image."
+	lmsErrorAdd "dqerror_no_container"    "Unknown container."
+
+	lmsErrorAdd "dqerror_parse_cli"       "Command-line parsing error."
+	lmsErrorAdd "dqerror_strsub"          "Substring error."
+	lmsErrorAdd "dqerror_column"          "Column Title/Index error."
+	
+	return 0
+}                            
+
+# =========================================================================================
+#
 #	dqInitialize
 #
 #		Initialize all fields to their default settings
@@ -237,7 +237,7 @@ declare    dq_eventUserDef=2
 # =========================================================================================
 function dqInitialize()
 {
-	dq_error=${dqerror_none}
+	lmsErrorSet "none"
 
 	dq_timeout=30			# wait event timeout
 
@@ -256,14 +256,14 @@ function dqInitialize()
 	dq_status=""			# first status line in dq_cstatus array (dq_cstatus[1])
 	dq_gstatus=""			# contains the name of the alternative to dq_status
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
 #
 #   dqCommand
 #
-#  		Execute the command in dq_command in blocking mode (wait for command to complete).
+#  		Execute the command in dq_command in selected blocking mode (dq_exectype).
 #
 #   parameters:
 #		dq_exectype = (optional) command execution type: asynch or synch, default = synch
@@ -272,7 +272,7 @@ function dqInitialize()
 #
 #	returns:
 #      0 = started
-#      1 = not started
+#      non-zero = not started
 #
 # =========================================================================================
 function dqCommand()
@@ -281,15 +281,15 @@ function dqCommand()
 	dq_command=${2:-"$dq_command"}
 	dq_cmdlist=${3:-""}
 
-	dq_error=${dqerror_none}
+	lmsErrorSet "none"
 
 	dq_execString="docker ${dq_command} ${dq_cmdlist} "
 	[[ ${dq_exectype} -eq "asynch" ]] && dq_execString="${dq_execString} &"
 
 	dq_cmndbuffer=$( bash -c "${dq_execString}" )
-	[[ $? -eq 0 ]] || dq_error=${dqerror_command}
+	[[ $? -eq 0 ]] || lmsErrorSet "dqerror_command"
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -351,8 +351,8 @@ function dqFqnToNames()
 	else
 		dqSetNames ${dq_repo} "${l_cnames[0]}:latest" "${l_cnames[0]}-latest" "${l_cnames[0]}"
 	fi
-	
-	return 0
+
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -378,23 +378,23 @@ function dqContainerColumn()
 	dq_fieldsubstr=${2:-"$dq_fieldsubstr"}
 	local l_contents=${3:-"dq_contStatus"}
 
-	dq_error=${dqerror_none}
+	lmsErrorSet "none"
 
-	while [ ${dq_error} -eq ${dqerror_none} ]
+	while [ "${lmsError_name}" == "none" ]
 	do
 		[[ ${dq_pcRemap} -eq 1 ]] &&
 		 {
 			pcMap "${dq_fieldsubstr}" "${dq_cstatus[0]}"
 			[[ $? -eq 0 ]] || 
 			 {
-				dq_error=${dqerror_function}
+				lmsErrorSet "dqerror_function"
 				break
 			 }
 
 			pcMapFind "$dq_fieldName"
 			[[ $? -eq 0 ]] ||
 			 {
-		 		dq_error=${dqerror_column}
+		 		lmsErrorSet "dqerror_column"
 		 		break
 			 }
 
@@ -405,12 +405,12 @@ function dqContainerColumn()
 	 	 }
 
 		lmsDeclareStr ${l_contents} "${dq_cstatus[1]:${pc_colstart[$pc_index]}:${pc_coldata[$pc_index]} }"
-		[[ $? -eq 0 ]] || dq_error=${dqerror_function}
+		[[ $? -eq 0 ]] || lmsErrorSet "dqerror_function"
 		
 		break
 	done
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -434,39 +434,34 @@ function dqGetStatus()
 	dq_gstatus=${2:-""}
 
 	[[ -z ${dq_gstatus} ]] && dq_gstatus="dq_contStatus"
-	dq_error=${dqerror_none}
+	lmsErrorSet "none"
 
 	local    lFilter="ls -a --filter name=${dq_cname} "
 	[[ -n ${status} ]] && lFilter="${lFilter} --filter status=${status}"
 
 	dq_pcRemap=1
 		
-#	local    oifs=$IFS
-#		IFS=$'\n' read -rd '' -a dq_cstatus <<< "$(docker container ls -a ${lFilter} )"
-
-#	dq_command="docker container ls -a ${lFilter}"
-
 	dqCommand "synch" "container" "${lFilter}"
-   	[[ $? -eq 0 ]] || dq_error=${dqerror_status}
+   	[[ $? -eq 0 ]] || lmsErrorSet "dqerror_status"
 
 	local    oifs=$IFS
 		IFS=$'\n' read -rd '' -a dq_cstatus <<< "${dq_cmndbuffer}"
 	IFS=${oifs}
 
-	[[ ${#dq_cstatus[*]} -lt 2 ]] && dq_error=${dqerror_status}
+	[[ ${#dq_cstatus[*]} -lt 2 ]] && lmsErrorSet "dqerror_status"
 
 	dqContainerColumn "STATUS" "  " 
 
-	[[ ${dq_error} -eq ${dqerror_none} ]] &&
+	[[ "$lmsErrorName" == "none" ]] &&
 	 { 
 		[[ -n ${dq_gstatus} ]] &&
 		 {
 			lmsDeclareStr ${dq_gstatus} "${dq_contStatus}"
-			[[ $? -eq 0 ]] || dq_error=${dqerror_function}
+			[[ $? -eq 0 ]] || lmsErrorSet "dqerror_function"
 		 }
 	 }
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -481,13 +476,13 @@ function dqGetStatus()
 #
 #    Result:
 #        0 = found container information
-#        1 = no container found
+#        non-zero = no container found
 #
 # =========================================================================================
 function dqGetContainer()
 {
 	dqGetStatus ${1:-""} ${2:-""}
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -502,8 +497,7 @@ function dqGetContainer()
 #
 #	returns:
 #      0 = status matched and search value was found
-#      1 = search string did not match
-#	   2 = 'docker container ls' failed
+#      non-zero = error code
 #
 # =========================================================================================
 function dqCheckStatus()
@@ -511,17 +505,23 @@ function dqCheckStatus()
     local pStatus=${1:-""}
     local pSearch=${2:-""}
 
-	dq_error=${dqerror_none}
+	lmsErrorSet "none"
 
-	dqGetStatus $pStatus
-	[[ $? -eq 0 ]] || return 2
+	while [ true ]
+	do
+		dqGetStatus $pStatus
+		[[ $? -eq 0 ]] || break
 
-	[[ -z "${pSearch}" ]] && return 0
+		[[ -z "${pSearch}" ]] && break
 
-	if echo "${dq_contStatus}" | grep -q "${pSearch}" ; then return 0 ; fi
+		if echo "${dq_contStatus}" | grep -q "${pSearch}" ; then break ; fi
 
-	dq_error=${dqerror_check}
-	return 1
+		lmsErrorSet "dqerror_check"
+		break
+
+	done
+
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -540,12 +540,12 @@ function dqCheckStatus()
 # =========================================================================================
 function dqCheckRunning()
 {
-	dq_error=${dqerror_none}
+	lmsErrorSet "none"
 
 	dqCheckStatus "running" "Up"
-	[[ $? -eq 0 ]] || dq_error=${dqerror_running}
+	[[ $? -eq 0 ]] || lmsErrorSet "dqerror_running"
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -564,12 +564,12 @@ function dqCheckRunning()
 # =========================================================================================
 function dqCheckExited()
 {
-	dq_error=${dqerror_none}
+	lmsErrorSet "none"
 
     dqCheckStatus "exited" "Exited" 
-	[[ $? -eq 0 ]] || dq_error=${dqerror_exited}
+	[[ $? -eq 0 ]] || lmsErrorSet "dqerror_exited"
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -584,7 +584,7 @@ function dqCheckExited()
 #
 #	returns:
 #      0 = exited
-#      1 = not exited
+#      non-zero = not exited
 #
 # =========================================================================================
 function dqCheckUserDef()
@@ -592,12 +592,12 @@ function dqCheckUserDef()
     local uStatus=${1:-""}
     local uSearch=${2:-""}
 
- 	dq_error=${dqerror_none}
+ 	lmsErrorSet "none"
  
     dqCheckStatus "${uStatus}" "${uSearch}"
-    [[ $? -eq 0 ]]|| dq_error=${dqerror_exited}
+    [[ $? -eq 0 ]]|| lmsErrorSet "dqerror_exited"
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -614,22 +614,18 @@ function dqCheckUserDef()
 #
 #	returns:
 #      0 = started
-#      1 = not started
+#      non-zero = not started
 #
 # =========================================================================================
 function dqRmImage()
 {
 	dq_iname=${1:-"$dq_iname"}
-	dq_error=${dqerror_none}
-
-#    docker rmi ${dq_repo}/${dq_iname} 
-
-#	dq_command="docker rmi ${dq_repo}/${dq_iname}"
+	lmsErrorSet "none"
 
 	dqCommand "synch" "rmi" "${dq_repo}/${dq_iname}"
-    [[ $? -eq 0 ]] || dq_error=${dqerror_rmi}
+    [[ $? -eq 0 ]] || lmsErrorSet "dqerror_rmi"
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -643,21 +639,18 @@ function dqRmImage()
 #
 #	returns:
 #      0 = started
-#      1 = not started
+#      non-zero = not started
 #
 # =========================================================================================
 function dqRmContainer()
 {
 	dq_rname=${1:-"$dq_rname"}
-	dq_error=${dqerror_none}
-
-#    docker rm ${dq_rname} 
-#	dq_command="docker rm ${dq_rname}"
+	lmsErrorSet "none"
 
 	dqCommand "synch" "rm" "${dq_rname}"
-    [[ $? -eq 0 ]] || dq_error=${dqerror_rm}
+    [[ $? -eq 0 ]] || lmsErrorSet "dqerror_rm"
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -671,21 +664,18 @@ function dqRmContainer()
 #
 #	returns:
 #      0 = started
-#      1 = not started
+#      non-zero = not started
 #
 # =========================================================================================
 function dqStopContainer()
 {
 	dq_cname=${1:-"$dq_cname"}
-	dq_error=${dqerror_none}
-
-#    docker stop ${dq_rname} 
-#	dq_command="docker stop ${dq_rname}"
+	lmsErrorSet "none"
 
 	dqCommand "synch" "stop" "${dq_rname}"
-    [[ $? -eq 0 ]] || dq_error=${dqerror_stop}
+    [[ $? -eq 0 ]] || lmsErrorSet "dqerror_stop"
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -699,21 +689,18 @@ function dqStopContainer()
 #
 #	returns:
 #      0 = started
-#      1 = not started
+#      non-zero = not started
 #
 # =========================================================================================
 function dqStartContainer()
 {
 	dq_cname=${1:-"$dq_rname"}
-	dq_error=${dqerror_none}
-
-# 	bash -c "docker start ${dq_rname} >/dev/null 2>/dev/null &"
-#	dq_command="docker start ${dq_rname}"
+	lmsErrorSet "none"
 
 	dqCommand "asynch" "start" "${dq_rname}"
-    [[ $? -eq 0 ]] || dq_error=${dqerror_start}
+    [[ $? -eq 0 ]] || lmsErrorSet "dqerror_start"
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -734,15 +721,12 @@ function dqStartContainer()
 function dqCreateContainer()
 {
 	dq_rname=${1:-"$dq_rname"}
-	dq_error=${dqerror_none}
-
-#	bash -c "${dq_binpath}/${dq_rname} >/dev/null 2>/dev/null &"
-#	dq_command="${dq_binpath}/${dq_rname}"
+	lmsErrorSet "none"
 
 	dqCommand "synch" "create" "${dq_binpath}/${dq_rname}"
-	[[ $? -eq 0 ]] || dq_error=${dqerror_run}
+	[[ $? -eq 0 ]] || lmsErrorSet "dqerror_run"
 	
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -763,15 +747,12 @@ function dqCreateContainer()
 function dqPullImage()
 {
 	dq_iname=${1:-"$dq_iname"}
-	dq_error=${dqerror_none}
-
-#	docker pull "${dq_repo}/${dq_iname}"
-#	dq_command="docker pull ${dq_repo}/${dq_iname}"
+	lmsErrorSet "none"
 
 	dqCommand "synch" "pull" "${dq_repo}/${dq_iname}"
-    [[ $? -eq 0 ]] || dq_error=${dqerror_pull}
+    [[ $? -eq 0 ]] || lmsErrorSet "dqerror_pull"
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -795,15 +776,15 @@ function dqCheckContainer()
 {
 	dq_cname=${1:-"$dq_cname"}
 
-	[[ -z ${dq_cname} ]] && dq_error=${dqerror_arg} || dq_error=${dqerror_none}
+	[[ -z ${dq_cname} ]] && lmsErrorSet "dqerror_arg" || lmsErrorSet "none"
 
-	[[ ${dq_error} -eq ${dqerror_none} ]] &&
+	[[ "${lmsError_name}" == "none" ]] &&
 	 {
 		dqGetContainer
-		[[ $? -eq 0 ]] || dq_error=${dqerror_no_container}
+		[[ $? -eq 0 ]] || lmsErrorSet "dqerror_no_container"
 	 }
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -824,17 +805,15 @@ function dqCheckContainer()
 function dqCheckImage()
 {
 	dq_iname=${1:-"$dq_iname"}
-	[[ -z ${dq_iname} ]] && dq_error=${dqerror_arg} || dq_error=${dqerror_none}
+	[[ -z ${dq_iname} ]] && lmsErrorSet "dqerror_arg}" || lmsErrorSet "none"
 
-	[[ ${dq_error} -eq ${dqerror_none} ]] &&
+	[[ "${lmsError_name}" == "none" ]] &&
 	 {
-#		docker image inspect ${dq_repo}/${dq_iname} > /dev/null 2>&1
-
 		dqCommand "synch" "image" "inspect ${dq_repo}/${dq_iname}"
-		[[ $? -eq 0 ]] || dq_error=${dqerror_no_image}
+		[[ $? -eq 0 ]] || lmsErrorSet "dqerror_no_image"
 	 }
 
-	return ${dq_error}
+	return $lmsError_code
 }
 
 # =========================================================================================
@@ -853,7 +832,7 @@ function dqCheckImage()
 #
 #	returns:
 #		0 = running
-#		1 = not running
+#		non-zero = timeout expired
 #
 # =========================================================================================
 function dqWaitEvent()
@@ -863,6 +842,8 @@ function dqWaitEvent()
 	local linterval=${3:-"1s"}
 
 	local dq_lresult=0
+
+	lmsErrorSet "none"
 
 	while [[ ${ltimeout} -gt 0 ]]
 	do
@@ -898,8 +879,8 @@ function dqWaitEvent()
 		(( ltimeout-- ))
 	done
 
-	[[ ${dq_lresult} -eq 0 ]] || dq_error=${dqerror_event}
-	return ${dq_lresult}
+	[[ ${dq_lresult} -eq 0 ]] || lmsErrorSet "dqerror_event"
+	return $lmsError_code
 }
 
 # =========================================================================================

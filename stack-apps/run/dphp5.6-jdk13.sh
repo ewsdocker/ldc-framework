@@ -35,6 +35,9 @@ docker run \
   -e LMS_HOME="${HOME}" \
   -e LMS_CONF="${HOME}/.config" \
   \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
   -v ${HOME}/.config/docker:/conf \
   -v ${HOME}/.config/docker/ldc-stack-apps-dphp5.6-jdk13${ldcvers}${ldcextv}:/root \
   -v ${HOME}/.config/docker/ldc-stack-apps-dphp5.6-jdk13${ldcvers}${ldcextv}/workspace:/workspace \

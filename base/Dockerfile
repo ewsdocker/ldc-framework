@@ -7,15 +7,15 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.0-b3
-# @copyright © 2017-2020. EarthWalk Software.
+# @version 0.1.0-b4
+# @copyright © 2017-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-base
-# @subpackage Dockerfile.dbase
+# @subpackage Dockerfile
 #
 # ========================================================================================
 #
-#	Copyright © 2017-2020. EarthWalk Software
+#	Copyright © 2017-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-base.
@@ -41,7 +41,7 @@ ARG FROM_REPO="ewsdocker"
 ARG FROM_PARENT="ldc-base"
 ARG FROM_VERS="dbase"
 ARG FROM_EXT="-0.1.0"
-ARG FROM_EXT_MOD="-b3"
+ARG FROM_EXT_MOD="-b4"
 
 FROM ${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
 
@@ -176,7 +176,7 @@ ENV LMSLIB_URL=${LMSLIB_HOST}/${LMSLIB_PKG}
 #
 # ========================================================================================
 
-ENV GSU_REL=${GOSU_REL:-"1.4"} \
+ENV GSU_REL=${GOSU_REL:-"1.12"} \
     GSU_VER=${GOSU_VER:-"gosu-amd64"} \
     GSU_HOST=${GOSU_HOST:-"https://github.com/tianon/gosu/releases/download"}
 
@@ -220,7 +220,7 @@ RUN apt-get -y update \
  #		Sould only be set to 1 if building dbase.
  #
  # ========================================================================
- && if test "${LMSLIB_INST}" = "1"; then /tmp/install_library.sh; fi \
+ #&& if test "${LMSLIB_INST}" = "1"; then /tmp/install_library.sh; fi \
  \
  # ========================================================================
  #

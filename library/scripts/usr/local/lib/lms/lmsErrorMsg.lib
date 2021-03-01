@@ -7,14 +7,14 @@
 #
 # @author Jay Wheeler.
 # @version 0.1.0
-# @copyright © 2020. EarthWalk Software.
+# @copyright © 2020-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-library
 # @subpackage lmsErrorMsg.lib
 #
 # =========================================================================
 #
-#	Copyright © 2020. EarthWalk Software
+#	Copyright © 2020-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-library.
@@ -52,6 +52,10 @@ declare -a lmsErrorCodes=("none"
                           "unknown"
                           )
 
+declare    lmsError_name="none"
+declare    lmsError_message="${lmsErrorMessages[$lmsError_name]}"
+declare -i lmsError_code=0
+
 # =========================================================================================
 #
 #    lmsErrorExists - check if requested errorName exists
@@ -69,9 +73,9 @@ function lmsErrorExists()
 	local errorName="${1}"
 
 	[[ -z "${errorName}" ]] && errorName="unknown"
-	[[ "${lmsErrorCodes[@]}" =~ "${errorName}" ]] && return 0
+	[[ "${lmsErrorCodes[@]}" =~ "${errorName}" ]] || return 1
 
-	return 1
+	return 0
 }
 
 # =========================================================================================
@@ -80,7 +84,7 @@ function lmsErrorExists()
 #
 #    Parameters:
 #		errorName = name of the error message
-#       exitMsg = error message text
+#       errorMsg  = error message text
 #
 #    Results:
 #       0 = no error
@@ -106,39 +110,92 @@ function lmsErrorAdd()
 #       errorCode = name of the global variable to receive the code number
 #
 #    Results:
-#       0 = no error
+#       lmsError_code as an integer
 #
 # =========================================================================================
 function lmsErrorCode()
 {
-    local errorName="${1}"
-    local errorCode="${2}"
-
-    [[ -z "${errorName}" || -z "${errorCode}" ]] && return 1
+    local errorName=${1:-"$lmsError_name"}
+    local errorCode=${2:-""}
 
     lmsErrorExists "${errorName}"
-    [[ $? -eq 0 ]] || return 2
+    [[ $? -eq 0 ]] || errorName="unknown"
 
 	local index=0
+	local fence=${#lmsErrorCodes[*]}
 
 	while [[ true ]]
 	do
 		[[ "${lmsErrorCodes[$index]}" == "${errorName}" ]] && break
 
 		(( index++ ))
-        [[ ${index} -ge ${#lmsErrorCodes[*]} ]] && 
+        [[ ${index} -ge ${fence} ]] && 
          {
          	index=0
-         	errorName=${lmsErrorCodes[$index]}
+            lmsError_name="none"
+            lmsError_message=${lmsErrorMessages["none"]}
 
          	break
          }
-
 	done
 
 	lmsDeclareInt ${errorCode} ${index}
-	[[ $? -eq 0 ]] || return 4
 
-	return 0
+	return ${index}
 }
+
+# =========================================================================================
+#
+#    lmsErrorGet - set global error name, error number and error message
+#                          from error name
+#
+#    Parameters:
+#		errorName = name of the error message
+#		errorMessage = destination of the message (optional, default = $lmsError_message)
+#
+#    Results:
+#       0 = no error
+#
+# =========================================================================================
+function lmsErrorGet()
+{
+    local errorName=${1:-"$lmsError_name"}
+    local errorBuffer=${2:-"lmsError_message"}
+
+    lmsErrorExists "${errorName}"
+    [[ $? -eq 0 ]] || errorName="unknown" 
+
+    lmsError_name="${errorName}"
+    lmsError_message=${lmsErrorMessages["$errorName"]}
+
+	lmsDeclareStr ${errorBuffer} "${lmsError_message}"
+}
+
+# =========================================================================================
+#
+#    lmsErrorSet - set global error name and message
+#
+#    Parameters:
+#		errorName = name of the error message
+#
+#    Results:
+#       0 = no error
+#
+# =========================================================================================
+function lmsErrorSet()
+{
+    local errorName=${1:-"unknown"}
+
+    lmsErrorExists "${errorName}"
+    [[ $? -eq 0 ]] || errorName="unknown" 
+
+    lmsError_name="${errorName}"
+    lmsError_message=${lmsErrorMessages["$errorName"]}
+
+	lmsErrorCode $lmsError_name
+
+	return $lmsError_code
+}
+
+# =========================================================================================
 

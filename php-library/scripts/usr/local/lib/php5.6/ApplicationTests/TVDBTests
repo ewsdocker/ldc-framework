@@ -1,0 +1,62 @@
+# #######################################################
+#
+# TVDB Class Tests
+#
+# #######################################################
+test=\ApplicationTests\TVDB\LoadControlTest host=10.10.10.2 db=TVDB user=phplibuser password=phplibpwd table=Control apikey=D29BEE8036451BD0 account=9FC72AE60462A27C accountown=jaywheeler@gmail.com accountpwd=MurPhy22 
+test=\ApplicationTests\TVDB\DB\DbControlTest host=10.10.10.2 db=TVDB user=phplibuser password=phplibpwd table=Control apikey=D29BEE8036451BD0 account=9FC72AE60462A27C seriesid=73028
+#
+test=\Tests\XML\LoadXMLTest apikey=D29BEE8036451BD0
+test=\ApplicationTests\TVDB\LoadMirrorsTest apikey=D29BEE8036451BD0
+test=\ApplicationTests\TVDB\GetUpdateTimeTest apiurl=http://thetvdb.com/api/Updates.php type=none
+#
+test=\ApplicationTests\TVDB\DB\Fields\FieldDescriptorTest 
+test=\ApplicationTests\TVDB\DB\DbFieldsTest 
+#
+test=\ApplicationTests\TVDB\LoadBannersTest apikey=D29BEE8036451BD0 account=9FC72AE60462A27C seriesid=73082 
+test=\ApplicationTests\TVDB\DB\Fields\BannerTest 
+test=\ApplicationTests\TVDB\DB\DbBannersTest host=10.10.10.2 db=TVDB user=phplibuser password=phplibpwd table=Banners apikey=D29BEE8036451BD0 account=9FC72AE60462A27C seriesid=73028
+#
+test=\ApplicationTests\TVDB\LoadLanguagesTest apikey=D29BEE8036451BD0 account=9FC72AE60462A27C language=en
+test=\ApplicationTests\TVDB\DB\Fields\LanguagesTest 
+test=\ApplicationTests\TVDB\DB\DbLanguagesTest host=10.10.10.2 db=TVDB user=phplibuser password=phplibpwd table=Languages apikey=D29BEE8036451BD0 account=9FC72AE60462A27C seriesid=73028
+#test=\ApplicationTests\TVDB\DB\LanguagesTest host=10.10.10.2 db=TVDB user=phplibuser password=phplibpwd table=Languages
+#
+test=\ApplicationTests\TVDB\UserLanguageTest account=9FC72AE60462A27C
+#
+test=\ApplicationTests\TVDB\LoadSeriesTest apiurl=http://thetvdb.com/api/GetSeries.php series="Hustle" seriesid=73028
+test=\ApplicationTests\TVDB\DB\DbSeriesTest host=10.10.10.2 db=TVDB user=phplibuser password=phplibpwd table=Series apikey=D29BEE8036451BD0 account=9FC72AE60462A27C series="Five Mile Creek" seriesid=78029
+test=\ApplicationTests\TVDB\DB\DbSeriesTest host=10.10.10.2 db=TVDB user=phplibuser password=phplibpwd table=Series apikey=D29BEE8036451BD0 account=9FC72AE60462A27C series="hustle" seriesid=73028
+#
+test=\ApplicationTests\TVDB\LoadEpisodesTest apikey=D29BEE8036451BD0 seriesid=73028 account=9FC72AE60462A27C
+test=\ApplicationTests\TVDB\LoadEpisodesTest apikey=D29BEE8036451BD0 seriesid=73028 season=01 episode=01 account=9FC72AE60462A27C
+test=\ApplicationTests\TVDB\DB\DbEpisodesTest host=10.10.10.2 db=TVDB user=phplibuser password=phplibpwd table=Episodes apikey=D29BEE8036451BD0 account=9FC72AE60462A27C seriesid=73028 season=01 episode=01
+#
+test=\ApplicationTests\TVDB\LoadActorsTest apikey=D29BEE8036451BD0 seriesid=73028 account=9FC72AE60462A27C
+test=\ApplicationTests\TVDB\DB\DbActorsTest host=10.10.10.2 db=TVDB user=phplibuser password=phplibpwd table=Actors apikey=D29BEE8036451BD0 account=9FC72AE60462A27C seriesid=73028
+#
+#test=\Tests\Stream\FileObjectStreamTest object=fileobject apikey=D29BEE8036451BD0 seriesid=73028 dir=/var/local/db/TVDB/FullSeries/zip/
+#
+# ############################################
+#
+#	Application tests
+#
+# ############################################
+#
+test=\ApplicationTests\TVDB\ApplicationConfigTest
+test=\ApplicationTests\TVDB\ApplicationNodeTest apikey=D29BEE8036451BD0 account=9FC72AE60462A27C section=TVDB
+test=\ApplicationTests\TVDB\ApplicationApiTest dbreset=1
+test=\ApplicationTests\TVDB\ApplicationApiTest
+#
+test=\ApplicationTests\TVDB\ApplicationApiTest series=Hustle,Eyes
+test=\ApplicationTests\TVDB\ApplicationApiTest series=Hustle,Eyes dbreset=1
+#
+test=\ApplicationTests\TVDB\ApplicationZipApiTest seriesid=78029,73028 
+test=\ApplicationTests\TVDB\ApplicationZipApiTest update=1 series="Five Mile Creek" dbreset=1
+test=\ApplicationTests\TVDB\ApplicationZipApiTest update=1 series="Five Mile Creek"
+test=\ApplicationTests\TVDB\ApplicationZipApiTest update=0 series=Banacek
+#
+#test=\ApplicationTests\TVDB\ApplicationApiTest apikey=D29BEE8036451BD0 account=9FC72AE60462A27C section=TVDB
+#
+test=\ApplicationTests\TVDB\ApplicationApiTest apikey=D29BEE8036451BD0 account=9FC72AE60462A27C section=TVDB
+#

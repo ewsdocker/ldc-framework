@@ -25,22 +25,30 @@ echo "   ********************************************"
 echo
 
 docker run \
-      -it \
-      --rm \
-      \
-      -e LMS_BASE="${HOME}/.local" \
-      \
-      -v /etc/localtime:/etc/localtime:ro \
-      \
-      -v ${HOME}/bin:/userbin \
-      -v ${HOME}/.local:/usrlocal \
-      -v ${HOME}/.config/docker:/conf \
-      -v ${HOME}/.config/docker/ldc-library-dlibrary${ldclib}${ldcextv}:/root \
-      -v ${HOME}/.config/docker/ldc-library-dlibrary${ldclib}${ldcextv}/workspace:/workspace \
-      \
-      --mount source=pkgcache,target=/repo \
-      \
-      --name=ldc-library \
+   -it \
+   \
+   -e LMS_BASE="${HOME}/.local" \
+   -e LMS_HOME="${HOME}" \
+   -e LMS_CONF="${HOME}/.config" \
+   \
+   -e LMS_VERS="${ldcbasev}" \
+   -e LMS_EXTV="${ldcextv}" \
+   -e LMS_LIB="${libver}" \
+   \
+   -v /etc/localtime:/etc/localtime:ro \
+   \
+   -v ${HOME}/bin:/userbin \
+   \
+   -v ${HOME}/.local:/usrlocal \
+   -v ${HOME}/.local/ewsldc:/opt \
+   \
+   -v ${HOME}/.config/docker:/conf \
+   -v ${HOME}/.config/docker/ldc-library-dlibrary${ldclib}${ldcextv}:/root \
+   -v ${HOME}/.config/docker/ldc-library-dlibrary${ldclib}${ldcextv}/workspace:/workspace \
+   \
+   --mount source=pkgcache,target=/repo \
+   \
+   --name=ldc-library \
 ewsdocker/ldc-library:dlibrary${ldclib}${ldcextv} 
 [[ $? -eq 0 ]] ||
  {

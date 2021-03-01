@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<configdata>
+	<copyright>Copyright 2012, 2015. EarthWalk Software. Created by Jay Wheeler.</copyright>
+	<production>
+        <copyright>Copyright 2012, 2015. EarthWalk Software. Created by Jay Wheeler.</copyright>
+
+		<Verbose>0</Verbose>
+
+		<OsType>Linux</OsType>
+
+		<TimeZone>America/Denver</TimeZone>
+
+		<Roots>
+			<PhpExt>/usr/share/php</PhpExt>
+			<GeoCalc>/usr/local/share/php/GeoCalc</GeoCalc>
+			<Zend>/usr/share/php/Zend</Zend>
+			<PHP2WSDL>/usr/local/share/php/PHP2WSDL</PHP2WSDL>
+		</Roots>
+
+		<InstallFolders>
+			<Root>/usr/local/share/php/PHPProjectLibrary</Root>
+			<Library>Library</Library>
+			<Tests>Tests</Tests>
+			<Application>Application</Application>
+			<ApplicationTests>ApplicationTests</ApplicationTests>
+			<TestArchives>TestArchive</TestArchives>
+			<TestLogs>TestLogs</TestLogs>
+			<TestSummary>TestLogs</TestSummary>
+			<Documentation>Documentation</Documentation>
+		</InstallFolders>
+
+		<ConfigFolder>/var/local/PHPProjectLibrary/Applications</ConfigFolder>
+
+		<Log>
+			<Launcher>
+				<Name>Launcher</Name>
+				<SkipLevels>4</SkipLevels>
+				<Adapter>fileio</Adapter>
+				<Format>timestamp</Format>
+				<Level>errors</Level>
+				<Exception>NoError</Exception>
+				<Error>NoError</Error>
+				<Program>launcher</Program>
+				<FileAdapter>fileobject</FileAdapter>
+				<FileMode>w</FileMode>
+				<FileDestination>Launcher</FileDestination>
+				<FileType>log</FileType>
+				<IOAdapter>fileio</IOAdapter>
+				<IOAdapterType>fileobject</IOAdapterType>
+		    </Launcher>
+
+			<Test>
+				<Name>Test</Name>
+				<SkipLevels>4</SkipLevels>
+				<Adapter>fileio</Adapter>
+				<Format>timestamp</Format>
+				<Level>errors</Level>
+				<Exception>NoError</Exception>
+				<Error>NoError</Error>
+				<Program>phpTest</Program>
+				<FileAdapter>fileobject</FileAdapter>
+				<FileMode>w</FileMode>
+				<FileDestination>Test</FileDestination>
+                <FileType>log</FileType>
+                <IOAdapter>fileio</IOAdapter>
+                <IOAdapterType>fileobject</IOAdapterType>
+			</Test>
+			<Assert>
+				<Name>Assert</Name>
+				<SkipLevels>4</SkipLevels>
+				<Adapter>fileio</Adapter>
+				<Format>timestamp</Format>
+				<Level>errors</Level>
+				<Exception>NoError</Exception>
+				<Error>NoError</Error>
+				<Program>phpTest</Program>
+				<FileAdapter>fileobject</FileAdapter>
+				<FileMode>w</FileMode>
+				<FileDestination>Assert</FileDestination>
+                <FileType>log</FileType>
+                <IOAdapter>fileio</IOAdapter>
+                <IOAdapterType>fileobject</IOAdapterType>
+			</Assert>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>0</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>0</DisplayErrors>
+			<EnableExceptions>0</EnableExceptions>
+			<LogErrors>0</LogErrors>
+			<LogLevel>errors</LogLevel>
+			<MySqliErrors>1</MySqliErrors>
+		</ErrorHandler>
+		
+		<InstallErrors>
+		    <Process>1</Process>
+			<Classes>DBO</Classes>
+			<DBO>Library\DBO\Messages</DBO>
+		</InstallErrors>
+		
+		<Summary>
+            <Enabled>0</Enabled>
+            <FileAdapter>fileobject</FileAdapter>
+            <FileMode>w</FileMode>
+            <FileDestination>LauncherSummary</FileDestination>
+            <FileType>csv</FileType>
+            <IOAdapter>fileio</IOAdapter>
+            <IOAdapterType>fileobject</IOAdapterType>
+        </Summary>
+
+        <Archive>
+            <Enabled>
+            	<Create>0</Create>
+            	<Analysis>0</Analysis>
+            </Enabled>
+            <Adapter>fileobject</Adapter>
+            <Mode>r</Mode>
+            <DeleteSource>0</DeleteSource>
+            <Compress>
+                <Enabled>0</Enabled>
+                <Adapter>zlib</Adapter>
+                <Mode>wb6</Mode>
+                <Destination>Compressed</Destination>
+                <Type>gz</Type>
+            </Compress>
+        	<Statistics>
+        		<Console>0</Console>
+        	</Statistics>
+        </Archive>
+
+    </production>
+
+	<development extends="production">
+		<Verbose>1</Verbose>
+		<Log>
+			<Launcher>
+				<Level>debug</Level>
+			</Launcher>
+			<Test>
+				<Level>debug</Level>
+			</Test>
+			<Assert>
+				<Level>debug</Level>
+			</Assert>
+		</Log>
+		<ErrorHandler>
+			<ReportErrors>1</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>1</DisplayErrors>
+			<EnableExceptions>0</EnableExceptions>
+			<LogErrors>1</LogErrors>
+			<LogLevel>debug</LogLevel>
+		</ErrorHandler>
+		<Summary>
+            <Enabled>1</Enabled>
+            <FileAdapter>fileobject</FileAdapter>
+            <FileMode>w</FileMode>
+            <FileDestination>phpSummary</FileDestination>
+            <FileType>csv</FileType>
+            <IOAdapter>fileio</IOAdapter>
+            <IOAdapterType>fileobject</IOAdapterType>
+        </Summary>
+
+        <Archive>
+            <Enabled>
+            	<Create>1</Create>
+            	<Analysis>0</Analysis>
+            </Enabled>
+            <Adapter>fileobject</Adapter>
+            <Mode>r</Mode>
+            <DeleteSource>0</DeleteSource>
+            <Compress>
+                <Enabled>1</Enabled>
+                <Adapter>zlib</Adapter>
+                <Mode>wb6</Mode>
+                <Destination>Compressed</Destination>
+                <Type>gz</Type>
+            </Compress>
+        	<Statistics>
+    	    	<Console>1</Console>
+	        </Statistics>
+        </Archive>
+        
+	</development>
+
+	<testing extends="production">
+		<Verbose>2</Verbose>
+		<Log>
+			<Launcher>
+				<Level>debug</Level>
+			</Launcher>
+			<Test>
+				<Level>debug</Level>
+			</Test>
+			<Assert>
+				<Level>debug</Level>
+			</Assert>
+		</Log>
+		<ErrorHandler>
+			<ReportErrors>1</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>1</DisplayErrors>
+			<EnableExceptions>0</EnableExceptions>
+			<LogErrors>1</LogErrors>
+			<LogLevel>debug</LogLevel>
+		</ErrorHandler>
+		<Summary>
+            <Enabled>1</Enabled>
+            <FileAdapter>fileobject</FileAdapter>
+            <FileMode>w</FileMode>
+            <FileDestination>phpSummary</FileDestination>
+            <FileType>csv</FileType>
+            <IOAdapter>fileio</IOAdapter>
+            <IOAdapterType>fileobject</IOAdapterType>
+        </Summary>
+
+        <Archive>
+            <Enabled>
+            	<Create>1</Create>
+            	<Analysis>0</Analysis>
+            </Enabled>
+            <Adapter>fileobject</Adapter>
+            <Mode>r</Mode>
+            <DeleteSource>1</DeleteSource>
+            <Compress>
+                <Enabled>1</Enabled>
+                <Adapter>zlib</Adapter>
+                <Mode>wb6</Mode>
+                <Destination>Compressed</Destination>
+                <Type>gz</Type>
+            </Compress>
+        	<Statistics>
+        		<Console>1</Console>
+        	</Statistics>
+        </Archive>
+
+	</testing>
+	
+</configdata>

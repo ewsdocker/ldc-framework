@@ -1,0 +1,314 @@
+#!/bin/bash
+# =========================================================================================
+# =========================================================================================
+#
+#	lmsDockerVolume.lib
+#	  Simple queries of docker volume objects.
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.0.1
+# @copyright © 2019-2021. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/lms-utilities
+# @subpackage lmsDockerVolume.lib
+#
+# =========================================================================================
+#
+#	Copyright © 2019-2021. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/lms-utilities.
+#
+#   ewsdocker/lms-utilities is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/lms-utilities is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/lms-utilities.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+
+# =========================================================================================
+# =========================================================================================
+#
+#	Dependencies:
+#		lmsDockerQuery.lib
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+# =========================================================================================
+#
+#	Library functions
+#
+#   	dvInit 
+#			Initialize dqVolume variables and states.
+#
+#       dvCommand
+#  		    Execute the requested docker command.
+#
+#       dvCreate
+#  		    Create a volume.
+#
+#       dvInspect
+#  		    Inspect a volume (returns information in dq_cmndbuffer)
+#
+#       dvLs
+#  		    List all the volumes known to Docker.
+#
+#       dvRm
+#  		    Remove one or more volumes.
+#
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+# =========================================================================================
+#
+#	global declarations
+#
+# =========================================================================================
+# =========================================================================================
+
+declare    dv_name="";
+
+# =========================================================================================
+#
+#	dvAddErrors
+#
+#		Add error names and associated messages to the lmsErrorMsg library.
+#
+#	parameters:
+#		none
+#
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dvAddErrors()
+{
+    # =====================================================================================
+    #
+    #    State Errors
+    #
+    # =====================================================================================
+
+    lmsErrorAdd "dverror_command"           "An error during command execution occured."
+	lmsErrorAdd "dverror_create"            "Create volume error."
+	lmsErrorAdd "dverror_inspect"           "Inspect volume(s) error."
+	lmsErrorAdd "dverror_ls"                "List volume(s) error."
+	lmsErrorAdd "dverror_prune"             "Pruning volume(s) error."
+	lmsErrorAdd "dverror_rm"                "Remove volume(s) error."
+}
+
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#	dvInit
+#
+#		Initialize DockerVolume variables and states.
+#
+#	parameters:
+#		none
+#
+#    Result:
+#        0 = no error
+#        non-zero = error number
+#
+# =========================================================================================
+function dvInit()
+{
+	dv_name="";
+
+	dvAddErrors
+
+	lmsErrorSet "none"
+	return ${lmsError_name}
+}
+
+# =========================================================================================
+#
+#   dvCommand
+#
+#  		Execute the requested docker command.
+#
+#   parameters:
+#		dv_command = (optional) docker command, default = current global dq_command
+#		dv_cmdlist = (optional) command options list
+#
+#	returns:
+#      0 = started
+#      1 = not started
+#
+# =========================================================================================
+function dvCommand()
+{
+	local dv_command=${1:-"$dq_command"}
+	local dv_cmdlist=${2:-""}
+
+	lmsErrorSet "none"
+
+    dqCommand "synch" "volume" "${dv_command} ${dv_cmdlist}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dverror_command"
+
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dvCreate
+#
+#  		Create a volume.
+#
+#   parameters:
+#		dvname = (optional) docker volume name (default = $dq_vname)
+#       dv_options = (optional) docker volume creation options list
+#
+#	returns:
+#      0 = created
+#      non-zero = not created
+#
+# =========================================================================================
+function dvCreate()
+{
+	local dvname=${1:-"$dv_name"}
+	local dv_options=${2:-""}
+
+	lmsErrorSet "none"
+
+	dvCommand "create" "${dv_options} ${dvname}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dverror_create"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dvInspect
+#
+#  		Inspect a volume (returns information in dq_cmndbuffer)
+#
+#   parameters:
+#		dv_name = (optional) docker volume name (default = $dv_name)
+#       dv_options = (optional) docker volume creation options list
+#
+#	returns:
+#      0 = volume exists, information returned
+#      non-zero = no volume match
+#
+# =========================================================================================
+function dvInspect()
+{
+	local dvname=${1:-"$dv_name"}
+	local dv_options=${2:-""}
+
+	lmsErrorSet "none"
+
+	dvCommand "inspect" "${dv_options} ${dvname}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dverror_inspect"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dvLs
+#
+#  		List all the volumes known to Docker.
+#
+#   parameters:
+#       voptions = (optional) list options.
+#
+#	returns:
+#      0 = list information returned
+#      non-zero = no volumes
+#
+# =========================================================================================
+function dvLs()
+{
+	local dv_options=${1:-""}
+
+	lmsErrorSet "none"
+
+	dvCommand "ls" "${dv_options}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dverror_ls"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dvPrune
+#
+#  		Remove all Volumes which are not referenced by any containers.
+#
+#   parameters:
+#       dv_options = (optional) list options.
+#
+#	returns:
+#      0 = volume exists, and was successfully removed
+#      non-zero = no volume match
+#
+# =========================================================================================
+function dvPrune()
+{
+	local dv_options=${1:-""}
+
+	lmsErrorSet "none"
+
+	dvCommand "prune" "${dv_options}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dverror_prune"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+#
+#   dvRm
+#
+#  		Remove one or more volumes.
+#
+#   parameters:
+#		vnames = (optional) docker volume names (default = $dq_vname)
+#       voptions = (optional) docker volume remove options list
+#
+#	returns:
+#      0 = volume exists, information returned
+#      non-zero = no volume match
+#
+# =========================================================================================
+function dvRm()
+{
+	local dv_names=${1:-"$dq_vname"}
+	local dv_options=${2:-""}
+
+	lmsErrorSet "none"
+
+	dvCommand "rm" "${dv_options} ${dv_names}"
+	[[ $? -eq 0 ]] || lmsErrorSet "dverror_rm"
+	
+	return $lmsError_code
+}
+
+# =========================================================================================
+# =========================================================================================
+#
+#		End of Library
+#
+# =========================================================================================
+# =========================================================================================
+

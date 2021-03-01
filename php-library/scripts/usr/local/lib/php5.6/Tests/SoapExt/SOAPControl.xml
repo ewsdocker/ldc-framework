@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<configdata>
+	<name>SOAPControl.xml</name>
+	<copyright>Copyright 2016. EarthWalk Software. Created by Jay Wheeler.</copyright>
+	<production>
+
+		<Verbose>0</Verbose>
+
+		<PHPProjectLibrary>/usr/local/share/php/PHPProjectLibrary</PHPProjectLibrary>
+
+		<Launcher>
+		    <ConfigRequired>1</ConfigRequired>
+			<ConfigPath>Application\Launcher</ConfigPath>
+			<ConfigAdapter>fileobject</ConfigAdapter>
+			<ConfigMode>r</ConfigMode>
+			<ConfigName>launcherConfig</ConfigName>
+			<ConfigType>xml</ConfigType>
+			<ConfigIOAdapter>fileio</ConfigIOAdapter>
+			<ConfigIOAdapterType>fileobject</ConfigIOAdapterType>
+		</Launcher>
+
+		<SOAP>
+			<AccountUrl>http://thetvdb.com/api/</AccountUrl>
+			<AccountKey>D29BEE8036451BD0</AccountKey>
+			<AccountNumber>9FC72AE60462A27C</AccountNumber>
+			<AccountOwner>jaywheeler</AccountOwner>
+			<AccountPassword>MurPhy22</AccountPassword>
+		</SOAP>
+
+		<Log>
+			<SoapControl>
+				<Name>SoapControl</Name>
+				<SkipLevels>4</SkipLevels>
+				<Adapter>fileio</Adapter>
+				<Format>timestamp</Format>
+				<Level>errors</Level>
+				<Exception>NoError</Exception>
+				<Error>NoError</Error>
+				<Program>SoapControl</Program>
+				<FileAdapter>fileobject</FileAdapter>
+				<FileMode>w</FileMode>
+				<FileDestination>SoapControl</FileDestination>
+				<FileType>log</FileType>
+				<IOAdapter>fileio</IOAdapter>
+				<IOAdapterType>fileobject</IOAdapterType>
+		    </SoapControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>0</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>0</DisplayErrors>
+			<EnableExceptions>0</EnableExceptions>
+			<LogErrors>0</LogErrors>
+			<LogLevel>errors</LogLevel>
+		</ErrorHandler>
+
+	</production>
+
+	<development extends="production">
+
+		<Verbose>1</Verbose>
+
+		<Launcher>
+		    <ConfigRequired>0</ConfigRequired>
+		</Launcher>
+
+		<Log>
+			<SoapControl>
+				<Level>debug</Level>
+			</SoapControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>1</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>1</DisplayErrors>
+			<EnableExceptions>1</EnableExceptions>
+			<LogErrors>1</LogErrors>
+			<LogLevel>debug</LogLevel>
+		</ErrorHandler>
+
+	</development>
+
+	<testing extends="production">
+
+		<Verbose>2</Verbose>
+
+		<Launcher>
+		    <ConfigRequired>0</ConfigRequired>
+		</Launcher>
+
+		<SOAP>
+			<AccountUrl>http://thetvdb.com/api/</AccountUrl>
+			<AccountKey>D29BEE8036451BD0</AccountKey>
+			<AccountNumber>9FC72AE60462A27C</AccountNumber>
+			<AccountOwner>jaywheeler</AccountOwner>
+			<AccountPassword>MurPhy22</AccountPassword>
+		</SOAP>
+
+		<Log>
+			<SoapControl>
+				<Level>debug</Level>
+			</SoapControl>
+		</Log>
+
+		<ErrorHandler>
+			<ReportErrors>1</ReportErrors>
+			<FormatXML>1</FormatXML>
+			<DisplayErrors>1</DisplayErrors>
+			<EnableExceptions>1</EnableExceptions>
+			<LogErrors>1</LogErrors>
+			<LogLevel>debug</LogLevel>
+		</ErrorHandler>
+
+	</testing>
+
+</configdata>

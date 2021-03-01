@@ -1,0 +1,367 @@
+#!/bin/bash
+# =========================================================================
+# =========================================================================
+#
+#	ldcPath.lib
+#
+#		Library to assist in managing bash PATHs in .bashrc.
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.1
+# @copyright © 2019-2021. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-library
+# @subpackage ldcPath.lib
+#
+# =========================================================================
+#
+#	Copyright © 2019-2021. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-library.
+#
+#   ewsdocker/ldc-library is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-library is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-library.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+# =========================================================================
+#
+#	library dependencies
+#
+# =========================================================================
+#
+#	ldcconCli.lib
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+# =========================================================================
+#
+#	global declarations
+#
+# =========================================================================
+# =========================================================================
+
+#
+#	The following variables are READ-ONLY.  
+#
+#	This means that these variables can be queried from anywhere, 
+#	but should ONLY be modified by a ldcPath library function.
+#
+
+declare    ldcpath_path=""
+declare    ldcpath_list=""
+declare -a ldcpath_entries=()
+
+declare    ldcpath_modified=0
+declare    ldcpath_init=0
+
+declare    ldcpath_blank=" "
+declare    ldcpath_colon=":"
+
+# =========================================================================
+# =========================================================================
+#
+#	START of ldcPath.lib Library
+#
+# =========================================================================
+# =========================================================================
+
+# =========================================================================
+#
+#    lpathLoad - load/reload PATH to $ldcpath_path
+#					NOTE: does NOT do a commit before reloading
+#	Entry:
+#		none
+#
+#	Exit:
+#		0 = no error
+#		non-zero = error code
+#
+# =========================================================================
+function lpathLoad()
+{
+	ldcpath_path="$PATH"
+	ldcpath_list=${ldcpath_path//$ldcpath_colon/$ldcpath_blank}
+	ldcpath_entries=( ${ldcpath_list} )
+
+	ldcpath_modified=0
+ 	ldcpath_init=1
+
+	return 0
+}
+
+# =========================================================================
+#
+#    lpathInit - force initialization, if not set
+#
+#	Entry:
+#		none
+#
+#	Exit:
+#		0 = no error
+#
+# =========================================================================
+function lpathInit()
+{
+	[[ ${ldcpath_init} -eq 0 ]] && lpathLoad
+	return 0
+}
+
+# =========================================================================
+#
+#    lpathCommit - modify and reload .bashrc, if ldcpath_modified = 1
+#
+#	Entry:
+#		None
+#
+#	Exit:
+#		0 = modified path was commited
+#		non-zero = request failed
+#
+# =========================================================================
+function lpathCommit()
+{
+	[[ $ldcpath_init -eq 0 ]] && lpathInit
+
+	[[ $ldcpath_modified -eq 0 ]] ||
+	 {
+	 	echo "export PATH=${ldcpath_path}" >> ${HOME}/.bashrc
+		source ${HOME}/.bashrc
+		
+		lpathLoad
+	 }
+
+	return 0
+}
+
+# =========================================================================
+#
+#    lpathExists
+#
+#	Entry:
+#		lPath = path entry to check for
+#
+#	Exit:
+#		0 = requested path (lPath) was found
+#		non-zero = not found
+#
+# =========================================================================
+function lpathExists()
+{
+	local    lPath=${1:-""}
+	local    lxistResult=1
+
+	while [ true ]
+	do
+		[[ -z ${lPath} ]] && break
+
+		(( lxistResult++ ))
+
+		[[ $ldcpath_init -eq 0 ]] && lpathInit
+
+		[[ "$ldcpath_list" =~ "$lPath" ]] || break
+
+		lxistResult=0
+		break
+	done
+
+	return ${lxistResult}
+}
+
+# =========================================================================
+#
+#    lpathDelete - delete an element in $ldcpath_path
+#
+#	Entry:
+#		lPath = (string) path entry to delete
+#
+#	Exit:
+#		0 = requested path (lPath) was deleted
+#		non-zero = requested path (lPath) was not found
+#
+# =========================================================================
+function lpathDelete()
+{
+	local    lPath=${1:-""}
+
+	local -a lEntries=()
+	local    ldelResult=0
+
+	[[ $ldcpath_init -eq 0 ]] && lpathInit
+
+	[[ -z ${lPath} ]] && ldelResult=1
+
+	[[ ${ldelResult} -eq 0 ]] &&
+	 {
+		lpathExists ${lPath}
+		[[ $? -eq 0 ]] || ldelResult=2
+
+		[[ ${ldelResult} -eq 0 ]] &&
+		 {
+		 	local ldelKey=0
+			for lElement in "$ldcpath_entries"
+		 	do
+		 		[[ ${lElement} == ${lPath} ]] || 
+		 		 {
+		 		 	let ldelKey=ldelKey+1
+		 		 	continue
+		 		 }
+
+		 		unset 'ldcpath_entries[$ldelKey]'
+
+		 		ldcpath_list=${ldcpath_entries[@]}
+
+		 		ldcpath_entries=( "$ldcpath_list" )
+		 		ldcpath_path=${ldcpath_list//$ldcpath_blank/$ldcpath_colon}
+
+		 		ldcpath_modified=1
+
+		 		break
+		 	done
+		 	
+		 	[[ ${lElement} == ${lPath} ]] || ldelResult=3
+		 }
+	 }
+	
+	return ${ldelResult}
+}
+
+# =========================================================================
+#
+#    lpathAdd - add an element in $ldcpath_path
+#
+#	Entry:
+#		lPath = path entry to add
+#
+#	Exit:
+#		0 = requested path (lPath) was added
+#		non-zero = requested path (lPath) was not added
+#
+# =========================================================================
+function lpathAdd()
+{
+	local    lPath=${1:-""}
+	local    laddResult=1
+
+	while [ true ]
+	do
+		lpathExists $lPath
+		[[ $? -eq 0 ]] && break
+
+		(( laddResult++ ))
+
+	 	ldcpath_list="${lPath} ${ldcpath_list}"
+		ldcpath_path=${ldcpath_list//$ldcpath_blank/$ldcpath_colon}
+		ldcpath_entries=( "$ldcpath_list" )
+
+		ldcpath_modified=1
+		laddResult=0
+
+		break
+	done	
+
+	return ${laddResult}
+}
+
+# =========================================================================
+#
+#    lpath
+#
+#	Entry:
+#		pathFunction = function to perform
+#						(one of "load", "exists", "add", "delete",
+#						        "commit", "pending"), defaults to "exists".
+#		pathPath = (optional) path element to operate on, if required.
+#
+#	Exit:
+#		0 = no error
+#		non-zero = error code
+#
+# =========================================================================
+function lpath()
+{
+	local    pFunc=${1:-"exists"}
+	local    pPath=${2:-""}
+
+	local -a pEntries=()
+	local    lpathResult=0
+
+	[[ ${ldcpath_init} -eq 0 ]] && lpathInit
+
+	[[ -z ${pPath} ]] && lpathResult=1
+
+	[[ ${lpathResult} -eq 0 ]] &&
+	 {
+		case $pFunc in
+
+			"load")
+				lpathLoad
+				[[ $? -eq 0 ]] || lpathResult=2
+
+				;;
+			
+			"exists")
+				lpathExists ${pPath}
+				[[ $? -eq 0 ]] || lpathResult=3
+
+				;;
+			
+			"add")
+				lpathAdd ${pPath}
+				[[ $? -eq 0 ]] || lpathResult=4
+
+				;;
+			
+			"delete")
+				lpathDelete ${pPath}
+				[[ $? -eq 0 ]] || lpathResult=5
+
+				;;
+			
+			"commit")
+				lpathCommit
+				[[ $? -eq 0 ]] || lpathResult=6
+
+				;;
+			
+			"pending")
+				[[ ${ldcpath_modified} -eq 0 ]] && lpathResult=7
+
+				;;
+			
+			*)
+				lpathResult=8
+				;;
+				
+		esac
+	 }
+
+	return ${lpathResult}
+}
+
+# =========================================================================
+# =========================================================================
+#
+#	END of ldcPath.lib Library
+#
+# =========================================================================
+# =========================================================================
+

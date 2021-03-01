@@ -1,0 +1,201 @@
+# =========================================================================================
+# =========================================================================================
+#
+#	ldcErrorMsg - error messages 
+#
+# =========================================================================================
+#
+# @author Jay Wheeler.
+# @version 0.1.0
+# @copyright © 2020-2021. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-library
+# @subpackage ldcErrorMsg.lib
+#
+# =========================================================================
+#
+#	Copyright © 2020-2021. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-library.
+#
+#   ewsdocker/ldc-library is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-library is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-library.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================================
+# =========================================================================================
+
+# =========================================================================================
+#
+#    Dependencies:
+#       ldcDeclare.lib
+#		ldcStr.lib
+#
+# =========================================================================================
+
+declare -A ldcErrorMessages=(["none"]="No error has occurred."
+                             ["unknown"]="An unknown error has occurred."
+                             )
+
+declare -a ldcErrorCodes=("none"
+                          "unknown"
+                          )
+
+declare    ldcError_name="none"
+declare    ldcError_message="${ldcErrorMessages[$ldcError_name]}"
+declare -i ldcError_code=0
+
+# =========================================================================================
+#
+#    ldcErrorExists - check if requested errorName exists
+#
+#    Parameters:
+#		errorName = name of the error message
+#
+#    Results:
+#       0 = found
+#       1 = not found
+#
+# =========================================================================================
+function ldcErrorExists()
+{
+	local errorName="${1}"
+
+	[[ -z "${errorName}" ]] && errorName="unknown"
+	[[ "${ldcErrorCodes[@]}" =~ "${errorName}" ]] || return 1
+
+	return 0
+}
+
+# =========================================================================================
+#
+#    ldcErrorAdd - add a new error name and message to ldcErrorMessages
+#
+#    Parameters:
+#		errorName = name of the error message
+#       errorMsg  = error message text
+#
+#    Results:
+#       0 = no error
+#
+# =========================================================================================
+function ldcErrorAdd()
+{
+    local errorName=${1:-"unknown"}
+    local errorMsg=${2:-"An unknown error has occurred."}
+
+    ldcErrorExists "${errorName}"
+    [[ $? -eq 0 ]] || ldcErrorCodes[${#ldcErrorCodes[*]}]="${errorName}"
+
+    ldcErrorMessages["${errorName}"]="${errorMsg}"
+}
+
+# =========================================================================================
+#
+#    ldcErrorCode - return the error code for the given error name
+#
+#    Parameters:
+#		errorName = name of the error message
+#       errorCode = name of the global variable to receive the code number
+#
+#    Results:
+#       ldcError_code as an integer
+#
+# =========================================================================================
+function ldcErrorCode()
+{
+    local errorName=${1:-"$ldcError_name"}
+    local errorCode=${2:-""}
+
+    ldcErrorExists "${errorName}"
+    [[ $? -eq 0 ]] || errorName="unknown"
+
+	local index=0
+	local fence=${#ldcErrorCodes[*]}
+
+	while [[ true ]]
+	do
+		[[ "${ldcErrorCodes[$index]}" == "${errorName}" ]] && break
+
+		(( index++ ))
+        [[ ${index} -ge ${fence} ]] && 
+         {
+         	index=0
+            ldcError_name="none"
+            ldcError_message=${ldcErrorMessages["none"]}
+
+         	break
+         }
+	done
+
+	ldcDeclareInt ${errorCode} ${index}
+
+	return ${index}
+}
+
+# =========================================================================================
+#
+#    ldcErrorGet - set global error name, error number and error message
+#                          from error name
+#
+#    Parameters:
+#		errorName = name of the error message
+#		errorMessage = destination of the message (optional, default = $ldcError_message)
+#
+#    Results:
+#       0 = no error
+#
+# =========================================================================================
+function ldcErrorGet()
+{
+    local errorName=${1:-"$ldcError_name"}
+    local errorBuffer=${2:-"ldcError_message"}
+
+    ldcErrorExists "${errorName}"
+    [[ $? -eq 0 ]] || errorName="unknown" 
+
+    ldcError_name="${errorName}"
+    ldcError_message=${ldcErrorMessages["$errorName"]}
+
+	ldcDeclareStr ${errorBuffer} "${ldcError_message}"
+}
+
+# =========================================================================================
+#
+#    ldcErrorSet - set global error name and message
+#
+#    Parameters:
+#		errorName = name of the error message
+#
+#    Results:
+#       0 = no error
+#
+# =========================================================================================
+function ldcErrorSet()
+{
+    local errorName=${1:-"unknown"}
+
+    ldcErrorExists "${errorName}"
+    [[ $? -eq 0 ]] || errorName="unknown" 
+
+    ldcError_name="${errorName}"
+    ldcError_message=${ldcErrorMessages["$errorName"]}
+
+	ldcErrorCode $ldcError_name
+
+	return $ldcError_code
+}
+
+# =========================================================================================
+

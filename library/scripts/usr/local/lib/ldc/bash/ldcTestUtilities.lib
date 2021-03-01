@@ -1,0 +1,298 @@
+#!/bin/bash
+# =========================================================================
+# =========================================================================
+#
+#	ldcTestUtilities.lib
+#
+# =========================================================================
+#
+# @author Jay Wheeler.
+# @version 0.2.0
+# @copyright © 2019-2021. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldc-library
+# @subpackage ldcTestUtilities.lib
+#
+# =========================================================================
+#
+#	Copyright © 2019-2021. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldc-library.
+#
+#   ewsdocker/ldc-library is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldc-library is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldc-library.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# =========================================================================
+# =========================================================================
+#
+#	Dependencies:
+#
+#		ldcColorDef.lib
+# 		ldcDisplay.lib
+#		ldcStr.lib
+#		ldcUtilities.lib
+#
+# =========================================================================
+#
+#	Functions:
+#
+#		ldcIndent
+#			set/get the indent var
+#
+#		ldcIndentTdMsg
+#			Add spaces (indentation) to the buffer
+#
+#		ldcTestBlock
+#			Format a message inside border lines and pass to ldcTestDisplay
+#
+#		ldcTestDisplay
+#			Format the message and display it.
+#
+#		ldcTestDivider
+#			Format a "test divider" message and pass to ldcTestDisplay.
+#
+#		testExpectedResults
+#			Run test then pass results and expected result for comparison.
+#
+# =========================================================================
+# =========================================================================
+
+declare -i td_blocksize=1
+declare -i td_indent=1
+declare -i td_spaces=1
+
+declare    td_indentString=""
+declare    td_buffer=""
+
+declare    td_colorText=${ldcclr_Bold}
+declare    td_colorBlock=${ldcclr_LightCyan}
+declare    td_colorBorder=${ldcclr_Cyan}
+declare    td_colorDivider=${ldcclr_Bold}
+declare    td_colorStartDivider=${ldcclr_LightGreen}
+declare    td_colorError=${ldcclr_LightRed}
+declare    td_colorNoColor=${ldcclr_NoColor}
+
+# =========================================================================
+# =========================================================================
+#
+#	Library functions
+#
+# =========================================================================
+# =========================================================================
+
+# ****************************************************************************
+#
+#	ldcIndent
+#		set/get the indent var
+#
+# 	Parameters:
+#  		indent = how many 'blocks' to indent
+#
+#	Returns:
+#		indent = the current value of td_indent
+#
+# ****************************************************************************
+function ldcIndent()
+{
+	indent=${1:-"1"}
+	(( td_indent+=${indent} ))
+
+	return ${td_indent}
+}
+
+# ****************************************************************************
+#
+#	ldcIndentTdMsg
+#		Add spaces (indentation) to the buffer
+#
+# 	Parameters:
+#  		message = message to indent
+#
+#	Exit:
+#		td_message contains the indented message
+#
+#	Returns:
+#		0 = no error
+#
+# ****************************************************************************
+function ldcIndentTdMsg()
+{
+	(( td_spaces=${td_indent}*${td_blocksize} ))
+	[[ ${td_spaces} -gt 0 ]] || td_spaces=1 
+
+	local    ibuffer=""
+
+	printf -v ibuffer "%*s" ${td_spaces} " "
+	printf -v td_message "%s%s" "${ibuffer}${1}"
+
+	return 0
+}
+
+# =========================================================================
+#
+#	ldcTestDisplay
+#		Format the message and display it.
+#
+#	  Entry:
+#		message = message to format and output
+#		no_ts = no timestamp if =1
+#
+#	  Returns:
+#		0 = no error
+#		non-zero = error code
+#
+# =========================================================================
+function ldcTestDisplay()
+{
+	ldcIndentTdMsg "${1}"
+	local l_no_ts=${2:-"0"}
+
+	[[ "$l_no_ts" -eq "0" ]] && ldcDisplayTs "${td_message}" || ldcDisplay "        ${td_message}"
+	
+	return 0
+}
+
+# =========================================================================
+#
+#	ldcTestDivider
+#		Format a "test divider" message and display it.
+#
+#	  Entry:
+#		none
+#
+#	  Returns:
+#		0 = no error
+#		non-zero = error code
+#
+# =========================================================================
+function ldcTestDivider()
+{
+	local -i dLines=${1:-"2"}
+	local    dColor=${2:-"$dqt_colorDivider"}
+	local -i dRepeats=${3:-"72"}
+	local    dChar="="
+
+	local -i dLine=0
+
+	ldcStrFill ${dRepeats} ${dChar}
+	ldcDisplay
+
+	while [ ${dLine} -lt ${dLines} ]
+	do
+		ldcDisplay "${dColor}${ldcstr_buffer}${ldcclr_NoColor}"
+		(( dLine++ ))
+	done
+
+	ldcDisplay
+}
+
+# =========================================================================
+#
+#	ldcTestBlock
+#		Format a message and display surrounded by blocking lines
+#
+#	  Entry:
+#		message = message to format and output
+#
+#	  Returns:
+#		0 = no error
+#		non-zero = error code
+#
+# =========================================================================
+function ldcTestBlock()
+{
+	local    tb_message=${1:-""}
+	
+	ldcStrFill 40 "="
+	ldcTestDisplay "${dqt_colorBorder}${ldcstr_buffer}${ldcclr_NoColor}"
+	
+	  ldcTestDisplay "  ${tb_message}"
+
+	ldcStrFill 40 "="
+	ldcTestDisplay "${dqt_colorBorder}${ldcstr_buffer}${ldcclr_NoColor}"
+	ldcDisplayTs
+
+	return 0
+}
+
+# =========================================================================
+#
+#	testExpectedResults
+#		(apologies for the RRPN format)
+#
+#	  Entry:
+#		resultExpected = expected result
+#		resultReceived = received result
+#		resultEquality = 0 for equality | 1 = inequality
+#
+#	  Exit:
+#		0 = true result
+#		1 = false result
+#
+# =========================================================================
+function testExpectedResults()
+{
+	local lExpected=${1:-""}
+	local lReceived=${2:-""}
+	local lEquality=${3:-"0"}
+
+	(( td_indent+=2 ))
+
+	ldcTestBlock "Start ${dqt_colorText}testExpectedResults${ldcclr_NoColor} tests"
+
+ 	ldcTestDisplay "${dqt_colorText}Testing expected results:${ldcclr_NoColor} "
+ 	(( td_indent+=2 ))
+ 		ldcTestDisplay "${dqt_colorText}Expected: \"${lExpected}\"${ldcclr_NoColor} "
+ 		ldcTestDisplay "${dqt_colorText}Received: \"${lReceived}\"${ldcclr_NoColor} "
+ 		ldcTestDisplay "${dqt_colorText}Equality: \"${lEquality}\"${ldcclr_NoColor} "
+	(( td_indent-=2 ))
+
+	local exResult=0
+
+	[[ "${lEquality}" != "0" && "${lEquality}" != "1" ]] && 
+	 {
+	 	ldcTestDisplay "    ${dqt_colorError}*** Equality (${lEquality}) is not numeric, or is out of range ***${ldcclr_NoColor}"
+	 	exResult=2
+	 }
+
+	[[ ${exResult} -eq 0 ]] &&
+	 {
+		if [[ "${lEquality}" == "0" ]]
+		then
+			[[ "${lExpected}" == "${lReceived}" ]] || exResult=1
+		else
+			[[ "${lExpected}" != "${lReceived}" ]] || exResult=1
+		fi
+	 }
+	
+	local    exResultMsg=""
+
+	[[ ${exResult} -eq 0 ]] && exResultMsg="true" || exResultMsg="false"
+
+	ldcDisplayTs
+	ldcTestBlock "END ${dqt_colorText}testExpectedResults${ldcclr_NoColor}. ${dqt_colorText}(${exResult}) ${exResultMsg}${ldcclr_NoColor}"
+
+	(( td_indent-=2 ))
+
+	return ${exResult}
+}
+
+# =========================================================================
+# =========================================================================
+#
+#	End Library functions
+#
+# =========================================================================
+# =========================================================================

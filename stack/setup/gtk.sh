@@ -78,7 +78,7 @@ echo "   ldc-gtk: ${GTK_VER}"
 echo ""
 echo "***********************"
 
-apt-get -y update
+#apt-get -y update
 
 addPkg "apt-get -y install"
 

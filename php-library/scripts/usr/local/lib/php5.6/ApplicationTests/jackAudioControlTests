@@ -1,0 +1,12 @@
+# #######################################################
+#
+#   jackAudioControl Application Tests
+#
+# #######################################################
+test=\ApplicationTests\jackAudioControl\ConfigTest
+
+test=\ApplicationTests\jackAudioControl\AudioConfig\NodeTest
+test=\ApplicationTests\jackAudioControl\AudioConfig\ApplicationTest system=Jack
+test=\ApplicationTests\jackAudioControl\AudioConfig\ApplicationTest
+
+test=\ApplicationTests\jackAudioControl\ProcessTest

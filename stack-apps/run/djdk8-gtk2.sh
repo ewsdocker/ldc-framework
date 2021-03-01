@@ -34,8 +34,10 @@ docker run \
    -e LMS_HOME="${HOME}" \
    -e LMS_CONF="${HOME}/.config" \
    \
+  -v ${HOME}/.local:/usrlocal \
+  -v ${HOME}/.local/ewsldc:/opt \
+  \
    -v ${HOME}/bin:/userbin \
-   -v ${HOME}/.local:/usrlocal \
    -v ${HOME}/.config/docker:/conf \
    -v ${HOME}/.config/docker/ldc-stack-apps-djdk8-gtk2${ldcvers}:/root \
    -v ${HOME}/.config/docker/ldc-stack-apps-djdk8-gtk2${ldcvers}/workspace:/workspace \

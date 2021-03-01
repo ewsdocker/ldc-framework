@@ -1,0 +1,6 @@
+<html>
+  <body>
+    <p>Welcome! Today is now!</p>
+  </body>
+</html>
+Text outside of the HTML block.
