@@ -207,16 +207,26 @@ function ldcUtilCmndExists()
 # *****************************************************************************
 function ldcUtilVarExists()
 {
-	local dclString=$( declare -p | grep "${1}" )
-	[[ $? -eq 0 ]] || return 1
+	local utilerror=1
 
-	[[ -z "${2}" ]] ||
-	 {
-		ldcDeclareStr "${2}" "${dclString}"
-		[[ $? -eq 0 ]] || return 2
-	 }
+	while [ true ]
+	do	
+		local dclString=$( declare -p | grep "${1}" )
+		[[ $? -eq 0 ]] || break
 
-	return 0
+		(( utilerror++ ))
+
+		[[ -z "${2}" ]] ||
+		 {
+			ldcDeclareStr "${2}" "${dclString}"
+			[[ $? -eq 0 ]] || break
+		 }
+
+		utilerror=0
+		break
+	done
+
+	return $utilerror
 }
 
 # *****************************************************************************
