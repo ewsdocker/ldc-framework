@@ -37,7 +37,7 @@ docker build \
   \
   --build-arg GOSU_REL="1.12" \
   --build-arg GOSU_VER="gosu-amd64" \
-  --build-arg GOSU_HOST=http://alpine-nginx-pkgcache \
+  --build-arg GOSU_HOST=${pkgserver} \
   \
   --build-arg BUILD_DAEMON="1" \
   --build-arg BUILD_TEMPLATE="daemon" \
@@ -57,7 +57,7 @@ docker build \
   --build-arg LIB_VERS_MOD="${ldcextv}" \
   --build-arg LIB_INSTALL="1" \
   \
-  --build-arg LIB_HOST=http://alpine-nginx-pkgcache \
+  --build-arg LIB_HOST="${pkgserver}" \
   --network=pkgnet \
   \
   --file Dockerfile \

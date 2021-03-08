@@ -88,8 +88,14 @@ echo "   updating... ${debvers}"
 echo ""
 echo "***********************"
 apt-get -y update 
+echo ""
+echo "***********************"
 
 # =======================================================================
+
+echo
+echo "building installation list"
+echo
 
 addPkg "apt-get -y install"
 

@@ -7,15 +7,15 @@
 # ========================================================================================
 #
 # @author Jay Wheeler.
-# @version 0.1.6-b4
-# @copyright © 2017-2020. EarthWalk Software.
+# @version 0.1.6-b5
+# @copyright © 2017-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ldc-library
 # @subpackage Dockerfile
 #
 # ========================================================================================
 #
-#	Copyright © 2017-2020. EarthWalk Software
+#	Copyright © 2017-2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-library.
@@ -41,7 +41,7 @@ ARG FROM_REPO="ewsdocker"
 ARG FROM_PARENT="ldc-core"
 ARG FROM_VERS="dcore"
 ARG FROM_EXT="-0.1.0"
-ARG FROM_EXT_MOD="-b4"
+ARG FROM_EXT_MOD="-b5"
 
 FROM ${FROM_REPO}/${FROM_PARENT}:${FROM_VERS}${FROM_EXT}${FROM_EXT_MOD}
 
@@ -114,9 +114,9 @@ ENV \
     \
     LMS_NAME=${BUILD_NAME:-"ldc-library"} \
     LMS_VERSION=${BUILD_VERSION:-"0.1.6"} \
-    LMS_VERS_EXT=${BUILD_VERS_EXT:-"-b4"} \
+    LMS_VERS_EXT=${BUILD_VERS_EXT:-"-b5"} \
     \
-    LMS_PACKAGE="${LMS_PARENT}, Debian 10.4"
+    LMS_PACKAGE="${LMS_PARENT}, Debian 10.8"
 
 ENV \
     LMS_FROM="${FROM_PARENT}:${FROM_VERS}${FROM_EXT}" \
@@ -206,6 +206,6 @@ WORKDIR /root
 
 # =========================================================================
 
-CMD ["/bin/bash"]
+#CMD ["/bin/bash"]
 
-#CMD ["lms-library-install"]
+CMD ["lms-library-install"]

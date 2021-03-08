@@ -19,7 +19,6 @@ function buildScript()
     local scriptName=${1:-""}
 
     [[ -z "${scriptName}" ]] && return 1
-
     echo ""
     echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     echo ""
@@ -45,15 +44,19 @@ function buildScript()
 #==================================================
 #
 
-cd ~/Development/ewsldc/ldc-framework/stack-apps
+cd ~/Development/ewsldc/ldc-framework/core
 
-#buildScript "djre8-gtk2" ; [[ $? -eq 0 ]] || exit $?
-buildScript "djdk8-gtk2" ; [[ $? -eq 0 ]] || exit $?
-buildScript "djdk13-gtk3" ; [[ $? -eq 0 ]] || exit $?
-buildScript "djdk13dev-gtk3" ; [[ $? -eq 0 ]] || exit $?
-buildScript "dcpp-jdk13" ; [[ $? -eq 0 ]] || exit $?
-buildScript "dfortran-jdk13" ; [[ $? -eq 0 ]] || exit $?
-#buildScript "dfortran-gtk2" ; [[ $? -eq 0 ]] || exit $?
+#
+#==================================================
+#
+
+#
+#==================================================
+#
+
+cd ../stack-apps
+
+buildScript "dfortran-gtk2" ; [[ $? -eq 0 ]] || exit $?
 buildScript "djs13-jdk13" ; [[ $? -eq 0 ]] || exit $?
 buildScript "djs14-jdk13" ; [[ $? -eq 0 ]] || exit $?
 buildScript "dphp5.6-jdk13" ; [[ $? -eq 0 ]] || exit $?

@@ -13,9 +13,9 @@
 # =========================================================================
 function installPackage()
 {
-	local instPkg="${1}"
-	local instUrl="${2}"
-	local instDir="${3}"
+    local instPkg="${1}"
+    local instUrl="${2}"
+    local instDir="${3}"
 
     wget "${instUrl}" 
     [[ $? -eq 0 ]] || return $?
