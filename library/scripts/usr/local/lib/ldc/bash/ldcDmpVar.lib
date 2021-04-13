@@ -52,7 +52,7 @@
 #
 #	ldcDmpVar
 #
-#		dump the name table for debug purposes
+#		dump the variable contents
 #
 #	attributes:
 #		none
@@ -73,10 +73,45 @@ ldcDmpVar()
 		while IFS= read -r line
 		do
     		printf "% 5u : %s\n" $lineNumber "$line"
-			let lineNumber+=1
+			(( lineNumber++ ))
 		done
 	}
 	
+	return 0
+}
+
+# ***********************************************************************************************************
+#
+#	ldcDmpVarList
+#
+#		dump the variable contents
+#
+#	attributes:
+#		none
+#
+#	returns:
+#		0 = no error
+#
+# *********************************************************************************
+ldcDmpVarList()
+{
+	eval declare -p | grep "${1}" |
+	{
+		local -i lineNumber=0
+
+		echo ""
+		echo "Variable contents:"
+
+		while IFS= read -r line
+		do
+    		printf "% 5u : %s\n" $lineNumber "$line"
+			(( lineNumber++ ))
+		done
+	}
+
+	echo ""
+
+	return 0
 }
 
 # ***********************************************************************************************************
@@ -107,5 +142,7 @@ ldcDmpVarStack()
 	done
 
 	echo "$*"
+
+	return 0
 }
 

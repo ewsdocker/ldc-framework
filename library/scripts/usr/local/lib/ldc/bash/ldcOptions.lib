@@ -1,18 +1,17 @@
-#!/bin/bash
 # *****************************************************************************
 # *****************************************************************************
 #
-#   ldcCliParse.lib
-#		CLI (Command Line Input) parsing of input buffer(s).
+#   ldcOptions.lib
+#		Process Option Selections.
 #
 # *****************************************************************************
 #
 # @author Jay Wheeler.
-# @version 0.3.1
+# @version 0.4.0
 # @copyright © 2016-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-library
-# @subpackage ldcCliParse
+# @subpackage ldcOptions
 #
 # *****************************************************************************
 #
@@ -36,104 +35,62 @@
 #   <http://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-# *****************************************************************************
 #
-#			Version 0.0.1 - 02-24-2016.
-#					0.0.2 - 07-01-2016.
-#					0.0.3 - 08-19-2016.
-#					0.0.4 - 09-07-2016.
-#
-#					0.1.0 - 01-24-2017.
-#					0.1.1 - 02-12-2017.
-#					0.1.2 - 02-23-2017.
-#
-#					0.2.0 - 08-25-2018.
-#
-#                   0.3.0 - 01-18-2021.
-#					0.3.1 - 04-04-2021.
+#	Version 0.1.0 - 04-07-2021.
 #
 # *****************************************************************************
-# *****************************************************************************
 #
-#	Dependencies:
+#	Dependencies
+#		ldcCli.lib
+#
 #		ldcDeclare.lib
-#		ldcDynArray
-#		ldcStack
+#		ldcDynArray.lib
+#		ldcStack.lib
 #		ldcStr.lib
-#		ldcUtilities
+#		ldcUtilities.lib
 #
 # *****************************************************************************
-# *****************************************************************************
 #
-#	Functions:
+#	Functions
+#		ldcOptCmndValid
+#			Returns 0 if the command is valid, 1 if not
 #
-#		ldcCliCmndValid
-#			Returns the validity of a command.
-#		ldcCliCmndNew
-#			create a new command entry and node
-#		ldcCliValid
-#			Returns 0 if the parameter name is valid, 1 if not
-#		ldcCliLookup
-#			Lookup the parameter and set the option name
-#		ldcCliAdd
-#			Add input parameter name and (optional) value
-#		ldcCliCheck
-#			check input parameter name and value
-#		ldcCliSplit
-#			Splits the parameter string into name and value
-#		ldcCliParse
-#			parse the cli parameters
-#		ldcCliApply
-#			Apply the pending cliInputParameters
 #
 # *****************************************************************************
 # *****************************************************************************
 
-# *****************************************************************************
-#
-#	Step	Perform
-#
-#	 1		set supported SHELL values in ldccli_shellParam
-#				ldccli_shellParam[debug]=1
-#
-#	 2		 call ldcCliParse to parse the input parameters into ldcParamList
-#				and add to ldccli_InputParam
-#
-#	 3
-#
-# *****************************************************************************
-
-declare    ldclib_ldcCliParse="0.3.0"				# library version number
+declare    ldclib_ldcOptions="0.1.0"			# library version number
 
 # *****************************************************************************
 
-declare -a ldccli_ParamBuffer=( "$@" )			# cli parameter array buffer
-declare    ldccli_ParamList=""					# cli parameter list (string)
-declare    ldccli_ParamPointer=0				# cli parameter buffer index
+#declare -a ldccli_ParamBuffer=( "$@" )			# cli parameter array buffer
+#declare    ldccli_ParamList=""					# cli parameter list (string)
+#declare    ldccli_ParamPointer=0				# cli parameter buffer index
 
-declare -a ldccli_cmndsValid=()					# array of valid commands for this object
+#declare -a ldccli_cmndsValid=()				# array of valid commands for this object
 
-declare    ldccli_cmnds="ldccli_commands"		# commands
-declare    ldccli_cmndNum=0						# command stack index of the current command
-declare    ldccli_command=""					# cli command
-declare    ldccli_cmndValid=0					#
+#declare    ldccli_cmnds="ldccli_commands"		# commands
+#declare    ldccli_cmndNum=0					# command stack index of the current command
+#declare    ldccli_command=""					# cli command
+#declare    ldccli_cmndValid=0					#
+#declare -i ldcopt_cmndErrors=0					# cli command error count
 
-declare -a ldccli_parsed=()						#
-declare -a ldccli_exploded=()					#
+#declare -a ldccli_parsed=()					#
+#declare -a ldccli_exploded=()					#
 
-declare -A ldccli_shellParam=()					# provided by config file
-declare -A ldccli_InputParam=()					# input parameters
-declare -a ldccli_InputErrors=()				# input parameter error names
+declare -A ldcopt_shellParam=()					# provided by config file
+declare -A ldcopt_InputParam=()					# input parameters
 
-declare -i ldccli_cmndErrors=0					# cli command error count
-declare -i ldccli_paramErrors=0					# cli parameter error count
-declare -i ldccli_Errors=0						# number of cli errors detected
+declare -a ldcopt_InputErrors=()				# input parameter error names
+
+declare -i ldcopt_paramErrors=0					# cli parameter error count
+declare -i ldcopt_Errors=0						# number of cli errors detected
 
 # **************************************************************************
 #
-#	ldcCliCmndValid
+#	ldcOptCmndValid
 #
-#	  Returns 0 if the command is in ldccli_cmndsValid, 1 if not
+#	  Returns 0 if the command is valid, 1 if not
 #
 #	parameters:
 #		cmnd = command
@@ -142,33 +99,25 @@ declare -i ldccli_Errors=0						# number of cli errors detected
 #		result = 0 if found, 1 if not found
 #
 # **************************************************************************
-function ldcCliCmndValid()
+function ldcOptCmndValid()
 {
 	local lcmnd=${1:-""}
-	local lerr=1
 
 	ldccli_cmndValid=0
 
-	while [ true ]
-	do
-		[[ ${#ldccli_cmndsValid[@]} -eq 0  ||  -z "${lcmnd}" ]] && break
-		
-		(( lerr++ ))
-
- 		[[ "${ldccli_cmndsValid[@]}" =~ "${lcmnd}" ]] && break
-
+	[[ ${#ldccli_cmndsValid[@]} -eq 0  ||  -z "${lcmnd}" ]] && return 1
+ 	[[ "${ldccli_cmndsValid[@]}" =~ "${lcmnd}" ]] && 
+ 	 {
  		ldccli_cmndValid=1
-
- 		lerr=0
-		break
-	done
+ 		return 0
+ 	 }
  
-	return $lerr
+	return 2
 }
 
 # **************************************************************************
 #
-#	ldcCliCmndNew
+#	ldcOptCmndNew
 #
 #		create a new command entry and node
 #
@@ -180,21 +129,19 @@ function ldcCliCmndValid()
 #		non-zero = error code
 #
 # **************************************************************************
-function ldcCliCmndNew()
+function ldcOptCmndNew()
 {
 	local pCmnd=${1:-""}
 
 	local lresult=1
 
-    while [ true ]
-	do
+    while true ; do
 		[[ -z "${pCmnd}" ]] && break
 
 		(( lresult++ ))
-
 		ldccli_command="${pCmnd}"
 
-		ldcCliCmndValid "${ldccli_command}"
+		ldcOptCmndValid "${ldccli_command}"
 		[[ $? -eq 0 ]] || break
 
 		(( lresult++ ))
@@ -203,10 +150,7 @@ function ldcCliCmndNew()
 		[[ $? -eq 0 ]] || break
 
 		(( lresult++ ))
-
-		ldcClinName "${ldccli_command}" ${ldccli_cmndNum} ldcclin_node
-
-		(( lresult++ ))
+		ldcOptnName "${ldccli_command}" ${ldccli_cmndNum} ldcclin_node
 
 		ldcUtilVarExists ${ldcclin_node}
 		[[ $? -eq 0 ]] || break
@@ -230,9 +174,9 @@ function ldcCliCmndNew()
 
 # **************************************************************************
 #
-#	ldcCliValid
+#	ldcOptValid
 #
-#	Returns 0 if the parameter name is in ldccli_shellParam, 1 if not
+#	Returns 0 if the parameter name is valid, 1 if not
 #
 #	parameters:
 #		cliParameterName = parameter name
@@ -243,7 +187,7 @@ function ldcCliCmndNew()
 #		2 = requested parameter is invalid
 #
 # **************************************************************************
-function ldcCliValid()
+function ldcOptValid()
 {
 	local pName=${1:-""}
 
@@ -255,33 +199,34 @@ function ldcCliValid()
 
 # **************************************************************************
 #
-#	ldcCliLookup
+#	ldcOptLookup
 #
-#		Lookup the parameter in ldccli_shellParam and set the option name
+#		Lookup the parameter and set the option name
 #
 #	parameters:
-#		cpName = shell parameter name
-#		optName = location to place the parameter name
+#		cliParameterName = parameter name
+#		OptionName = location to place the option name
 #
 #	returns:
 #		0 = found, 
-#		non-zero = requested parameter is invalid
+#		1 = requested parameter is invalid
 #
 # **************************************************************************
-function ldcCliLookup()
+function ldcOptLookup()
 {
 	local cpName=${1:-""}
 	local optName=${2:-""}
 
 	local lresult=1
 
-	while [ true ]
-	do
+	while true ; do
 		[[ -z "${cpName}"  ||  -z "${optName}" ]] && break
 	
+		local parameter="${cpName}"
+
 		(( lresult++ ))
 
-		ldcCliValid "${cpName}"
+		ldcOptValid "${cpName}"
 		[[ $? -eq 0 ]] || break
 
 		(( lresult++ ))
@@ -298,7 +243,7 @@ function ldcCliLookup()
 
 # **************************************************************************
 #
-#	ldcCliAdd
+#	ldcOptAdd
 #
 #		Add input parameter name and (optional) value
 #
@@ -311,32 +256,22 @@ function ldcCliLookup()
 #		non-zero = error code
 #
 # **************************************************************************
-function ldcCliAdd()
+function ldcOptAdd()
 {
 	local pName="${1}"
 	local pValue="${2}"
 
-	local aError=1
-	
-	while [ true ]
-	do
-		[[ -z "${pName}" ]] && break
+	[[ -z "${pName}" ]] && return 1
 
-		(( aError++ ))
+	ldcDeclareArrayEl "ldccli_InputParam" "${pName}" "${pValue}"
+	[[ $? -eq 0 ]] || return 2
 
-		ldcDeclareArrayEl "ldccli_InputParam" "${pName}" "${pValue}"
-		[[ $? -eq 0 ]] || break
-
-		aError=0
-		break
-	done
-
-	return $aError
+	return 0
 }
 
 # **************************************************************************
 #
-#	ldcCliCheck
+#	ldcOptCheck
 #
 #		check input parameter name and value
 #
@@ -349,44 +284,31 @@ function ldcCliAdd()
 #		non-zero = error code
 #
 # **************************************************************************
-function ldcCliCheck()
+function ldcOptCheck()
 {
 	local pName="${1}"
 	local pValue="${2}"
 
-	local pError=1
+	[[ -z "${pName}" ]] && return 1
 
-	while [ true ]
-	do
-		[[ -z "${pName}" ]] && break
+	ldcOptValid "${pName}"
+	[[ $? -eq 0 ]] &&
+	 {
+		ldcOptAdd "${pName}" "${pValue}"
+		return 0
+	 }
 
-		(( pError++ ))
+	ldccli_InputErrors[${#ldccli_InputErrors[@]}]="${pName}"
 
-		ldcCliValid "${pName}"
-		[[ $? -eq 0 ]] &&
-		 {
-			ldcCliAdd "${pName}" "${pValue}"
-			pError=$?; [[ $pError -eq 0 ]] ||
-			{
-				ldccli_InputErrors[${#ldccli_InputErrors[@]}]="${pName}"
+	((ldccli_ParamErrors++ ))
+	(( ldccli_Errors++ ))
 
-				(( ldccli_ParamErrors++ ))
-				(( ldccli_Errors++ ))
-		
-				break
-			}
-		 }
-
-		pError=0
-		break
-	done
-
-	return $pError
+	return 2
 }
 
 # **************************************************************************
 #
-#	ldcCliSplit
+#	ldcOptSplit
 #
 #		Splits the parameter string into name and value
 #
@@ -398,45 +320,36 @@ function ldcCliCheck()
 #		non-zero = error code
 #
 # **************************************************************************
-function ldcCliSplit()
+function ldcOptSplit()
 {
 	local lParam=${1:-""}
 
-	local paramName=""
-	local paramValue=""
-
-	local paramError=1
-
-	while [ true ]
-	do
+	while true ; do
 		[[ -z "${lParam}" ]] && break
 
-		(( paramError++ ))
+		local paramName
+		local paramValue
 
 		ldcStrSplit "${lParam}" paramName paramValue
 		[[ $? -eq 0 ]] || break
 
-		(( paramError++ ))
-
 		if [ -z "${paramValue}" ]
 		then
-			ldcCliCmndNew "${paramName}"
+			ldcOptCmndNew "${paramName}"
 		else
-			ldcCliCheck "${paramName}" "$paramValue"
+			ldcOptCheck "${paramName}" "$paramValue"
+			[[ $? -eq 0 ]] || break
 		fi
 
-		[[ $? -eq 0 ]] || break
-
-		paramError=0
-		break
+		return 0
 	done
 
-	return $paramError
+	return 1
 }
 
 # **************************************************************************
 #
-#	ldcCliParse
+#	ldcOptParse
 #
 #		parse the cli parameters in global ldccli_ParamBuffer array
 #			and store results in ldccli_shellParam, ldccli_command,
@@ -450,30 +363,25 @@ function ldcCliSplit()
 #			   = non-zero => error code
 #
 # **************************************************************************
-function ldcCliParse()
+function ldcOptParse()
 {
-	while [ true ]
+	[[ ${#ldccli_ParamBuffer} -eq 0 ]] && return 0
+
+	ldccli_ParamList="${ldccli_ParamBuffer[@]}"
+
+	ldccli_InputErrors=()
+	ldccli_InputParam=()
+
+	ldccli_paramErrors=0
+	ldccli_cmndErrors=0
+	ldccli_Errors=0
+
+	local pString
+
+	for pString in "${ldccli_ParamBuffer[@]}"
 	do
-		[[ ${#ldccli_ParamBuffer} -eq 0 ]] && break
-
-		ldccli_ParamList="${ldccli_ParamBuffer[@]}"
-
-		ldccli_InputErrors=()
-		ldccli_InputParam=()
-
-		ldccli_paramErrors=0
-		ldccli_cmndErrors=0
-		ldccli_Errors=0
-
-		local pString
-
-		for pString in "${ldccli_ParamBuffer[@]}"
-		do
-			ldcCliSplit "${pString}"
-			[[ $? -eq 0 ]] || break
-		done
-
-		break
+		ldcOptSplit "${pString}"
+		[[ $? -eq 0 ]] || break
 	done
 
 	return 0
@@ -481,7 +389,7 @@ function ldcCliParse()
 
 # **************************************************************************
 #
-#	ldcCliApply
+#	ldcOptApply
 #
 #		Apply the pending cliInputParameters
 #
@@ -493,37 +401,30 @@ function ldcCliParse()
 #		non-zero = error code
 #
 # **************************************************************************
-function ldcCliApply()
+function ldcOptApply()
 {
 	[[ ${#ldccli_InputParam[@]} -eq 0 ]] && return 0
 
 	local iName
 	local iOption
 	local iValue
-	local iError=0
 
 	for iName in "${!ldccli_InputParam[@]}"
 	do
-		iError=1
-
 		iValue="${ldccli_InputParam[$iName]}"
 
-		ldcCliLookup $iName iOption
-		[[ $? -eq 0 ]] || break
-
-		lError=2
-
-		iOption="ldccli_opt${iOption}"
+		ldcOptLookup $iName iOption
+		[[ $? -eq 0 ]] || return 1
+		
+		iOption="ldccli_${iOption}"
 
 		ldcDeclareSet "${iOption}" "${iValue}"
-		[[ $? -eq 0 ]] || break
-		
-		iError=0
-		break
+		[[ $? -eq 0 ]] || return 2
 	done
 
-	return $iError
+	return 0
 }
 
 # **************************************************************************
 # **************************************************************************
+

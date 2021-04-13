@@ -1,0 +1,387 @@
+#!/bin/bash
+# ******************************************************************************
+# ******************************************************************************
+#
+#   	ldcIni.lib
+#
+# *****************************************************************************
+#
+# @author Jay Wheeler.
+# @version 0.0.1
+# @copyright © 2021. EarthWalk Software.
+# @license Licensed under the GNU General Public License, GPL-3.0-or-later.
+# @package ewsdocker/ldcLibrary
+# @subpackage ldcIni
+#
+# *****************************************************************************
+#
+#	Copyright © 2021. EarthWalk Software
+#	Licensed under the GNU General Public License, GPL-3.0-or-later.
+#
+#   This file is part of ewsdocker/ldcLibrary.
+#
+#   ewsdocker/ldcLibrary is free software: you can redistribute 
+#   it and/or modify it under the terms of the GNU General Public License 
+#   as published by the Free Software Foundation, either version 3 of the 
+#   License, or (at your option) any later version.
+#
+#   ewsdocker/ldcLibrary is distributed in the hope that it will 
+#   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+#   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with ewsdocker/ldcLibrary.  If not, see 
+#   <http://www.gnu.org/licenses/>.
+#
+# *****************************************************************************
+#
+#	Version 0.0.1 - 02-06-2021.
+#
+# ******************************************************************************
+#
+#	Dependencies:
+#
+#		ldcBashVars.lib
+#		ldcColorDef.lib
+#		ldcDeclare.lib
+#		ldcDisplay.lib
+#		ldcDmpVar.lib
+#		ldcOptions.lib
+#		ldcStr.lib
+#		ldcTestUtilities.lib
+#
+# ******************************************************************************
+#
+#	Functions:
+#
+#
+# ******************************************************************************
+# ******************************************************************************
+
+declare -r ldclib_ldcIni="0.1.0"	# version of library
+
+# ******************************************************************************
+#
+#	Required global declarations
+#
+# ******************************************************************************
+
+declare -i ldcini_rvalid=0			# a valid INI file is open for reading
+declare    ldcini_rprefix="ldc_"	# prefix for array section names
+
+declare    ldcini_rfilename=""		# the name of the INI file being processed.
+declare    ldcini_rbuffer=""		# contains the ini file records
+
+declare -a ldcini_rrecords=()		# 1 record per line of rbuffer
+
+declare -A ldcini_readsecs=()		# list of sections
+declare    ldcini_rsection=""       # g/p current read section
+
+# ******************************************************************************
+# ******************************************************************************
+#
+#						Functions
+#
+# ******************************************************************************
+# ******************************************************************************
+
+# ****************************************************************************
+#
+#	ldcIniRPrefix
+#		Set the prefix for Read INI Section arrays
+#
+#	parameters:
+#		iniPrefix = ini array name prefix (default to ldc_ )
+#
+#	returns:
+#		0 = no errors
+#		non-zero = error number
+#
+# ****************************************************************************
+function ldcIniRPrefix()
+{
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
+
+	ldcini_rprefix=${1:-"ldc_"}
+	return 0
+}
+
+# ****************************************************************************
+#
+#	ldcIniRead
+#		Read the ini file into ldcIniBuffer
+#
+#	parameters:
+#		iniFile = ini file name
+#
+#	returns:
+#		0 = no errors
+#		non-zero = error number
+#
+# ****************************************************************************
+function ldcIniRead()
+{
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
+
+	ldcini_rfilename=${1:-"../../../../etc/ldc/cliOptions.ini"}
+	ldcini_rvalid=0
+
+	local lir_error=1
+
+	while [ true ]
+	do
+		#
+		#	no file name, nothing to do
+		#
+		[[ -z "${ldcini_rfilename}" ]] && break
+
+		#
+		#	read the (local) file into the read buffer
+		#
+		ldcini_rbuffer="$( <$ldcini_rfilename )"
+		[[ $? -eq 0 ]] || break
+
+		(( lir_error++ ))
+
+		#
+		#	escape the square brackets
+		#
+		ldcini_rbuffer="${ldcini_rbuffer//[/\[}"
+		ldcini_rbuffer="${ldcini_rbuffer//]/\]}"
+
+		#
+		#	read records array from the read buffer
+		#
+		OFS=$IFS
+		IFS=$'\n'
+
+		ldcini_rrecords=( ${ldcini_rbuffer} )
+		lir_error=$?
+		
+		IFS=$OFS
+		
+		[[ $lir_error -eq 0 ]] || break
+
+		#
+		#	lir_error is already set correctly from preceding
+		#
+		ldcini_rvalid=1
+
+		break
+	done
+
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting" "**********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] && 
+		 {
+			ldcDmpVarList "ldcini_"
+			[[ -z "${ldcini_rprefix}" ]] || ldcDmpVarList "${ldcini_rprefix}"
+			ldcDmpVarList "lir_"
+		 }
+	 }
+
+	return $lir_error
+}
+
+# ****************************************************************************
+#
+#	ldcIniLoadSections
+#		Create section arrays from the ldcini_rbuffer record buffer
+#
+#	parameters:
+#
+#	returns:
+#		0 = no errors
+#		non-zero = error number
+#
+# ****************************************************************************
+function ldcIniLoadSections()
+{
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
+
+	local -i lil_index=0
+	local -i lil_error=0
+	local    lil_buffer=""
+
+	local    lil_vbuffer=""
+	local    lil_name=""
+	local    lil_value=""
+
+	local -i lil_len=${#lil_buffer}
+	local -i lil_start=0
+	local -i lil_end=$lil_len-1
+	local -i lil_position=0
+
+	while [ $lil_index -lt ${#ldcini_rrecords[@]} ]
+	do
+		ldcStrTrim "${ldcini_rrecords[$lil_index]}" lil_buffer
+		lil_error=$?
+		[[ $lil_error -eq 0 ]] || break
+
+		case ${lil_buffer:0:1} in 
+
+			"[")
+				[[ "${ldccli_optDebug}" -eq 2 ]] && 
+				 {
+					ldcDisplay "${ldcclr_Bold}section=${lil_buffer}${td_colorNoColor}"
+				 }
+
+			    #
+				#	if the record contains an '=', process it, otherwise it's an error.
+				#
+
+				lil_len=${#lil_buffer}
+				lil_start=`expr index "$lil_buffer" [`
+
+				#
+				#	start is 0 for no = found
+				#
+				[[ $lil_start -eq 0 ]] &&
+				 {
+					lil_error=1
+					break
+				 }
+
+				lil_end=`expr index "${lil_buffer:$lil_start}" ]`
+				ldcStrTrim ${lil_buffer:$lil_start:$lil_end-$lil_start} ldcini_rsection
+
+				ldcDeclareArrayEl ldcini_readsecs "${ldcini_rsection}" "${ldcini_rprefix}${ldcini_rsection}"
+
+				ldcDeclareAssoc "${ldcini_rprefix}${ldcini_rsection}"
+				[[ $? -eq 0 ]] ||
+				 {
+					lil_error=$?
+					break
+				 }
+
+				[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay "${ldcclr_Bold}rsection=\"$ldcini_rsection\"${td_colorNoColor}"
+
+				;;
+
+			'#')
+				#
+				#	skip comment records
+				#
+				[[ "${ldccli_optDebug}" -eq 2 ]] && 
+				 {
+					ldcDisplay "${ldcclr_Bold}skip=${lil_buffer}${td_colorNoColor}"
+				 }
+
+				;;
+
+			*)
+				[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay "${ldcclr_Bold}record=${lil_buffer}${td_colorNoColor}"
+
+				#
+				#	if the record contains an '=', process it, otherwise it's an error.
+				#
+				lil_len=${#lil_buffer}
+				lil_position=`expr index "$lil_buffer" =`
+
+				#
+				#	position is 0 for no = found
+				#
+				[[ $lil_position -eq 0 ]] &&
+				 {
+					lil_error=1
+					break
+				 }
+
+				ldcStrTrim ${lil_buffer:0:$lil_position-1} lil_name
+
+				lil_vbuffer=${lil_buffer:$lil_position:$lil_len-$lil_position}
+				ldcStrTrim "${lil_vbuffer}" lil_value
+
+				ldcDeclareArrayEl "$ldcini_rprefix$ldcini_rsection" "${lil_name}" "${lil_value}"
+				[[ $? -eq 0 ]] ||
+				 {
+					lil_error=$?
+					break
+				 }
+
+				ldcDeclareAssoc "ldcini_readsecs" "${lil_name}" "${lil_value}"
+				[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay "${ldcclr_Bold}name=\"${lil_name}\", value=\"${lil_value}\"${td_colorNoColor}"
+
+				;;
+
+		esac
+
+		[[ $lil_error -eq 0 ]] || break
+
+		[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay
+		(( lil_index++ ))
+	done
+
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting" "**********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] && 
+		 {
+			ldcDmpVarList "lil_"
+			[[ -z "${ldcini_rprefix}" ]] || ldcDmpVarList "${ldcini_rprefix}"
+			ldcDmpVarList "ldcini"
+		 }
+	 }
+
+	return $lil_error
+}
+
+# ****************************************************************************
+#
+#	ldcIni
+#
+#	parameters:
+#		iniFile = ini file name
+#		iniPrefix = prefix for section arrays
+#
+#	returns:
+#		0 = no errors
+#		non-zero = error number
+#
+# ****************************************************************************
+function ldcIni()
+{
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
+
+	local    ini_file=${1:-"../../../../etc/ldc/cliOptions.ini"}
+	local    ini_prefix=${2:-""}
+
+	local -i ini_error=1
+
+	while [ true ]
+	do
+		ldcIniRPrefix "${ini_prefix}"
+		[[ $? -eq 0 ]] || break
+
+		(( ini_error++ ))
+
+		ldcIniRead "${ini_file}"
+		[[ $? -eq 0 ]] || break
+
+		(( ini_error++ ))
+
+		ldcIniLoadSections
+		[[ $? -eq 0 ]] || break
+
+		ini_error=0
+		break
+	done	
+
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting" "**********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] && 
+		 {
+			ldcDmpVarList "lil_"
+			[[ -z "${ldcini_rprefix}" ]] || ldcDmpVarList "${ldcini_rprefix}"
+			ldcDmpVarList "ldcini"
+		 }
+	 }
+
+	return $ini_error
+}
+
+# ******************************************************************************
+# ******************************************************************************

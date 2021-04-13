@@ -79,8 +79,8 @@ declare    td_buffer=""
 declare    td_colorText=${ldcclr_Bold}
 declare    td_colorBlock=${ldcclr_LightCyan}
 declare    td_colorBorder=${ldcclr_Cyan}
-declare    td_colorDivider=${ldcclr_Bold}
-declare    td_colorStartDivider=${ldcclr_LightGreen}
+declare    td_colorDivider=${ldcclr_Green}
+declare    td_colorStartDivider=${ldcclr_LightBlue}
 declare    td_colorError=${ldcclr_LightRed}
 declare    td_colorNoColor=${ldcclr_NoColor}
 
@@ -180,22 +180,19 @@ function ldcTestDisplay()
 function ldcTestDivider()
 {
 	local -i dLines=${1:-"2"}
-	local    dColor=${2:-"$dqt_colorDivider"}
+	local    dColor=${2:-"$td_colorDivider"}
 	local -i dRepeats=${3:-"72"}
-	local    dChar="="
+	local    dChar=${4:-"="}
 
 	local -i dLine=0
 
-	ldcStrFill ${dRepeats} ${dChar}
-	ldcDisplay
+	ldcStrFill ${dRepeats} ${dChar} "td_buffer"
 
 	while [ ${dLine} -lt ${dLines} ]
 	do
-		ldcDisplay "${dColor}${ldcstr_buffer}${ldcclr_NoColor}"
+		ldcTestDisplay "${dColor}${td_buffer}${ldcclr_NoColor}"
 		(( dLine++ ))
 	done
-
-	ldcDisplay
 }
 
 # =========================================================================
@@ -214,15 +211,18 @@ function ldcTestDivider()
 function ldcTestBlock()
 {
 	local    tb_message=${1:-""}
-	
-	ldcStrFill 40 "="
-	ldcTestDisplay "${dqt_colorBorder}${ldcstr_buffer}${ldcclr_NoColor}"
-	
-	  ldcTestDisplay "  ${tb_message}"
+	local    tb_color=${2:-"$td_colorBorder"}
+	local    tb_repeats=${3:-"40"}
+	local    tb_char=${4:-"="}
+	local    tb_divider=${5:-"$td_colorDivider"}
 
-	ldcStrFill 40 "="
-	ldcTestDisplay "${dqt_colorBorder}${ldcstr_buffer}${ldcclr_NoColor}"
-	ldcDisplayTs
+	ldcTestDivider 1 "${tb_divider}" 60
+
+	  ldcIndent=2
+	  ldcTestDisplay "${tb_color}${tb_message}"
+	  ldcIndext=-2
+
+	ldcTestDivider 1 "${tb_divider}" 60
 
 	return 0
 }
@@ -250,39 +250,40 @@ function testExpectedResults()
 
 	(( td_indent+=2 ))
 
-	ldcTestBlock "Start ${dqt_colorText}testExpectedResults${ldcclr_NoColor} tests"
+	ldcTestBlock "Start ${td_colorText}testExpectedResults${ldcclr_NoColor} tests"
 
- 	ldcTestDisplay "${dqt_colorText}Testing expected results:${ldcclr_NoColor} "
+ 	ldcTestDisplay "${td_colorText}Testing expected results:${ldcclr_NoColor} "
  	(( td_indent+=2 ))
- 		ldcTestDisplay "${dqt_colorText}Expected: \"${lExpected}\"${ldcclr_NoColor} "
- 		ldcTestDisplay "${dqt_colorText}Received: \"${lReceived}\"${ldcclr_NoColor} "
- 		ldcTestDisplay "${dqt_colorText}Equality: \"${lEquality}\"${ldcclr_NoColor} "
+ 		ldcTestDisplay "${td_colorText}Expected: \"${lExpected}\"${ldcclr_NoColor} "
+ 		ldcTestDisplay "${td_colorText}Received: \"${lReceived}\"${ldcclr_NoColor} "
+ 		ldcTestDisplay "${td_colorText}Equality: \"${lEquality}\"${ldcclr_NoColor} "
 	(( td_indent-=2 ))
 
 	local exResult=0
 
 	[[ "${lEquality}" != "0" && "${lEquality}" != "1" ]] && 
 	 {
-	 	ldcTestDisplay "    ${dqt_colorError}*** Equality (${lEquality}) is not numeric, or is out of range ***${ldcclr_NoColor}"
+	 	ldcTestDisplay "    ${td_colorError}*** Equality (${lEquality}) is not numeric, or is out of range ***${ldcclr_NoColor}"
 	 	exResult=2
 	 }
 
 	[[ ${exResult} -eq 0 ]] &&
 	 {
-		if [[ "${lEquality}" == "0" ]]
-		then
-			[[ "${lExpected}" == "${lReceived}" ]] || exResult=1
-		else
-			[[ "${lExpected}" != "${lReceived}" ]] || exResult=1
-		fi
+		case "${lEquality}" in
+			0)	[[ "${lExpected}" == "${lReceived}" ]] || exResult=1
+				;;
+
+			1 | *)
+				[[ "${lExpected}" != "${lReceived}" ]] || exResult=1
+				;;
+		esac
 	 }
 	
 	local    exResultMsg=""
 
 	[[ ${exResult} -eq 0 ]] && exResultMsg="true" || exResultMsg="false"
 
-	ldcDisplayTs
-	ldcTestBlock "END ${dqt_colorText}testExpectedResults${ldcclr_NoColor}. ${dqt_colorText}(${exResult}) ${exResultMsg}${ldcclr_NoColor}"
+	ldcTestBlock "END ${td_colorText}testExpectedResults${ldcclr_NoColor}. ${td_colorText}(${exResult}) ${exResultMsg}${ldcclr_NoColor}"
 
 	(( td_indent-=2 ))
 

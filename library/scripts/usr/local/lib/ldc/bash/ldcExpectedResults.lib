@@ -107,12 +107,14 @@ function ldcExpectedResults()
 
 	[[ ${exResult} -eq 0 ]] &&
 	 {
-		if [[ "${lEquality}" == "0" ]]
-		then
-			[[ "${lExpected}" == "${lReceived}" ]] || exResult=1
-		else
-			[[ "${lExpected}" != "${lReceived}" ]] || exResult=1
-		fi
+		case "${lEquality}" in
+			0)	[[ "${lExpected}" == "${lReceived}" ]] || exResult=1
+				;;
+
+			1 | *)
+				[[ "${lExpected}" != "${lReceived}" ]] || exResult=1
+				;;
+		esac
 	 }
 	
 	ldcDisplayTs "       Result  : ${exResult}"

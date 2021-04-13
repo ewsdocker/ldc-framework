@@ -108,7 +108,7 @@ declare    ldcstr_Unquoted=""			#
 declare -a ldcstr_Exploded=()			# exploded string array
 declare -a ldcstr_split=()				# split string array
 
-declare    lmsstr_buffer=""				# g/p buffer
+declare    ldcstr_buffer=""				# g/p buffer
 
 # ***********************************************************************************************************
 #
@@ -117,7 +117,7 @@ declare    lmsstr_buffer=""				# g/p buffer
 #		ldcStrTrim leading and trailing blanks
 #
 #	parameters:
-#		string = the string to ldcStrTrim
+#		string = the string to trim
 #		result = (optional) location to place the ldcstr_Trimmed string
 #
 #	returns:
@@ -138,7 +138,7 @@ function ldcStrTrim()
 	string="${string#"${string%%[![:space:]]*}"}"   # remove leading whitespace characters
 	ldcstr_Trimmed="${string%"${string##*[![:space:]]}"}"   # remove trailing whitespace characters
 
-	[[ -n "$2" ]] && eval "$2"='$'"{lmsstr_Trimmed}"
+	[[ -n "$2" ]] && eval "$2"='$'"{ldcstr_Trimmed}"
 	return $?
 }
 
@@ -227,6 +227,7 @@ function ldcStrSplit()
 	local    option=""
 
 	ldcStrExplode ${1} ${4:-"="} strSplit
+
 	[[ ${#strSplit[@]} -ne 2 ]] &&
 	 {
 		ldcDeclareStr ${2} "${1}"
@@ -239,9 +240,7 @@ function ldcStrSplit()
 	ldcDeclareStr ${2} "${strSplit[0]}"
 	[[ $? -eq 0 ]] || return 1
 
-	ldcStrUnquote "${strSplit[1]}" option
-
-	ldcDeclareStr ${3} "${option}"
+	ldcDeclareStr ${3} "${strSplit[1]}"
 	[[ $? -eq 0 ]] || return 2
 
 	return 0
@@ -258,7 +257,8 @@ function ldcStrSplit()
 #		separator = (optional) parameter-option separator, defaults to ' '
 #		copy = (optional) location (array) to copy the exploded data
 #
-#	places the result in the global array variable: ldcstr_Exploded or optionally in the passed array variable
+#	places the result in the global array variable: ldcstr_Exploded OR
+#              optionally in the passed array variable
 #
 #	returns:
 #		result = 0 (no error)
@@ -272,12 +272,23 @@ function ldcStrExplode()
 	OIFS="$IFS"
 	IFS=$separator
 
-	if [[ -z "${3}" ]]
-	then
-		read -a ldcstr_Exploded <<< "${xBuffer}"
-	else
+#	if [[ -z "${3}" ]]
+#	then
+#		read -a ldcstr_Exploded <<< "${xBuffer}"
+#	else
+#		read -a ${3} <<< "${xBuffer}"
+#	fi
+
+	read -a ldcstr_Exploded <<< "${xBuffer}"
+	[[ $? -eq 0 ]] || return $?
+
+	[[ -z "${3}" ]] ||
+	 {
 		read -a ${3} <<< "${xBuffer}"
-	fi
+		[[ $? -eq 0 ]] || return $?
+	 }
+
+declare -p | grep ${3}
 
 	IFS="$OIFS"
 	return 0

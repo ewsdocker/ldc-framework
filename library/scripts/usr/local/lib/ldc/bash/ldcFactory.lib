@@ -54,7 +54,7 @@
 #
 #			Initialize factory array(s)
 #
-#		ldcFactoryAdd factoryName bridgeName description uidLength
+#		ldcFactoryAdd factoryName bridgeName function uidLength
 #
 #			Add/Create factory name and create/update factory bridge array. 
 #
@@ -77,20 +77,20 @@ declare -r ldclib_ldcFactory="0.1.0"	# version of library
 #
 # ******************************************************************************
 
-declare -i ldcfac_initalized=0
+declare -i ldcfac_initialized=0		# initialized if set to 1
 
-declare -i ldcfac_cvalid=0			# Current entries are valid if not 0
+declare -i ldcfac_cvalid=0			# factory global data is valid if set to 1
 
-declare    ldcfac_cuid=""			# Current factory uid
-declare    ldcfac_cfactory=""		# Current factory name
+declare    ldcfac_cuid=""			# cuid for the associated bridge array
+declare    ldcfac_cfactory=""		# factory name
 
-declare -i ldcfac_cbrValid=0		# Current bridge keys valid if not 0
-declare    ldcfac_cbrName=""		#
-declare    ldcfac_cbrDescription="" #
+declare -i ldcfac_cbrValid=0		# bridge global data is valid if set to 1
+declare    ldcfac_cbrArray=""		# bridge array name from ldcfac_cfactory
+
+declare    ldcfac_cbrName=""		# name of the bridge
+declare    ldcfac_cbrFunction="" 	# function of the bridge
 
 declare -a ldcfac_cbrKeys=()		# Current bridge keys list
-
-#declare -A ldcfac_registry=()		# Factory registry associative array
 
 # ***************************************************************************************************
 # ***************************************************************************************************
@@ -98,9 +98,9 @@ declare -a ldcfac_cbrKeys=()		# Current bridge keys list
 #          ldcfac_registry                  ldcfac_<uid1>
 #          key    : attribute            key         : attribute
 #		***********************        *******************************
-#		*  Help   : <uid1>    *======> * JQ          : <description> *
+#		*  Help   : <uid1>    *======> * JQ          : <function> *
 #		***********************        *******************************
-#		*  Errors : <uid2>    *        * XML         : <description> *
+#		*  Errors : <uid2>    *        * XML         : <function> *
 #		***********************        *******************************
 #
 # ***************************************************************************************************
@@ -114,17 +114,43 @@ declare -a ldcfac_cbrKeys=()		# Current bridge keys list
 # ******************************************************************************
 # ******************************************************************************
 
-function ldcFactoryResetGlobals()
+# ****************************************************************************
+#
+#	ldcFactoryReset
+#		reset all global variables
+#
+#	parameters:
+#		none
+#
+#	returns:
+#		0 = no errors
+#		non-zero = error number
+#
+# ****************************************************************************
+function ldcFactoryReset()
 {
-	ldcfac_cvalid=0
-	ldcfac_cfactory=""
-	ldcfac_cuid=""
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
 
-	ldcfac_cbrValid=0
-	ldcfac_cbrName=""
-	ldcfac_cbrDescription=""
+	ldcfac_cvalid=0					# factory global data is valid if set to 1
 
-	unset ldcfac_cbrKeys
+	ldcfac_cfactory=""				# factory name
+	ldcfac_cuid=""					# cuid for the associated bridge array
+
+	ldcfac_cbrValid=0				# bridge global data is valid if set to 1
+	ldcfac_cbrArray=""				# bridge array name from ldcfac_cfactory
+
+	ldcfac_cbrName=""				# name of the bridge
+	ldcfac_cbrFunction=""			# bridge function name
+
+	unset ldcfac_cbrKeys			# bridge keys (bridge names)
+
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting" "**********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] && ldcDmpVarList "ldcfac_"
+	 }
+
+	return 0
 }
 
 # ****************************************************************************
@@ -142,386 +168,575 @@ function ldcFactoryResetGlobals()
 # ****************************************************************************
 function ldcFactoryInit()
 {
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering " "**********${td_colorNoColor}"
+
 	local li_error=0
 
 	while [ true ]
 	do
-	    [[ ${ldcfac_initalized} -eq 0 ]] || break
+	    [[ ${ldcfac_initialized} -eq 0 ]] ||
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(li_error: ${li_error})${td_colorNoColor}"
+			break
+		 }
 
 		(( li_error++ ))
 
-		ldcFactoryResetGlobals
+		ldcFactoryReset
 
 		ldcDeclareAssoc "ldcfac_registry"
-		[[ $? -eq 0 ]] || break
+		[[ $? -eq 0 ]] ||
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(li_error: ${li_error})${td_colorNoColor}"
+			break
+		 }
 		
-		(( li_error++ ))
-
 		li_error=0
 		ldcfac_initialized=1
 
 		break
 	done
 
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting" "(li_error: ${li_error}) **********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] &&
+		 {
+			ldcDmpVarList "li_"
+			ldcDmpVarList "ldcfac_"
+		 }
+	 }
+
 	return ${li_error}
 }
 
 # ***********************************************************************************************************
 #
-#	ldcFactoryExists
-#		If the Factory Name is valid return 0, otherwise return 1
+#	ldcFactoryBridgeIsValid
+#
+#		if the global factory name and bridge name are both valid; and 
+#		   match the requested values, return 0; 
+#		otherwise return error code.
 #
 #	Parameters:
-#		facname = factory name
+#		lvc_factory = factory name (default = ldcfac_cfactory)
+#		lvc_bridge = bridge name to check for
+#
+#	Returns:
+#		0 = valid
+#		non-zero = not valid
+#
+# ********************************************************************************************************
+function ldcFactoryBridgeIsValid()
+{
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
+
+	local    lvc_factory=${1:-""}
+	local    lvc_bridge=${2:-""}
+
+	local -i lvc_error=1
+
+	while [[ -z {"$lvc_factory"} && -z {"$lvc_bridge"} ]]
+	do
+		[[ ${ldcfac_cvalid} -eq 1 && ${ldcfac_cbrValid} -eq 1 ]] ||
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(lv_error: ${lvc_error})${td_colorNoColor}"
+			break
+		 }
+
+		(( lvc_error++ ))
+
+		[[ "${ldcfac_cname}" == "${lvc_factory}" && "${ldcfac_cbrName}" == "${lvc_bridge}" ]] ||
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(lv_error: ${lvc_error})${td_colorNoColor}"
+			break
+		 }
+
+		lvc_error=0
+		break
+	done
+	
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting" "(lv_error: ${lvc_error}) **********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] &&
+		 {
+			ldcDmpVarList "lvc_"
+			ldcDmpVarList "ldcfac_"
+		 }
+	 }
+
+	return ${lvc_error}
+}
+
+# ***********************************************************************************************************
+#
+#	ldcFactoryCheckBridge
+#
+#		Check for the requested factory:bridge name valid.
+#			Returns 0 if the bridge name is valid, 1 if not
+#
+#	Parameters:
+#		lbc_factory = factory name (default = ldcfac_cfactory)
+#		lbc_bridge = bridge name to check for
+#		lbc_function = bridge function
+#		lbc_add = if the bridge does not exist, 1 => to add the bridge, 0 => to return error
+#
+#	Returns:
+#		0 = valid
+#		non-zero = not valid
+#
+# ********************************************************************************************************
+function ldcFactoryCheckBridge()
+{
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
+
+	local    lbc_bridgeArray=${1:-"$ldcfac_cbrArray"}
+	local    lbc_factory=${2:-"$ldcfac_cfactory"}
+	local    lbc_bridge=${3:-""}
+	local    lbc_function=${4:-""}
+	local    lbc_add=${5:-"0"}
+
+	local -i lbc_error=0
+
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Parameters: " "**********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] && 
+		{
+			ldcDmpVarList "lbc_"
+			ldcDmpVarList "ldcfac_"
+		 }
+	 }
+
+	while [ true ]
+	do
+		ldcFactoryBridgeIsValid ${lbc_factory} ${lbc_bridge}
+		[[ $? -eq 0 ]] &&
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(lbc_error: ${lbc_error})${td_colorNoColor}"
+			break
+		 }
+
+		(( lbc_error++ ))
+
+		#
+		#	if lbc_bridge is empty...
+		#
+		[[ -z "${lbc_bridge}" ]] &&
+		 {
+			#
+			# if cbrValid is 0, return error
+			#
+			[[ $ldcfac_cbrValid -eq 1 ]] ||
+			 {
+				[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(lbc_error: ${lbc_error})${td_colorNoColor}"
+				break
+			 }
+
+			#
+			# assign ldcfac_cbrName to lbc_bridge.
+			#
+			lbc_bridge=$ldcfac_cbrName 
+		 }
+
+		(( lbc_error++ ))
+
+		#
+		#	check if the requested factory is the current factory 
+		#
+		[[ $ldcfac_cvalid -eq 1 && "${lbc_factory}" == "${ldcfac_cfactory}" ]] ||
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(lbc_error: ${lbc_error})${td_colorNoColor}"
+			break
+		 }
+
+		(( lbc_error++ ))
+
+		eval 'ldcfac_cbrKeys=$'"{!$lbc_bridgeArray[@]}"
+		[[ $? -eq 0 ]] ||
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(lbc_error: ${lbc_error})${td_colorNoColor}"
+			break
+		 }
+
+		(( lbc_error++ ))
+
+		#
+		#	if lbc_bridge is not in the bridge keys
+		#
+		[[ "${ldcfac_cbrKeys[@]}" =~ "${lbc_bridge}" ]] ||
+		 {
+			#
+			# if lbc_add is 0, return error code
+			#
+			[[ ${lbc_add} -eq 0 ]]  &&
+			 {
+				[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(lbc_error: ${lbc_error})${td_colorNoColor}"
+				break
+			 }
+
+			(( lbc_error++ ))
+
+			#
+			#  store the factory name in the registry with the factory uid
+			#
+			ldcDeclareArrayEl "$ldcfac_cbrArray" "${lbc_bridge}" "${lbc_function}"
+			[[ $? -eq 0 ]] ||
+		 	 {
+				[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(lbc_error: ${lbc_error})${td_colorNoColor}"
+				break
+			 }
+
+		 }
+
+		(( lbc_error++ ))
+
+		#
+		#	store global values
+		#
+		eval 'ldcfac_cbrFunction=$'"{$ldcfac_cbrArray[$lbc_bridge]}"
+		ldcfac_cbrName="${lbc_bridge}"
+		ldcfac_cbrValid=1
+		
+		lbc_error=0
+		break
+	done
+
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting" "(lbc_error: ${lbc_error}) **********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] &&
+		 {
+			ldcDmpVarList "lbc_"
+			ldcDmpVarList "ldcfac_"
+		 }
+	 }
+
+	return $lbc_error
+}
+
+# ****************************************************************************
+#
+#	ldcFactoryBridge
+#
+#	parameters:
+#		factory = factory name
+#		bridge = factory bridge name (e.g. - XML, JQ)
+#		function = function of the factory bridge
+#		add = 1 to add the bridge if it does not exist, 0 to return error
+#
+#	returns:
+#		0 = no errors
+#		non-zero = error number
+#
+# ****************************************************************************
+function ldcFactoryBridge()
+{
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
+
+	local fb_factory=${1:-"$ldcfac_cfactory"}
+	local fb_bridge=${2:-"$ldcfac_cbrName"}
+	local fb_function=${3:-"ldcfac_cbrFunction"}
+	local fb_add=${4:-"0"}
+
+	local fb_brgError=0
+
+	while [ true ]
+	do
+		ldcFactoryBridgeIsValid ${fb_factory} ${fb_bridge}
+		[[ $? -eq 0 ]] &&
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(fb_brgError: ${fb_brgError})${td_colorNoColor}"
+			break
+		 }
+
+		(( fb_brgError++ ))
+
+		#
+		#	fetch the factory uid from the registry
+		#
+		ldcfac_cuid=${ldcfac_registry[$fb_factory]}
+
+		#
+		#	create the name of the factory bridge array
+		#
+		ldcfac_cbrArray="ldcfac_bridge_${ldcfac_cuid}"
+
+		#
+		#	see if it exists
+		#
+		declare -p "${ldcfac_cbrArray}" > /dev/null 2>&1
+		[[ $? -eq 0 ]] || 
+		 {
+			#
+			#  if not, create the bridge array
+			#
+			ldcDeclareAssoc "${ldcfac_cbrArray}"
+			[[ $? -eq 0 ]] ||
+			 {
+				[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(fb_brgError: ${fb_brgError})${td_colorNoColor}"
+				break
+			 }
+		 }
+
+		(( fb_brgError++ ))
+
+		#
+		#	check if the bridge name exists in the bridge array
+		#
+		ldcFactoryCheckBridge "${ldcfac_cbrArray}" "${fb_factory}" "${fb_bridge}" "${fb_function}" ${fb_add} 
+		[[ $? -eq 0 ]] ||
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(fb_brgError: ${fb_brgError})${td_colorNoColor}"
+			break
+		 }
+
+		fb_brgError=0
+		break
+	done
+
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting" "(fb_brgError: ${fb_brgError}) **********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] &&
+		 {
+			ldcDmpVarList "fb_"
+			ldcDmpVarList "ldcfac_"
+		 }
+	 }
+
+	return $fb_brgError
+}
+
+# ***********************************************************************************************************
+#
+#	ldcFactoryCheckRegistry
+#
+#	Parameters:
+#		facname = factory name (default ldcfac_cfactory)
+#		uidlength = number of digits in the generated UID
+#		facadd = 1 to add, 0 to not add (default 0)
 #
 #	Returns:
 #       0 = valid key
 #		1 = not a valid key
 #
 # ********************************************************************************************************
-function ldcFactoryExits()
+function ldcFactoryCheckRegistry()
 {
-	ll_facname=${1:-""}
-	ll_facerr=1
-	
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
+
+	local fcr_facname=${1:-"$ldcfac_cfactory"}
+	local fcr_uidlength=${2:-"12"}
+	local fcr_facadd=${3:-"0"}
+
+	local fcr_facError=1
+
 	while [ true ]
 	do
-		[[ -z "$ll_facname" ]] && break
-
-		(( ll_facerr++ ))
-
-		[[ ${ldcfac_cvalid} -eq 1 && "${ldcfac_cfname}" == "${ll_facname}" ]] ||
+		#
+		# If fcr_facname is NOT in the ldcfac_registry, and fcr_facadd is 0, return error
+		#
+		[[ "${!ldcfac_registry[@]}" =~ "${fcr_facname}" ]] ||
 		 {
-			ldcFactoryResetGlobals
+			[[ "${fcr_facadd}" -eq 0 ]] &&
+			 {
+				[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(fcr_facError: ${fcr_facError})${td_colorNoColor}"
+				break
+			 }
 
-			[[ "${!ldcfac_registry[@]}" =~ "${ll_facname}" ]] || break
-		 }
+			(( fcr_facError++ ))
 
-		ll_facerr=0
+			#
+			#  Create a new UID for the fcr_facname bridge array
+			#
+			ldcUIdUnique ldcfac_cuid "${fcr_uidlength}"
+			[[ $? -eq 0 ]] || 
+			 {
+				fcr_facError=$?
+				[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(fcr_facError: ${fcr_facError})${td_colorNoColor}"
+				break
+			 }
+
+			(( fcr_facError++ ))
+
+			#
+			#  store the factory name in the registry with the factory uid
+			#
+			ldcDeclareArrayEl "ldcfac_registry" "${fcr_facname}" "${ldcfac_cuid}"
+			[[ $? -eq 0 ]] || 
+			 {
+				fcr_facError=$?
+				[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(fcr_facError: ${fcr_facError})${td_colorNoColor}"
+				break
+			 }
+	 	}
+
+		ldcFactoryReset	
+
+		#
+		#	set the global current factory parameters
+		#
+		ldcfac_cfactory=${fcr_facname}
+		ldcfac_cuid="${ldcfac_registry[$ldcfac_cfactory]}"
+		ldcfac_cvalid=1
+
+		fcr_facError=0
 		break
 	done
 
-	return ${ll_facerr}
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting" "(fcr_facError: ${fcr_facError}) **********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] &&
+		 {
+			ldcDmpVarList "fcr_"
+			ldcDmpVarList "ldcfac_"
+		 }
+	 }
+
+	return $fcr_facError
 }
 
 # ***********************************************************************************************************
 #
 #	ldcFactoryLookup
-#		Returns 0 if found, and sets global values
+#		if $facname is present, or $facadd is 1 it creates $facname and, returns 0
 #
 #	Parameters:
 #		facname = factory name
+#		facadd = 1 to add, 0 to not add
 #
 #	Returns:
 #       0 = valid key
-#		non-zero = error code
+#		1 = not a valid key
 #
 # ********************************************************************************************************
 function ldcFactoryLookup()
 {
-	local    l_facname=${1:-""}
-	local -i l_facerr=1
-	
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
+
+	local ll_facname=${1:-""}
+	local ll_facadd=${2:-"0"}
+
+	local ll_facError=0
+
 	while [ true ]
 	do
-		ldcFactoryExists "${l_facname}"
-		[[ $? -eq 0 ]] || break
+		#
+		# If ldcfac_cvalid is 1, and facname is the same as ldcfac_cfactory return 0;
+		#
+		[[ ${ldcfac_cvalid} -eq 1 && "${ldcfac_cfactory}" == "${ll_facname}" ]] &&
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(ll_facError: ${ll_facError})${td_colorNoColor}"
+			break
+		 }
 
-		(( l_facerr++ ))
+		(( ll_facError++ ))
 
-		ldcfac_cfname=${l_facname}
-		ldcfac_cuid=${ldcfac_registry[$ldcfac_cfname]}
+		[[ -z "$ll_facname" ]] &&
+		 {
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(ll_facError: ${ll_facError})${td_colorNoColor}"
+			break
+		 }
 
-		ldcUtilVarExists ${ldcfac_cuid}
-		[[ $? -eq 0 ]] || break
+		(( ll_facError++ ))
 
-		ldcfac_cvalid=1
-		l_facerr=0
+		ldcFactoryCheckRegistry "${ll_facname}" "12" "${ll_facadd}"
+		[[ $? -eq 0 ]] || 
+		 {  ll_facError=$?
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(ll_facError: ${ll_facError})${td_colorNoColor}"
+			break
+		 }
 
+		ll_facError=0
 		break
 	done
 
-	return ${l_facerr}
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting " "(ll_facError: ${ll_facError}) **********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] &&
+		 {
+			ldcDmpVarList "li_"
+			ldcDmpVarList "ldcfac_"
+		 }
+	 }
+
+	return ${ll_facError}
 }
 
 # ***********************************************************************************************************
 #
-#	ldcFactoryBridgeExists
-#		Check for the requested factory:bridge name valid.
-#			Returns 0 if the bridge name is valid, 1 if not
+#	ldcFactory
 #
 #	Parameters:
-#		bridge = bridge name to check for
-#		factory = (optional) factory name (default = ldcfac_cfname)
+#		l_factory = factory name
+#		l_bridge =  bridge name
+#		l_function = bridge definition
+#		l_addbridge = 0 to lookup only, 1 to create
+#		l_addfactory = 0 to lookup only, 1 to create
 #
 #	Returns:
-#		0 = valid
-#		1 = not valid
+#       0 = valid key
+#		1 = not a valid key
 #
 # ********************************************************************************************************
-function ldcFactoryBridgeExists()
+function ldcFactory()
 {
-	local    lb_bridge=${1}
-	local    lb_factory=${2:-"$ldcfac_cfname"}
+	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
 
-	local -i lb_error=0
+	local l_factory=${1:-""}
+	local l_bridge=${2:-""}
+	local l_function=${3:-""}
+
+	local l_addbridge=${4:-"0"}
+	local l_addfactory=${5:-"0"}
+
+	local l_facError=1
+
+	[[ $ldccli_optDebug -eq 2 ]] && 
+	 {
+		bashLineLocation "" "" 1 "${td_colorError}********** Parameters" "********** ${td_colorNoColor}"
+		ldcDmpVarList "l_"
+	 }
 
 	while [ true ]
 	do
-		#
-		#	if requested bridge is the current bridge and valid, return 0
-		#
-		[[ ${ldcfac_cbrValid} -eq 1 && "${ldcfac_cbrName}" == "${lb_bridge}" ]] && break
-
-		(( lb_error++ ))
-
-		#
-		#	return error code if the bridge name is empty
-		#
-		[[ -z "${lb_bridge}" ]] && break
-
-		(( lb_error++ ))
-
-		#
-		#	if the factory name is empty, 
-		#		if there is not a valid global factory name return error code,
-		#		otherwise, use it as the factory name
-		#
-		[[ -z "${lb_factory}" ]] && 
+		ldcFactoryLookup "${l_factory}" "${l_addfactory}"
+		l_facError=$? 
+		[[ $l_facError -eq 0 ]] ||
 		 {
-			[[ $ldcfac_cvalid -eq 1 ]] || break
-
-			lb_factory=$ldcfac_cfname 
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(l_facError: ${l_facError})${td_colorNoColor}"
+			break
 		 }
 
-		(( lb_error++ ))
-
-		#
-		#	if the factory is not valid, 
-		#		or the factory name is not the same as requested,
-		#		return error code
-		#
-		[[ $ldcfac_cvalid -eq 1 && "${lb_factory}" == "${ldcfac_cfname}" ]] || break
-
-		(( lb_error++ ))
-
-		#
-		#
-		#	populate the bridge keys array
-		#
-		eval 'ldcfac_cbrKeys=$'"{!$ldcfac_cbrName[@]}"
-		[[ $? -eq 0 ]] || break
-
-		(( lb_error++ ))
-
-		#
-		#
-		#	if the bridge name is not in the bridge keys, return error code
-		[[ "${!ldcfac_cbrKeys[@]}" =~ "${lb_bridge}" ]] || break
-
-		#
-		#	store global values
-		#
-		ldcfac_cbrDescription="${ldcfac_cbrKeys[$lb_bridge]}"
-		ldcfac_cbrName="${lb_bridge}"
-		ldcfac_cbrValid=1
-
-		#
-		#	set the error code to "none"
-		#
-		lb_error=0
-		break
-	done
-
-	return $lb_error
-}
-
-# ***********************************************************************************************************
-#
-#	ldcFactoryLookupBridge
-#		Lookup the bridge name
-#
-#	Parameters:
-#		bridge  = bridge name to check for
-#		factory = factory name
-#
-#	Returns:
-#		0 = valid
-#		1 = not valid
-#
-# ********************************************************************************************************
-function ldcFactoryBridgeExists()
-{
-	local    ll_bName="${1}"
-	local    ll_bFactory="${2}"
-
-	local -i ll_bError=1
-
-	while [ true ]
-	do
-		ldcFactoryBridgeExists "${ll_bName}" "${ll_bFactory}"
-		[[ $? -eq 0 ]] || break
-
-		(( ll_bError++ ))
-
-		#
-		#	store global values
-		#
-		ldcfac_cbrDescription="${ldcfac_cbrKeys[$ll_bName]}"
-		ldcfac_cbrName="${ll_bName}"
-		ldcfac_cbrValid=1
-
-		ll_bError=0
-		break
-	done
-
-	return $ll_bError
-}
-
-# ****************************************************************************
-#
-#	ldcFactoryCBridge
-#		Create/Update factory bridge array. 
-#
-#	parameters:
-#		bridge = function bridge name (e.g. - XML, JQ)
-#		description = description of the factory bridge
-#		uidLength = (optional) number of characters in the uid (default=12)
-#
-#	returns:
-#		0 = no errors
-#		non-zero = error number
-#
-# ****************************************************************************
-function ldcFactoryCBridge()
-{
-	local    lc_bridge=${1:-""}
-	local    lc_description=${2:-""}
-	local -i lc_uidLength=${3:-"12"}
-
-	local -i lc_error=1
-	
-	while [ true ]
-	do
-		[[ -z "$lc_bridge" ]] && break
-
-		(( lc_bridge++ ))
-
-				
-		lc_error=0
-		break
-	done
-	
-	return $lc_error
-}
-
-# ****************************************************************************
-#
-#	ldcFactoryAdd
-#
-#		Add/Create factory name and create/update factory bridge array. 
-#
-#	parameters:
-#		factory = function name
-#		bridge = function bridge name (e.g. - XML, JQ)
-#		description = description of the factory bridge
-#		uidLength = (optional) number of characters in the uid (default=12)
-#
-#	returns:
-#		0 = no errors
-#		non-zero = error number
-#
-# ****************************************************************************
-function ldcFactoryAdd()
-{
-	local factory=${1:-""}
-
-	local bridge=${2:-""}
-	local description=${3:-""}
-	
-	local uidLength=${4:-"12"}
-
-	local factoryUid=""
-	local bridgeUid=""
-    local bridgeArray=""
-
-	local facError=1
-
-	while [ true ]
-	do
-		[[ -z "${factory}" || -z "${bridge}" ]] && break
-
-		(( facError++ ))
-
-		#
-		#	check for factoryname in the registry
-		#
-		ldcFactoryExists ${factory}
-		[[ $? -eq 0 ]] || 
-         {
-			#
-			#  If NOT, create a factory with a new uid
-			#
-			ldcUIdUnique factoryUid ${uidLength}
-			[[ $? -eq 0 ]] || break
-			
-			(( facError++ ))
-
-			#
-			#  store the factory name in the registry with the factory uid
-			#
-			ldcDeclareArrayEl "ldcfac_registry" "${factory}" "${factoryUid}"
-			[[ $? -eq 0 ]] || break
-		 }
-
-		(( facError++ ))
-
-		#
-		#	fetch the factory uid from the registry
-		#
-		factoryUid=${ldcfac_registry[$factory]}
-
-		#
-		#	create the name of the factory bridge array
-		#
-		bridgeArray="ldcfac_${factory}_${factoryUid}"
-
-		#
-		#	see if it exists
-		#
-		declare -p "${bridgeArray}" > /dev/null 2>&1
-		[[ $? -eq 0 ]] || 
+		ldcFactoryBridge "${l_factory}" "${l_bridge}" "${l_function}" "${l_addbridge}"
+		l_facError=$?
+		[[ $l_facError -eq 0 ]] ||
 		 {
-			#
-			#  if not, create the bridge array
-			#
-			ldcDeclareAssoc "${bridgeArray}"
-			[[ $? -eq 0 ]] || break
+			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(l_facError: ${l_facError})${td_colorNoColor}"
+			break
 		 }
 
-		(( facError++ ))
-
-		#
-		#	check if the bridge name exists in the bridge array
-		#
-		ldcFactoryBridgeExists "${bridgeArray}" "${bridge}"
-		[[ $? -eq 0 ]] || 
-         {
-			#
-			#  if not, create a bridge name entry in the bridge array
-			#
-			ldcDeclareArrayEl "${bridgeArray}" "${bridge}" "${description}"
-			[[ $? -eq 0 ]] || break
-		 }
-
-		(( facError++ ))
-
-
-		facError=0
+		l_facError=0
 		break
 	done
 
-	return $facError
+	[[ $ldccli_optDebug -eq 0 ]] || 
+	 {
+		ldcTestDisplay ""
+
+		bashLineLocation "" "" 1 "${td_colorStartDivider}********** Exiting " "(l_facError: ${l_facError}) **********${td_colorNoColor}"
+		[[ $ldccli_optDebug -eq 2 ]] &&
+		 {
+			ldcDmpVarList "l_"
+			ldcDmpVarList "ldcfac_"
+		 }
+	 }
+
+	return ${l_facError}
 }
 
 # ******************************************************************************

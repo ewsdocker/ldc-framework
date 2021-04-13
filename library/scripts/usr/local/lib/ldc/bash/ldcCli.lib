@@ -7,7 +7,7 @@
 # *****************************************************************************
 #
 # @author Jay Wheeler.
-# @version 0.3.0
+# @version 0.4.0
 # @copyright © 2016-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-library
@@ -49,9 +49,13 @@
 #
 #           0.3.0 - 01-18-2021.
 #
+#			0.4.0 - 04-07-2021.
+#
 # *****************************************************************************
 #
 #	Dependencies
+#		ldcOptions.lib
+#
 #		ldcDeclare.lib
 #		ldcDynArray.lib
 #		ldcStack.lib
@@ -77,8 +81,8 @@ declare    ldccli_ParamList=""					# cli parameter list (string)
 declare    ldccli_ParamPointer=0				# cli parameter buffer index
 
 declare -a ldccli_cmndsValid=()					# array of valid commands for this object
-
 declare    ldccli_cmnds="ldccli_commands"		# commands
+
 declare    ldccli_cmndNum=0						# command stack index of the current command
 declare    ldccli_command=""					# cli command
 declare    ldccli_cmndValid=0					#
@@ -86,13 +90,13 @@ declare    ldccli_cmndValid=0					#
 declare -a ldccli_parsed=()						#
 declare -a ldccli_exploded=()					#
 
-declare -A ldccli_shellParam=()					# provided by config file
-declare -A ldccli_InputParam=()					# input parameters
-declare -a ldccli_InputErrors=()				# input parameter error names
+#declare -A ldccli_shellParam=()				# provided by config file
+#declare -A ldccli_InputParam=()				# input parameters
+#declare -a ldccli_InputErrors=()				# input parameter error names
 
-declare -i ldccli_cmndErrors=0					# cli command error count
-declare -i ldccli_paramErrors=0					# cli parameter error count
-declare -i ldccli_Errors=0						# number of cli errors detected
+#declare -i ldccli_cmndErrors=0					# cli command error count
+#declare -i ldccli_paramErrors=0					# cli parameter error count
+#declare -i ldccli_Errors=0						# number of cli errors detected
 
 # **************************************************************************
 #

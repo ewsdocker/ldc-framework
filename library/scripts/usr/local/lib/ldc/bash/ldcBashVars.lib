@@ -64,7 +64,7 @@
 
 declare    bashLSource=""
 declare    bashLFunction=""
-declare    bashLLine=0
+declare -i bashLLine=0
 
 declare    bashLTriplet=""
 
@@ -101,6 +101,9 @@ function bashLLPosition()
 #		bllSkipName = (optional) if caller calls a function to pass 
 #                     information before calling this function, 
 #                     this should be the name of the called function.
+#		bllDisplaay = (optional) non-zero => pass $bllBuffer to 
+#						ldcDisplayTs to display on the console.
+#						(default = 0)
 #
 #	returns:
 #		0 = no error
@@ -110,8 +113,11 @@ function bashLLPosition()
 # =========================================================================
 function bashLineLocation()
 {
-	local    bllBuffer="${1}"
-	local    bllSkipName="${2}"
+	local    bllBuffer=${1:-"bashLTriplet"}
+	local    bllSkipName=${2:-""}
+	local    bllDisplay=${3:-"0"}
+	local    bllDisplayHead=${4:-""}
+	local    bllDisplayTail=${5:-""}
 
 	local -i lOffset=0
 	local -i lSize=${#FUNCNAME[*]}
@@ -127,7 +133,7 @@ function bashLineLocation()
 		while [ ${lOffset} -lt ${lSize} ]
 		do
 			[[ ${FUNCNAME[$lOffset]} == "$bllSkipName" || ${FUNCNAME[$lOffset]} == "main" ]] && break
-			let lOffset=$lOffset+1
+			(( lOffset++ ))
 		done
 
 		[[ $lOffset -eq 0 ]] && 
@@ -142,7 +148,7 @@ function bashLineLocation()
 			[[ $? -eq 0 ]] && return 2 || return 1
 		 }
 
-		let lOffset=$lOffset+1
+		(( lOffset++ ))
 	fi
 
 	scrParseName "${BASH_SOURCE[$lOffset]}" "scr_scriptFields"
@@ -150,10 +156,18 @@ function bashLineLocation()
 
 	bashLFunction=${FUNCNAME[$lOffset]}
 
-	let lOffset=$lOffset-1
+	(( lOffset-- ))
 	bashLLine=${BASH_LINENO[$lOffset]}
 
 	bashLLPosition "${bllBuffer}"
+
+	[[ $bllDisplay -eq 0 ]] || 
+	 {
+		local bllMessage=""
+
+		eval 'bllMessage=$'"{${bllBuffer}}"
+		ldcDisplayTs "${bllDisplayHead} ${bllMessage} ${bllDisplayTail}"
+	 }
 
 	return 0
 }
