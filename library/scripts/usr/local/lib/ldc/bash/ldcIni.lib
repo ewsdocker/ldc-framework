@@ -55,6 +55,18 @@
 #
 #	Functions:
 #
+#		ldcIni
+#			Read INI file into arrays and parse into section-based arrays
+#
+#		ldcIniLoadSections
+#			Create section arrays from the ldcini_rbuffer record buffer
+#
+#		ldcIniRead
+#			Read the ini file into ldcIniBuffer
+#
+#		ldcIniRPrefix
+#			Set the prefix for Read INI Section arrays
+#
 #
 # ******************************************************************************
 # ******************************************************************************
@@ -136,6 +148,8 @@ function ldcIniRead()
 		#
 		[[ -z "${ldcini_rfilename}" ]] && break
 
+		(( lir_error++ ))
+
 		#
 		#	read the (local) file into the read buffer
 		#
@@ -203,22 +217,24 @@ function ldcIniLoadSections()
 
 	local -i lil_index=0
 	local -i lil_error=0
+
 	local    lil_buffer=""
 
-	local    lil_vbuffer=""
+	local -i lil_len=0
+	local -i lil_start=0
+	local -i lil_end=0
+
 	local    lil_name=""
 	local    lil_value=""
-
-	local -i lil_len=${#lil_buffer}
-	local -i lil_start=0
-	local -i lil_end=$lil_len-1
-	local -i lil_position=0
 
 	while [ $lil_index -lt ${#ldcini_rrecords[@]} ]
 	do
 		ldcStrTrim "${ldcini_rrecords[$lil_index]}" lil_buffer
-		lil_error=$?
-		[[ $lil_error -eq 0 ]] || break
+		lil_error=$? ; [[ $lil_error -eq 0 ]] || break
+
+		lil_len=${#lil_buffer}
+		lil_start=0
+		lil_end=0
 
 		case ${lil_buffer:0:1} in 
 
@@ -229,32 +245,22 @@ function ldcIniLoadSections()
 				 }
 
 			    #
-				#	if the record contains an '=', process it, otherwise it's an error.
+				#	if the record contains an '[]', process it, otherwise it's an error.
 				#
-
-				lil_len=${#lil_buffer}
 				lil_start=`expr index "$lil_buffer" [`
-
-				#
-				#	start is 0 for no = found
-				#
-				[[ $lil_start -eq 0 ]] &&
-				 {
-					lil_error=1
-					break
-				 }
+				(( lil_error++ )) ; [[ $lil_start -eq 0 ]] && break
 
 				lil_end=`expr index "${lil_buffer:$lil_start}" ]`
+				(( lil_error++ )) ; [[ $lil_end -eq 0 ]] && break
+
 				ldcStrTrim ${lil_buffer:$lil_start:$lil_end-$lil_start} ldcini_rsection
+				lil_error=$? ; [[ $? -eq 0 ]] || break
 
 				ldcDeclareArrayEl ldcini_readsecs "${ldcini_rsection}" "${ldcini_rprefix}${ldcini_rsection}"
+				lil_error=$? ; [[ $? -eq 0 ]] || break
 
 				ldcDeclareAssoc "${ldcini_rprefix}${ldcini_rsection}"
-				[[ $? -eq 0 ]] ||
-				 {
-					lil_error=$?
-					break
-				 }
+				lil_error=$? ; [[ $? -eq 0 ]] || break
 
 				[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay "${ldcclr_Bold}rsection=\"$ldcini_rsection\"${td_colorNoColor}"
 
@@ -274,34 +280,42 @@ function ldcIniLoadSections()
 			*)
 				[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay "${ldcclr_Bold}record=${lil_buffer}${td_colorNoColor}"
 
+				ldcStrSplit "${lil_buffer}" lil_name lil_value "="
+				lil_error=$? ; [[ $? -eq 0 ]] || break
+
+				ldcDeclareArrayEl "$ldcini_rprefix$ldcini_rsection" "${lil_name}" "${lil_value}"
+				lil_error=$? ; [[ $? -eq 0 ]] || break
+
+				ldcDeclareAssoc "ldcini_readsecs" "${lil_name}" "${lil_value}"
+				lil_error=$? ; [[ $? -eq 0 ]] || break
+
+				[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay "${ldcclr_Bold}name=\"${lil_name}\", value=\"${lil_value}\"${td_colorNoColor}"
+
+				;;
+
+			@)
+				[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay "${ldcclr_Bold}record=${lil_buffer}${td_colorNoColor}"
+
 				#
 				#	if the record contains an '=', process it, otherwise it's an error.
 				#
-				lil_len=${#lil_buffer}
-				lil_position=`expr index "$lil_buffer" =`
+				lil_start=`expr index "$lil_buffer" =`
 
-				#
-				#	position is 0 for no = found
-				#
-				[[ $lil_position -eq 0 ]] &&
-				 {
-					lil_error=1
-					break
-				 }
+				[[ $lil_start -eq 0 ]] &&
+				(( lil_error++ )) ; [[ $lil_start -eq 0 ]] && break
 
-				ldcStrTrim ${lil_buffer:0:$lil_position-1} lil_name
+				ldcStrTrim ${lil_buffer:0:$lil_start-1} lil_name
+				lil_error=$? ; [[ $? -eq 0 ]] || break
 
-				lil_vbuffer=${lil_buffer:$lil_position:$lil_len-$lil_position}
-				ldcStrTrim "${lil_vbuffer}" lil_value
+				ldcStrTrim "${lil_buffer:$lil_start:$lil_len-$lil_start}" lil_value
+				lil_error=$? ; [[ $? -eq 0 ]] || break
 
 				ldcDeclareArrayEl "$ldcini_rprefix$ldcini_rsection" "${lil_name}" "${lil_value}"
-				[[ $? -eq 0 ]] ||
-				 {
-					lil_error=$?
-					break
-				 }
+				lil_error=$? ; [[ $? -eq 0 ]] || break
 
 				ldcDeclareAssoc "ldcini_readsecs" "${lil_name}" "${lil_value}"
+				lil_error=$? ; [[ $? -eq 0 ]] || break
+
 				[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay "${ldcclr_Bold}name=\"${lil_name}\", value=\"${lil_value}\"${td_colorNoColor}"
 
 				;;
@@ -331,6 +345,7 @@ function ldcIniLoadSections()
 # ****************************************************************************
 #
 #	ldcIni
+#		Read INI file into arrays and parse into section-based arrays
 #
 #	parameters:
 #		iniFile = ini file name

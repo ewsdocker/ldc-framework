@@ -7,7 +7,7 @@
 # *****************************************************************************
 #
 # @author Jay Wheeler.
-# @version 0.5.0
+# @version 0.5.1
 # @copyright © 2016-2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-library
@@ -54,6 +54,7 @@
 #					0.4.0 - 01-28-2020.
 #
 #					0.5.0 - 01-15-2021.
+#					0.5.1 - 04-14-2021.
 #
 # *****************************************************************************
 #
@@ -99,7 +100,7 @@
 # ***********************************************************************************************************
 # ***********************************************************************************************************
 
-declare -r ldclib_ldcStr="0.5.0"	# version of library
+declare -r ldclib_ldcStr="0.5.1"		# version of library
 
 # ***********************************************************************************************************
 
@@ -109,6 +110,9 @@ declare -a ldcstr_Exploded=()			# exploded string array
 declare -a ldcstr_split=()				# split string array
 
 declare    ldcstr_buffer=""				# g/p buffer
+
+declare    ldcstr_lssname=""
+declare    ldcstr_lssvalue=""
 
 # ***********************************************************************************************************
 #
@@ -223,28 +227,53 @@ function ldcStrUnquote()
 # ***********************************************************************************************************
 function ldcStrSplit()
 {
-	local -a strSplit=()
-	local    option=""
+	local    lss_buffer=${1:-""}
+	local    lss_separator=${4:-"="}
 
-	ldcStrExplode ${1} ${4:-"="} strSplit
+	local    lss_name
+	local    lss_value
 
-	[[ ${#strSplit[@]} -ne 2 ]] &&
-	 {
-		ldcDeclareStr ${2} "${1}"
-		[[ $? -eq 0 ]] || return $?
+	local -i lss_error=1
 
-		ldcDeclareStr ${3} ""
-		return $?
-	 }
+	local -i lss_len=0
+	local -i lss_start=0
+	local -i lss_end=0
 
-	ldcDeclareStr ${2} "${strSplit[0]}"
-	[[ $? -eq 0 ]] || return 1
+	while [ "${lss_buffer}" != "" ]
+	do
+		ldcStrTrim "${lss_buffer}" lss_buffer
+		lss_error=$? ; [[ $lss_error -eq 0 ]] || break
 
-	ldcDeclareStr ${3} "${strSplit[1]}"
-	[[ $? -eq 0 ]] || return 2
+		lss_len=${#lss_buffer}
+		lss_start=0
+		lss_end=0
 
-	return 0
+		(( lss_error++ ))
+
+		#
+		#	if the record contains an '=', process it, otherwise it's an error.
+		#
+		lss_start=`expr index "$lss_buffer" "$lss_separator" `
+		[[ $lss_start -eq 0 ]] && break 
+
+		ldcStrTrim ${lss_buffer:0:$lss_start-1} lss_name
+		lss_error=$? ; [[ $? -eq 0 ]] || break
+
+		ldcDeclareStr ${2:-"ldcstr_lssname"} "${lss_name}"
+		lss_error=$? ; [[ $? -eq 0 ]] || break
+
+		ldcStrTrim "${lss_buffer:$lss_start:$lss_len-$lss_start}" lss_value
+		lss_error=$? ; [[ $? -eq 0 ]] || break
+
+		ldcDeclareStr ${3:-"ldcstr_lssvalue"} "${lss_value}"
+		lss_error=$? ; [[ $? -eq 0 ]] || break
+
+		break
+	done
+
+	return $lss_error
 }
+
 
 # ***********************************************************************************************************
 #
@@ -287,8 +316,6 @@ function ldcStrExplode()
 		read -a ${3} <<< "${xBuffer}"
 		[[ $? -eq 0 ]] || return $?
 	 }
-
-declare -p | grep ${3}
 
 	IFS="$OIFS"
 	return 0
