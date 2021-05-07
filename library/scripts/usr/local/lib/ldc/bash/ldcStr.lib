@@ -107,12 +107,16 @@ declare -r ldclib_ldcStr="0.5.1"		# version of library
 declare    ldcstr_Trimmed=""			# a place to store ldcstr_Trimmed string
 declare    ldcstr_Unquoted=""			#
 declare -a ldcstr_Exploded=()			# exploded string array
-declare -a ldcstr_split=()				# split string array
 
 declare    ldcstr_buffer=""				# g/p buffer
 
 declare    ldcstr_lssname=""
 declare    ldcstr_lssvalue=""
+
+#
+#	**** DEPRECATED **** replaced by lssname and lssvalue
+#
+declare -a ldcstr_split=()				# split string array
 
 # ***********************************************************************************************************
 #
@@ -169,9 +173,7 @@ function ldcStrTrimBetween()
 	local start="${3}"
 	local end="${4}"
 
-	local buffer
-
-	buffer="${string#*${start}}"
+	local buffer="${string#*${start}}"
 	buffer="${buffer%${end}*}"
 
 	eval "$var"='$'"{buffer}"
@@ -262,11 +264,15 @@ function ldcStrSplit()
 		ldcDeclareStr ${2:-"ldcstr_lssname"} "${lss_name}"
 		lss_error=$? ; [[ $? -eq 0 ]] || break
 
+		ldcstr_split[0]="$lss_name"
+
 		ldcStrTrim "${lss_buffer:$lss_start:$lss_len-$lss_start}" lss_value
 		lss_error=$? ; [[ $? -eq 0 ]] || break
 
 		ldcDeclareStr ${3:-"ldcstr_lssvalue"} "${lss_value}"
 		lss_error=$? ; [[ $? -eq 0 ]] || break
+
+		ldcstr_split[1]="$lss_value"
 
 		break
 	done

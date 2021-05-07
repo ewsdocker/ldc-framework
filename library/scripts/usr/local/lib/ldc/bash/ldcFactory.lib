@@ -172,14 +172,8 @@ function ldcFactoryInit()
 
 	local li_error=0
 
-	while [ true ]
+	while [ ${ldcfac_initialized} -eq 0 ]
 	do
-	    [[ ${ldcfac_initialized} -eq 0 ]] ||
-		 {
-			[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorError}" "(li_error: ${li_error})${td_colorNoColor}"
-			break
-		 }
-
 		(( li_error++ ))
 
 		ldcFactoryReset

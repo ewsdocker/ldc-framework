@@ -3,21 +3,21 @@
 # ******************************************************************************
 #
 #  	ldcCom.lib
-#		Provides access to jq command-line using a
+#		Provides access to command-line using a
 #		common (COM) communication bridge.
 #
 # *****************************************************************************
 #
 # @author Jay Wheeler.
 # @version 0.0.1
-# @copyright © 2016-2021. EarthWalk Software.
+# @copyright © 2021. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/ldc-library
 # @subpackage ldcCom
 #
 # *****************************************************************************
 #
-#	Copyright © 2016-2021. EarthWalk Software
+#	Copyright © 2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-library.
@@ -38,23 +38,23 @@
 #
 # *****************************************************************************
 #
-#	Version 0.0.1 - 02-01-2021.
+#	Version 0.0.1 - 04-17-2021.
 #
 # ******************************************************************************
 #
 #	Dependencies
 #
-#		ldcCom.lib
+#		
 #
 # *****************************************************************************
 #
 #	Functions:
 #
 #		ldcComFile
-#			Set the name of the json file to process 
+#			Set the name of the file to process 
 #
 #		ldcComInit
-#			initialize query vars and set the json file to query
+#			initialize query vars and set the file to query
 #
 #		ldcComOptions
 #			Set the command options, if any. 
@@ -77,17 +77,50 @@ declare -r ldclib_ldcCom="0.0.1"				# version of ldcJq
 #
 # ******************************************************************************
 
-declare    ldcjqcom_Path="."						# Path to the json file directory
-declare    ldcjqcom_FileName=""					# name of the json file to query
-declare -i ldcjqcom_FileExists=0					# true if the json file exists
+declare    ldccom_Path="."						# Path to the json file directory
+declare    ldccom_FileName=""					# name of the json file to query
+declare -i ldccom_FileExists=0					# true if the json file exists
 
-declare    ldcjqcom_Query=""						# the current (or last executed) query
-declare    ldcjqcom_QueryResult=""					# the result of the last executed query
+declare    ldccom_Query=""						# the current (or last executed) query
+declare    ldccom_QueryResult=""					# the result of the last executed query
 
-declare    ldcjqcom_QueryOpts=""					# list of query options
+declare    ldccom_QueryOpts=""					# list of query options
 
-declare -i ldcjqcom_Initialized=false				# true if initialized (first time)
-declare    ldcjqcom_Result=0						# status returned from Jq function call
+declare    ldccom_Factory="COM"					# COM factory name
+
+declare -i ldccom_Initialized=false				# true if initialized (first time)
+declare    ldccom_Result=0						# status returned from Jq function call
+
+# ******************************************************************************
+# ******************************************************************************
+#
+#						Descriptors
+#
+# ******************************************************************************
+# ******************************************************************************
+#
+#	InitializeDescriptor
+#	FileDescriptor
+#	
+#	RequestDescriptor
+#	ResponseDescriptor
+#
+#	ExitDescriptor
+#
+#
+#	Descriptor Header
+#		system session id
+#
+#		namespace
+#
+#		descriptor type
+#		
+#
+#
+#
+#
+# ******************************************************************************
+# ******************************************************************************
 
 # ******************************************************************************
 # ******************************************************************************
@@ -101,11 +134,11 @@ declare    ldcjqcom_Result=0						# status returned from Jq function call
 #
 #	ldcComInit
 #
-#		initialize query vars and set the json file to query
+#		initialize query vars and set the file to query
 #
 #	parameters:
-#		file = absolute path to the json file to query
-#		jqpath = (optional) path to the jq program
+#		file = absolute path to the file to query
+#		path = (optional) path to the com program
 #
 #	returns:
 #		0 = no error
@@ -114,23 +147,23 @@ declare    ldcjqcom_Result=0						# status returned from Jq function call
 # ******************************************************************************
 function ldcComInit()
 {
-	local file="${1}"
-	local jqpath=${2:-"."}
+	local lci_file="${1}"
+	local lci_path=${2:-"."}
 
-	ldcjqcom_Result=0
-	ldcjqcom_Initialized=0
+	ldccom_Result=0
+	ldccom_Initialized=0
 
 	ldcComReset
 
-	ldcjqcom_Path="${jqpath}"
+	ldccom_Path="${lci_path}"
 
-    [[ -z "${file}" ]] ||
+    [[ -z "${lci_file}" ]] ||
 	 {
-		ldcComFile "${file}"
+		ldcComFile "${lci_file}"
 		[[ $? -eq 0 ]] || return 1
 	 }
 
-	ldcjqcom_Initialized=1
+	ldccom_Initialized=1
 	return 0
 }
 
@@ -151,13 +184,13 @@ function ldcComReset()
 {
 	set -o pipefail
 
-	ldcjqcom_Path="."
-	ldcjqcom_Query=""
-	ldcjqcom_QueryOpts=""
+	ldccom_Path="."
+	ldccom_Query=""
+	ldccom_QueryOpts=""
 
-	ldcjqcom_QueryResult=""
+	ldccom_QueryResult=""
 
-	ldcjqcom_FileName=""
+	ldccom_FileName=""
 }
 
 # ******************************************************************************
@@ -168,7 +201,7 @@ function ldcComReset()
 #			This is persistent... it will last until changed 
 #
 #	parameters:
-#		jopts = the command options, null ("") to clear.
+#		ldccom_QueryOpts = the command options, null ("") to clear.
 #
 #	returns:
 #		0 => no error
@@ -177,20 +210,20 @@ function ldcComReset()
 # ******************************************************************************
 function ldcComOptions()
 {
-	ldcjqcom_QueryOpts="${1}"
-	ldcjqcom_Result=0
+	ldccom_QueryOpts="${1}"
+	ldccom_Result=0
 
-	return $ldcjqcom_Result
+	return $ldccom_Result
 }
 
 # ******************************************************************************
 #
 #	ldcComFile
 #
-#		Set the name of the json file to process 
+#		Set the name of the file to process 
 #
 #	parameters:
-#		jfile = the name of the json file to process
+#		lci_file = the name of the file to process
 #
 #	returns:
 #		0 => no error
@@ -199,27 +232,28 @@ function ldcComOptions()
 # ******************************************************************************
 function ldcComFile()
 {
-	ldcjqcom_FileExists=0
-	ldcjqcom_Result=1
+	local lcf_file="${1}"
+
+	ldccom_FileExists=0
+	ldccom_Result=1
 
 	while [ true ]
 	do
-		[[ -z "${1}" ]] && break
+		[[ -z "${lcf_file}" ]] && break
 
-		(( ldcjqcom_Result++ ))
+		(( ldccom_Result++ ))
 
-		local jfile="${1}"
-		[[ -e "${ldcjqcom_Path}/${jfile}" ]] || break
+		[[ -e "${ldccom_Path}/${lcf_file}" ]] || break
 
-		ldcjqcom_FileExists=1
-		ldcjqcom_FileName=${jfile}
+		ldccom_FileExists=1
+		ldccom_FileName=${lcf_file}
 
-		ldcjqcom_Result=0
+		ldccom_Result=0
 		break
 
     done			
 
-	return $ldcjqcom_Result
+	return $ldccom_Result
 }
 
 # ******************************************************************************
@@ -230,7 +264,7 @@ function ldcComFile()
 #
 #	parameters:
 #		jquery = jq query to execute
-#       jopts  = (optional) override global jq options values and use these instead
+#       lcq_opts  = (optional) override global jq options values and use these instead
 #								(only for this call)
 #
 #	returns:
@@ -240,30 +274,76 @@ function ldcComFile()
 # ******************************************************************************
 function ldcComQuery()
 {
-	ldcjqcom_QueryResult=""
-	ldcjqcom_Result=1
+	ldccom_Query=${1:-""}
+	local lcq_opts=${2:-"$ldccom_QueryOpts"}
+
+	ldccom_QueryResult=""
+	ldccom_Result=1
 
 	while [ true ]
 	do
-		[[ -z "${1}" ]] && break
+		[[ -z "${ldccom_Query}" ]] && break
 
-    	(( ldcjqcom_Result++ ))
+    	(( ldccom_Result++ ))
 
-		ldcjqcom_Query=${1}
-		local jopts=${2:-"$ldcjqcom_QueryOpts"}
-
-		ldcjqcom_QueryResult=$( ${ldcjqcom_Jq} ${jopts} '${ldcjqcom_Query}' "${ldcjqcom_Path}/${ldcjqcom_QueryFile}" )
+		ldccom_QueryResult=$( ${ldccom_Jq} ${lcq_opts} '${ldccom_Query}' "${ldccom_Path}/${ldccom_QueryFile}" )
 		[[ $? -eq 0 ]] || break
 
-    	(( ldcjqcom_Result++ ))
+    	(( ldccom_Result++ ))
 
-		[[ -z "${ldcjqcom_QueryResult}" ]] && break
+		[[ -z "${ldccom_QueryResult}" ]] && break
 
-		ldcjqcom_Result=0
+		ldccom_Result=0
 		break
     done
 
-	return $ldcjqcom_Result
+	return $ldccom_Result
+}
+
+# ******************************************************************************
+#
+#	ldcComFactory
+#
+#		Register COM object name and short description
+#
+#	parameters:
+#		comobject = COM handler name to add
+#		comfunction = short description of the com object
+#
+#	returns:
+#		0 = no error
+#		non-zero = error code
+#
+# ******************************************************************************
+function ldcComFactory()
+{
+	local lcf_comobj=${1:-""}
+	local lcf_comfunction=${2:-"$lcf_comobj"}
+
+	local lcf_error=1
+	
+	while [ true ]
+	do
+		[[ -z "$lcf_comobj" ]] && break
+
+		(( lcf_error++ ))
+			
+		[[ ${ldcfac_initialized} -eq 0 ]] &&
+		 {
+			ldcFactoryInit
+			[[ $? -eq 0 ]] || break
+		 }
+
+		(( lcf_error++ ))
+			
+		ldcFactory "$ldccom_Factory" "$lcf_comobj" "$lcf_comfunction" 1 1
+		[[ $? -eq 0 ]] || break
+
+		lcf_error=0
+		break	
+	done
+
+	return $lcf_error	
 }
 
 # ******************************************************************************

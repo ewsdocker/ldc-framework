@@ -4,6 +4,13 @@
 #
 #   	ldcIni.lib
 #
+#			Implements a Bash script to reliably 
+#				read an INI (or cfg) formatted file into associative arrays by section
+#				write an INI formatted file from associative arrays by section
+#
+#			Only READ INI has been implemented, the WRITE INI module will
+#				come as time allows.
+#
 # *****************************************************************************
 #
 # @author Jay Wheeler.
@@ -293,33 +300,6 @@ function ldcIniLoadSections()
 
 				;;
 
-			@)
-				[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay "${ldcclr_Bold}record=${lil_buffer}${td_colorNoColor}"
-
-				#
-				#	if the record contains an '=', process it, otherwise it's an error.
-				#
-				lil_start=`expr index "$lil_buffer" =`
-
-				[[ $lil_start -eq 0 ]] &&
-				(( lil_error++ )) ; [[ $lil_start -eq 0 ]] && break
-
-				ldcStrTrim ${lil_buffer:0:$lil_start-1} lil_name
-				lil_error=$? ; [[ $? -eq 0 ]] || break
-
-				ldcStrTrim "${lil_buffer:$lil_start:$lil_len-$lil_start}" lil_value
-				lil_error=$? ; [[ $? -eq 0 ]] || break
-
-				ldcDeclareArrayEl "$ldcini_rprefix$ldcini_rsection" "${lil_name}" "${lil_value}"
-				lil_error=$? ; [[ $? -eq 0 ]] || break
-
-				ldcDeclareAssoc "ldcini_readsecs" "${lil_name}" "${lil_value}"
-				lil_error=$? ; [[ $? -eq 0 ]] || break
-
-				[[ "${ldccli_optDebug}" -eq 2 ]] && ldcDisplay "${ldcclr_Bold}name=\"${lil_name}\", value=\"${lil_value}\"${td_colorNoColor}"
-
-				;;
-
 		esac
 
 		[[ $lil_error -eq 0 ]] || break
@@ -345,9 +325,10 @@ function ldcIniLoadSections()
 # ****************************************************************************
 #
 #	ldcIni
-#		Read INI file into arrays and parse into section-based arrays
+#		Read or write INI file
 #
 #	parameters:
+#		iniFunction = "read" or "write"
 #		iniFile = ini file name
 #		iniPrefix = prefix for section arrays
 #
@@ -360,25 +341,39 @@ function ldcIni()
 {
 	[[ $ldccli_optDebug -eq 0 ]] || bashLineLocation "" "" 1 "${td_colorDivider}********** Entering" "**********${td_colorNoColor}"
 
-	local    ini_file=${1:-"../../../../etc/ldc/cliOptions.ini"}
-	local    ini_prefix=${2:-""}
+	local    ini_function=${1:-"read"}
+
+	local    ini_file=${2:-"../../../../etc/ldc/cliOptions.ini"}
+	local    ini_prefix=${3:-"ldc_"}
 
 	local -i ini_error=1
 
 	while [ true ]
 	do
-		ldcIniRPrefix "${ini_prefix}"
-		[[ $? -eq 0 ]] || break
+		case "${ini_function}" in
+		
+			"write")
+				ldcDisplay "Write to ini file not yet implemented."
+				break
 
-		(( ini_error++ ))
+				;;
 
-		ldcIniRead "${ini_file}"
-		[[ $? -eq 0 ]] || break
+			"read" | *)
+				ldcIniRPrefix "${ini_prefix}"
+				[[ $? -eq 0 ]] || break
 
-		(( ini_error++ ))
+				(( ini_error++ ))
 
-		ldcIniLoadSections
-		[[ $? -eq 0 ]] || break
+				ldcIniRead "${ini_file}"
+				[[ $? -eq 0 ]] || break
+
+				(( ini_error++ ))
+
+				ldcIniLoadSections
+				[[ $? -eq 0 ]] || break
+
+				;;
+		esac
 
 		ini_error=0
 		break

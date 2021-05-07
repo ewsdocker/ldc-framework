@@ -179,8 +179,7 @@ td_indent=1
 
 while [ true ]
 do
-#	testLine=$LINENO ; testIniRead ${1:-"../../../../etc/ldc/cliOptions.ini"}
-	testLine=$LINENO ; ldcIni "../../../../etc/ldc/cliOptions.ini" 
+	testLine=$LINENO ; ldcIni "read" "../../../../etc/ldc/cliOptions.ini" "ldctest_" 
 	testResult=$?; [[ $? -eq 0 ]] ||
 	 {
     	ldcTestDisplay "${td_colorError}iniTests failed @ $testTriplet ($testResult)${td_colorNoColor}"
@@ -193,8 +192,6 @@ do
 done
 
 ldcIndent -1
-ldcTestDisplay "testResult = $testResult"
-
 [[ "${ldccli_optDebug}" -eq 0 && ${testResult} -eq 0 ]] || 
  {
 	bashLineLocation "" "" 1 "${td_colorError}" "(testResult: ${testResult})${td_colorNoColor}"

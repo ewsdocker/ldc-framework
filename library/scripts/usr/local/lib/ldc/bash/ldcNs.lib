@@ -1,20 +1,25 @@
 # *********************************************************************************
 # *********************************************************************************
 #
-#   ldcDeclare.lib
+#   ldcNs.lib
+#
+#		Declare and manage namespaces (manually)
+$
+#		NOTE
+#			This is a very pedantic and thin implementation
 #
 # *****************************************************************************
 #
 # @author Jay Wheeler.
-# @version 0.2.0
-# @copyright © 2016-2021. EarthWalk Software.
+# @version 0.0.1
+# @copyright © 2021. EarthWalk Software.
 # @license Licensed under the Academic Free License version 3.0
 # @package ewsdocker/ldc-library
-# @subpackage ldcDeclare
+# @subpackage ldcNs
 #
 # *****************************************************************************
 #
-#	Copyright © 2016-2021. EarthWalk Software
+#	Copyright © 2021. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/ldc-library.
@@ -35,61 +40,35 @@
 #
 # *****************************************************************************
 #
-#			Version 0.0.1 - 02-29-2016.
-#			        0.0.2 - 03-31-2016.
-#					0.0.3 - 06-28-2016.
-#
-#					0.1.0 - 01-10-2017.
-#					0.1.1 - 08-25-2018.
-#
-#					0.2.0 - 07-06-2019.
-#					0.2.1 - 07-25-2019.
-#					0.2.2 - 11-25=2020.
-#
-#					0.3.0 - 01-18-2021.
+#			Version 0.0.1 - 04-23-2021.
 #
 # *********************************************************************************
 #
 #	Dependencies
 #
-#		ldcStr.lib
+#		ldcDeclare.lib
 #
 # *********************************************************************************
 # *********************************************************************************
 #
 #	Functions
 #
-#		ldcDeclareSet
-#			sets the value of a global variable
-#
-#		ldcDeclareNs ()pre-release)
-#			creates a global variable namespace
-#
-#		ldcDeclareInt
-#			creates a global integer variable and sets it's value
-#
-#		ldcDeclareStr
-#			creates a global string variable and sets it's value
-#
-#		ldcDeclarePwd
-#			creates a global string password variable and sets it's value
-#
-#		ldcDeclareArray
-#			creates a global array variable
-#
-#		ldcDeclareAssoc
-#			creates a global associative array variable
-#
-#		ldcDeclareArrayEl
-#			Adds an element to a (global) associative array variable
 #
 # *********************************************************************************
 
-declare -r ldclib_ldcDeclare="0.2.3"	# version of library
+declare -r ldclib_ldcNs="0.0.1"	# version of library
+
+# *********************************************************************************
+# *********************************************************************************
+
+declare    ldcns_current=""
+
+# *********************************************************************************
+# *********************************************************************************
 
 # *********************************************************************************
 #
-#	ldcDeclareSet
+#	ldcNsSet
 #
 #		sets the value of a global variable
 #
@@ -103,52 +82,15 @@ declare -r ldclib_ldcDeclare="0.2.3"	# version of library
 #		2 = unable to set value
 #
 # *********************************************************************************
-function ldcDeclareSet()
+function ldcNsSet()
 {
-	local svName=${1:-""}
-    local svValue=${2:-""}
-
-	[[ -z "${svName}" ]] && return 1
-
-	ldcStrIsInteger "${svName}"
-	[[ $? -eq 0 ]] && return 1
-
-	eval ${svName}="'${svValue}'"
-	[[ $? -eq 0 ]] || return 2
-
-	return 0
+	ldcDeclareSet "$ldcns_current${1}" "${2}"
+	return $?
 }
 
 # *********************************************************************************
 #
-#	DEPRECATED - NO LONGER RELEVANT
-#		Use ldcDeclareNs.lib instead and place ldcDeclare calls through
-#			ldcDeclareNs.lib 
-#
-#		For example,
-#
-#		Set current namespace:
-#			ldcDeclareNsSet "nsVars"
-#		Create a new string variable "strName"
-#			ldcDelcareNsStr "strName"
-#
-#	ldcDeclareNs
-#
-#		creates a global variable namespace
-#
-#	parameters:
-#		name = name of global variable
-#		location = (optional) location to place the result
-#
-#	returns:
-#		result = 0 if set ok
-#			   = 1 if set error
-#
-# *********************************************************************************
-
-# *********************************************************************************
-#
-#	ldcDeclareInt
+#	ldcNsInt
 #
 #		creates a global integer variable and sets it's value
 #
@@ -161,20 +103,17 @@ function ldcDeclareSet()
 #			   = 1 if set error
 #
 # *********************************************************************************
-function ldcDeclareInt()
+function ldcNsInt()
 {
 	[[ -z "${1}" || -z "${2}" ]] && return 1
-	declare -gi "${1}"
 
-	ldcDeclareSet ${1} "${2}"
-	[[ $? -eq 0 ]] || return 2
-
-	return 0
+	ldcDeclareInt "$ldcns_current${1}" "${2}"
+	return $?
 }
 
 # *********************************************************************************
 #
-#	ldcDeclareStr
+#	ldcNsStr
 #
 #		creates a global string variable and sets it's value
 #
@@ -187,20 +126,17 @@ function ldcDeclareInt()
 #			   = 1 if set error
 #
 # *********************************************************************************
-function ldcDeclareStr()
+function ldcNsStr()
 {
 	[[ -z "${1}" ]] && return 1
-	declare -g "${1}"
 
-	ldcDeclareSet ${1} "${2}"
-	[[ $? -eq 0 ]] || return 2
-
-	return 0
+	ldcDeclareStr "$ldcns_current${1}" "${2}"
+	return $?
 }
 
 # *********************************************************************************
 #
-#	ldcDeclarePwd
+#	ldcNsPwd
 #
 #		creates a global string password variable and sets it's value
 #
@@ -213,24 +149,17 @@ function ldcDeclareStr()
 #			   = 1 if set error
 #
 # *********************************************************************************
-function ldcDeclarePwd()
+function ldcNsPwd()
 {
 	[[ -z "${1}" || -z "${2}" ]] && return 1
 
-	local svName=${1}
-	local svContent="${2}"
-
-	svContent=$( echo -n "${svContent}" | base64 )
-
-	ldcDeclareStr ${svName} "${svContent}"
-	[[ $? -eq 0 ]] || return 2
-
-	return 0
+	ldcDeclarePwd "$ldcns_current${1}" "${2}"
+	return $?
 }
 
 # *********************************************************************************
 #
-#	ldcDeclareAssoc
+#	ldcNsAssoc
 #
 #		creates a global associative array variable
 #
@@ -242,19 +171,17 @@ function ldcDeclarePwd()
 #			   = 1 if set error
 #
 # *********************************************************************************
-function ldcDeclareAssoc()
+function ldcNsAssoc()
 {
 	[[ -z "${1}" ]] && return 1
 
-	local svName="${1}"
-	declare -gA "$svName"
-
-	return 0
+	ldcDeclareAssoc "$ldcns_current${1}"
+	return $?
 }
 
 # *********************************************************************************
 #
-#	ldcDeclareArray
+#	ldcNsArray
 #
 #		creates a global array variable
 #
@@ -266,19 +193,17 @@ function ldcDeclareAssoc()
 #			   = 1 if set error
 #
 # *********************************************************************************
-function ldcDeclareArray()
+function ldcNsArray()
 {
 	[[ -z "${1}" ]] && return 1
 
-	local svName="${1}"
-	declare -ga "${svName}"
-
-	return 0
+	ldcDeclareArray "$ldcns_current${1}"
+	return $?
 }
 
 # *********************************************************************************
 #
-#	ldcDeclareArrayEl
+#	ldcNsArrayEl
 #
 #		Adds an element to a (global) associative array variable
 #
@@ -292,16 +217,74 @@ function ldcDeclareArray()
 #		non-zero = error code
 #
 # *********************************************************************************
-function ldcDeclareArrayEl()
+function ldcNsArrayEl()
 {
 	[[ -z "${1}" || -z "${2}" ]] && return 1
 
-	local svParent="${1}"
-	local svName="${2}"
-	local svValue=${3:-""}
+	ldcDeclareArrayEl "$ldcns_current${1}" "${2}" "${3}"
+	return $?
+}
 
-	eval "$svParent[$svName]='${svValue}'"
+# *********************************************************************************
+#
+#	ldcNsGetName
+#
+#	parameters:
+#		name = global name (with no namespace)
+#       nsName = store namespace variable name here
+#
+#	returns:
+#		result = 0 if set ok
+#			   = 1 if set error
+#
+# *********************************************************************************
+function ldcNsGetName()
+{
+	[[ -z "${1}" ]] && return 1
 
+	ldcDeclareStrNs "${2}" "${ldcns_current}${1}"
+	return $?
+}
+
+# *********************************************************************************
+#
+#	ldcNsGetValue
+#
+#	parameters:
+#		name = global name (with no namespace)
+#       nsName = store namespace variable value here
+#
+#	returns:
+#		result = 0 if set ok
+#			   = 1 if set error
+#
+# *********************************************************************************
+function ldcNsGetValue()
+{
+	[[ -z "${1}" ]] && return 1
+
+	eval "${2}='${ldcns_current}${1}'"
+	return $?
+}
+
+# *********************************************************************************
+#
+#	ldcNs
+#		Declare and make current the specifiec namespace
+#
+#	parameters:
+#		ns = namespace to select
+#
+#	returns:
+#		result = 0 if set ok
+#			   = 1 if set error
+#
+# *********************************************************************************
+function ldcNs()
+{
+	[[ -z "${1}" ]] && return 1
+
+	ldcns_current=${1:-""}
 	return 0
 }
 
